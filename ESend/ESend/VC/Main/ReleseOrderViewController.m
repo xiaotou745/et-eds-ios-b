@@ -353,7 +353,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 - (void)addNewOrder {
     
     if (_priceTFList.count > 14) {
-        [Tools showHUD:@"最多只能发布15个定单！"];
+        [Tools showHUD:@"最多只能发布15个订单！"];
         return;
     }
     
