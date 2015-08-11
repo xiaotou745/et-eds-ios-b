@@ -1937,6 +1937,11 @@
 				TargetAttributes = {
 					F67D352E1B5664A600083DA4 = {
 						DevelopmentTeam = A5RCNZLAR6;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					F6C6AC2E1B12F2640007A980 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -2643,8 +2648,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESend/Lib/Release-iphoneos",
@@ -2675,7 +2680,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8c1998e2-a17e-41e9-94b9-be9faecb842e";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
@@ -2685,7 +2690,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Etao Stars Network Technology (Beijing) Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Etao Stars Network Technology (Beijing) Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

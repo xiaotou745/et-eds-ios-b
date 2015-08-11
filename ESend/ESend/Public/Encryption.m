@@ -8,6 +8,7 @@
 
 #import "Encryption.h"
 #import "NSString+encrypto.h"
+#import "UserInfo.h"
 
 #define EncryptionToken @"YG.USFood.IPHONE.p6UWqqczyqf4ELmbJLwomcHWSjwDe6ZJ5Dg4lGokRrQtG"
 
@@ -56,6 +57,24 @@
         [str appendString:@"&"];
     }];
     return [str substringToIndex:str.length-1];
+}
+
+
++ (NSDictionary *)ESendB_Encryptioin{
+    NSString * ssid = [UserInfo getUUID];
+    NSString * token = [UserInfo getToken];
+    NSString * appkey = [UserInfo getAppkey];
+    NSMutableDictionary * headerDict = [NSMutableDictionary dictionary];
+    if (token) {
+        [headerDict setObject:token forKey:@"token"];
+    }
+    if (appkey) {
+        [headerDict setObject:appkey forKey:@"appkey"];
+    }
+    if (ssid) {
+        [headerDict setObject:ssid forKey:@"ssid"];
+    }
+    return headerDict;
 }
 
 @end

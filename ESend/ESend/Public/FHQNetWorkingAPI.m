@@ -525,4 +525,22 @@
     return operation;
 }
 
+/// 2.1.19获取Token
++ (AFHTTPRequestOperation *)getToken:(NSDictionary *)data
+                        successBlock:(successBlock)successBlock
+                             failure:(failureBlock)failure{
+    NSString *url = @"Common/GetToken";
+    AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
+        if (successBlock) {
+            successBlock(result, operation);
+        }
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (failure) {
+            failure(error, operation);
+        }
+    }];
+    
+    return operation;
+}
+
 @end

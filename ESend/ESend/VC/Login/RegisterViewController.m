@@ -193,7 +193,9 @@
                               @"verifyCode" : _veriftyTF.text,
                               @"passWord"   : [_passwordTF.text ETSMD5],
                               @"city"       : @"北京",
-                              @"timespan"   : @([[NSDate date] timeIntervalSince1970])};
+                              @"timespan"   : @([[NSDate date] timeIntervalSince1970]),
+                              @"ssid"       : [UserInfo getUUID],
+                              };
     [_submitBtn starLoadding];
     [FHQNetWorkingAPI registerAccount:request successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
@@ -206,6 +208,7 @@
             NSLog(@"%@",error.userInfo);
             [UserInfo saveUserInfo:@{@"userId"  : [[error.userInfo objectForKey:@"Result"] getStringWithKey:@"userId"],
                                      @"phoneNo" : _usernameTF.text}];
+            
             PrefectInfoViewController *vc = [[PrefectInfoViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }

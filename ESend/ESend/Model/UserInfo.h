@@ -57,9 +57,19 @@ typedef NS_ENUM(NSInteger, UserStatus) {
 
 + (void)clearUserInfo;
 
+
+
+/// tyh_token
 + (NSString*)getToken;
 
 + (void)saveToken:(NSString*)token;
+
+/// appkey
++ (void)saveAppkey:(NSString *)appkey;
++ (NSString *)getAppkey;
+
+/// uuid
++ (NSString *)getUUID;
 
 + (void)setLoginName:(NSString*)name;
 

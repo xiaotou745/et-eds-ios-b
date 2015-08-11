@@ -209,4 +209,30 @@ static NSString *UserInfoKey = @"userInfoKey";
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"UserToken"];
 }
 
+
+
+/*15-08-11*/
+/// tyh_token
++ (NSString *)getTyhToken{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"ttttoken"];
+}
++ (void)saveTyhToken:(NSString *)token{
+    [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"ttttoken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)saveAppkey:(NSString *)appkey{
+    [[NSUserDefaults standardUserDefaults] setObject:appkey forKey:@"appkey"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSString *)getAppkey{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"appkey"];
+}
+
+/// uuid
++ (NSString *)getUUID{
+    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+}
+
 @end

@@ -110,13 +110,20 @@
     
     
     NSDictionary *requestData = @{@"phoneNo"    : _usernameTF.text,
-                                  @"passWord"   : [_passwordTF.text ETSMD5]//@"36B8653D62598A052A7B0CDCA1C3DCDD"//
+                                  @"passWord"   : [_passwordTF.text ETSMD5],//@"36B8653D62598A052A7B0CDCA1C3DCDD"//
+                                  @"ssid"       : [UserInfo getUUID]
                                   };
     [_submitBtn starLoadding];
     [FHQNetWorkingAPI login:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
         [Tools hiddenKeyboard];
         [UserInfo saveUserInfo:result];
+        if (isCanUseObj(result[@"Appkey"])) {
+            [UserInfo saveAppkey:result[@"Appkey"]];
+        }
+        if (isCanUseObj(result[@"Token"])) {
+            [UserInfo saveToken:result[@"Token"]];
+        }
         [_submitBtn stopLoadding];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:LoginNotification object:nil];

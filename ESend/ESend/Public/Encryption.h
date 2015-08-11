@@ -18,4 +18,7 @@
 
 + (NSString*)createEncryption;
 
+/// E代送-headers
++ (NSDictionary *)ESendB_Encryptioin;
+
 @end

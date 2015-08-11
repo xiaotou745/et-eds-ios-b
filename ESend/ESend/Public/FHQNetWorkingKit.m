@@ -242,6 +242,15 @@
    manager.requestSerializer = [AFJSONRequestSerializer serializer];
    manager.requestSerializer.timeoutInterval = 30;
     
+    NSDictionary * headerDict = [Encryption ESendB_Encryptioin];
+    NSLog(@"headerDicts:%@",headerDict);
+    NSArray * keys = [headerDict allKeys];
+    for (NSString * key in keys) {
+        NSLog(@"key:%@",key);
+        NSLog(@"value:%@",[headerDict objectForKey:key]);
+        [manager.requestSerializer setValue:[headerDict objectForKey:key] forHTTPHeaderField:key];
+    }
+    
 //    [manager.requestSerializer setValue:[Encryption createEncryption] forHTTPHeaderField:@"YgUsFood"];
 //    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
 

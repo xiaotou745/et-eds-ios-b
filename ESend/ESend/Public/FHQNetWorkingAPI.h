@@ -158,4 +158,9 @@
 + (AFHTTPRequestOperation*)withdrew:(NSDictionary *)data
                           successBlock:(successBlock)successBlock
                                failure:(failureBlock)failure;
+
+/// 2.1.19获取Token
++ (AFHTTPRequestOperation *)getToken:(NSDictionary *)data
+                        successBlock:(successBlock)successBlock
+                             failure:(failureBlock)failure;
 @end

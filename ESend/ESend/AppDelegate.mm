@@ -29,6 +29,9 @@
     NSString *_downloadUrl;
     
     UINavigationController *_welcomeNav;
+    
+    NSTimer * _tokenTimer;                      // refresh token timer
+    int _getTokenCount;                         // refresh token wrong times
 }
 
 @end
@@ -38,6 +41,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    // token
+    
+    [self refreshToken];
+    [self scheduledTimerRefreshToken];
+    
+    //
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushTag) name:LoginNotification object:nil];
@@ -91,9 +100,9 @@
     NSDictionary *requestData = @{@"version" : isCanUseString(dataVersion) ? dataVersion : @"20150525",
                                   @"UserId" : [UserInfo getUserId]};
     [FHQNetWorkingAPI getCityList:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
-        NSLog(@"%@",result);
+        //NSLog(@"%@",result);
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        NSLog(@"%@",operation.responseObject);
+        //NSLog(@"%@",operation.responseObject);
         NSDictionary *result = operation.responseObject;
         if ([result getIntegerWithKey:@"Status"] == 0) {
             if ([[[result getDictionaryWithKey:@"Result"] getArrayWithKey:@"AreaModels"] count] == 0) {
@@ -306,6 +315,8 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    // token
+    //[self refreshToken];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -358,4 +369,42 @@
     return YES;
 }
 
+#pragma mark - getToken
+
+- (void)scheduledTimerRefreshToken{
+    [_tokenTimer invalidate];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        _tokenTimer = [NSTimer scheduledTimerWithTimeInterval:90*60 target:self selector:@selector(refreshToken) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] run];
+    });
+}
+
+
+- (void)loggg{
+    NSLog(@"1");
+}
+
+
+- (void)refreshToken{
+    if ([UserInfo isLogin]) {
+        NSDictionary * paraDict = @{
+                                    @"ssid":[UserInfo getUUID],
+                                    @"appkey":[UserInfo getAppkey]
+                                    };
+        [FHQNetWorkingAPI getToken:paraDict successBlock:^(id result, AFHTTPRequestOperation *operation) {
+            NSString * token = [NSString stringWithFormat:@"%@",result];
+            [UserInfo saveToken:token];
+            
+            NSString * localtoken = [UserInfo getToken];
+            NSLog(@"local:%@",localtoken);
+            
+        } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+            _getTokenCount ++;
+            if (_getTokenCount < 5) {
+                [self refreshToken];
+            }
+        }];
+    }
+
+}
 @end
