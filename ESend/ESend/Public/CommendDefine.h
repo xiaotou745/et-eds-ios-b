@@ -207,9 +207,9 @@ fprintf(stderr, "-------\n");                                               \
 
 
 
-#if 0
-    #define OPEN_API_SEVER @"http://api.edaisong.com/20150723/" //生产
-    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20150723/" //上传图片地址
+#if 1
+    #define OPEN_API_SEVER @"http://api.edaisong.com/20150806/" //生产
+    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20150806/" //上传图片地址
 #elif 0
     #define OPEN_API_SEVER @"http://10.8.10.130:8081/"   //曹赫洋
 #elif 0
