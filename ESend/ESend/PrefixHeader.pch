@@ -6,6 +6,18 @@
 //  Copyright (c) 2015年 Saltlight. All rights reserved.
 //
 
+/*
+ 百度地图 GX7M71BZnCnhLntRAFXg34fn
+ jpush 3eefb643c42edab57671b328
+ 这个是企业的
+ 
+ 
+ 
+ jpush d794d51f2ffaf5de42001c4b
+ 百度地图  uazMqGlv1NImlBWYoh4elkOs
+ 这个是Appstore
+ */
+
 
 /*Jpush：
  
@@ -13,14 +25,18 @@
  
  */
 
+/* BaiduAppkey
+ GX7M71BZnCnhLntRAFXg34fn     inHouse
+ */
+
+
+
 /* MobClick
  55962f3267e58ef3fc001ad7     inHouse
  */
 
 
-/* BaiduAppkey
- GX7M71BZnCnhLntRAFXg34fn     inHouse
- */
+
 
 #ifndef ESend_PrefixHeader_pch
 #define ESend_PrefixHeader_pch

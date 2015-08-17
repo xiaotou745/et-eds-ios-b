@@ -58,7 +58,7 @@
     [self.window makeKeyAndVisible];
     
     _mapManager = [[BMKMapManager alloc]init]; 
-    BOOL ret = [_mapManager start:@"GX7M71BZnCnhLntRAFXg34fn"  generalDelegate:nil];
+    BOOL ret = [_mapManager start:@"uazMqGlv1NImlBWYoh4elkOs"  generalDelegate:nil];
     if (!ret) {
         CLog(@"flai");
     }
