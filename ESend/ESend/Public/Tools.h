@@ -26,6 +26,9 @@
 //获取当前时间字符串
 + (NSString*)getCurrentTimeString;
 
+// 当前时间，格式yyyy-mm-dd hh:mm:ss
++ (NSString *)getCurrentTimeFormatString;
+
 //获取当前时间
 + (NSString*)getFrameCurrentTimeString;
 

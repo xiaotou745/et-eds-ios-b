@@ -73,6 +73,12 @@
     return [dateformat stringFromDate:[NSDate date]];
 }
 
++ (NSString *)getCurrentTimeFormatString{
+    NSDateFormatter *dateformat=[[NSDateFormatter  alloc] init];
+    [dateformat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [dateformat stringFromDate:[NSDate date]];
+}
+
 + (NSString*)getAddressStr:(NSDictionary*)addressInfo
 {
     

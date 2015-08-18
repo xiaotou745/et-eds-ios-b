@@ -21,6 +21,7 @@
 
 #import "DataBase.h"
 #import "AddressPickerView.h"
+#import "Tools.h"
 
 @interface AppDelegate ()
 {
@@ -32,6 +33,9 @@
     
     NSTimer * _tokenTimer;                      // refresh token timer
     int _getTokenCount;                         // refresh token wrong times
+    int _getTokenSuccessCount;                  // refresh token success times, default = 0, when == 1, some request start
+    
+    NSTimer * _consigneeAddressBTimer;          // 24小时刷新，刷单地址，用户手机列表
 }
 
 @end
@@ -46,7 +50,6 @@
     [self refreshToken];
     [self scheduledTimerRefreshToken];
     
-    //
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushTag) name:LoginNotification object:nil];
@@ -58,7 +61,7 @@
     [self.window makeKeyAndVisible];
     
     _mapManager = [[BMKMapManager alloc]init]; 
-    BOOL ret = [_mapManager start:@"uazMqGlv1NImlBWYoh4elkOs"  generalDelegate:nil];
+    BOOL ret = [_mapManager start:@"GX7M71BZnCnhLntRAFXg34fn"  generalDelegate:nil];
     if (!ret) {
         CLog(@"flai");
     }
@@ -83,9 +86,14 @@
         [self pushNotificationView:data];
     }
 
-    [self updateBankCityList];
     [self updateCityList];
-    
+
+    /*
+     以下接口需要token,为保证请求有效，在第一次获取token成功之后请求
+     */
+//    [self updateBankCityList];
+////    // 同步发单用户电话号码
+//    [self consigneeAddressB];
     
 
     return YES;
@@ -100,9 +108,9 @@
     NSDictionary *requestData = @{@"version" : isCanUseString(dataVersion) ? dataVersion : @"20150525",
                                   @"UserId" : [UserInfo getUserId]};
     [FHQNetWorkingAPI getCityList:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
-        //NSLog(@"%@",result);
+        NSLog(@"%@",result);
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        //NSLog(@"%@",operation.responseObject);
+        NSLog(@"%@",operation.responseObject);
         NSDictionary *result = operation.responseObject;
         if ([result getIntegerWithKey:@"Status"] == 0) {
             if ([[[result getDictionaryWithKey:@"Result"] getArrayWithKey:@"AreaModels"] count] == 0) {
@@ -134,7 +142,7 @@
 }
 
 - (void)appUpdate:(NSDictionary *)appInfo {
-    NSLog(@"%@",appInfo);
+    // NSLog(@"%@",appInfo);
 }
 
 - (void)pushNotificationView:(NSDictionary*)data {
@@ -157,7 +165,7 @@
        
     }
     
-    NSLog(@"%@",data);
+    // NSLog(@"%@",data);
 }
 
 - (void)setPushTag {
@@ -379,12 +387,6 @@
     });
 }
 
-
-- (void)loggg{
-    NSLog(@"1");
-}
-
-
 - (void)refreshToken{
     if ([UserInfo isLogin]) {
         NSDictionary * paraDict = @{
@@ -398,6 +400,15 @@
             NSString * localtoken = [UserInfo getToken];
             NSLog(@"local:%@",localtoken);
             
+            _getTokenSuccessCount ++;
+            if (1 == _getTokenSuccessCount) { // 第一次通过接口获得token
+                // 更新银行列表，需要token
+                [self updateBankCityList];
+                // 同步发单用户电话号码，需要token
+                [self consigneeAddressB];
+            }
+
+            
         } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
             _getTokenCount ++;
             if (_getTokenCount < 5) {
@@ -407,4 +418,48 @@
     }
 
 }
+
+#pragma mark - 电话联想,24小时同步商户发单历史到本地
+
+- (void)consigneeAddressB{
+    if ([UserInfo isLogin]) {
+        
+        NSString * firstTime = @"2015-01-01 00:00:00";
+        if ([UserInfo getMaxDate]) {
+            firstTime = [UserInfo getMaxDate];
+        }
+        
+        NSDictionary * paraDict = @{
+                                    @"BusinessId":[UserInfo getUserId],
+                                    @"PubDate":firstTime,
+                                    @"Version":@"1.0"
+                                    };
+        NSLog(@"para:%@",paraDict);
+        
+        [FHQNetWorkingAPI consigneeAddress:paraDict successBlock:^(id result, AFHTTPRequestOperation *operation) {
+            NSString * MaxDate = result[@"MaxDate"];
+            NSArray * ConsigneeAdressBDM = result[@"Data"];
+            if (MaxDate) {
+                [UserInfo saveMaxDate:MaxDate];
+            }
+            if (ConsigneeAdressBDM.count > 0) {
+                NSLog(@"arr:%@",ConsigneeAdressBDM);
+            }else{
+                NSLog(@"array:0");
+            }
+        } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+            
+        }];
+    }
+}
+
+- (void)scheduledTimerConsigneeAddressB{
+    [_consigneeAddressBTimer invalidate];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        _consigneeAddressBTimer = [NSTimer scheduledTimerWithTimeInterval:24*60*60 target:self selector:@selector(consigneeAddressB) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] run];
+    });
+}
+
+
 @end

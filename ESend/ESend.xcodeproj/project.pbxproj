@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EA0CA411B82C72700BBAA63 /* ComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA3F1B82C72700BBAA63 /* ComplaintViewController.m */; };
+		2EA0CA421B82C72700BBAA63 /* ComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA3F1B82C72700BBAA63 /* ComplaintViewController.m */; };
+		2EA0CA431B82C72700BBAA63 /* ComplaintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA401B82C72700BBAA63 /* ComplaintViewController.xib */; };
+		2EA0CA441B82C72700BBAA63 /* ComplaintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA401B82C72700BBAA63 /* ComplaintViewController.xib */; };
 		E402892D1B3C331B00B80417 /* MissionDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E402892C1B3C331B00B80417 /* MissionDetailModel.m */; };
 		E40289311B3C357C00B80417 /* MissionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E40289301B3C357C00B80417 /* MissionDetailViewController.m */; };
 		E46C49261B3C48BC00CE0033 /* MDOrderInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E46C49251B3C48BC00CE0033 /* MDOrderInfoCell.m */; };
@@ -464,6 +468,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2EA0CA3E1B82C72700BBAA63 /* ComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComplaintViewController.h; sourceTree = "<group>"; };
+		2EA0CA3F1B82C72700BBAA63 /* ComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplaintViewController.m; sourceTree = "<group>"; };
+		2EA0CA401B82C72700BBAA63 /* ComplaintViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComplaintViewController.xib; sourceTree = "<group>"; };
 		E402892B1B3C331B00B80417 /* MissionDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailModel.h; sourceTree = "<group>"; };
 		E402892C1B3C331B00B80417 /* MissionDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionDetailModel.m; sourceTree = "<group>"; };
 		E402892F1B3C357C00B80417 /* MissionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailViewController.h; sourceTree = "<group>"; };
@@ -1020,6 +1027,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EA0CA3D1B82C6D700BBAA63 /* complain */ = {
+			isa = PBXGroup;
+			children = (
+				2EA0CA3E1B82C72700BBAA63 /* ComplaintViewController.h */,
+				2EA0CA3F1B82C72700BBAA63 /* ComplaintViewController.m */,
+				2EA0CA401B82C72700BBAA63 /* ComplaintViewController.xib */,
+			);
+			path = complain;
+			sourceTree = "<group>";
+		};
 		E402892E1B3C356A00B80417 /* Mission */ = {
 			isa = PBXGroup;
 			children = (
@@ -1650,6 +1667,7 @@
 		F6C6AC5C1B12F3620007A980 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				2EA0CA3D1B82C6D700BBAA63 /* complain */,
 				F66CA1291B1E9965006BDDB8 /* Main */,
 				E48ECF891B3F888B00F09660 /* Welcome */,
 				E402892E1B3C356A00B80417 /* Mission */,
@@ -1991,6 +2009,7 @@
 				F62A73E51B5CCA84001632B5 /* 1@1x.png in Resources */,
 				F67D35FE1B5664A600083DA4 /* AlipaySDK.bundle in Resources */,
 				F67D35FF1B5664A600083DA4 /* mapapi.bundle in Resources */,
+				2EA0CA441B82C72700BBAA63 /* ComplaintViewController.xib in Resources */,
 				F67D36001B5664A600083DA4 /* password_icon@2x.png in Resources */,
 				F67D36011B5664A600083DA4 /* LaunchScreen.xib in Resources */,
 				F62A73E91B5CCA84001632B5 /* 1@3x.png in Resources */,
@@ -2016,6 +2035,7 @@
 				F6549F831B1C378900FAACEE /* gray_border_btn_nor@2x.png in Resources */,
 				F62A73E81B5CCA84001632B5 /* 1@3x.png in Resources */,
 				F62E8D031B2E80F1006F3862 /* demo_card@3x.png in Resources */,
+				2EA0CA431B82C72700BBAA63 /* ComplaintViewController.xib in Resources */,
 				F6C6AE7D1B1845750007A980 /* blue_btn_nor@2x.png in Resources */,
 				F6549F7F1B1C331300FAACEE /* back_nor@2x.png in Resources */,
 				F62A73E61B5CCA84001632B5 /* 1@2x.png in Resources */,
@@ -2068,6 +2088,7 @@
 				F67D353C1B5664A600083DA4 /* BaseViewController.m in Sources */,
 				F67D353D1B5664A600083DA4 /* UploadImageModel.m in Sources */,
 				F67D353E1B5664A600083DA4 /* MoreViewController.m in Sources */,
+				2EA0CA421B82C72700BBAA63 /* ComplaintViewController.m in Sources */,
 				F67D353F1B5664A600083DA4 /* SDWebImageDecoder.m in Sources */,
 				F67D35401B5664A600083DA4 /* MDSubOrderModel.m in Sources */,
 				F67D35411B5664A600083DA4 /* RDVTabBar.m in Sources */,
@@ -2251,6 +2272,7 @@
 				F6C6AC9C1B12F3EB0007A980 /* BaseViewController.m in Sources */,
 				F65287751B3E5EDC00738E64 /* UploadImageModel.m in Sources */,
 				F64DFD6D1B26C37200A909E5 /* MoreViewController.m in Sources */,
+				2EA0CA411B82C72700BBAA63 /* ComplaintViewController.m in Sources */,
 				F6C6ADA91B12F42F0007A980 /* SDWebImageDecoder.m in Sources */,
 				E46C49471B3C713700CE0033 /* MDSubOrderModel.m in Sources */,
 				F6C6ADA21B12F42F0007A980 /* RDVTabBar.m in Sources */,

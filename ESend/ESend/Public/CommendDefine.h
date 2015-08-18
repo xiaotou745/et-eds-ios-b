@@ -207,7 +207,7 @@ fprintf(stderr, "-------\n");                                               \
 
 
 
-#if 1
+#if 0
     #define OPEN_API_SEVER @"http://api.edaisong.com/20150806/" //生产
     #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20150806/" //上传图片地址
 #elif 0
@@ -215,8 +215,11 @@ fprintf(stderr, "-------\n");                                               \
 #elif 0
     #define OPEN_API_SEVER @"http://edsapi.yitaoyun.net/"       //线上
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
+#elif 0
+    #define  OPEN_API_SEVER @"http://10.8.7.251:7178/"   //本地服务器 251
+    #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
 #elif 1
-    #define  OPEN_API_SEVER @"http://10.8.7.251:7178/"   //本地服务器
+    #define  OPEN_API_SEVER @"http://10.8.7.40:7178/"   //本地服务器 40
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
 #elif 0
     #define  OPEN_API_SEVER @"http://10.8.8.105:8069/api/ios/" //边亮

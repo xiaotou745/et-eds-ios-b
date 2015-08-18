@@ -14,6 +14,7 @@
 #import "OrderDetailRemarkTableCell.h"
 #import "FHQNetWorkingAPI.h"
 #import "UserInfo.h"
+#import "ComplaintViewController.h"
 
 @interface OrderDetailViewController ()<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
@@ -57,6 +58,25 @@
         _tableView.tableFooterView = bottomView;
     }
     
+    
+    // 投诉,已经抢单到已完成
+    if (_orderModel.orderStatus == OrderStatusAccepted || _orderModel.orderStatus == OrderStatusReceive || _orderModel.orderStatus == OrderStatusComplete) {
+        //[self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
+        [self.rightBtn addTarget:self action:@selector(clickComplaint) forControlEvents:UIControlEventTouchUpInside];
+        //[self.rightBtn setFrame:CGRectMake(MainWidth - 12 - 75, OffsetBarHeight + 6, 75, 32)];
+        [self.rightBtn setTitle:@"投诉" forState:UIControlStateNormal];
+        [self.rightBtn setTitle:@"已投诉" forState:UIControlStateDisabled];
+        [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+        self.rightBtn.hidden = NO;
+        if (1 == _orderModel.IsComplain) {
+            self.rightBtn.enabled = NO;
+        }else{
+            self.rightBtn.enabled = YES;
+        }
+    }else{
+        self.rightBtn.hidden = YES;
+    }
     
 }
 
@@ -235,4 +255,14 @@
 
 }
 
+
+#pragma mark - 投诉界面
+- (void)clickComplaint{
+    ComplaintViewController *vc = [[ComplaintViewController alloc] initWithNibName:@"ComplaintViewController" bundle:nil];
+    vc.orderModel = self.orderModel;
+    vc.callBackBlock = ^{
+        self.rightBtn.enabled = NO;
+    };
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

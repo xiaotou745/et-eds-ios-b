@@ -235,4 +235,13 @@ static NSString *UserInfoKey = @"userInfoKey";
     return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 }
 
+/// MaxDate 同步发单历史电话号码
++ (void)saveMaxDate:(NSString *)maxDate{
+    [[NSUserDefaults standardUserDefaults] setObject:maxDate forKey:@"maxDate"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (NSString *)getMaxDate{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"maxDate"];
+}
+
 @end

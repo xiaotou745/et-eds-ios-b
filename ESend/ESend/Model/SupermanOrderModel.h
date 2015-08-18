@@ -13,7 +13,7 @@ typedef NS_ENUM(NSInteger, OrderStatus) {
     OrderStatusComplete = 1,                        //订单已完成
     OrderStatusAccepted = 2,                        //取货中
     OrderStatusCancel = 3,                          //订单已取消
-    OrderStatusReceive = 4,                         //到店取餐
+    OrderStatusReceive = 4,                         //已到店取餐
     OrderStatusWaitingAccept = 30,                  //待接入订单
     OrderStatusUncomplete = 100,                    //未完成订单
 };
@@ -68,6 +68,15 @@ typedef NS_ENUM(NSInteger, OrderChannel) {
 @property (nonatomic, strong) NSMutableArray *childOrderList;
 @property (nonatomic, copy) NSString *bussinessPhone;
 @property (nonatomic, copy) NSString *bussinessPhone2;
+
+
+// 2015-08-18
+// 骑士id
+@property (nonatomic, assign) long ClienterId;
+// 商户id
+@property (nonatomic, assign) long businessId;
+// 是否被投诉  1,已经投诉；0，没有投诉
+@property (nonatomic, assign) long IsComplain;
 
 - (void)loadData:(NSDictionary*)dic;
 

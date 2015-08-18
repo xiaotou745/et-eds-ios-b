@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ComplaintViewController">
+            <connections>
+                <outlet property="complaintLbl" destination="3fY-A1-0iC" id="dz1-ff-zD2"/>
+                <outlet property="complaintTextView" destination="MVb-S6-dJh" id="I8l-MC-sey"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投诉理由" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fY-A1-0iC">
+                    <rect key="frame" x="12" y="64" width="576" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="WGs-HJ-7wu"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="MVb-S6-dJh">
+                    <rect key="frame" x="12" y="108" width="576" height="150"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="kvu-FY-AaM"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Cih-ZV-rOs"/>
+                    </connections>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="MVb-S6-dJh" firstAttribute="top" secondItem="3fY-A1-0iC" secondAttribute="bottom" id="2ag-Iy-Tbz"/>
+                <constraint firstAttribute="trailing" secondItem="MVb-S6-dJh" secondAttribute="trailing" constant="12" id="BGe-TE-CHm"/>
+                <constraint firstItem="3fY-A1-0iC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="aIL-S7-ESF"/>
+                <constraint firstItem="3fY-A1-0iC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="hmj-h4-L3c"/>
+                <constraint firstItem="MVb-S6-dJh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="lyU-Tm-LGS"/>
+                <constraint firstAttribute="trailing" secondItem="3fY-A1-0iC" secondAttribute="trailing" constant="12" id="vzT-ds-1wd"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

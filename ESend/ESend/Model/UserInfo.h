@@ -71,6 +71,13 @@ typedef NS_ENUM(NSInteger, UserStatus) {
 /// uuid
 + (NSString *)getUUID;
 
+/// MaxDate 同步发单历史电话号码
++ (void)saveMaxDate:(NSString *)maxDate;
++ (NSString *)getMaxDate;
+
+
+
+
 + (void)setLoginName:(NSString*)name;
 
 + (NSDictionary *)getUserInfo;

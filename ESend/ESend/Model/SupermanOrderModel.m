@@ -49,6 +49,10 @@
         ChildOrderModel *childOrder = [[ChildOrderModel alloc] initWithDic:subDic];
         [self.childOrderList addObject:childOrder];
     }
+    
+    self.ClienterId = [dic getIntegerWithKey:@"ClienterId"];
+    self.businessId = [dic getIntegerWithKey:@"businessId"];
+    self.IsComplain = [dic getIntegerWithKey:@"IsComplain"];
 }
 
 - (NSString*)orderStatusStr {

@@ -163,4 +163,14 @@
 + (AFHTTPRequestOperation *)getToken:(NSDictionary *)data
                         successBlock:(successBlock)successBlock
                              failure:(failureBlock)failure;
+
+/// 2.1.14 B端商户拉取收货人地址缓存到本地consigneeaddressb
++ (AFHTTPRequestOperation *)consigneeAddress:(NSDictionary *)data
+                                successBlock:(successBlock)successBlock
+                                     failure:(failureBlock)failure;
+
+///2.1.20商户投诉骑士
++ (AFHTTPRequestOperation *)businessComplainClienter:(NSDictionary *)data
+                                        successBlock:(successBlock)successBlock
+                                             failure:(failureBlock)failure;
 @end

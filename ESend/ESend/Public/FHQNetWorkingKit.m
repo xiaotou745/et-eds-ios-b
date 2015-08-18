@@ -1,3 +1,4 @@
+
 //
 //  FHQNetWorkingKit.m
 //  USA
@@ -243,11 +244,11 @@
    manager.requestSerializer.timeoutInterval = 30;
     
     NSDictionary * headerDict = [Encryption ESendB_Encryptioin];
-    NSLog(@"headerDicts:%@",headerDict);
+    //NSLog(@"headerDicts:%@",headerDict);
     NSArray * keys = [headerDict allKeys];
     for (NSString * key in keys) {
-        NSLog(@"key:%@",key);
-        NSLog(@"value:%@",[headerDict objectForKey:key]);
+       // NSLog(@"key:%@",key);
+       // NSLog(@"value:%@",[headerDict objectForKey:key]);
         [manager.requestSerializer setValue:[headerDict objectForKey:key] forHTTPHeaderField:key];
     }
     
