@@ -10,6 +10,6 @@
 
 @interface ForgetPasswordViewController : BaseViewController
 
-@property (nonatomic, assign) BOOL isChangePassword;
+@property (nonatomic, assign) BOOL isChangePassword;     // YES修改密码，NO忘记密码
 
 @end

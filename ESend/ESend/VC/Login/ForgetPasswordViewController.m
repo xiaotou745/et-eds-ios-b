@@ -18,6 +18,7 @@
 {
     UITextField *_usernameTF;
     UITextField *_veriftyTF;
+    UITextField *_originPasswordTF;
     UITextField *_passwordTF;
     LoadingButtton *_submitBtn;
     UIButton *_getVeriftyBtn;
@@ -49,6 +50,7 @@
 
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, MainWidth, ScreenHeight - 64)];
+    _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.view addSubview:_scrollView];
     
     _usernameTF = [[self class] createIconTextFieldWithIcon:@"phone_icon" placholder:@"手机号码"];
@@ -102,12 +104,27 @@
     _veriftyTF.text = @"";
     [_scrollView addSubview:_veriftyTF];
     
-    _passwordTF = [[self class] createIconTextFieldWithIcon:@"password_icon" placholder:@"设置密码"];
-    _passwordTF.frame = CGRectMake(0, CGRectGetMaxY(_veriftyTF.frame) + 20, MainWidth, 55);
-    _passwordTF.delegate = self;
-    _passwordTF.secureTextEntry = YES;
-    [_scrollView addSubview:_passwordTF];
-    
+    if (_isChangePassword) { // 修改密码,需要原始密码
+        // 原始密码
+        _originPasswordTF = [[self class] createIconTextFieldWithIcon:@"password_icon" placholder:@"原密码"];
+        _originPasswordTF.frame = CGRectMake(0, CGRectGetMaxY(_veriftyTF.frame) + 20, MainWidth, 55);
+        _originPasswordTF.delegate = self;
+        _originPasswordTF.secureTextEntry = YES;
+        [_scrollView addSubview:_originPasswordTF];
+        
+        _passwordTF = [[self class] createIconTextFieldWithIcon:@"password_icon" placholder:@"设置密码"];
+        _passwordTF.frame = CGRectMake(0, CGRectGetMaxY(_originPasswordTF.frame) + 20, MainWidth, 55);
+        _passwordTF.delegate = self;
+        _passwordTF.secureTextEntry = YES;
+        [_scrollView addSubview:_passwordTF];
+    }else{
+        _passwordTF = [[self class] createIconTextFieldWithIcon:@"password_icon" placholder:@"设置密码"];
+        _passwordTF.frame = CGRectMake(0, CGRectGetMaxY(_veriftyTF.frame) + 20, MainWidth, 55);
+        _passwordTF.delegate = self;
+        _passwordTF.secureTextEntry = YES;
+        [_scrollView addSubview:_passwordTF];
+    }
+
     _submitBtn = [LoadingButtton buttonWithType:UIButtonTypeCustom];
     [_submitBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
     [_submitBtn setTitle:@"确认修改" forState:UIControlStateNormal];
@@ -115,7 +132,7 @@
     _submitBtn.frame = CGRectMake(10, CGRectGetMaxY(_passwordTF.frame) + 30, MainWidth - 20, 44);
     [_scrollView addSubview:_submitBtn];
 
-    _scrollView.contentSize = CGSizeMake(MainWidth, CGRectGetMaxY(_agreementLabel.frame) + 20);
+    _scrollView.contentSize = CGSizeMake(MainWidth, MainHeight - 43);
 }
 
 - (void)refreshOrigin {
@@ -148,6 +165,26 @@
         return;
     }
     
+    if (_isChangePassword) {
+        if (_originPasswordTF.text.length == 0) {
+            [Tools showHUD:@"请输入原密码！"];
+            [_originPasswordTF becomeFirstResponder];
+            return;
+        }
+        
+        if (_originPasswordTF.text.length < 6) {
+            [Tools showHUD:@"请输入6-16位数字或字母"];
+            [_originPasswordTF becomeFirstResponder];
+            return;
+        }
+        
+        if (_originPasswordTF.text.length > 16) {
+            [Tools showHUD:@"请输入6-16位数字或字母"];
+            [_originPasswordTF becomeFirstResponder];
+            return;
+        }
+    }
+    
     if (_passwordTF.text.length == 0) {
         [Tools showHUD:@"请输入密码！"];
         [_passwordTF becomeFirstResponder];
@@ -165,10 +202,19 @@
         [_passwordTF becomeFirstResponder];
         return;
     }
-    
-    NSDictionary *request = @{@"phoneNumber"    : _usernameTF.text,
-                              @"checkCode"      : _veriftyTF.text,
-                              @"password"       : [_passwordTF.text ETSMD5],};
+    NSDictionary *request = nil;
+    if (_isChangePassword) {
+        request = @{@"phoneNumber"    : _usernameTF.text,
+                    @"checkCode"      : _veriftyTF.text,
+                    @"password"       : [_passwordTF.text ETSMD5],
+                    @"oldpassword"    : _originPasswordTF.text,
+                    };
+    }else{
+        request = @{@"phoneNumber"    : _usernameTF.text,
+                    @"checkCode"      : _veriftyTF.text,
+                    @"password"       : [_passwordTF.text ETSMD5],};
+    }
+
     
     NSString * jsonString2 = [request JSONString];
     
