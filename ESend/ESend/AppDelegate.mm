@@ -23,6 +23,9 @@
 #import "AddressPickerView.h"
 #import "Tools.h"
 
+
+#import "NSString+X136.h"
+
 @interface AppDelegate ()
 {
     BMKMapManager* _mapManager;
@@ -44,7 +47,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     // token
     
     [self refreshToken];

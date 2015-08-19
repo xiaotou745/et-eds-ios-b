@@ -16,6 +16,10 @@
 #import "JKAlertDialog.h"
 #import "NSString+evaluatePhoneNumber.h"
 
+#import "ConsigneeModel.h"
+#import "ConsigneeInfoCell.h"
+#import "DataArchive.h"
+
 typedef NS_ENUM(NSInteger, PayStatus) {
     PayStatusComplete,
     PayStatusUnpaid
@@ -50,6 +54,16 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     CLLocationCoordinate2D _coordinate;
     
     BOOL _isFirst;
+    
+    // 发单提示
+    UITextField *_phoneTF2;
+    UITableView *_consigneeTV;
+    UIView *_mask2;
+    UIView * _bgv;
+    UITableView *_consigneeHistoryTV;
+    //
+    NSMutableArray * _consigneeArray;
+    NSMutableArray * _consigneeArrayForDisplay;
 }
 @end
 
@@ -76,6 +90,11 @@ typedef NS_ENUM(NSInteger, PayStatus) {
                                                  name:UITextFieldTextDidChangeNotification
                                                object:nil];
     
+    _consigneeArray = [[NSMutableArray alloc] initWithCapacity:0];
+    _consigneeArrayForDisplay = [[NSMutableArray alloc] initWithCapacity:0];
+    NSArray * localConsignees = [DataArchive storedConsigneesWithShopid:[UserInfo getUserId]];
+    NSLog(@"localConsignee:%@",localConsignees);
+    [_consigneeArray addObjectsFromArray:localConsignees];
 }
 
 - (void)initializeData {
@@ -114,6 +133,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     if ([_tableView respondsToSelector:@selector(setSeparatorInset:)]) {
         _tableView.separatorInset = UIEdgeInsetsZero;
@@ -133,6 +153,10 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _phoneTF.text = @"";
     _phoneTF.clearButtonMode = UITextFieldViewModeAlways;
     _phoneTF.keyboardType = UIKeyboardTypeNumberPad;
+    UIButton * _phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _phoneTF.frame.size.width, _phoneTF.frame.size.height)];
+    _phoneBtn.backgroundColor = [UIColor clearColor];
+    [_phoneBtn addTarget:self action:@selector(phoneBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_phoneTF addSubview:_phoneBtn];
     
     _address = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, MainWidth - 20, 55)];
     _address.textColor = DeepGrey;
@@ -230,17 +254,32 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _tableView.tableFooterView = footerView;
 }
 
+#pragma mark - tableViewDelegate datasource
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 2) {
-        return 60;
+    if (tableView == _tableView) {
+        if (indexPath.section == 2) {
+            return 60;
+        }
+        
+        return 55;
+    }else if (tableView == _consigneeHistoryTV){
+        return 50;
+    }else{
+        return 0;
     }
-    
-    return 55;
+
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    if (tableView == _tableView) {
+        return 3;
+    }else if (tableView == _consigneeHistoryTV) {
+        return 1;
+    }else{
+        return 0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -248,22 +287,38 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 1 || section == 2) {
-        return 55;
+    
+    if (tableView == _tableView) {
+        if (section == 1 || section == 2) {
+            return 55;
+        }
+        return 0.1;
+    }else if (tableView == _consigneeHistoryTV){
+        return 0.1;
+    }else{
+        return 0;
     }
-    return 0.1;
+    
+
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if (section == 1) {
-        return _addNewOrderView;
+    if (tableView == _tableView) {
+        if (section == 1) {
+            return _addNewOrderView;
+        }
+        
+        if (section == 2) {
+            return _remarkTF;
+        }
+        
+        return nil;
+    }else if (tableView == _consigneeHistoryTV) {
+        return nil;
+    }else{
+        return nil;
     }
-    
-    if (section == 2) {
-        return _remarkTF;
-    }
-    
-    return nil;
+
 }
 
 - (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -271,70 +326,93 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return _cellViews.count;
+    if (tableView == _tableView) {
+        if (section == 0) {
+            return _cellViews.count;
+        }
+        
+        if (section == 1) {
+            return _priceTFList.count;
+        }
+        
+        return 1;
+    }else if (tableView == _consigneeHistoryTV) {
+        return _consigneeArray.count;
+    }else{
+        return 0;
     }
-    
-    if (section == 1) {
-        return _priceTFList.count;
-    }
-    
-    return 1;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-     NSString *cellId = [NSString stringWithFormat:@"cell%ld%ld",(long)indexPath.section,(long)indexPath.row];
-    if (indexPath.section == 0) {
-        BaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[BaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.backgroundColor = [UIColor whiteColor];
-        }
-        
-        [cell addSubview:_cellViews[indexPath.row]];
-        
-        return cell;
-    }
     
-    if (indexPath.section == 1) {
-        AddOrderTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[AddOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.delegate = self;
-        }
-        
-        if (cell.numberTF != [_priceTFList objectAtIndex:indexPath.row]) {
-            //解决cell重用冲突
-            UIView *view = [cell viewWithTag:1000];
-            [view removeFromSuperview];
+
+    
+    ///////////////////////////////////
+    if (tableView == _tableView) {
+        NSString *cellId = [NSString stringWithFormat:@"cell%ld%ld",(long)indexPath.section,(long)indexPath.row];
+        if (indexPath.section == 0) {
+            BaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[BaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                cell.backgroundColor = [UIColor whiteColor];
+            }
             
-            cell.numberTF = [_priceTFList objectAtIndex:indexPath.row];
-            [cell addSubview:[_priceTFList objectAtIndex:indexPath.row]];
+            [cell addSubview:_cellViews[indexPath.row]];
+            
+            return cell;
         }
         
-        cell.titleNumberLabel.text = [NSString stringWithFormat:@"订单 %ld",(long)indexPath.row + 1];
+        if (indexPath.section == 1) {
+            AddOrderTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[AddOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+                cell.delegate = self;
+            }
+            
+            if (cell.numberTF != [_priceTFList objectAtIndex:indexPath.row]) {
+                //解决cell重用冲突
+                UIView *view = [cell viewWithTag:1000];
+                [view removeFromSuperview];
+                
+                cell.numberTF = [_priceTFList objectAtIndex:indexPath.row];
+                [cell addSubview:[_priceTFList objectAtIndex:indexPath.row]];
+            }
+            
+            cell.titleNumberLabel.text = [NSString stringWithFormat:@"订单 %ld",(long)indexPath.row + 1];
+            
+            
+            if (_isFirst) {
+                cell.deleteBtn.hidden = YES;
+                _isFirst = NO;
+            }
+            
+            return cell;
+        };
         
-        
-        if (_isFirst) {
-            cell.deleteBtn.hidden = YES;
-            _isFirst = NO;
+        if (indexPath.section == 2) {
+            BaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!cell) {
+                cell = [[BaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            }
+            
+            [cell addSubview:_totalView];
+            
+            return cell;
         }
         
+        return nil;
+    }else if (tableView == _consigneeHistoryTV) {
+        static NSString * consigneeCellId = @"consigneeCellId";
+        ConsigneeInfoCell * cell = [tableView dequeueReusableCellWithIdentifier:consigneeCellId];
+        if (nil == cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:@"ConsigneeInfoCell" owner:nil options:nil] lastObject];
+        }
+        cell.consigneeInfo = [_consigneeArrayForDisplay objectAtIndex:indexPath.row];
         return cell;
-    };
-    
-    if (indexPath.section == 2) {
-        BaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!cell) {
-            cell = [[BaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-        }
-        
-        [cell addSubview:_totalView];
-        
-        return cell;
+    }else{
+        return nil;
     }
-    
-    return nil;
+
     
 }
 
@@ -563,11 +641,50 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         
         [Tools showHUD:@"发布成功"];
         [Tools hiddenProgress:HUD];
+        //
+        ConsigneeModel * consignee = [[ConsigneeModel alloc] init];
+        consignee.consigneePhone = _phoneTF.text ? _phoneTF.text : @"";
+        consignee.consigneeAddress = _address.text ? _address.text : @"";
+        [self storeConsigneeModel:consignee];
+        
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
         [Tools hiddenProgress:HUD];
     }];
 
+}
+
+/// 发单成功存储用户手机，地址
+- (void)storeConsigneeModel:(ConsigneeModel *)consignee{
+    NSString * bid = [UserInfo getUserId];
+    NSMutableArray * localConsignees = [NSMutableArray arrayWithArray:[DataArchive storedConsigneesWithShopid:bid]];
+    if (localConsignees.count > 0) {
+        
+//        for (ConsigneeModel * aConsignee in localConsignees) {
+//            if ([aConsignee samePhoneWithConsignee:consignee]) {
+//                localConsignees repla
+//            }
+//        }
+        BOOL contain = NO;
+        for (int i = 0; i < localConsignees.count; i ++) {
+            ConsigneeModel * aConsignee = [localConsignees objectAtIndex:i];
+            if ([consignee samePhoneWithConsignee:aConsignee]) {
+                [localConsignees replaceObjectAtIndex:i withObject:consignee];
+                contain = YES;
+                break;
+            }
+            
+        }
+        
+        if (!contain) {
+            [localConsignees addObject:consignee];
+        }
+        
+        [DataArchive storeConsignees:localConsignees shopId:bid];
+        
+    }else{
+        [DataArchive storeConsignees:[NSArray arrayWithObjects:consignee, nil] shopId:bid];
+    }
 }
 
 /*
@@ -671,6 +788,83 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)phoneBtnAction:(id)sender{
+    [self showSearchViews];
+}
+
+- (void)showSearchViews{
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+
+    _bgv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 64)];
+    _bgv.backgroundColor = [UIColor whiteColor];
+    _bgv.layer.borderWidth = 0.5f;
+    _bgv.layer.borderColor = [MiddleGrey CGColor];
+    [self.view addSubview:_bgv];
+    
+    _mask2 = [[UIView alloc] initWithFrame:CGRectMake(0, 64, MainWidth, MainHeight - 64)];
+    _mask2.backgroundColor = [UIColor whiteColor];
+    _mask2.alpha = 0.8f;
+    [self.view addSubview:_mask2];
+    //
+    _phoneTF2 = [[UITextField alloc] initWithFrame:CGRectMake(10, 20, MainWidth - 20 - 100, 44)];
+    _phoneTF2.backgroundColor = [UIColor whiteColor];
+    _phoneTF2.font = [UIFont systemFontOfSize:NormalFontSize];
+    _phoneTF2.textColor = DeepGrey;
+    _phoneTF2.placeholder = @"收货人电话";
+    _phoneTF2.text = @"";
+    _phoneTF2.clearButtonMode = UITextFieldViewModeAlways;
+    _phoneTF2.keyboardType = UIKeyboardTypeNumberPad;
+    _phoneTF2.delegate = self;
+    [_phoneTF2 becomeFirstResponder];
+    [_bgv addSubview:_phoneTF2];
+    
+    UIButton * _okbtn = [[UIButton alloc] initWithFrame:CGRectMake(10 + _phoneTF2.frame.size.width, 24, 49, 36)];
+    _okbtn.layer.borderWidth = 0.5;
+    _okbtn.layer.borderColor = [MiddleGrey CGColor];
+    _okbtn.layer.cornerRadius = 2;
+    _okbtn.layer.masksToBounds = YES;
+    [_okbtn addTarget:self action:@selector(_okbtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_okbtn setTitle:@"确 定" forState:UIControlStateNormal];
+    [_okbtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _okbtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_bgv addSubview:_okbtn];
+    
+    UIButton * _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(_okbtn.frame.origin.x + 51, 24, 49, 36)];
+    _cancelBtn.layer.borderWidth = 0.5;
+    _cancelBtn.layer.borderColor = [MiddleGrey CGColor];
+    _cancelBtn.layer.cornerRadius = 2;
+    _cancelBtn.layer.masksToBounds = YES;
+    [_cancelBtn addTarget:self action:@selector(_cancelAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_cancelBtn setTitle:@"取 消" forState:UIControlStateNormal];
+    _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_bgv addSubview:_cancelBtn];
+    
+    // table
+    _consigneeHistoryTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, MainHeight - 64) style:UITableViewStylePlain];
+    _consigneeHistoryTV.dataSource = self;
+    _consigneeHistoryTV.delegate = self;
+    _consigneeHistoryTV.backgroundColor = [UIColor clearColor];
+    _consigneeHistoryTV.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    [_mask2 addSubview:_consigneeHistoryTV];
+}
+
+- (void)_okbtnAction:(id)sender{
+    [self _cancelAction:nil];
+}
+
+- (void)_cancelAction:(id)sender{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+    [_bgv removeFromSuperview];
+    _bgv = nil;
+    [_mask2 removeFromSuperview];
+    _mask2 = nil;
 }
 
 @end

@@ -215,7 +215,7 @@ fprintf(stderr, "-------\n");                                               \
 #elif 0
     #define OPEN_API_SEVER @"http://edsapi.yitaoyun.net/"       //线上
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
-#elif 0
+#elif 1
     #define  OPEN_API_SEVER @"http://10.8.7.251:7178/"   //本地服务器 251
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
 #elif 1

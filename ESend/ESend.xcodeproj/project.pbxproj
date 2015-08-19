@@ -11,6 +11,18 @@
 		2EA0CA421B82C72700BBAA63 /* ComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA3F1B82C72700BBAA63 /* ComplaintViewController.m */; };
 		2EA0CA431B82C72700BBAA63 /* ComplaintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA401B82C72700BBAA63 /* ComplaintViewController.xib */; };
 		2EA0CA441B82C72700BBAA63 /* ComplaintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA401B82C72700BBAA63 /* ComplaintViewController.xib */; };
+		2EA0CA6A1B841EA800BBAA63 /* ConsigneeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA691B841EA800BBAA63 /* ConsigneeModel.m */; };
+		2EA0CA6B1B841EA800BBAA63 /* ConsigneeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA691B841EA800BBAA63 /* ConsigneeModel.m */; };
+		2EA0CA6E1B842A1600BBAA63 /* NSString+X136.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA6D1B842A1600BBAA63 /* NSString+X136.m */; };
+		2EA0CA6F1B842A1600BBAA63 /* NSString+X136.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA6D1B842A1600BBAA63 /* NSString+X136.m */; };
+		2EA0CA731B842E3F00BBAA63 /* Security.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA721B842E3F00BBAA63 /* Security.m */; };
+		2EA0CA741B842E3F00BBAA63 /* Security.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA721B842E3F00BBAA63 /* Security.m */; };
+		2EA0CA771B843A0300BBAA63 /* DataArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA761B843A0300BBAA63 /* DataArchive.m */; };
+		2EA0CA781B843A0300BBAA63 /* DataArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA761B843A0300BBAA63 /* DataArchive.m */; };
+		2EA0CA7C1B848F6C00BBAA63 /* ConsigneeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7A1B848F6C00BBAA63 /* ConsigneeInfoCell.m */; };
+		2EA0CA7D1B848F6C00BBAA63 /* ConsigneeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7A1B848F6C00BBAA63 /* ConsigneeInfoCell.m */; };
+		2EA0CA7E1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */; };
+		2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */; };
 		E402892D1B3C331B00B80417 /* MissionDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E402892C1B3C331B00B80417 /* MissionDetailModel.m */; };
 		E40289311B3C357C00B80417 /* MissionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E40289301B3C357C00B80417 /* MissionDetailViewController.m */; };
 		E46C49261B3C48BC00CE0033 /* MDOrderInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E46C49251B3C48BC00CE0033 /* MDOrderInfoCell.m */; };
@@ -471,6 +483,17 @@
 		2EA0CA3E1B82C72700BBAA63 /* ComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComplaintViewController.h; sourceTree = "<group>"; };
 		2EA0CA3F1B82C72700BBAA63 /* ComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplaintViewController.m; sourceTree = "<group>"; };
 		2EA0CA401B82C72700BBAA63 /* ComplaintViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComplaintViewController.xib; sourceTree = "<group>"; };
+		2EA0CA681B841EA800BBAA63 /* ConsigneeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeModel.h; sourceTree = "<group>"; };
+		2EA0CA691B841EA800BBAA63 /* ConsigneeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsigneeModel.m; sourceTree = "<group>"; };
+		2EA0CA6C1B842A1600BBAA63 /* NSString+X136.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+X136.h"; path = "../NSString+X136.h"; sourceTree = "<group>"; };
+		2EA0CA6D1B842A1600BBAA63 /* NSString+X136.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+X136.m"; path = "../NSString+X136.m"; sourceTree = "<group>"; };
+		2EA0CA711B842E3F00BBAA63 /* Security.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Security.h; sourceTree = "<group>"; };
+		2EA0CA721B842E3F00BBAA63 /* Security.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Security.m; sourceTree = "<group>"; };
+		2EA0CA751B843A0300BBAA63 /* DataArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataArchive.h; sourceTree = "<group>"; };
+		2EA0CA761B843A0300BBAA63 /* DataArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataArchive.m; sourceTree = "<group>"; };
+		2EA0CA791B848F6C00BBAA63 /* ConsigneeInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeInfoCell.h; sourceTree = "<group>"; };
+		2EA0CA7A1B848F6C00BBAA63 /* ConsigneeInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsigneeInfoCell.m; sourceTree = "<group>"; };
+		2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsigneeInfoCell.xib; sourceTree = "<group>"; };
 		E402892B1B3C331B00B80417 /* MissionDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailModel.h; sourceTree = "<group>"; };
 		E402892C1B3C331B00B80417 /* MissionDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionDetailModel.m; sourceTree = "<group>"; };
 		E402892F1B3C357C00B80417 /* MissionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailViewController.h; sourceTree = "<group>"; };
@@ -1037,6 +1060,17 @@
 			path = complain;
 			sourceTree = "<group>";
 		};
+		2EA0CA701B842E3F00BBAA63 /* IOS */ = {
+			isa = PBXGroup;
+			children = (
+				2EA0CA6C1B842A1600BBAA63 /* NSString+X136.h */,
+				2EA0CA6D1B842A1600BBAA63 /* NSString+X136.m */,
+				2EA0CA711B842E3F00BBAA63 /* Security.h */,
+				2EA0CA721B842E3F00BBAA63 /* Security.m */,
+			);
+			path = IOS;
+			sourceTree = "<group>";
+		};
 		E402892E1B3C356A00B80417 /* Mission */ = {
 			isa = PBXGroup;
 			children = (
@@ -1393,6 +1427,9 @@
 				E48ECF971B3FC5A800F09660 /* OrderDetailSenderTableCell.m */,
 				E48ECF991B3FC5C700F09660 /* OrderDetailReciverTableCell.h */,
 				E48ECF9A1B3FC5C700F09660 /* OrderDetailReciverTableCell.m */,
+				2EA0CA791B848F6C00BBAA63 /* ConsigneeInfoCell.h */,
+				2EA0CA7A1B848F6C00BBAA63 /* ConsigneeInfoCell.m */,
+				2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1593,6 +1630,7 @@
 				F6C6AD031B12F42E0007A980 /* OBGradientView.m */,
 				F6C6AD041B12F42E0007A980 /* PlaceholderTextView.h */,
 				F6C6AD051B12F42E0007A980 /* PlaceholderTextView.m */,
+				2EA0CA701B842E3F00BBAA63 /* IOS */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -1622,6 +1660,10 @@
 				F6441B231B3BD99C00EA3C9D /* ChildOrderModel.m */,
 				E402892B1B3C331B00B80417 /* MissionDetailModel.h */,
 				E402892C1B3C331B00B80417 /* MissionDetailModel.m */,
+				2EA0CA681B841EA800BBAA63 /* ConsigneeModel.h */,
+				2EA0CA691B841EA800BBAA63 /* ConsigneeModel.m */,
+				2EA0CA751B843A0300BBAA63 /* DataArchive.h */,
+				2EA0CA761B843A0300BBAA63 /* DataArchive.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2001,6 +2043,7 @@
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
 				F67D35F71B5664A600083DA4 /* blue_btn_pre@2x.png in Resources */,
 				F67D35F81B5664A600083DA4 /* Main.storyboard in Resources */,
+				2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
 				F67D35F91B5664A600083DA4 /* phone_icon@2x.png in Resources */,
 				F67D35FA1B5664A600083DA4 /* Images 19-52-49-033.xcassets in Resources */,
 				F67D35FB1B5664A600083DA4 /* map_icon@2x.png in Resources */,
@@ -2055,6 +2098,7 @@
 				F6C6AE741B18386C0007A980 /* password_icon@2x.png in Resources */,
 				F6C6AC431B12F2640007A980 /* LaunchScreen.xib in Resources */,
 				F6C6AD8D1B12F42F0007A980 /* MJPhotoBrowser.bundle in Resources */,
+				2EA0CA7E1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
 				F62A73EE1B5CCA84001632B5 /* 2@3x.png in Resources */,
 				F66CA1281B1DC407006BDDB8 /* blue_border_btn_nor@2x.png in Resources */,
 				F637CF511B437F5700410C24 /* PushConfig.plist in Resources */,
@@ -2144,6 +2188,7 @@
 				F67D35711B5664A600083DA4 /* NSDataEx.m in Sources */,
 				F67D35721B5664A600083DA4 /* AppDelegate.mm in Sources */,
 				F67D35731B5664A600083DA4 /* OBGradientView.m in Sources */,
+				2EA0CA6B1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F67D35741B5664A600083DA4 /* MDSenderDetailCell.m in Sources */,
 				F6F7033A1B6A52B80094E7A8 /* JKAlertDialog.m in Sources */,
 				F67D35751B5664A600083DA4 /* UIView+WebCacheOperation.m in Sources */,
@@ -2203,6 +2248,7 @@
 				F67D35AA1B5664A600083DA4 /* ThirdOrderTableViewCell.m in Sources */,
 				F67D35AB1B5664A600083DA4 /* RegisterViewController.m in Sources */,
 				F67D35AC1B5664A600083DA4 /* MJRefreshBackGifFooter.m in Sources */,
+				2EA0CA7D1B848F6C00BBAA63 /* ConsigneeInfoCell.m in Sources */,
 				F67D35AD1B5664A600083DA4 /* CWStarRateView.m in Sources */,
 				F67D35AE1B5664A600083DA4 /* UIImage+WebP.m in Sources */,
 				F67D35AF1B5664A600083DA4 /* MJRefreshAutoNormalFooter.m in Sources */,
@@ -2214,7 +2260,9 @@
 				F67D35B51B5664A600083DA4 /* SubOrderModel.m in Sources */,
 				F67D35B61B5664A600083DA4 /* MJRefreshFooter.m in Sources */,
 				F67D35B71B5664A600083DA4 /* MJPhoto.m in Sources */,
+				2EA0CA781B843A0300BBAA63 /* DataArchive.m in Sources */,
 				F67D35B81B5664A600083DA4 /* MPNotificationView.m in Sources */,
+				2EA0CA6F1B842A1600BBAA63 /* NSString+X136.m in Sources */,
 				F67D35B91B5664A600083DA4 /* UIProgressView+AFNetworking.m in Sources */,
 				F67D35BA1B5664A600083DA4 /* DZNSegmentedControl.m in Sources */,
 				F67D35BB1B5664A600083DA4 /* ExpensesMonthDataModel.m in Sources */,
@@ -2224,6 +2272,7 @@
 				F67D35BF1B5664A600083DA4 /* UserInfo.m in Sources */,
 				F67D35C01B5664A600083DA4 /* HYUploadImage.m in Sources */,
 				F67D35C11B5664A600083DA4 /* MineCell.m in Sources */,
+				2EA0CA741B842E3F00BBAA63 /* Security.m in Sources */,
 				F67D35C21B5664A600083DA4 /* AFSecurityPolicy.m in Sources */,
 				F67D35C31B5664A600083DA4 /* HelpViewController.m in Sources */,
 				F67D35C41B5664A600083DA4 /* ACETelPrompt.m in Sources */,
@@ -2328,6 +2377,7 @@
 				F6C6AC381B12F2640007A980 /* AppDelegate.mm in Sources */,
 				F6C6AD9F1B12F42F0007A980 /* OBGradientView.m in Sources */,
 				E46C49351B3C4A2D00CE0033 /* MDSenderDetailCell.m in Sources */,
+				2EA0CA6A1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F6C6ADB41B12F42F0007A980 /* UIView+WebCacheOperation.m in Sources */,
 				F652876C1B3E3DE300738E64 /* MJRefreshNormalHeader.m in Sources */,
 				F6F703191B68D8740094E7A8 /* JKAlertDialog.m in Sources */,
@@ -2387,6 +2437,7 @@
 				F6C6AE801B185F630007A980 /* RegisterViewController.m in Sources */,
 				F65287681B3E3DE300738E64 /* MJRefreshBackGifFooter.m in Sources */,
 				F6C6AD821B12F42F0007A980 /* CWStarRateView.m in Sources */,
+				2EA0CA7C1B848F6C00BBAA63 /* ConsigneeInfoCell.m in Sources */,
 				F6C6ADB11B12F42F0007A980 /* UIImage+WebP.m in Sources */,
 				F65287661B3E3DE300738E64 /* MJRefreshAutoNormalFooter.m in Sources */,
 				F66CA1541B1EEF9C006BDDB8 /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
@@ -2398,7 +2449,9 @@
 				F65287631B3E3DE300738E64 /* MJRefreshFooter.m in Sources */,
 				F6C6AD8C1B12F42F0007A980 /* MJPhoto.m in Sources */,
 				F6C6AD9D1B12F42F0007A980 /* MPNotificationView.m in Sources */,
+				2EA0CA771B843A0300BBAA63 /* DataArchive.m in Sources */,
 				F6C6ADBA1B12F42F0007A980 /* UIProgressView+AFNetworking.m in Sources */,
+				2EA0CA6E1B842A1600BBAA63 /* NSString+X136.m in Sources */,
 				F6C6AD871B12F42F0007A980 /* DZNSegmentedControl.m in Sources */,
 				E482C3681B3EA1A7008471E8 /* ExpensesMonthDataModel.m in Sources */,
 				F6C6AD8B1B12F42F0007A980 /* MBProgressHUD.m in Sources */,
@@ -2408,6 +2461,7 @@
 				F6C6AD891B12F42F0007A980 /* HYUploadImage.m in Sources */,
 				F6441B2C1B3C1E9B00EA3C9D /* MineCell.m in Sources */,
 				F6C6AD751B12F42F0007A980 /* AFSecurityPolicy.m in Sources */,
+				2EA0CA731B842E3F00BBAA63 /* Security.m in Sources */,
 				F61C76271B468093009051B9 /* HelpViewController.m in Sources */,
 				F6C6AD701B12F42F0007A980 /* ACETelPrompt.m in Sources */,
 				F6C6AD7B1B12F42F0007A980 /* CustomTextField.m in Sources */,
