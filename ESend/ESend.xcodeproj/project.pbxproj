@@ -23,7 +23,7 @@
 		2EA0CA7D1B848F6C00BBAA63 /* ConsigneeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7A1B848F6C00BBAA63 /* ConsigneeInfoCell.m */; };
 		2EA0CA7E1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */; };
 		2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */; };
-		2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; };
+		2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E402892D1B3C331B00B80417 /* MissionDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E402892C1B3C331B00B80417 /* MissionDetailModel.m */; };
 		E40289311B3C357C00B80417 /* MissionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E40289301B3C357C00B80417 /* MissionDetailViewController.m */; };
