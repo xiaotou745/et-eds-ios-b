@@ -15,7 +15,9 @@
     if (self) {
         self.binkId = [dic getStringWithKey:@"Id"];
         self.bankUserName = [dic getStringWithKey:@"TrueName"];
-        self.bankCardNumber = [dic getStringWithKey:@"AccountNo"];
+        
+        self.bankCardNumber = [Security AesDecrypt:[dic getStringWithKey:@"AccountNo"]];  // 揭秘
+        
         self.accountType = [dic getIntegerWithKey:@"AccountType"];
         self.BelongType = [dic getIntegerWithKey:@"BelongType"];
 

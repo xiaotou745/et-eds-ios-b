@@ -34,7 +34,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     size_t numBytesCrypted = 0;
     CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt,
                                           kCCAlgorithmAES128,
-                                          kCCOptionPKCS7Padding|kCCOptionPKCS7Padding,
+                                          kCCOptionPKCS7Padding|kCCOptionECBMode,
                                           keyPtr,
                                           kCCBlockSizeAES128,
                                           nil,
@@ -70,7 +70,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     size_t numBytesCrypted = 0;
     CCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt,
                                           kCCAlgorithmAES128,
-                                          kCCOptionPKCS7Padding|kCCOptionPKCS7Padding,
+                                          kCCOptionPKCS7Padding|kCCOptionECBMode,
                                           keyPtr,
                                           kCCBlockSizeAES128,
                                           nil,
@@ -207,6 +207,17 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     }
     
     return [[NSString alloc] initWithBytesNoCopy:characters length:length encoding:NSASCIIStringEncoding freeWhenDone:YES];
+}
+
+
+
++(NSString *)JsonStringWithDictionary:(NSDictionary *)dict{
+    NSError *parseError = nil;
+    //NSDictionary转换为Data
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&parseError];
+    //Data转换为JSON
+    NSString* str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    return str;
 }
 
 @end

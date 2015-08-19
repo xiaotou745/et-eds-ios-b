@@ -110,11 +110,21 @@
     
     
     NSDictionary *requestData = @{@"phoneNo"    : _usernameTF.text,
-                                  @"passWord"   : [_passwordTF.text ETSMD5],//@"36B8653D62598A052A7B0CDCA1C3DCDD"//
+                                  @"passWord"   :[_passwordTF.text ETSMD5],//@"36B8653D62598A052A7B0CDCA1C3DCDD"//
                                   @"ssid"       : [UserInfo getUUID]
                                   };
+
+    NSString * jsonString2 = [requestData JSONString];
+    
+    NSString * aesString = [Security AesEncrypt:jsonString2];
+    
+    NSDictionary * requestData2 = @{
+                    @"data":aesString,
+                    @"Version":[Tools getApplicationVersion],
+                    };
+    
     [_submitBtn starLoadding];
-    [FHQNetWorkingAPI login:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+    [FHQNetWorkingAPI login:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
         [Tools hiddenKeyboard];
         [UserInfo saveUserInfo:result];

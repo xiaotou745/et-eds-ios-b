@@ -27,4 +27,23 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:self];
 }
+
+
+// 6到16位数字字母
+- (BOOL)isRightPasswordFormat
+{
+    NSString *passWordRegex        = @"^[a-zA-Z0-9]{6,16}+$";
+    NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",passWordRegex];
+    return [passWordPredicate evaluateWithObject:self];
+}
+
+
+
+// 0到6位数字字母
+- (BOOL)isRightVerifyFormat
+{
+    NSString *passWordRegex        = @"^[a-zA-Z0-9]{0,6}+$";
+    NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",passWordRegex];
+    return [passWordPredicate evaluateWithObject:self];
+}
 @end

@@ -171,6 +171,12 @@
         return;
     }
     
+    if (![_veriftyTF.text isRightVerifyFormat]) {
+        [Tools showHUD:@"请填写正确的验证码!"];
+        [_veriftyTF becomeFirstResponder];
+        return;
+    }
+    
     if (_passwordTF.text.length == 0) {
         [Tools showHUD:@"请输入密码！"];
         [_passwordTF becomeFirstResponder];
@@ -196,8 +202,16 @@
                               @"timespan"   : @([[NSDate date] timeIntervalSince1970]),
                               @"ssid"       : [UserInfo getUUID],
                               };
+    NSString * jsonString2 = [request JSONString];
+    
+    NSString * aesString = [Security AesEncrypt:jsonString2];
+    
+    NSDictionary * requestData2 = @{
+                                    @"data":aesString,
+                                    @"Version":[Tools getApplicationVersion],
+                                    };
     [_submitBtn starLoadding];
-    [FHQNetWorkingAPI registerAccount:request successBlock:^(id result, AFHTTPRequestOperation *operation) {
+    [FHQNetWorkingAPI registerAccount:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
         [_submitBtn stopLoadding];
         

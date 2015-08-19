@@ -23,6 +23,8 @@
 		2EA0CA7D1B848F6C00BBAA63 /* ConsigneeInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7A1B848F6C00BBAA63 /* ConsigneeInfoCell.m */; };
 		2EA0CA7E1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */; };
 		2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */; };
+		2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; };
+		2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E402892D1B3C331B00B80417 /* MissionDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E402892C1B3C331B00B80417 /* MissionDetailModel.m */; };
 		E40289311B3C357C00B80417 /* MissionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E40289301B3C357C00B80417 /* MissionDetailViewController.m */; };
 		E46C49261B3C48BC00CE0033 /* MDOrderInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E46C49251B3C48BC00CE0033 /* MDOrderInfoCell.m */; };
@@ -494,6 +496,8 @@
 		2EA0CA791B848F6C00BBAA63 /* ConsigneeInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeInfoCell.h; sourceTree = "<group>"; };
 		2EA0CA7A1B848F6C00BBAA63 /* ConsigneeInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsigneeInfoCell.m; sourceTree = "<group>"; };
 		2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsigneeInfoCell.xib; sourceTree = "<group>"; };
+		2EA0CA801B84C05C00BBAA63 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		2EA0CA811B84C05C00BBAA63 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		E402892B1B3C331B00B80417 /* MissionDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailModel.h; sourceTree = "<group>"; };
 		E402892C1B3C331B00B80417 /* MissionDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionDetailModel.m; sourceTree = "<group>"; };
 		E402892F1B3C357C00B80417 /* MissionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailViewController.h; sourceTree = "<group>"; };
@@ -1067,6 +1071,8 @@
 				2EA0CA6D1B842A1600BBAA63 /* NSString+X136.m */,
 				2EA0CA711B842E3F00BBAA63 /* Security.h */,
 				2EA0CA721B842E3F00BBAA63 /* Security.m */,
+				2EA0CA801B84C05C00BBAA63 /* JSONKit.h */,
+				2EA0CA811B84C05C00BBAA63 /* JSONKit.m */,
 			);
 			path = IOS;
 			sourceTree = "<group>";
@@ -2179,6 +2185,7 @@
 				F66D7BBB1B661DC800A6A946 /* EmptyAlterView.m in Sources */,
 				F67D35691B5664A600083DA4 /* DataSigner.m in Sources */,
 				F67D356A1B5664A600083DA4 /* base64.m in Sources */,
+				2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				F67D356B1B5664A600083DA4 /* OrderDetailReciverTableCell.m in Sources */,
 				F67D356C1B5664A600083DA4 /* AFURLSessionManager.m in Sources */,
 				F67D356D1B5664A600083DA4 /* UIImageView+AFNetworking.m in Sources */,
@@ -2368,6 +2375,7 @@
 				F6441B4F1B3D470100EA3C9D /* DataSigner.m in Sources */,
 				F6441B4E1B3D470100EA3C9D /* base64.m in Sources */,
 				E48ECF9B1B3FC5C700F09660 /* OrderDetailReciverTableCell.m in Sources */,
+				2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				F6C6AD791B12F42F0007A980 /* AFURLSessionManager.m in Sources */,
 				F6C6ADB91B12F42F0007A980 /* UIImageView+AFNetworking.m in Sources */,
 				F6C6AC3B1B12F2640007A980 /* ViewController.m in Sources */,

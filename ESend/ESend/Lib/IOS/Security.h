@@ -11,4 +11,5 @@
 @interface Security : NSObject
 +(NSString*)AesEncrypt:(NSString*)str;
 +(NSString*)AesDecrypt:(NSString*)str;
++(NSString *)JsonStringWithDictionary:(NSDictionary *)dict;
 @end

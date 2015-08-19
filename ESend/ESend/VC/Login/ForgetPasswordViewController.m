@@ -142,6 +142,12 @@
         return;
     }
     
+    if (![_veriftyTF.text isRightVerifyFormat]) {
+        [Tools showHUD:@"请填写正确的验证码!"];
+        [_veriftyTF becomeFirstResponder];
+        return;
+    }
+    
     if (_passwordTF.text.length == 0) {
         [Tools showHUD:@"请输入密码！"];
         [_passwordTF becomeFirstResponder];
@@ -163,8 +169,18 @@
     NSDictionary *request = @{@"phoneNumber"    : _usernameTF.text,
                               @"checkCode"      : _veriftyTF.text,
                               @"password"       : [_passwordTF.text ETSMD5],};
+    
+    NSString * jsonString2 = [request JSONString];
+    
+    NSString * aesString = [Security AesEncrypt:jsonString2];
+    
+    NSDictionary * requestData2 = @{
+                                    @"data":aesString,
+                                    @"Version":[Tools getApplicationVersion],
+                                    };
+    
     [_submitBtn starLoadding];
-    [FHQNetWorkingAPI getChangePassword:request successBlock:^(id result, AFHTTPRequestOperation *operation) {
+    [FHQNetWorkingAPI getChangePassword:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
         [_submitBtn stopLoadding];
         
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {

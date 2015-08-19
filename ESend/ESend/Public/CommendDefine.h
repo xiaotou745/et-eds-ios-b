@@ -218,8 +218,11 @@ fprintf(stderr, "-------\n");                                               \
 #elif 1
     #define  OPEN_API_SEVER @"http://10.8.7.251:7178/"   //本地服务器 251
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
-#elif 1
+#elif 0
     #define  OPEN_API_SEVER @"http://10.8.7.40:7178/"   //本地服务器 40
+    #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
+#elif 0
+    #define  OPEN_API_SEVER @"http://10.8.7.44:7178/"   //本地服务器 都海潮
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
 #elif 0
     #define  OPEN_API_SEVER @"http://10.8.8.105:8069/api/ios/" //边亮

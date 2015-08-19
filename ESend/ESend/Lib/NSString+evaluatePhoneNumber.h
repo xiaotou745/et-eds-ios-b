@@ -14,4 +14,12 @@
 
 /// 正确地邮箱格式
 - (BOOL)isValidateEmail;
+
+// 6到16位数字字母
+- (BOOL)isRightPasswordFormat;
+
+// 0到6位数字字母
+- (BOOL)isRightVerifyFormat;
+
+
 @end

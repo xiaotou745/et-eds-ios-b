@@ -59,8 +59,18 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
     NSDictionary *requestData = @{@"BussinessId" : [UserInfo getUserId],
                                   @"version" : @"1.0"};
+    
+    NSString * jsonString2 = [requestData JSONString];
+    
+    NSString * aesString = [Security AesEncrypt:jsonString2];
+    
+    NSDictionary * requestData2 = @{
+                                    @"data":aesString,
+                                    @"Version":[Tools getApplicationVersion],
+                                    };
+    
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    [FHQNetWorkingAPI getSupplierInfo:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+    [FHQNetWorkingAPI getSupplierInfo:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
         _business = result;
         
