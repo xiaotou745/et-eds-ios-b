@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *consigneePhone;
 @property (strong, nonatomic) IBOutlet UILabel *consigneeAddress;
+@property (strong, nonatomic) IBOutlet UILabel *seperator;
 
 @property (strong, nonatomic) ConsigneeModel * consigneeInfo;
 

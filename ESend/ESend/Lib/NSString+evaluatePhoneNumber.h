@@ -21,5 +21,6 @@
 // 0到6位数字字母
 - (BOOL)isRightVerifyFormat;
 
-
+/// 字符串包含字符串
+- (BOOL)includesAString:(NSString *)astring;
 @end

@@ -93,7 +93,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _consigneeArray = [[NSMutableArray alloc] initWithCapacity:0];
     _consigneeArrayForDisplay = [[NSMutableArray alloc] initWithCapacity:0];
     NSArray * localConsignees = [DataArchive storedConsigneesWithShopid:[UserInfo getUserId]];
-    NSLog(@"localConsignee:%@",localConsignees);
+    //NSLog(@"localConsignee:%@",localConsignees);
     [_consigneeArray addObjectsFromArray:localConsignees];
 }
 
@@ -151,9 +151,9 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _phoneTF.textColor = DeepGrey;
     _phoneTF.placeholder = @"收货人电话";
     _phoneTF.text = @"";
-    _phoneTF.clearButtonMode = UITextFieldViewModeAlways;
+    _phoneTF.clearButtonMode = UITextFieldViewModeNever;
     _phoneTF.keyboardType = UIKeyboardTypeNumberPad;
-    UIButton * _phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _phoneTF.frame.size.width, _phoneTF.frame.size.height)];
+    UIButton * _phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 55)];
     _phoneBtn.backgroundColor = [UIColor clearColor];
     [_phoneBtn addTarget:self action:@selector(phoneBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [_phoneTF addSubview:_phoneBtn];
@@ -163,7 +163,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _address.font = [UIFont systemFontOfSize:NormalFontSize];
     _address.placeholder = @"收货地址";
     _address.text = @"";
-    _address.clearButtonMode = UITextFieldViewModeAlways;
+    _address.clearButtonMode = UITextFieldViewModeWhileEditing;
     _address.delegate = self;
     
     _orderNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, MainWidth - 20, 55)];
@@ -337,7 +337,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         
         return 1;
     }else if (tableView == _consigneeHistoryTV) {
-        return _consigneeArray.count;
+        return _consigneeArrayForDisplay.count;
     }else{
         return 0;
     }
@@ -414,6 +414,15 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     }
 
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == _consigneeHistoryTV) {
+        ConsigneeModel * consignee = [_consigneeArrayForDisplay objectAtIndex:indexPath.row];
+        _phoneTF.text = consignee.consigneePhone;
+        _address.text = consignee.consigneeAddress;
+        [self _cancelAction:nil];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -790,7 +799,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - 电话联想
 
 - (void)phoneBtnAction:(id)sender{
     [self showSearchViews];
@@ -806,9 +815,9 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _bgv.layer.borderColor = [MiddleGrey CGColor];
     [self.view addSubview:_bgv];
     
-    _mask2 = [[UIView alloc] initWithFrame:CGRectMake(0, 64, MainWidth, MainHeight - 64)];
+    _mask2 = [[UIView alloc] initWithFrame:CGRectMake(0, 64, MainWidth, MainHeight - 44)];
     _mask2.backgroundColor = [UIColor whiteColor];
-    _mask2.alpha = 0.8f;
+    _mask2.alpha = 0.99f;
     [self.view addSubview:_mask2];
     //
     _phoneTF2 = [[UITextField alloc] initWithFrame:CGRectMake(10, 20, MainWidth - 20 - 100, 44)];
@@ -816,7 +825,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _phoneTF2.font = [UIFont systemFontOfSize:NormalFontSize];
     _phoneTF2.textColor = DeepGrey;
     _phoneTF2.placeholder = @"收货人电话";
-    _phoneTF2.text = @"";
+    _phoneTF2.text = _phoneTF.text;
     _phoneTF2.clearButtonMode = UITextFieldViewModeAlways;
     _phoneTF2.keyboardType = UIKeyboardTypeNumberPad;
     _phoneTF2.delegate = self;
@@ -846,15 +855,17 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     [_bgv addSubview:_cancelBtn];
     
     // table
-    _consigneeHistoryTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, MainHeight - 64) style:UITableViewStylePlain];
+    _consigneeHistoryTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, MainHeight - 44) style:UITableViewStylePlain];
     _consigneeHistoryTV.dataSource = self;
     _consigneeHistoryTV.delegate = self;
     _consigneeHistoryTV.backgroundColor = [UIColor clearColor];
     _consigneeHistoryTV.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    _consigneeHistoryTV.separatorStyle = UITableViewCellSeparatorStyleNone;
     [_mask2 addSubview:_consigneeHistoryTV];
 }
 
 - (void)_okbtnAction:(id)sender{
+    _phoneTF.text = _phoneTF2.text;
     [self _cancelAction:nil];
 }
 
@@ -867,4 +878,28 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _mask2 = nil;
 }
 
+
+#pragma mark - UITextFieldDelegate
+/// 字符变化
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([string isEqualToString:@"\n"])
+    {
+        return YES;
+    }
+    
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    if (textField == _phoneTF2 && toBeString.length >= 3) {
+        // 手机号，超过3级以上，联想
+        [_consigneeArrayForDisplay removeAllObjects];
+        for (ConsigneeModel * aConsignee in _consigneeArray) {
+            if ([aConsignee.consigneePhone containsString:toBeString]) {
+                [_consigneeArrayForDisplay addObject:aConsignee];
+            }
+        }
+        [_consigneeHistoryTV reloadData];
+    }
+    
+    return YES;
+}
 @end

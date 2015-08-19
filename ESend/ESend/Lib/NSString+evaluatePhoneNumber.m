@@ -46,4 +46,20 @@
     NSPredicate *passWordPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",passWordRegex];
     return [passWordPredicate evaluateWithObject:self];
 }
+
+
+/// 字符串包含字符串
+- (BOOL)includesAString:(NSString *)astring{
+    if ([self respondsToSelector:@selector(containsString:)]) {
+        return [self containsString:astring];
+    }else{
+        NSRange arange = [self rangeOfString:astring options:NSCaseInsensitiveSearch];
+        //NSLog(@"%@",NSStringFromRange(arange));
+        if (arange.length == 0) {
+            return NO;
+        }else{
+            return YES;
+        }
+    }
+}
 @end

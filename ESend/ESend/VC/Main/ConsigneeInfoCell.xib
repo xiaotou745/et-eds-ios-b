@@ -15,32 +15,45 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6BO-bf-pW4" userLabel="手机">
-                        <rect key="frame" x="0.0" y="0.0" width="321" height="39"/>
+                        <rect key="frame" x="10" y="0.0" width="301" height="38"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZA-LG-p3b" userLabel="地址">
-                        <rect key="frame" x="0.0" y="39" width="321" height="38"/>
+                        <rect key="frame" x="10" y="38" width="301" height="38"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pU-u6-Avv">
+                        <rect key="frame" x="0.0" y="76" width="321" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="QXP-xX-df4"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="4pU-u6-Avv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="5V7-eN-w1F"/>
                     <constraint firstItem="6BO-bf-pW4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="BgV-rt-jXn"/>
-                    <constraint firstItem="6BO-bf-pW4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RbI-Py-8GK"/>
+                    <constraint firstItem="6BO-bf-pW4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="RbI-Py-8GK"/>
                     <constraint firstItem="AZA-LG-p3b" firstAttribute="height" secondItem="6BO-bf-pW4" secondAttribute="height" id="Ubr-sT-eF9"/>
-                    <constraint firstAttribute="bottom" secondItem="AZA-LG-p3b" secondAttribute="bottom" id="ahq-1u-BrN"/>
-                    <constraint firstItem="AZA-LG-p3b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bRp-Jk-H2Y"/>
-                    <constraint firstAttribute="trailing" secondItem="6BO-bf-pW4" secondAttribute="trailing" id="fsz-M1-gHL"/>
+                    <constraint firstAttribute="bottom" secondItem="AZA-LG-p3b" secondAttribute="bottom" constant="1" id="ahq-1u-BrN"/>
+                    <constraint firstItem="AZA-LG-p3b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="bRp-Jk-H2Y"/>
+                    <constraint firstAttribute="trailing" secondItem="4pU-u6-Avv" secondAttribute="trailing" id="fhx-jf-hQK"/>
+                    <constraint firstAttribute="trailing" secondItem="6BO-bf-pW4" secondAttribute="trailing" constant="10" id="fsz-M1-gHL"/>
+                    <constraint firstAttribute="bottom" secondItem="4pU-u6-Avv" secondAttribute="bottom" id="pEB-X9-X8q"/>
                     <constraint firstItem="AZA-LG-p3b" firstAttribute="top" secondItem="6BO-bf-pW4" secondAttribute="bottom" id="tco-xP-c9j"/>
-                    <constraint firstAttribute="trailing" secondItem="AZA-LG-p3b" secondAttribute="trailing" id="tlL-Rl-MhZ"/>
+                    <constraint firstAttribute="trailing" secondItem="AZA-LG-p3b" secondAttribute="trailing" constant="10" id="tlL-Rl-MhZ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="consigneeAddress" destination="AZA-LG-p3b" id="6Vw-Q2-zLO"/>
                 <outlet property="consigneePhone" destination="6BO-bf-pW4" id="ojG-DN-4a5"/>
+                <outlet property="seperator" destination="4pU-u6-Avv" id="bvD-a1-ySE"/>
             </connections>
             <point key="canvasLocation" x="378.5" y="265"/>
         </tableViewCell>

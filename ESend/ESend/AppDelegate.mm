@@ -22,6 +22,8 @@
 #import "DataBase.h"
 #import "AddressPickerView.h"
 #import "Tools.h"
+#import "ConsigneeModel.h"
+#import "DataArchive.h"
 
 
 #import "NSString+X136.h"
@@ -446,12 +448,61 @@
             }
             if (ConsigneeAdressBDM.count > 0) {
                 NSLog(@"arr:%@",ConsigneeAdressBDM);
+                // 村本地
+                [self storeConsignees:ConsigneeAdressBDM];
             }else{
-                NSLog(@"array:0");
+                //NSLog(@"array:0");
             }
         } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
             
         }];
+    }
+}
+
+- (void)storeConsignees:(NSArray *)ConsigneeAdressBDM{
+    /*
+     Id	数据库id
+     PhoneNo	电话号码
+     Address	地址
+     PubDate	订单发布时间
+     */
+    NSString * bid = [UserInfo getUserId];
+    
+    for (NSDictionary * adict in ConsigneeAdressBDM) {
+        
+        NSMutableArray * localConsignees = [NSMutableArray arrayWithArray:[DataArchive storedConsigneesWithShopid:bid]];
+        ConsigneeModel * consignee = [[ConsigneeModel alloc] init];
+        consignee.consigneePhone = adict[@"PhoneNo"];
+        consignee.consigneeAddress = adict[@"Address"];
+        consignee.consigneePubDate = adict[@"PubDate"];
+        
+        if (localConsignees.count > 0) {
+            
+            //        for (ConsigneeModel * aConsignee in localConsignees) {
+            //            if ([aConsignee samePhoneWithConsignee:consignee]) {
+            //                localConsignees repla
+            //            }
+            //        }
+            BOOL contain = NO;
+            for (int i = 0; i < localConsignees.count; i ++) {
+                ConsigneeModel * aConsignee = [localConsignees objectAtIndex:i];
+                if ([consignee samePhoneWithConsignee:aConsignee]) {
+                    [localConsignees replaceObjectAtIndex:i withObject:consignee];
+                    contain = YES;
+                    break;
+                }
+                
+            }
+            
+            if (!contain) {
+                [localConsignees addObject:consignee];
+            }
+            
+            [DataArchive storeConsignees:localConsignees shopId:bid];
+            
+        }else{
+            [DataArchive storeConsignees:[NSArray arrayWithObjects:consignee, nil] shopId:bid];
+        }
     }
 }
 

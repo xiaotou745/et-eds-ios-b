@@ -15,12 +15,21 @@
     self.consigneePhone.font = [UIFont boldSystemFontOfSize:16];
     self.consigneeAddress.textColor =
     self.consigneePhone.textColor = [UIColor colorWithHexString:@"333333"];
+    
+    self.seperator.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    self.seperator.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
 
     // Configure the view for the selected state
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    [super setHighlighted:highlighted animated:animated];
+    self.seperator.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+
 }
 
 - (void)setConsigneeInfo:(ConsigneeModel *)consigneeInfo{

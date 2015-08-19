@@ -18,6 +18,8 @@
 @property (nonatomic, copy) NSString * consigneePhone;
 /// 收货地址
 @property (nonatomic, copy) NSString * consigneeAddress;
+/// 发布时间
+@property (nonatomic, copy) NSString * consigneePubDate;
 
 - (BOOL)equalConsignee:(ConsigneeModel *)otherConsignee;
 
