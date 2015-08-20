@@ -145,6 +145,7 @@
     return operation;
 }
 
+/// 忘记密码PostForgetPwd_B 忘记密码
 + (AFHTTPRequestOperation*)getChangePassword:(NSDictionary *)data
                                 successBlock:(successBlock)successBlock
                                      failure:(failureBlock)failure
@@ -164,6 +165,27 @@
     return operation;
 }
 
+
+/// ModifyPwd_B     修改密码
++ (AFHTTPRequestOperation*)getModifyPwd_B:(NSDictionary *)data
+                             successBlock:(successBlock)successBlock
+                                  failure:(failureBlock)failure{
+    NSString *url = @"BusinessAPI/ModifyPwd_B";
+    AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
+        if (successBlock) {
+            successBlock(result, operation);
+        }
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (failure) {
+            failure(error, operation);
+        }
+    } isShowFailAlert:NO failAlertString:nil];
+    
+    return operation;
+}
+
+//// !!!!!! URL 肯定错了
 + (AFHTTPRequestOperation*)getVersion:(successBlock)successBlock failure:(failureBlock)failure isShowError:(BOOL)show {
     
     NSString *url = @"BusinessAPI/PostForgetPwd_B";

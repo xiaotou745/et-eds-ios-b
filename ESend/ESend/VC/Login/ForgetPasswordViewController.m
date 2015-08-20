@@ -16,10 +16,11 @@
 
 @interface ForgetPasswordViewController ()<UITextFieldDelegate, UIAlertViewDelegate>
 {
-    UITextField *_usernameTF;
-    UITextField *_veriftyTF;
-    UITextField *_originPasswordTF;
-    UITextField *_passwordTF;
+    UITextField *_usernameTF;       // 账户名
+    UITextField *_veriftyTF;        // 验证码
+    UITextField *_originPasswordTF; // 原始密码
+    UITextField *_passwordTF;       // 输入密码
+    UITextField *_passwordTF2;      // 重复密码
     LoadingButtton *_submitBtn;
     UIButton *_getVeriftyBtn;
     UILabel *_agreementLabel;
@@ -124,28 +125,44 @@
         _passwordTF.secureTextEntry = YES;
         [_scrollView addSubview:_passwordTF];
     }
-
+    
+    _passwordTF2 = [[self class] createIconTextFieldWithIcon:@"password_icon" placholder:@"再次输入密码"];
+    _passwordTF2.frame = CGRectMake(0, CGRectGetMaxY(_passwordTF.frame) + 20, MainWidth, 55);
+    _passwordTF2.delegate = self;
+    _passwordTF2.secureTextEntry = YES;
+    [_scrollView addSubview:_passwordTF2];
+    
     _submitBtn = [LoadingButtton buttonWithType:UIButtonTypeCustom];
     [_submitBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
     [_submitBtn setTitle:@"确认修改" forState:UIControlStateNormal];
     [_submitBtn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
-    _submitBtn.frame = CGRectMake(10, CGRectGetMaxY(_passwordTF.frame) + 30, MainWidth - 20, 44);
+    _submitBtn.frame = CGRectMake(10, CGRectGetMaxY(_passwordTF2.frame) + 30, MainWidth - 20, 44);
     [_scrollView addSubview:_submitBtn];
 
-    _scrollView.contentSize = CGSizeMake(MainWidth, MainHeight - 43);
+    CGFloat scrollSizeHeight = MAX(MainHeight - 43 , CGRectGetMaxY(_passwordTF2.frame) + 30 + 44 + 10);
+    _scrollView.contentSize = CGSizeMake(MainWidth, scrollSizeHeight);
 }
 
 - (void)refreshOrigin {
     
     _phoneVeriftyLabel.hidden = NO;
     
-    [_veriftyTF changeFrameOriginY:CGRectGetMaxY((_phoneVeriftyLabel.frame))];
-    _passwordTF.frame = CGRectMake(0, CGRectGetMaxY(_veriftyTF.frame) + 20, MainWidth, 55);
-    _submitBtn.frame = CGRectMake(10, CGRectGetMaxY(_passwordTF.frame) + 30, MainWidth - 20, 44);
-    [_agreementLabel changeViewCenterY:CGRectGetMaxY(_submitBtn.frame) + 30];
-    _scrollView.contentSize = CGSizeMake(MainWidth, CGRectGetMaxY(_agreementLabel.frame) + 20);
-    
-    
+    if (_isChangePassword) {
+        [_veriftyTF changeFrameOriginY:CGRectGetMaxY((_phoneVeriftyLabel.frame))];
+        _originPasswordTF.frame = CGRectMake(0, CGRectGetMaxY(_veriftyTF.frame) + 20, MainWidth, 55);
+        _passwordTF.frame = CGRectMake(0, CGRectGetMaxY(_originPasswordTF.frame) + 20, MainWidth, 55);
+        _passwordTF2.frame = CGRectMake(0, CGRectGetMaxY(_passwordTF.frame) + 20, MainWidth, 55);
+        _submitBtn.frame = CGRectMake(10, CGRectGetMaxY(_passwordTF2.frame) + 30, MainWidth - 20, 44);
+        [_agreementLabel changeViewCenterY:CGRectGetMaxY(_submitBtn.frame) + 30];
+        //_scrollView.contentSize = CGSizeMake(MainWidth, CGRectGetMaxY(_agreementLabel.frame) + 20);
+    }else{
+        [_veriftyTF changeFrameOriginY:CGRectGetMaxY((_phoneVeriftyLabel.frame))];
+        _passwordTF.frame = CGRectMake(0, CGRectGetMaxY(_veriftyTF.frame) + 20, MainWidth, 55);
+        _passwordTF2.frame = CGRectMake(0, CGRectGetMaxY(_passwordTF.frame) + 20, MainWidth, 55);
+        _submitBtn.frame = CGRectMake(10, CGRectGetMaxY(_passwordTF2.frame) + 30, MainWidth - 20, 44);
+        [_agreementLabel changeViewCenterY:CGRectGetMaxY(_submitBtn.frame) + 30];
+        //_scrollView.contentSize = CGSizeMake(MainWidth, CGRectGetMaxY(_agreementLabel.frame) + 20);
+    }
 }
 - (void)submit {
     
@@ -202,12 +219,19 @@
         [_passwordTF becomeFirstResponder];
         return;
     }
+    
+    if ([_passwordTF2.text compare:_passwordTF.text] != NSOrderedSame) {
+        [Tools showHUD:@"设置密码与重复输入密码不同"];
+        //[_passwordTF becomeFirstResponder];
+        return;
+    }
+    
     NSDictionary *request = nil;
     if (_isChangePassword) {
         request = @{@"phoneNumber"    : _usernameTF.text,
                     @"checkCode"      : _veriftyTF.text,
                     @"password"       : [_passwordTF.text ETSMD5],
-                    @"oldpassword"    : _originPasswordTF.text,
+                    @"oldpassword"    : [_originPasswordTF.text ETSMD5],
                     };
     }else{
         request = @{@"phoneNumber"    : _usernameTF.text,
@@ -225,31 +249,54 @@
                                     @"Version":[Tools getApplicationVersion],
                                     };
     
-    [_submitBtn starLoadding];
-    [FHQNetWorkingAPI getChangePassword:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
-        [_submitBtn stopLoadding];
+    if (_isChangePassword) { // 修改密码
         
-    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        [_submitBtn stopLoadding];
-        NSLog(@"%@",error.userInfo);
-        if ([error.userInfo getIntegerWithKey:@"Status"] == 0) {
-            [Tools showHUD:@"修改成功"];
-            if (_isChangePassword) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
-                [UserInfo clearUserInfo];
-                [APPDLE showLoginAnimated:YES];
-                [[NSNotificationCenter defaultCenter] postNotificationName:LogoutNotifaction object:nil];
+        [_submitBtn starLoadding];
+        [FHQNetWorkingAPI getModifyPwd_B:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
+            [_submitBtn stopLoadding];
+        } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+            [_submitBtn stopLoadding];
+            NSLog(@"%@",error.userInfo);
+            if ([error.userInfo getIntegerWithKey:@"Status"] == 0) {
+                [Tools showHUD:@"修改成功"];
 
+                // 退出重新登录
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                    [UserInfo clearUserInfo];
+                    [APPDLE showLoginAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:LogoutNotifaction object:nil];
+
+
+                
+                
             } else {
-                [self.navigationController popViewControllerAnimated:YES];
+                [Tools showHUD:@"修改失败"];
+            }
+        }];
+
+        
+    }else{ // 忘记密码
+        
+        [_submitBtn starLoadding];
+        [FHQNetWorkingAPI getChangePassword:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
+            [_submitBtn stopLoadding];
+            
+        } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+            [_submitBtn stopLoadding];
+            NSLog(@"%@",error.userInfo);
+            if ([error.userInfo getIntegerWithKey:@"Status"] == 0) {
+                [Tools showHUD:@"修改成功"];
+
+                    [self.navigationController popViewControllerAnimated:YES];
+                
+                
+            } else {
+                [Tools showHUD:@"修改失败"];
             }
             
+        }];
+    }
 
-        } else {
-            [Tools showHUD:@"修改失败"];
-        }
-        
-    }];
     
 }
 

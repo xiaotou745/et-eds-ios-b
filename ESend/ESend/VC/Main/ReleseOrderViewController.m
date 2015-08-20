@@ -29,8 +29,9 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 {
     UITableView *_tableView;
     
-    UITextField *_phoneTF;
-    UITextField *_address;
+    UITextField *_phoneTF;              // 收货人手机
+    UITextField *_address;              // 收货人地址
+    UITextField *_personName;             // 收货人名称
     
     QRadioButton *_completePayBtn;
     QRadioButton *_unpaidPayBtn;
@@ -153,10 +154,10 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _phoneTF.text = @"";
     _phoneTF.clearButtonMode = UITextFieldViewModeNever;
     _phoneTF.keyboardType = UIKeyboardTypeNumberPad;
-    UIButton * _phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 55)];
-    _phoneBtn.backgroundColor = [UIColor clearColor];
-    [_phoneBtn addTarget:self action:@selector(phoneBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_phoneTF addSubview:_phoneBtn];
+//    UIButton * _phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 55)];
+//    _phoneBtn.backgroundColor = [UIColor clearColor];
+//    [_phoneBtn addTarget:self action:@selector(phoneBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [_phoneTF addSubview:_phoneBtn];
     
     _address = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, MainWidth - 20, 55)];
     _address.textColor = DeepGrey;
@@ -165,6 +166,14 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _address.text = @"";
     _address.clearButtonMode = UITextFieldViewModeWhileEditing;
     _address.delegate = self;
+    
+    _personName = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, MainWidth - 20, 55)];
+    _personName.textColor = DeepGrey;
+    _personName.font = [UIFont systemFontOfSize:NormalFontSize];
+    _personName.placeholder = @"收货人姓名";
+    _personName.text = @"";
+    _personName.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _personName.delegate = self;
     
     _orderNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, MainWidth - 20, 55)];
     _orderNumberLabel.textColor = DeepGrey;
@@ -191,7 +200,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _unpaidPayBtn.frame = CGRectMake(170, 0, 120, 55);
     [_payStatusView addSubview:_unpaidPayBtn];
     
-    [_cellViews addObjectsFromArray:@[_phoneTF, _address, _payStatusView,_orderNumberLabel]];
+    [_cellViews addObjectsFromArray:@[_phoneTF, _address, _personName,_payStatusView,_orderNumberLabel]];
     
     //创建添加新订单的界面
     _addNewOrderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 55)];
@@ -565,6 +574,11 @@ typedef NS_ENUM(NSInteger, PayStatus) {
             [Tools showHUD:@"请填写地址"];
             return NO;
         }
+        
+        if (_personName.text.length >= 20) {
+            [Tools showHUD:@"收货人姓名长度不能超过20位"];
+            return NO;
+        }
     }
     
     if (_remarkTF.text.length > 50) {
@@ -888,7 +902,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     }
     
     NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    
+   // NSLog(@"%@",toBeString);
     if (textField == _phoneTF2 && toBeString.length >= 3) {
         // 手机号，超过3级以上，联想
         [_consigneeArrayForDisplay removeAllObjects];
@@ -898,6 +912,14 @@ typedef NS_ENUM(NSInteger, PayStatus) {
             }
         }
         [_consigneeHistoryTV reloadData];
+    }
+    
+    if (textField == _personName) {
+        if ([toBeString length] > 20) {
+            textField.text = [toBeString substringToIndex:20];
+            [Tools showHUD:@"收货人姓名长度不能超过20位"];
+            return NO;
+        }
     }
     
     return YES;

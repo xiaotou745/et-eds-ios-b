@@ -53,10 +53,17 @@
                              successBlock:(successBlock)successBlock
                                   failure:(failureBlock)failure;
 
-//修改密码
+/// 忘记密码PostForgetPwd_B 忘记密码
 + (AFHTTPRequestOperation*)getChangePassword:(NSDictionary *)data
                                 successBlock:(successBlock)successBlock
                                      failure:(failureBlock)failure;
+
+
+/// ModifyPwd_B     修改密码
++ (AFHTTPRequestOperation*)getModifyPwd_B:(NSDictionary *)data
+                                successBlock:(successBlock)successBlock
+                                     failure:(failureBlock)failure;
+
 
 //获取版本
 + (AFHTTPRequestOperation*)getVersion:(successBlock)successBlock
