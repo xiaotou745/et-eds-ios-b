@@ -16,19 +16,19 @@
                      successBlock:(successBlock)successBlock
                           failure:(failureBlock)failure{
     NSString *url = @"Common/VersionCheck";
-    AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
+    
+    AFHTTPRequestOperation * operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
             successBlock(result, operation);
         }
-        
-        
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
         if (failure) {
             failure(error, operation);
         }
-    } isShowFailAlert:NO failAlertString:@""];
+    } isShowFailAlert:NO failAlertString:@"" host:UPDATE_APP_API_SERVER];
     
     return operation;
+    
 }
 
 

@@ -32,6 +32,15 @@ typedef void (^failureBlock) (NSError *error, AFHTTPRequestOperation *operation)
 + (AFHTTPRequestOperation*)httpRequestWithUrl:(NSString*)urlString
                                    methodType:(NSString*)methodType
                                     prameters:(NSDictionary*)pramaters
+                                      success:(successBlock)successBlock
+                                      failure:(failureBlock)failBlock
+                              isShowFailAlert:(BOOL)isShowFailAlert
+                              failAlertString:(NSString*)failAlertString
+                                         host:(NSString *)host;
+
++ (AFHTTPRequestOperation*)httpRequestWithUrl:(NSString*)urlString
+                                   methodType:(NSString*)methodType
+                                    prameters:(NSDictionary*)pramaters
                                     imageDatas:(NSArray*)imageDatas
                                       success:(successBlock)successBlock
                                       failure:(failureBlock)failBlock

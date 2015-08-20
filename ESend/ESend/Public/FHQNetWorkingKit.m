@@ -34,53 +34,54 @@
                                       success:(successBlock)successBlock
                                       failure:(failureBlock)failBlock
                               isShowFailAlert:(BOOL)isShowFailAlert
-                              failAlertString:(NSString*)failAlertString {
+                              failAlertString:(NSString*)failAlertString
+                                         host:(NSString *)host{
     
-    AFHTTPRequestOperationManager *manager = [self getHTTPSessionManagerWithHost:nil];
+    AFHTTPRequestOperationManager *manager = [self getHTTPSessionManagerWithHost:host];
     AFHTTPRequestOperation *operation = nil;
     
     //post请求
     if ([[methodType uppercaseString] isEqualToString:@"POST"]) {
-         operation = [manager POST:urlString
+        operation = [manager POST:urlString
                        parameters:pramaters
-                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSError *error = [self fiterResult:responseObject];
-
-            if (error) {
-                if (failBlock) {
-                    failBlock (error, operation);
-                }
-                
-                if (isShowFailAlert) {
-                    NSString *message = isCanUseString(failAlertString) ? failAlertString : [responseObject objectForKey:@"Message"];
-                    [self showFailAlert:error message:message];
-                }
-                
-            } else if (successBlock) {
-                successBlock([responseObject objectForKey:@"Result"], operation) ;
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
-            if (operation.response.statusCode == 200) {
-                NSLog(@"%@",operation.responseString);
-            } else {
-                NSLog(@"%@",error);
-            }
-            
-            if (failBlock) {
-                failBlock (error, operation);
-                if (isShowFailAlert) {
-                    [self showFailAlert:error message:failAlertString];
-                }
-            }
-        }];
+                          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                              NSError *error = [self fiterResult:responseObject];
+                              
+                              if (error) {
+                                  if (failBlock) {
+                                      failBlock (error, operation);
+                                  }
+                                  
+                                  if (isShowFailAlert) {
+                                      NSString *message = isCanUseString(failAlertString) ? failAlertString : [responseObject objectForKey:@"Message"];
+                                      [self showFailAlert:error message:message];
+                                  }
+                                  
+                              } else if (successBlock) {
+                                  successBlock([responseObject objectForKey:@"Result"], operation) ;
+                              }
+                          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                              
+                              if (operation.response.statusCode == 200) {
+                                  NSLog(@"%@",operation.responseString);
+                              } else {
+                                  NSLog(@"%@",error);
+                              }
+                              
+                              if (failBlock) {
+                                  failBlock (error, operation);
+                                  if (isShowFailAlert) {
+                                      [self showFailAlert:error message:failAlertString];
+                                  }
+                              }
+                          }];
         
     } else {
-       
+        
         //get请求
         operation = [manager GET:urlString parameters:pramaters success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSError *error = [self fiterResult:responseObject];
-
+            
             if (error) {
                 if (failBlock) {
                     failBlock (error, operation);
@@ -93,7 +94,7 @@
                 successBlock([responseObject objectForKey:@"Result"], operation) ;
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
+            
             if (operation.response.statusCode == 200) {
                 NSLog(@"%@",operation.responseString);
             } else {
@@ -110,6 +111,17 @@
     }
     
     return operation;
+
+}
+
++ (AFHTTPRequestOperation*)httpRequestWithUrl:(NSString*)urlString
+                                   methodType:(NSString*)methodType
+                                    prameters:(NSDictionary*)pramaters
+                                      success:(successBlock)successBlock
+                                      failure:(failureBlock)failBlock
+                              isShowFailAlert:(BOOL)isShowFailAlert
+                              failAlertString:(NSString*)failAlertString {
+    return [self httpRequestWithUrl:urlString methodType:methodType prameters:pramaters success:successBlock failure:failBlock isShowFailAlert:isShowFailAlert failAlertString:failAlertString host:nil];
 }
 
 + (AFHTTPRequestOperation*)httpRequestWithUrl:(NSString*)urlString

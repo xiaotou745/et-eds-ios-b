@@ -269,7 +269,13 @@
 
                 
                 
-            } else {
+            }else if ([error.userInfo getIntegerWithKey:@"Status"] == -9){
+                [Tools showHUD:@"原密码错误"];
+
+            }else if ([error.userInfo getIntegerWithKey:@"Status"] == 5){
+                [Tools showHUD:@"验证码错误"];
+                
+            }else {
                 [Tools showHUD:@"修改失败"];
             }
         }];

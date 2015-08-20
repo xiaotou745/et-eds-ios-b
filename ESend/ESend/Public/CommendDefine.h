@@ -208,8 +208,9 @@ fprintf(stderr, "-------\n");                                               \
 
 
 #if 0
-    #define OPEN_API_SEVER @"http://api.edaisong.com/20150806/" //生产
-    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20150806/" //上传图片地址
+    #define OPEN_API_SEVER @"http://api.edaisong.com/20150820/" //生产
+    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20150820/" //上传图片地址
+    #define UPDATE_APP_API_SERVER @"http://api.edaisong.com/" // 升级接口
 #elif 0
     #define OPEN_API_SEVER @"http://10.8.10.130:8081/"   //曹赫洋
 #elif 0
@@ -218,9 +219,13 @@ fprintf(stderr, "-------\n");                                               \
 #elif 1
     #define  OPEN_API_SEVER @"http://10.8.7.251:7178/"   //本地服务器 251
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
+    #define UPDATE_APP_API_SERVER  @""// 升级接口
+
 #elif 0
     #define  OPEN_API_SEVER @"http://10.8.7.40:7178/"   //本地服务器 40
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
+    #define UPDATE_APP_API_SERVER  @""// 升级接口
+
 #elif 0
     #define  OPEN_API_SEVER @"http://10.8.7.44:7178/"   //本地服务器 都海潮
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
