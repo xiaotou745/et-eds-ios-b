@@ -395,6 +395,10 @@ typedef NS_ENUM(NSInteger, PayStatus) {
                 _isFirst = NO;
             }
             
+            if(_priceTFList.count == 1){
+                cell.deleteBtn.hidden = YES;
+            }
+            
             return cell;
         };
         
@@ -477,6 +481,12 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 
 - (void)removeNewOrderCell:(AddOrderTableViewCell *)addOrderTableViewCell {
     
+    // 只有一个cell不能删除
+    if (_priceTFList.count == 1) {
+        [Tools showHUD:@"至少有一个订单"];
+        return;
+    }
+    
     
     NSIndexPath *indexPath = [_tableView indexPathForCell:addOrderTableViewCell];
     [_priceTFList removeObjectAtIndex:indexPath.row];
@@ -518,6 +528,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     [self changeValue];
 }
 
+/// 修改金额
 - (void)priceChange:(NSNotification*)sender {
     
     if (sender && ![_priceTFList containsObject:sender.object]) {
