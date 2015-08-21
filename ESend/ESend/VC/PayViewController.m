@@ -155,6 +155,15 @@
 
 - (void)submit {
     
+    NSString * asb = _rechargeTF.text;
+    float asbF = [asb floatValue];
+    //NSLog(@"%@,%f",asb,asbF);
+    
+    if (asbF < 0.01f) {
+        [Tools showHUD:@"充值金额不能少于0.01元"];
+        return;
+    }
+    
     CGFloat price = [_rechargeTF.text floatValue] * 100;
     NSLog(@"%f",price);
     price = ceilf(price)/100.f;

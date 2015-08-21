@@ -207,7 +207,7 @@ fprintf(stderr, "-------\n");                                               \
 
 
 
-#if 0
+#if 1
     #define OPEN_API_SEVER @"http://api.edaisong.com/20150820/" //生产
     #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20150820/" //上传图片地址
     #define UPDATE_APP_API_SERVER @"http://api.edaisong.com/" // 升级接口

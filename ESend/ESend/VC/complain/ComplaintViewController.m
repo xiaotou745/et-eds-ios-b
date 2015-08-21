@@ -71,6 +71,21 @@
 }
 
 - (void)complaintAction{
+    
+    NSString *validateLength=[[self.complaintTextView.text stringByReplacingOccurrencesOfString:@" " withString:@""]stringByReplacingOccurrencesOfString:@"\n" withString:@""] ;
+    
+    if ([@"" isEqualToString:validateLength]) {
+        [Tools showHUD:@"请输入投诉内容"];
+        self.complaintTextView.text=@"";
+        return;
+    }
+    
+    if (validateLength.length<5||validateLength.length>50) {
+        [Tools showHUD:@"请输入5-50个汉字或字符"];
+        // self.SCCTextView.text=@"";
+        return;
+    }
+    
     [self.complaintTextView resignFirstResponder];
     long cid = self.orderModel.ClienterId;
     long bid = self.orderModel.businessId;
