@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self beginLoacation ];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,8 +49,8 @@
     self.titleLabel.text = @"地址选择";
     
     [self.rightBtn setTitle:@"保存" forState:UIControlStateNormal];
-    [self.rightBtn addTarget:self action:@selector(saveAddress) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.rightBtn addTarget:self action:@selector(saveAddress:) forControlEvents:UIControlEventTouchUpInside];
+    self.rightBtn.enabled = YES;
     
     _mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 64, MainWidth, ScreenHeight - 64)];
     _mapView.zoomLevel = 18;
@@ -103,7 +103,9 @@
     }
 }
 
-- (void)saveAddress {
+- (void)saveAddress:(UIButton *)sender {
+    
+    self.rightBtn.enabled= NO;
     
     if (!_searcher) {
         _searcher =[[BMKGeoCodeSearch alloc]init];
@@ -123,6 +125,8 @@
     } else {
         NSLog(@"反geo检索发送失败");
         [Tools showHUD:@"定位失败！"];
+        self.rightBtn.enabled= YES;
+
     }
     
     
@@ -156,15 +160,20 @@
           [_delegate mapViewControllerFinshLoacation:result origin:origin];
       }
       
-      if (self.navigationController.topViewController == self) {
-          [self.navigationController popViewControllerAnimated:YES];
-      }
 
+      if (self.rightBtn.enabled == NO) {
+          if (self.navigationController.topViewController == self) {
+              self.rightBtn.enabled = YES;
+
+              [self.navigationController popViewControllerAnimated:YES];
+          }
+      }
       
   }
   else {
       [Tools showHUD:@"未找到结果"];
       NSLog(@"抱歉，未找到结果");
+      self.rightBtn.enabled = YES;
   }
 }
 
