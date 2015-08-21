@@ -250,6 +250,20 @@ typedef NS_ENUM(NSInteger, BottomType) {
         return;
     }
     
+
+    
+    if (tap.view.tag == 1002) {
+        OrderStatisticsViewController *vc = [[OrderStatisticsViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    
+    if (tap.view.tag == 1000) {
+        ExpensesViewController *vc = [[ExpensesViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    
     if ([UserInfo getStatus] != UserStatusComplete) {
         
         [Tools showHUD:@"暂时无法进行该操作！"];
@@ -263,18 +277,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
-    
-    if (tap.view.tag == 1002) {
-        OrderStatisticsViewController *vc = [[OrderStatisticsViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
-        return;
-    }
-    
-    if (tap.view.tag == 1000) {
-        ExpensesViewController *vc = [[ExpensesViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
-        return;
-    }
 }
 
 - (void)clickMore {
@@ -284,12 +286,12 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
 - (void)clickRecharge {
     
-    if ([UserInfo getStatus] != UserStatusComplete) {
-        
-        [Tools showHUD:@"暂时无法进行该操作！"];
-        
-        return;
-    }
+//    if ([UserInfo getStatus] != UserStatusComplete) {
+//        
+//        [Tools showHUD:@"暂时无法进行该操作！"];
+//        
+//        return;
+//    }
     
     PayViewController *vc = [[PayViewController alloc] init];
     vc.balancePrice = [_business getFloatWithKey:@"BalancePrice"];
