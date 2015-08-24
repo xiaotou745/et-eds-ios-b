@@ -235,6 +235,27 @@ fprintf(stderr, "-------\n");                                               \
     #define  OPEN_API_SEVER @"http://10.8.8.187:8131/api/ios/"  //俊杰
 #endif
 
+//
+#if 0
+    #define BaiduMapKey @"GX7M71BZnCnhLntRAFXg34fn"     // inhouse
+    #define JpushKey @"3eefb643c42edab57671b328"        // inhouse
+#elif 1
+    #define BaiduMapKey @"uazMqGlv1NImlBWYoh4elkOs"     // appStore
+    #define JpushKey @"d794d51f2ffaf5de42001c4b"        // appStore
+#endif
+ /*
+ 百度地图 GX7M71BZnCnhLntRAFXg34fn
+ jpush 3eefb643c42edab57671b328
+ 这个是企业的
+ 
+ 
+ 
+ jpush d794d51f2ffaf5de42001c4b
+ 百度地图  uazMqGlv1NImlBWYoh4elkOs
+ 这个是Appstore
+ */
+
+
 
 #endif
 

@@ -2722,7 +2722,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "a5f22e7e-3b80-474a-8532-516686359f52";
+				PROVISIONING_PROFILE = "9b9e51fa-4979-4458-8d96-04237e2ed442";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
