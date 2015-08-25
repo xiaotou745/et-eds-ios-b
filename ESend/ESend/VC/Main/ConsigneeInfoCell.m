@@ -34,8 +34,13 @@
 
 - (void)setConsigneeInfo:(ConsigneeModel *)consigneeInfo{
     _consigneeInfo = consigneeInfo;
-    self.consigneePhone.text = _consigneeInfo.consigneePhone;
+    self.consigneePhone.text = [NSString stringWithFormat:@"%@ %@",_consigneeInfo.consigneeUserName,_consigneeInfo.consigneePhone];
     self.consigneeAddress.text = _consigneeInfo.consigneeAddress;
+}
+- (IBAction)delegateBtnAction:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(ConsigneeInfoCell:deleteButtonAction:)]) {
+        [self.delegate ConsigneeInfoCell:self deleteButtonAction:_consigneeInfo];
+    }
 }
 
 @end

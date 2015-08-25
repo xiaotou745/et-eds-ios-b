@@ -62,7 +62,7 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushTag) name:LoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotifyAction:) name:LoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushTag) name:LogoutNotifaction object:nil];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -482,6 +482,8 @@
         consignee.consigneePhone = adict[@"PhoneNo"];
         consignee.consigneeAddress = adict[@"Address"];
         consignee.consigneePubDate = adict[@"PubDate"];
+        consignee.consigneeUserName = adict[@"UserName"];
+        consignee.consigneeId = adict[@"Id"];
         
         if (localConsignees.count > 0) {
             
@@ -519,6 +521,13 @@
         _consigneeAddressBTimer = [NSTimer scheduledTimerWithTimeInterval:24*60*60 target:self selector:@selector(consigneeAddressB) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] run];
     });
+}
+
+
+#pragma mark - 登录之后的通知
+- (void)loginNotifyAction:(NSNotification *)notify{
+    [self setPushTag];
+    [self consigneeAddressB];
 }
 
 

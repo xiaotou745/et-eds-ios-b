@@ -601,4 +601,23 @@
     return operation;
 }
 
+
+/// 2.1.15商户端删除缓存地址
++ (AFHTTPRequestOperation *)RemoveAddressB:(NSDictionary *)data
+                              successBlock:(successBlock)successBlock
+                                   failure:(failureBlock)failure{
+    NSString *url = @"order/RemoveAddressB";
+    AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
+        if (successBlock) {
+            successBlock(result, operation);
+        }
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (failure) {
+            failure(error, operation);
+        }
+    }];
+    
+    return operation;
+}
+
 @end

@@ -20,12 +20,14 @@
 #import "ConsigneeInfoCell.h"
 #import "DataArchive.h"
 
+#define LocalConsigneeId @"-1"
+
 typedef NS_ENUM(NSInteger, PayStatus) {
     PayStatusComplete,
     PayStatusUnpaid
 };
 
-@interface ReleseOrderViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, AddOrderTableViewCellDelegate, UIAlertViewDelegate>
+@interface ReleseOrderViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, AddOrderTableViewCellDelegate, UIAlertViewDelegate,ConsigneeInfoCellDelegate>
 {
     UITableView *_tableView;
     
@@ -154,10 +156,10 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     _phoneTF.text = @"";
     _phoneTF.clearButtonMode = UITextFieldViewModeNever;
     _phoneTF.keyboardType = UIKeyboardTypeNumberPad;
-//    UIButton * _phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 55)];
-//    _phoneBtn.backgroundColor = [UIColor clearColor];
-//    [_phoneBtn addTarget:self action:@selector(phoneBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [_phoneTF addSubview:_phoneBtn];
+    UIButton * _phoneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 55)];
+    _phoneBtn.backgroundColor = [UIColor clearColor];
+    [_phoneBtn addTarget:self action:@selector(phoneBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_phoneTF addSubview:_phoneBtn];
     
     _address = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, MainWidth - 20, 55)];
     _address.textColor = DeepGrey;
@@ -274,7 +276,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         
         return 55;
     }else if (tableView == _consigneeHistoryTV){
-        return 50;
+        return 78;
     }else{
         return 0;
     }
@@ -421,6 +423,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"ConsigneeInfoCell" owner:nil options:nil] lastObject];
         }
         cell.consigneeInfo = [_consigneeArrayForDisplay objectAtIndex:indexPath.row];
+        cell.delegate = self;
         return cell;
     }else{
         return nil;
@@ -679,6 +682,8 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         ConsigneeModel * consignee = [[ConsigneeModel alloc] init];
         consignee.consigneePhone = _phoneTF.text ? _phoneTF.text : @"";
         consignee.consigneeAddress = _address.text ? _address.text : @"";
+        consignee.consigneeUserName = _personName.text ? _personName.text : @"";
+        consignee.consigneeId = LocalConsigneeId;      // 本地存储的，都是-1，删除consignee接口调用时，-1，只需要删除本地，不用调接口了。
         [self storeConsigneeModel:consignee];
         
         [self.navigationController popViewControllerAnimated:YES];
@@ -934,5 +939,35 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     }
     
     return YES;
+}
+
+
+#pragma mark - ConsigneeInfoCellDelegate
+/// 删除历史发单记录
+- (void)ConsigneeInfoCell:(ConsigneeInfoCell *)cell deleteButtonAction:(ConsigneeModel *)consignee{
+    if ([consignee.consigneeId compare:LocalConsigneeId] == NSOrderedSame) {
+        // -1,删除本地即可
+        
+        NSIndexPath *indexPath = [_consigneeHistoryTV indexPathForCell:cell];
+        [_consigneeArrayForDisplay removeObjectAtIndex:indexPath.row];
+        
+        [_consigneeHistoryTV deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [_consigneeHistoryTV reloadData];
+        
+        
+    }else{
+        // 删除服务器
+        NSDictionary *requsetData = @{@"BusinessId" : [UserInfo getUserId],
+                                      @"Version" : APIVersion,
+                                      @"AddressId" : consignee.consigneeId
+                                      };
+        [FHQNetWorkingAPI RemoveAddressB:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+            
+        } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+            
+        }];
+        // 删除本地
+    }
+    
 }
 @end

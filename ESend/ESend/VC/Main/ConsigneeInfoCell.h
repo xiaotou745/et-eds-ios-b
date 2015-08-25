@@ -10,6 +10,14 @@
 
 #import "ConsigneeModel.h"
 
+@class ConsigneeInfoCell;
+
+@protocol ConsigneeInfoCellDelegate <NSObject>
+
+- (void)ConsigneeInfoCell:(ConsigneeInfoCell *)cell deleteButtonAction:(ConsigneeModel*)consignee;
+
+@end
+
 @interface ConsigneeInfoCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *consigneePhone;
@@ -17,5 +25,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *seperator;
 
 @property (strong, nonatomic) ConsigneeModel * consigneeInfo;
+
+@property (weak,nonatomic) id<ConsigneeInfoCellDelegate>delegate;
 
 @end

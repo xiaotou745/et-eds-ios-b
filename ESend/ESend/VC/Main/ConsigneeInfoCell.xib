@@ -14,14 +14,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6BO-bf-pW4" userLabel="手机">
-                        <rect key="frame" x="10" y="0.0" width="301" height="38"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZA-LG-p3b" userLabel="地址">
-                        <rect key="frame" x="10" y="38" width="301" height="38"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6BO-bf-pW4" userLabel="手机">
+                        <rect key="frame" x="10" y="0.0" width="257" height="38"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -35,27 +29,59 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIP-ie-wkT">
+                        <rect key="frame" x="272" y="17" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="Nr5-Qm-lvC"/>
+                            <constraint firstAttribute="width" constant="44" id="ug6-fE-Ndg"/>
+                        </constraints>
+                        <state key="normal" image="关闭">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="delegateBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SmF-bJ-YGV"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZA-LG-p3b" userLabel="地址">
+                        <rect key="frame" x="10" y="38" width="257" height="38"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="4pU-u6-Avv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="5V7-eN-w1F"/>
                     <constraint firstItem="6BO-bf-pW4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="BgV-rt-jXn"/>
                     <constraint firstItem="6BO-bf-pW4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="RbI-Py-8GK"/>
+                    <constraint firstItem="wIP-ie-wkT" firstAttribute="leading" secondItem="AZA-LG-p3b" secondAttribute="trailing" constant="5" id="UL0-ae-88X"/>
                     <constraint firstItem="AZA-LG-p3b" firstAttribute="height" secondItem="6BO-bf-pW4" secondAttribute="height" id="Ubr-sT-eF9"/>
+                    <constraint firstAttribute="trailing" secondItem="wIP-ie-wkT" secondAttribute="trailing" constant="5" id="W4p-2Q-FdS"/>
                     <constraint firstAttribute="bottom" secondItem="AZA-LG-p3b" secondAttribute="bottom" constant="1" id="ahq-1u-BrN"/>
                     <constraint firstItem="AZA-LG-p3b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="bRp-Jk-H2Y"/>
                     <constraint firstAttribute="trailing" secondItem="4pU-u6-Avv" secondAttribute="trailing" id="fhx-jf-hQK"/>
                     <constraint firstAttribute="trailing" secondItem="6BO-bf-pW4" secondAttribute="trailing" constant="10" id="fsz-M1-gHL"/>
+                    <constraint firstAttribute="centerY" secondItem="wIP-ie-wkT" secondAttribute="centerY" id="nXx-yZ-9b9"/>
                     <constraint firstAttribute="bottom" secondItem="4pU-u6-Avv" secondAttribute="bottom" id="pEB-X9-X8q"/>
                     <constraint firstItem="AZA-LG-p3b" firstAttribute="top" secondItem="6BO-bf-pW4" secondAttribute="bottom" id="tco-xP-c9j"/>
                     <constraint firstAttribute="trailing" secondItem="AZA-LG-p3b" secondAttribute="trailing" constant="10" id="tlL-Rl-MhZ"/>
+                    <constraint firstItem="wIP-ie-wkT" firstAttribute="leading" secondItem="6BO-bf-pW4" secondAttribute="trailing" constant="5" id="zOJ-2d-Cgi"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="fsz-M1-gHL"/>
+                        <exclude reference="tlL-Rl-MhZ"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="consigneeAddress" destination="AZA-LG-p3b" id="6Vw-Q2-zLO"/>
                 <outlet property="consigneePhone" destination="6BO-bf-pW4" id="ojG-DN-4a5"/>
                 <outlet property="seperator" destination="4pU-u6-Avv" id="bvD-a1-ySE"/>
             </connections>
-            <point key="canvasLocation" x="378.5" y="265"/>
+            <point key="canvasLocation" x="244.5" y="271"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="关闭" width="20" height="20"/>
+    </resources>
 </document>

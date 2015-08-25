@@ -180,4 +180,11 @@
 + (AFHTTPRequestOperation *)businessComplainClienter:(NSDictionary *)data
                                         successBlock:(successBlock)successBlock
                                              failure:(failureBlock)failure;
+
+
+/// 2.1.15商户端删除缓存地址
++ (AFHTTPRequestOperation *)RemoveAddressB:(NSDictionary *)data
+                              successBlock:(successBlock)successBlock
+                                   failure:(failureBlock)failure;
+
 @end
