@@ -207,7 +207,7 @@ fprintf(stderr, "-------\n");                                               \
 
 
 
-#if 1
+#if 0
     #define OPEN_API_SEVER @"http://api.edaisong.com/20150820/" //生产
     #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20150820/" //上传图片地址
     #define UPDATE_APP_API_SERVER @"http://api.edaisong.com/" // 升级接口
@@ -239,7 +239,7 @@ fprintf(stderr, "-------\n");                                               \
 #if 0
     #define BaiduMapKey @"GX7M71BZnCnhLntRAFXg34fn"     // inhouse
     #define JpushKey @"3eefb643c42edab57671b328"        // inhouse
-#elif 1
+#elif 0
     #define BaiduMapKey @"uazMqGlv1NImlBWYoh4elkOs"     // appStore
     #define JpushKey @"d794d51f2ffaf5de42001c4b"        // appStore
 #endif

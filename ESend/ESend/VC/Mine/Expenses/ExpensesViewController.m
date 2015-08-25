@@ -4,6 +4,10 @@
 //
 //  Created by 永来 付 on 15/6/27.
 //  Copyright (c) 2015年 Saltlight. All rights reserved.
+
+
+
+
 //  收支明细
 
 #import "ExpensesViewController.h"
@@ -14,6 +18,8 @@
 #import "ExpensesInfoCell.h"
 #import "EmptyAlterView.h"
 #import "MJRefresh.h"
+
+#import "ExpensesDetailVC.h"
 
 @interface ExpensesViewController () <UITableViewDataSource,UITableViewDelegate>
 {
@@ -157,6 +163,14 @@
     [cell loadData:infoModel];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    ExpensesMonthDataModel * monthModel = _dataList[indexPath.section];
+    ExpensesInfoModel      * infoModel  = monthModel.dataArr[indexPath.row];
+    ExpensesDetailVC * vc = [[ExpensesDetailVC alloc] initWithNibName:@"ExpensesDetailVC" bundle:nil];
+    vc.expenseInfoModel = infoModel;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

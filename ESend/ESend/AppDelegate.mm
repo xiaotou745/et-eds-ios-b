@@ -89,7 +89,7 @@
     [MobClick startWithAppkey:@"55962f3267e58ef3fc001ad7" reportPolicy:REALTIME channelId:@"appstore"];
     
     // 检测更新接口
-    //[self checkNewVersion];
+    [self checkNewVersion];
     
     //处理推送
     if ([launchOptions objectForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"]) {
@@ -443,7 +443,7 @@
         NSDictionary * paraDict = @{
                                     @"BusinessId":[UserInfo getUserId],
                                     @"PubDate":firstTime,
-                                    @"Version":@"1.0"
+                                    @"Version":APIVersion
                                     };
         NSLog(@"para:%@",paraDict);
         

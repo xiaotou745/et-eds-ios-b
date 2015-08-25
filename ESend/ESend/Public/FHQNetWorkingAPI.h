@@ -116,7 +116,7 @@
                                     failure:(failureBlock)failure
                                 isShowError:(BOOL)show;
 
-//修改密码
+//获取商户信息
 + (AFHTTPRequestOperation*)getSupplierInfo:(NSDictionary *)data
                                 successBlock:(successBlock)successBlock
                                      failure:(failureBlock)failure;

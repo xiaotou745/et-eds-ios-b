@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E5D878D1B8C3D250040D478 /* ExpensesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D878B1B8C3D250040D478 /* ExpensesDetailVC.m */; };
+		2E5D878E1B8C3D250040D478 /* ExpensesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D878B1B8C3D250040D478 /* ExpensesDetailVC.m */; };
+		2E5D878F1B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D878C1B8C3D250040D478 /* ExpensesDetailVC.xib */; };
+		2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D878C1B8C3D250040D478 /* ExpensesDetailVC.xib */; };
 		2EA0CA411B82C72700BBAA63 /* ComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA3F1B82C72700BBAA63 /* ComplaintViewController.m */; };
 		2EA0CA421B82C72700BBAA63 /* ComplaintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA3F1B82C72700BBAA63 /* ComplaintViewController.m */; };
 		2EA0CA431B82C72700BBAA63 /* ComplaintViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA401B82C72700BBAA63 /* ComplaintViewController.xib */; };
@@ -482,6 +486,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E5D878A1B8C3D250040D478 /* ExpensesDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpensesDetailVC.h; sourceTree = "<group>"; };
+		2E5D878B1B8C3D250040D478 /* ExpensesDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpensesDetailVC.m; sourceTree = "<group>"; };
+		2E5D878C1B8C3D250040D478 /* ExpensesDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpensesDetailVC.xib; sourceTree = "<group>"; };
 		2EA0CA3E1B82C72700BBAA63 /* ComplaintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComplaintViewController.h; sourceTree = "<group>"; };
 		2EA0CA3F1B82C72700BBAA63 /* ComplaintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplaintViewController.m; sourceTree = "<group>"; };
 		2EA0CA401B82C72700BBAA63 /* ComplaintViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComplaintViewController.xib; sourceTree = "<group>"; };
@@ -1131,6 +1138,9 @@
 				E482C3671B3EA1A7008471E8 /* ExpensesMonthDataModel.m */,
 				E482C36C1B3EA804008471E8 /* ExpensesInfoCell.h */,
 				E482C36D1B3EA804008471E8 /* ExpensesInfoCell.m */,
+				2E5D878A1B8C3D250040D478 /* ExpensesDetailVC.h */,
+				2E5D878B1B8C3D250040D478 /* ExpensesDetailVC.m */,
+				2E5D878C1B8C3D250040D478 /* ExpensesDetailVC.xib */,
 			);
 			path = Expenses;
 			sourceTree = "<group>";
@@ -2012,6 +2022,11 @@
 					F6C6AC2E1B12F2640007A980 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = A6ATPFH2HY;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -2047,6 +2062,7 @@
 				F67D35F41B5664A600083DA4 /* back_nor@2x.png in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
+				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
 				F67D35F71B5664A600083DA4 /* blue_btn_pre@2x.png in Resources */,
 				F67D35F81B5664A600083DA4 /* Main.storyboard in Resources */,
 				2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
@@ -2105,6 +2121,7 @@
 				F6C6AC431B12F2640007A980 /* LaunchScreen.xib in Resources */,
 				F6C6AD8D1B12F42F0007A980 /* MJPhotoBrowser.bundle in Resources */,
 				2EA0CA7E1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
+				2E5D878F1B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
 				F62A73EE1B5CCA84001632B5 /* 2@3x.png in Resources */,
 				F66CA1281B1DC407006BDDB8 /* blue_border_btn_nor@2x.png in Resources */,
 				F637CF511B437F5700410C24 /* PushConfig.plist in Resources */,
@@ -2159,6 +2176,7 @@
 				F67D354F1B5664A600083DA4 /* ControlsFactory.m in Sources */,
 				F67D35501B5664A600083DA4 /* PrefectInfoViewController.m in Sources */,
 				F67D35511B5664A600083DA4 /* MineViewController.m in Sources */,
+				2E5D878E1B8C3D250040D478 /* ExpensesDetailVC.m in Sources */,
 				F67D35521B5664A600083DA4 /* MessagesTableViewCell.m in Sources */,
 				F67D35531B5664A600083DA4 /* ExpensesInfoModel.m in Sources */,
 				F67D35541B5664A600083DA4 /* AFNetworkReachabilityManager.m in Sources */,
@@ -2349,6 +2367,7 @@
 				F6549F7D1B1C32A500FAACEE /* PrefectInfoViewController.m in Sources */,
 				F690B2721B25A8DD0044310C /* MineViewController.m in Sources */,
 				F62E8D121B300D54006F3862 /* MessagesTableViewCell.m in Sources */,
+				2E5D878D1B8C3D250040D478 /* ExpensesDetailVC.m in Sources */,
 				E482C3651B3E9D2D008471E8 /* ExpensesInfoModel.m in Sources */,
 				F6C6AD741B12F42F0007A980 /* AFNetworkReachabilityManager.m in Sources */,
 				F6441B551B3D470100EA3C9D /* RSADataVerifier.m in Sources */,
