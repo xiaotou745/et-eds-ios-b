@@ -483,7 +483,7 @@
         consignee.consigneeAddress = adict[@"Address"];
         consignee.consigneePubDate = adict[@"PubDate"];
         consignee.consigneeUserName = adict[@"UserName"];
-        consignee.consigneeId = adict[@"Id"];
+        consignee.consigneeId = [NSString stringWithFormat:@"%@",adict[@"Id"]];
         
         if (localConsignees.count > 0) {
             

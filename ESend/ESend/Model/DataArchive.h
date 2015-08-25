@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ConsigneeModel.h"
 
 @interface DataArchive : NSObject
 + (void)storeConsignees:(NSArray*)consignees shopId:(NSString *)shopid;
 + (NSArray *)storedConsigneesWithShopid:(NSString *)bid;
+
+///delete
++ (void)deleteConsignee:(ConsigneeModel *)consignee shopId:(NSString *)shopid;
 @end

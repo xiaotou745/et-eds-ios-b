@@ -38,4 +38,39 @@
 
 
 
+//delete
++ (void)deleteConsignee:(ConsigneeModel *)consignee shopId:(NSString *)shopid{
+    NSMutableDictionary * rootDict = [self rootMenuDictionary];
+    
+    if (rootDict == nil) {
+        return;
+    }
+    NSMutableArray * array = [NSMutableArray arrayWithArray:[self storedConsigneesWithShopid:shopid]];
+    
+    if ([consignee.consigneeId compare:@"-1"] == NSOrderedSame) {
+        //
+        for (int i = 0; i < array.count; i ++) {
+            ConsigneeModel * anotherConsignee = [array objectAtIndex:i];
+            if ([anotherConsignee samePhoneWithConsignee:consignee]) {
+                [array removeObjectAtIndex:i];
+                break;
+            }
+        }
+        
+    }else{
+        
+        for (int i = 0; i < array.count; i ++) {
+            ConsigneeModel * anotherConsignee = [array objectAtIndex:i];
+            if ([anotherConsignee.consigneeId compare:consignee.consigneeId ]  == NSOrderedSame) {
+                [array removeObjectAtIndex:i];
+                break;
+            }
+        }
+    }
+    
+
+    
+    [self storeConsignees:array shopId:shopid];
+}
+
 @end

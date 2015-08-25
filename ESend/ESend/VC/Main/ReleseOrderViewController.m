@@ -948,11 +948,19 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     if ([consignee.consigneeId compare:LocalConsigneeId] == NSOrderedSame) {
         // -1,删除本地即可
         
+        [DataArchive deleteConsignee:consignee shopId:[UserInfo getUserId]];
+        
         NSIndexPath *indexPath = [_consigneeHistoryTV indexPathForCell:cell];
         [_consigneeArrayForDisplay removeObjectAtIndex:indexPath.row];
         
+        
         [_consigneeHistoryTV deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         [_consigneeHistoryTV reloadData];
+        
+        [_consigneeArray removeAllObjects];
+        NSArray * localConsignees = [DataArchive storedConsigneesWithShopid:[UserInfo getUserId]];
+        //NSLog(@"localConsignee:%@",localConsignees);
+        [_consigneeArray addObjectsFromArray:localConsignees];
         
         
     }else{
@@ -967,6 +975,19 @@ typedef NS_ENUM(NSInteger, PayStatus) {
             
         }];
         // 删除本地
+        [DataArchive deleteConsignee:consignee shopId:[UserInfo getUserId]];
+
+        
+        NSIndexPath *indexPath = [_consigneeHistoryTV indexPathForCell:cell];
+        [_consigneeArrayForDisplay removeObjectAtIndex:indexPath.row];
+        
+        [_consigneeHistoryTV deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [_consigneeHistoryTV reloadData];
+        
+        [_consigneeArray removeAllObjects];
+        NSArray * localConsignees = [DataArchive storedConsigneesWithShopid:[UserInfo getUserId]];
+        //NSLog(@"localConsignee:%@",localConsignees);
+        [_consigneeArray addObjectsFromArray:localConsignees];
     }
     
 }
