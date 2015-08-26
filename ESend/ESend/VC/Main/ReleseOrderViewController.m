@@ -576,12 +576,12 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 
     if (![UserInfo isOneKeyPubOrder]) {
         if (_phoneTF.text.length == 0) {
-            [Tools showHUD:@"请添加手机号码"];
+            [Tools showHUD:@"请添加收货人联系电话"];
             return NO;
         }
         
-        if (_phoneTF.text.length != 11 || ![_phoneTF.text isRightPhoneNumberFormat]) {
-            [Tools showHUD:@"请填写正确的手机号码"];
+        if (![_phoneTF.text rightConsigneeContactInfo]) {
+            [Tools showHUD:@"请填写正确的联系电话"];
             return NO;
         }
         

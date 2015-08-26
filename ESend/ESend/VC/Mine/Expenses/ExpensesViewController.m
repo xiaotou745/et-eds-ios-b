@@ -86,6 +86,9 @@
                 infoModel.time     = [NSString stringWithFormat:@"%@ %@",[itemDic getStringWithKey:@"DateInfo"],[itemDic getStringWithKey:@"TimeInfo"]];
                 infoModel.state    = [itemDic getStringWithKey:@"StatusStr"];
                 
+                infoModel.Remark   = [itemDic getStringWithKey:@"Remark"];
+                infoModel.OperateTime = [itemDic getStringWithKey:@"OperateTime"];
+                
                 [monthModel.dataArr addObject:infoModel];
             }
             

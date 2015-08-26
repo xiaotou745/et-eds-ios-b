@@ -15,4 +15,9 @@
 @property (nonatomic,copy)   NSString * time;      // 时间
 @property (nonatomic,copy)   NSString * state;     // 状态
 
+
+//08-26新增
+@property (nonatomic, copy) NSString * OperateTime;     // 操作时间
+@property (nonatomic, copy) NSString * Remark;          // 备注
+
 @end
