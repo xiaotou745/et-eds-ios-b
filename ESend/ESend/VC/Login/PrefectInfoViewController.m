@@ -266,7 +266,9 @@ typedef NS_ENUM(NSInteger, PhotoType) {
         [self.leftBtn setImageNor:nil imagePre:nil];
         [self.leftBtn changeFrameWidth:90];
         [self.leftBtn setTitle:@"退出登录" forState:UIControlStateNormal];
-        
+        //
+        [self.leftBtn addTarget:self action:@selector(logoutAction:) forControlEvents:UIControlEventTouchUpInside];
+        //
         [self beginLoacation];
         
     } else {
@@ -737,6 +739,16 @@ typedef NS_ENUM(NSInteger, PhotoType) {
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+#pragma mark - 退出登录action
+- (void)logoutAction:(id)sender{
+    [UserInfo clearUserInfo];
+    [APPDLE showLoginAnimated:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:LogoutNotifaction object:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

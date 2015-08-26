@@ -62,4 +62,23 @@
         }
     }
 }
+
+/// 固话正则
+- (BOOL)rightTelephone{
+    //([0-9]{3,4}-)?[0-9]{7,8}
+    NSString *regex        = @"^(010|02\\d|0[3-9]\\d{2})?\\d{7,8}$";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [predicate evaluateWithObject:self];
+}
+
+
+
+/// 发单填写联系人正则，固话+电话，1开头11位，非1开头，7到12位
+- (BOOL)rightConsigneeContactInfo{
+    //(^1\\d{10}$)|([^1]\\d{6,11}$)
+    NSString *regex        = @"(^1\\d{10}$)|([^1]\\d{6,11}$)";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [predicate evaluateWithObject:self];
+}
+
 @end

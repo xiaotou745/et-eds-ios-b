@@ -71,7 +71,7 @@
     [self.window makeKeyAndVisible];
     
     _mapManager = [[BMKMapManager alloc]init]; 
-    BOOL ret = [_mapManager start:@"uazMqGlv1NImlBWYoh4elkOs"  generalDelegate:nil];
+    BOOL ret = [_mapManager start:@"GX7M71BZnCnhLntRAFXg34fn"  generalDelegate:nil];
     if (!ret) {
         CLog(@"flai");
     }
@@ -445,7 +445,7 @@
                                     @"PubDate":firstTime,
                                     @"Version":APIVersion
                                     };
-        NSLog(@"para:%@",paraDict);
+        //NSLog(@"para:%@",paraDict);
         
         [FHQNetWorkingAPI consigneeAddress:paraDict successBlock:^(id result, AFHTTPRequestOperation *operation) {
             NSString * MaxDate = result[@"MaxDate"];

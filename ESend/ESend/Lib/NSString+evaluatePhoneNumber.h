@@ -23,4 +23,11 @@
 
 /// 字符串包含字符串
 - (BOOL)includesAString:(NSString *)astring;
+
+
+/// 固话正则
+- (BOOL)rightTelephone;
+
+/// 发单填写联系人正则，固话+电话，1开头11位，非1开头，区号+7到8位
+- (BOOL)rightConsigneeContactInfo;
 @end

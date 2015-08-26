@@ -437,6 +437,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         ConsigneeModel * consignee = [_consigneeArrayForDisplay objectAtIndex:indexPath.row];
         _phoneTF.text = consignee.consigneePhone;
         _address.text = consignee.consigneeAddress;
+        _personName.text = consignee.consigneeUserName;
         [self _cancelAction:nil];
     }
 }
@@ -846,8 +847,8 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     [self.view addSubview:_bgv];
     
     _mask2 = [[UIView alloc] initWithFrame:CGRectMake(0, 64, MainWidth, MainHeight - 44)];
-    _mask2.backgroundColor = [UIColor whiteColor];
-    _mask2.alpha = 0.99f;
+    _mask2.backgroundColor = [UIColor colorWithHexString:@"e8e8e8"];
+    _mask2.alpha = 1.0f;
     [self.view addSubview:_mask2];
     //
     _phoneTF2 = [[UITextField alloc] initWithFrame:CGRectMake(10, 20, MainWidth - 20 - 100, 44)];
@@ -895,8 +896,15 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 }
 
 - (void)_okbtnAction:(id)sender{
-    _phoneTF.text = _phoneTF2.text;
-    [self _cancelAction:nil];
+    
+    if ([_phoneTF2.text rightConsigneeContactInfo]) {
+        _phoneTF.text = _phoneTF2.text;
+        [self _cancelAction:nil];
+    }else{
+        [Tools showHUD:@"请输入正确的手机或座机号"];
+    }
+    
+
 }
 
 - (void)_cancelAction:(id)sender{

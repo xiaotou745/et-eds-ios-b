@@ -9,6 +9,10 @@
 #import "FHQNetWorkingAPI.h"
 #import "AFNetworkActivityIndicatorManager.h"
 
+
+#define NoNetworkReachableMsg @"暂无网络连接，请检查您的网络"
+
+
 @implementation FHQNetWorkingAPI
 
 //更新
@@ -36,6 +40,19 @@
 + (AFHTTPRequestOperation*)phoneNumberCode:(NSDictionary *)data
                               successBlock:(successBlock)successBlock
                                    failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    
+    
     NSString *url = @"BusinessAPI/CheckCode";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"GET" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -56,6 +73,18 @@
 + (AFHTTPRequestOperation*)modifyPasswordPhoneCode:(NSDictionary *)data
                                       successBlock:(successBlock)successBlock
                                            failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    
     NSString *url = @"BusinessAPI/CheckCodeFindPwd";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"GET" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -75,6 +104,18 @@
 + (AFHTTPRequestOperation*)getAudioVerifyCode:(NSDictionary *)data
                                  successBlock:(successBlock)successBlock
                                       failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    
     NSString *url = @"BusinessAPI/VoiceCheckCode";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -94,6 +135,18 @@
 + (AFHTTPRequestOperation*)registerAccount:(NSDictionary *)data
                               successBlock:(successBlock)successBlock
                                    failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    
     NSString *url = @"BusinessAPI/PostRegisterInfo_B";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -131,6 +184,19 @@
                                 imageList:(NSArray*)imageList
                              successBlock:(successBlock)successBlock
                                   failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    
+    
     NSString *url = @"business/UpdateBusinessInfoB";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data imageDatas:imageList success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -150,6 +216,18 @@
                                 successBlock:(successBlock)successBlock
                                      failure:(failureBlock)failure
 {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    
     NSString *url = @"BusinessAPI/PostForgetPwd_B";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -170,6 +248,18 @@
 + (AFHTTPRequestOperation*)getModifyPwd_B:(NSDictionary *)data
                              successBlock:(successBlock)successBlock
                                   failure:(failureBlock)failure{
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    
     NSString *url = @"BusinessAPI/ModifyPwd_B";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -245,6 +335,18 @@
 + (AFHTTPRequestOperation*)login:(NSDictionary *)data
                     successBlock:(successBlock)successBlock
                          failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    
     NSString *url = @"BusinessAPI/PostLogin_B";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -267,6 +369,16 @@
                                failure:(failureBlock)failure
                            isShowError:(BOOL)show {
     
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
     NSString *url = @"BusinessAPI/GetOrderList_B";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"GET" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -287,6 +399,16 @@
                              successBlock:(successBlock)successBlock
                                   failure:(failureBlock)failure {
     
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
     NSString *url = @"Order/GetDetails";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -306,6 +428,16 @@
 + (AFHTTPRequestOperation*)releseOrder:(NSDictionary *)data
                           successBlock:(successBlock)successBlock
                                failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
     
     NSString *url = @"Order/Push";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
@@ -348,6 +480,16 @@
                                     failure:(failureBlock)failure
                                 isShowError:(BOOL)show {
     
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
     NSString *url = @"business/records";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -388,6 +530,18 @@
 + (AFHTTPRequestOperation*)getSupplierInfo:(NSDictionary *)data
                               successBlock:(successBlock)successBlock
                                    failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    
     NSString *url = @"Business/Get";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -407,6 +561,17 @@
                                 isBind:(BOOL)isBind
                           successBlock:(successBlock)successBlock
                                failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
     NSString *url = isBind ? @"finance/cardbindb" : @"finance/cardmodifyb";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -443,6 +608,17 @@
 + (AFHTTPRequestOperation*)getMessageList:(NSDictionary *)data
                              successBlock:(successBlock)successBlock
                                   failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
     NSString *url = @"message/listb";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -479,6 +655,17 @@
 + (AFHTTPRequestOperation*)getExpense:(NSDictionary *)data
                          successBlock:(successBlock)successBlock
                               failure:(failureBlock)failure{
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
     NSString *url = @"business/records";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -515,6 +702,17 @@
 + (AFHTTPRequestOperation*)cancelOrder:(NSDictionary *)data
                           successBlock:(successBlock)successBlock
                                failure:(failureBlock)failure{
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
     NSString *url = @"BusinessAPI/CancelOrder_B";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -533,6 +731,17 @@
 + (AFHTTPRequestOperation*)withdrew:(NSDictionary *)data
                        successBlock:(successBlock)successBlock
                             failure:(failureBlock)failure {
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
     NSString *url = @"finance/withdrawb";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
@@ -587,6 +796,17 @@
 + (AFHTTPRequestOperation *)businessComplainClienter:(NSDictionary *)data
                                         successBlock:(successBlock)successBlock
                                              failure:(failureBlock)failure{
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
     NSString *url = @"Complain/BusinessComplainClienter";
     AFHTTPRequestOperation *operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {

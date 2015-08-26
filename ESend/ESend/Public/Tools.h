@@ -86,6 +86,7 @@
 
 + (BOOL)isContainsEmoji:(NSString *)string;
 
+
 @end
 
 @interface NSDictionary (Value)
