@@ -495,7 +495,7 @@
             BOOL contain = NO;
             for (int i = 0; i < localConsignees.count; i ++) {
                 ConsigneeModel * aConsignee = [localConsignees objectAtIndex:i];
-                if ([consignee samePhoneWithConsignee:aConsignee]) {
+                if ([consignee equalConsignee:aConsignee]) { /// 手机，地址，姓名完全相同
                     [localConsignees replaceObjectAtIndex:i withObject:consignee];
                     contain = YES;
                     break;

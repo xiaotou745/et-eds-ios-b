@@ -708,7 +708,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         BOOL contain = NO;
         for (int i = 0; i < localConsignees.count; i ++) {
             ConsigneeModel * aConsignee = [localConsignees objectAtIndex:i];
-            if ([consignee samePhoneWithConsignee:aConsignee]) {
+            if ([consignee equalConsignee:aConsignee]) {
                 [localConsignees replaceObjectAtIndex:i withObject:consignee];
                 contain = YES;
                 break;

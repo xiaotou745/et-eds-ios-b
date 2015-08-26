@@ -51,7 +51,7 @@
         //
         for (int i = 0; i < array.count; i ++) {
             ConsigneeModel * anotherConsignee = [array objectAtIndex:i];
-            if ([anotherConsignee samePhoneWithConsignee:consignee]) {
+            if ([anotherConsignee equalConsignee:consignee]) {
                 [array removeObjectAtIndex:i];
                 break;
             }

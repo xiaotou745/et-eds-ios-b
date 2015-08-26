@@ -12,7 +12,7 @@
 
 - (BOOL)equalConsignee:(ConsigneeModel *)otherConsignee{
     BOOL result = NO;
-    if ([self.consigneePhone compare:otherConsignee.consigneePhone] == NSOrderedSame  &&  [self.consigneeAddress compare:otherConsignee.consigneeAddress] == NSOrderedSame) {
+    if ([self.consigneePhone compare:otherConsignee.consigneePhone] == NSOrderedSame  &&  [self.consigneeAddress compare:otherConsignee.consigneeAddress] == NSOrderedSame && [self.consigneeUserName compare:otherConsignee.consigneeUserName] == NSOrderedSame) {
         result = YES;
     }
     return result;
