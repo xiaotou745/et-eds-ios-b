@@ -52,7 +52,9 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    _newMessageIcon.hidden = YES;
     [self loadData];
+
 }
 
 - (void)loadData {
@@ -215,7 +217,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _newMessageIcon = [[UIView alloc] initWithFrame:CGRectMake(130, 35/2, 10, 10)];
     _newMessageIcon.backgroundColor = RedDefault;
     _newMessageIcon.layer.cornerRadius = 5;
-    
+    _newMessageIcon.hidden = YES;
     
     
     NSArray *titles = @[@"收支明细", @"提款账户", @"订单统计", @"消息中心"];

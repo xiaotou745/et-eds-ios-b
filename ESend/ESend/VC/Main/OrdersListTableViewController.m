@@ -167,7 +167,11 @@
             if (isCanUseString(errorMessage)) {
                 [Tools showHUD:errorMessage];
             } else {
-                [Tools showHUD:@"请求失败"];
+                if ([AFNetworkReachabilityManager sharedManager].reachable) {
+                    [Tools showHUD:@"请求失败"];
+                }else{
+                    
+                }
             }
 
         }

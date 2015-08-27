@@ -109,7 +109,7 @@
                                                 <constraint firstAttribute="height" constant="0.5" id="JIv-z4-8wY"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详情信息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEd-HE-ZQw">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详情备注" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEd-HE-ZQw">
                                             <rect key="frame" x="12" y="2" width="76" height="46"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="46" id="LBN-wL-U8b"/>

@@ -174,7 +174,10 @@ typedef NS_ENUM(NSInteger, PhotoType) {
     _mobilePhoneTF = [self createTextField:@"手机号码"];
     _mobilePhoneTF.frame = CGRectMake(0, CGRectGetMaxY(line4.frame), MainWidth, 55);
     _mobilePhoneTF.keyboardType = UIKeyboardTypeNumberPad;
-    _mobilePhoneTF.text = [UserInfo getTelephoneNum];
+    NSString * phoneString = [UserInfo getTelephoneNum];
+    if (![phoneString compare:@"(null)"] == NSOrderedSame) {
+        _mobilePhoneTF.text = [UserInfo getTelephoneNum];
+    }
     [_scrollView addSubview:_mobilePhoneTF];
     
     _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mobilePhoneTF.frame) + 15, MainWidth, 200)];
