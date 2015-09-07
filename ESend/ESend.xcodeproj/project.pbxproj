@@ -833,7 +833,7 @@
 		F67D36101B5664A600083DA4 /* ESend copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ESend copy2-Info.plist"; path = "/Users/fuyonglai/fuhuaqi/ESend_git/ESend/ESend copy2-Info.plist"; sourceTree = "<absolute>"; };
 		F67D36111B56658000083DA4 /* Property List.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		F690B2701B25A8DD0044310C /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
-		F690B2711B25A8DD0044310C /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		F690B2711B25A8DD0044310C /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MineViewController.m; sourceTree = "<group>"; };
 		F6C6AC2F1B12F2640007A980 /* ESendInhouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ESendInhouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6C6AC331B12F2640007A980 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F6C6AC341B12F2640007A980 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
