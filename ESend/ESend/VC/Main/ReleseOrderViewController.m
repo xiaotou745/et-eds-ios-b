@@ -931,7 +931,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         // 手机号，超过3级以上，联想
         [_consigneeArrayForDisplay removeAllObjects];
         for (ConsigneeModel * aConsignee in _consigneeArray) {
-            if ([aConsignee.consigneePhone containsString:toBeString]) {
+            if ([aConsignee.consigneePhone includesAString:toBeString]) {
                 [_consigneeArrayForDisplay addObject:aConsignee];
             }
         }
