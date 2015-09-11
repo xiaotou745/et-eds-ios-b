@@ -436,9 +436,12 @@
     if ([UserInfo isLogin]) {
         
         NSString * firstTime = @"2015-01-01 00:00:00";
-        if ([UserInfo getMaxDate]) {
-            firstTime = [UserInfo getMaxDate];
-        }
+        
+//        if ([UserInfo getMaxDate]) {
+//            firstTime = [UserInfo getMaxDate];
+//        }
+        // Plan A, 如上，始终 2015-01-01
+        // Plan B，退出登录之后，置空MaxDate
         
         NSDictionary * paraDict = @{
                                     @"BusinessId":[UserInfo getUserId],
@@ -455,7 +458,7 @@
             }
             if (ConsigneeAdressBDM.count > 0) {
                 NSLog(@"arr:%@",ConsigneeAdressBDM);
-                // 村本地
+                // 存本地
                 [self storeConsignees:ConsigneeAdressBDM];
             }else{
                 //NSLog(@"array:0");

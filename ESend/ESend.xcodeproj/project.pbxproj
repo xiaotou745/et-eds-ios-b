@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E5781991BA2774800A04B9D /* ApiXml.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781941BA2774800A04B9D /* ApiXml.mm */; };
+		2E57819A1BA2774800A04B9D /* ApiXml.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781941BA2774800A04B9D /* ApiXml.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2E57819B1BA2774800A04B9D /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781961BA2774800A04B9D /* payRequsestHandler.mm */; };
+		2E57819C1BA2774800A04B9D /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781961BA2774800A04B9D /* payRequsestHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2E57819D1BA2774800A04B9D /* WXUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781981BA2774800A04B9D /* WXUtil.mm */; };
+		2E57819E1BA2774800A04B9D /* WXUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781981BA2774800A04B9D /* WXUtil.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2E5781A31BA2775500A04B9D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5781A01BA2775500A04B9D /* libWeChatSDK.a */; };
+		2E5781A41BA2775500A04B9D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5781A01BA2775500A04B9D /* libWeChatSDK.a */; };
+		2E5782311BA2872500A04B9D /* WechatPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5782301BA2872500A04B9D /* WechatPay.m */; };
+		2E5782321BA2872500A04B9D /* WechatPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5782301BA2872500A04B9D /* WechatPay.m */; };
 		2E5D878D1B8C3D250040D478 /* ExpensesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D878B1B8C3D250040D478 /* ExpensesDetailVC.m */; };
 		2E5D878E1B8C3D250040D478 /* ExpensesDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D878B1B8C3D250040D478 /* ExpensesDetailVC.m */; };
 		2E5D878F1B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D878C1B8C3D250040D478 /* ExpensesDetailVC.xib */; };
@@ -29,6 +39,10 @@
 		2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */; };
 		2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		68090EA41BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */; };
+		68090EA51BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */; };
+		68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */; };
+		68090EA71BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */; };
 		E402892D1B3C331B00B80417 /* MissionDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E402892C1B3C331B00B80417 /* MissionDetailModel.m */; };
 		E40289311B3C357C00B80417 /* MissionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E40289301B3C357C00B80417 /* MissionDetailViewController.m */; };
 		E46C49261B3C48BC00CE0033 /* MDOrderInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E46C49251B3C48BC00CE0033 /* MDOrderInfoCell.m */; };
@@ -486,6 +500,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E5781931BA2774800A04B9D /* ApiXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiXml.h; sourceTree = "<group>"; };
+		2E5781941BA2774800A04B9D /* ApiXml.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ApiXml.mm; sourceTree = "<group>"; };
+		2E5781951BA2774800A04B9D /* payRequsestHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = payRequsestHandler.h; sourceTree = "<group>"; };
+		2E5781961BA2774800A04B9D /* payRequsestHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = payRequsestHandler.mm; sourceTree = "<group>"; };
+		2E5781971BA2774800A04B9D /* WXUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXUtil.h; sourceTree = "<group>"; };
+		2E5781981BA2774800A04B9D /* WXUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WXUtil.mm; sourceTree = "<group>"; };
+		2E5781A01BA2775500A04B9D /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		2E5781A11BA2775500A04B9D /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		2E5781A21BA2775500A04B9D /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		2E57822F1BA2872500A04B9D /* WechatPay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatPay.h; sourceTree = "<group>"; };
+		2E5782301BA2872500A04B9D /* WechatPay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WechatPay.m; sourceTree = "<group>"; };
 		2E5D878A1B8C3D250040D478 /* ExpensesDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpensesDetailVC.h; sourceTree = "<group>"; };
 		2E5D878B1B8C3D250040D478 /* ExpensesDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpensesDetailVC.m; sourceTree = "<group>"; };
 		2E5D878C1B8C3D250040D478 /* ExpensesDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpensesDetailVC.xib; sourceTree = "<group>"; };
@@ -505,6 +530,9 @@
 		2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsigneeInfoCell.xib; sourceTree = "<group>"; };
 		2EA0CA801B84C05C00BBAA63 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		2EA0CA811B84C05C00BBAA63 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		68090EA11BA2B248000680D8 /* EDSFullfillMoneyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSFullfillMoneyVC.h; sourceTree = "<group>"; };
+		68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSFullfillMoneyVC.m; sourceTree = "<group>"; };
+		68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSFullfillMoneyVC.xib; sourceTree = "<group>"; };
 		E402892B1B3C331B00B80417 /* MissionDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailModel.h; sourceTree = "<group>"; };
 		E402892C1B3C331B00B80417 /* MissionDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionDetailModel.m; sourceTree = "<group>"; };
 		E402892F1B3C357C00B80417 /* MissionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailViewController.h; sourceTree = "<group>"; };
@@ -1023,6 +1051,7 @@
 				F67D35E81B5664A600083DA4 /* CoreGraphics.framework in Frameworks */,
 				F67D35E91B5664A600083DA4 /* SystemConfiguration.framework in Frameworks */,
 				F67D35EA1B5664A600083DA4 /* OpenGLES.framework in Frameworks */,
+				2E5781A41BA2775500A04B9D /* libWeChatSDK.a in Frameworks */,
 				F67D35EB1B5664A600083DA4 /* QuartzCore.framework in Frameworks */,
 				F67D35EC1B5664A600083DA4 /* libcrypto.a in Frameworks */,
 				F67D35ED1B5664A600083DA4 /* CoreLocation.framework in Frameworks */,
@@ -1049,6 +1078,7 @@
 				F66FF1391B1D7DD100511B7D /* CoreGraphics.framework in Frameworks */,
 				F66FF1371B1D7DC600511B7D /* SystemConfiguration.framework in Frameworks */,
 				F66FF1351B1D7DBD00511B7D /* OpenGLES.framework in Frameworks */,
+				2E5781A31BA2775500A04B9D /* libWeChatSDK.a in Frameworks */,
 				F66FF1331B1D7DB500511B7D /* QuartzCore.framework in Frameworks */,
 				F6441BAA1B3D48C500EA3C9D /* libcrypto.a in Frameworks */,
 				F66FF1311B1D7DAD00511B7D /* CoreLocation.framework in Frameworks */,
@@ -1061,6 +1091,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E5781911BA2773400A04B9D /* wechat */ = {
+			isa = PBXGroup;
+			children = (
+				2E57819F1BA2775500A04B9D /* SDKExport */,
+				2E5781921BA2774800A04B9D /* lib */,
+			);
+			path = wechat;
+			sourceTree = "<group>";
+		};
+		2E5781921BA2774800A04B9D /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				2E5781931BA2774800A04B9D /* ApiXml.h */,
+				2E5781941BA2774800A04B9D /* ApiXml.mm */,
+				2E5781951BA2774800A04B9D /* payRequsestHandler.h */,
+				2E5781961BA2774800A04B9D /* payRequsestHandler.mm */,
+				2E5781971BA2774800A04B9D /* WXUtil.h */,
+				2E5781981BA2774800A04B9D /* WXUtil.mm */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		2E57819F1BA2775500A04B9D /* SDKExport */ = {
+			isa = PBXGroup;
+			children = (
+				2E5781A01BA2775500A04B9D /* libWeChatSDK.a */,
+				2E5781A11BA2775500A04B9D /* WXApi.h */,
+				2E5781A21BA2775500A04B9D /* WXApiObject.h */,
+			);
+			path = SDKExport;
+			sourceTree = "<group>";
+		};
 		2EA0CA3D1B82C6D700BBAA63 /* complain */ = {
 			isa = PBXGroup;
 			children = (
@@ -1606,8 +1668,7 @@
 		F6C6AC591B12F3620007A980 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				F6F703361B6A41A10094E7A8 /* NSString+evaluatePhoneNumber.h */,
-				F6F703371B6A41A10094E7A8 /* NSString+evaluatePhoneNumber.m */,
+				2E5781911BA2773400A04B9D /* wechat */,
 				F6F703161B68D8740094E7A8 /* JKAlertDialog */,
 				F62A73F01B5DE58B001632B5 /* Release-iphoneos */,
 				F61C761A1B46684E009051B9 /* UMAnalytics_Sdk_3.5.8 */,
@@ -1642,6 +1703,8 @@
 				F6C6ACFF1B12F42E0007A980 /* MPNotificationView.m */,
 				F6C6AD001B12F42E0007A980 /* NSString+encrypto.h */,
 				F6C6AD011B12F42E0007A980 /* NSString+encrypto.m */,
+				F6F703361B6A41A10094E7A8 /* NSString+evaluatePhoneNumber.h */,
+				F6F703371B6A41A10094E7A8 /* NSString+evaluatePhoneNumber.m */,
 				F6C6AD021B12F42E0007A980 /* OBGradientView.h */,
 				F6C6AD031B12F42E0007A980 /* OBGradientView.m */,
 				F6C6AD041B12F42E0007A980 /* PlaceholderTextView.h */,
@@ -1718,6 +1781,8 @@
 				F66D79401B5FBFE700A6A946 /* AddressPickerView.m */,
 				F66D7BB81B661A2800A6A946 /* EmptyAlterView.h */,
 				F66D7BB91B661A2800A6A946 /* EmptyAlterView.m */,
+				2E57822F1BA2872500A04B9D /* WechatPay.h */,
+				2E5782301BA2872500A04B9D /* WechatPay.m */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -1733,6 +1798,9 @@
 				F690B26F1B25A8D60044310C /* Mine */,
 				F66FF09A1B1D489900511B7D /* PayViewController.h */,
 				F66FF09B1B1D489900511B7D /* PayViewController.m */,
+				68090EA11BA2B248000680D8 /* EDSFullfillMoneyVC.h */,
+				68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */,
+				68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */,
 				F6441B331B3D321B00EA3C9D /* WithdrewViewController.h */,
 				F6441B341B3D321B00EA3C9D /* WithdrewViewController.m */,
 				E4B39BF61B3D84D800ABE1A3 /* OrderRefuseViewController.h */,
@@ -2074,6 +2142,7 @@
 				F62A73E51B5CCA84001632B5 /* 1@1x.png in Resources */,
 				F67D35FE1B5664A600083DA4 /* AlipaySDK.bundle in Resources */,
 				F67D35FF1B5664A600083DA4 /* mapapi.bundle in Resources */,
+				68090EA71BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */,
 				2EA0CA441B82C72700BBAA63 /* ComplaintViewController.xib in Resources */,
 				F67D36001B5664A600083DA4 /* password_icon@2x.png in Resources */,
 				F67D36011B5664A600083DA4 /* LaunchScreen.xib in Resources */,
@@ -2105,6 +2174,7 @@
 				F6549F7F1B1C331300FAACEE /* back_nor@2x.png in Resources */,
 				F62A73E61B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F62A73EC1B5CCA84001632B5 /* 2@2x.png in Resources */,
+				68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */,
 				F6549F811B1C364100FAACEE /* verifty_icon@2x.png in Resources */,
 				F678A7E11B29787E0026DA37 /* alipay_icon@2x.png in Resources */,
 				F6C6AE7C1B1845750007A980 /* blue_btn_pre@2x.png in Resources */,
@@ -2164,9 +2234,11 @@
 				F67D35441B5664A600083DA4 /* OrderDetailViewController.m in Sources */,
 				F67D35451B5664A600083DA4 /* AppAudioPlayer.m in Sources */,
 				F67D35461B5664A600083DA4 /* MJRefreshConst.m in Sources */,
+				68090EA51BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */,
 				F67D35471B5664A600083DA4 /* GYBankCardFormatTextField.m in Sources */,
 				F67D35481B5664A600083DA4 /* OrderDetailInfoTableCell.m in Sources */,
 				F67D35491B5664A600083DA4 /* AFHTTPSessionManager.m in Sources */,
+				2E57819C1BA2774800A04B9D /* payRequsestHandler.mm in Sources */,
 				F67D354A1B5664A600083DA4 /* WaitOrderListViewController.m in Sources */,
 				F67D354B1B5664A600083DA4 /* NSData+ImageContentType.m in Sources */,
 				F67D354C1B5664A600083DA4 /* OrderDetailSubListTabelCell.m in Sources */,
@@ -2223,6 +2295,7 @@
 				F67D35791B5664A600083DA4 /* MessageModel.m in Sources */,
 				F67D357A1B5664A600083DA4 /* MJPhotoProgressView.m in Sources */,
 				F67D357B1B5664A600083DA4 /* MJPhotoBrowser.m in Sources */,
+				2E5782321BA2872500A04B9D /* WechatPay.m in Sources */,
 				F67D357C1B5664A600083DA4 /* MJRefreshGifHeader.m in Sources */,
 				F67D357D1B5664A600083DA4 /* UIAlertView+AFNetworking.m in Sources */,
 				F66D79421B5FC6DD00A6A946 /* AddressPickerView.m in Sources */,
@@ -2234,10 +2307,12 @@
 				F67D35831B5664A600083DA4 /* PayViewController.m in Sources */,
 				F67D35841B5664A600083DA4 /* MJRefreshBackStateFooter.m in Sources */,
 				F67D35851B5664A600083DA4 /* UIScrollView+MJRefresh.m in Sources */,
+				2E57819A1BA2774800A04B9D /* ApiXml.mm in Sources */,
 				F67D35861B5664A600083DA4 /* LineProgressView.m in Sources */,
 				F67D35871B5664A600083DA4 /* PaymentDetailViewController.m in Sources */,
 				F67D35881B5664A600083DA4 /* HMSegmentedControl.m in Sources */,
 				F67D35891B5664A600083DA4 /* QRadioButton.m in Sources */,
+				2E57819E1BA2774800A04B9D /* WXUtil.mm in Sources */,
 				F67D358A1B5664A600083DA4 /* MJRefreshAutoGifFooter.m in Sources */,
 				F67D358B1B5664A600083DA4 /* MJRefreshBackFooter.m in Sources */,
 				F67D358C1B5664A600083DA4 /* BankViewController.m in Sources */,
@@ -2355,9 +2430,11 @@
 				F66F4D3F1B21409F005F2BAC /* OrderDetailViewController.m in Sources */,
 				F6C6AD7A1B12F42F0007A980 /* AppAudioPlayer.m in Sources */,
 				F652876F1B3E3DE300738E64 /* MJRefreshConst.m in Sources */,
+				68090EA41BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */,
 				F643BB2B1B2719F00050E3AE /* GYBankCardFormatTextField.m in Sources */,
 				F66F4D421B21418F005F2BAC /* OrderDetailInfoTableCell.m in Sources */,
 				F6C6AD731B12F42F0007A980 /* AFHTTPSessionManager.m in Sources */,
+				2E57819B1BA2774800A04B9D /* payRequsestHandler.mm in Sources */,
 				F6188A871B219DE90033E58B /* WaitOrderListViewController.m in Sources */,
 				F6C6ADA61B12F42F0007A980 /* NSData+ImageContentType.m in Sources */,
 				F6188A7C1B217FC70033E58B /* OrderDetailSubListTabelCell.m in Sources */,
@@ -2414,6 +2491,7 @@
 				F6C6AD901B12F42F0007A980 /* MJPhotoProgressView.m in Sources */,
 				F6C6AD8E1B12F42F0007A980 /* MJPhotoBrowser.m in Sources */,
 				F652876B1B3E3DE300738E64 /* MJRefreshGifHeader.m in Sources */,
+				2E5782311BA2872500A04B9D /* WechatPay.m in Sources */,
 				F6C6ADB71B12F42F0007A980 /* UIAlertView+AFNetworking.m in Sources */,
 				F66D79411B5FBFE700A6A946 /* AddressPickerView.m in Sources */,
 				F6441B501B3D470100EA3C9D /* DataVerifier.m in Sources */,
@@ -2425,10 +2503,12 @@
 				F652876A1B3E3DE300738E64 /* MJRefreshBackStateFooter.m in Sources */,
 				F65287711B3E3DE300738E64 /* UIScrollView+MJRefresh.m in Sources */,
 				F6C6AC9F1B12F3EB0007A980 /* LineProgressView.m in Sources */,
+				2E5781991BA2774800A04B9D /* ApiXml.mm in Sources */,
 				F64DFD731B26D01D00A909E5 /* PaymentDetailViewController.m in Sources */,
 				F6C6AD881B12F42F0007A980 /* HMSegmentedControl.m in Sources */,
 				F6C6ADA11B12F42F0007A980 /* QRadioButton.m in Sources */,
 				F65287651B3E3DE300738E64 /* MJRefreshAutoGifFooter.m in Sources */,
+				2E57819D1BA2774800A04B9D /* WXUtil.mm in Sources */,
 				F65287611B3E3DE300738E64 /* MJRefreshBackFooter.m in Sources */,
 				F64DFD791B270E9F00A909E5 /* BankViewController.m in Sources */,
 				F6C6AC961B12F3EB0007A980 /* BaseModel.m in Sources */,
@@ -2615,6 +2695,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/alipay",
 					"$(PROJECT_DIR)/ESend/Lib/JPush1.8.3",
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2696,6 +2777,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/alipay",
 					"$(PROJECT_DIR)/ESend/Lib/JPush1.8.3",
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2738,6 +2820,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/alipay",
 					"$(PROJECT_DIR)/ESend/Lib/JPush1.8.3",
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "ESend copy";
@@ -2780,6 +2863,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/alipay",
 					"$(PROJECT_DIR)/ESend/Lib/JPush1.8.3",
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "ESend copy";
@@ -2822,6 +2906,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/alipay",
 					"$(PROJECT_DIR)/ESend/Lib/JPush1.8.3",
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "ESend copy";
@@ -2864,6 +2949,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/alipay",
 					"$(PROJECT_DIR)/ESend/Lib/JPush1.8.3",
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "ESend copy";
@@ -2990,6 +3076,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/alipay",
 					"$(PROJECT_DIR)/ESend/Lib/JPush1.8.3",
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3032,6 +3119,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/alipay",
 					"$(PROJECT_DIR)/ESend/Lib/JPush1.8.3",
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";

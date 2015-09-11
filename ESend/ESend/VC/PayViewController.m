@@ -104,25 +104,25 @@
     line1.frame = CGRectMake(0, CGRectGetMaxY(aliPay.frame), MainWidth, 0.5);
     [_bottomView addSubview:line1];
     
-//    UIImageView *wecharIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(aliPay.frame), 20, 55)];
-//    wecharIcon.contentMode = UIViewContentModeCenter;
-//    wecharIcon.image = [UIImage imageNamed:@"wechar_icon"];
-//    [_bottomView addSubview:wecharIcon];
-//    
-//    UILabel *wecharLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(wecharIcon.frame) + 20, CGRectGetMaxY(line1.frame), MainWidth, 55)];
-//    wecharLabel.text = @"微信支付";
-//    wecharLabel.font = [UIFont systemFontOfSize:BigFontSize];
-//    wecharLabel.textColor = DeepGrey;
-//    [_bottomView addSubview:wecharLabel];
+    UIImageView *wecharIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(aliPay.frame), 20, 55)];
+    wecharIcon.contentMode = UIViewContentModeCenter;
+    wecharIcon.image = [UIImage imageNamed:@"wechar_icon"];
+    [_bottomView addSubview:wecharIcon];
+    
+    UILabel *wecharLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(wecharIcon.frame) + 20, CGRectGetMaxY(line1.frame), MainWidth, 55)];
+    wecharLabel.text = @"微信支付";
+    wecharLabel.font = [UIFont systemFontOfSize:BigFontSize];
+    wecharLabel.textColor = DeepGrey;
+    [_bottomView addSubview:wecharLabel];
     
     _alipayBtn = [[QRadioButton alloc] initWithDelegate:self groupId:@"payment"];
     _alipayBtn.frame = CGRectMake(MainWidth - 45, 0, 45, 55);
     _alipayBtn.checked = YES;
     [_bottomView addSubview:_alipayBtn];
     
-//    _wechatBtn = [[QRadioButton alloc] initWithDelegate:self groupId:@"payment"];
-//    _wechatBtn.frame = CGRectMake(MainWidth - 45, CGRectGetMaxY(aliPayLabel.frame), 45, 55);
-//    [_bottomView addSubview:_wechatBtn];
+    _wechatBtn = [[QRadioButton alloc] initWithDelegate:self groupId:@"payment"];
+    _wechatBtn.frame = CGRectMake(MainWidth - 45, CGRectGetMaxY(aliPayLabel.frame), 45, 55);
+    [_bottomView addSubview:_wechatBtn];
     
     UIView *alipayView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 55)];
     alipayView.userInteractionEnabled = YES;
@@ -131,16 +131,16 @@
     UITapGestureRecognizer *tapAlipay = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPay:)];
     [alipayView addGestureRecognizer:tapAlipay];
     
-//    UIView *wechatView = [[UIView alloc] initWithFrame:CGRectMake(0, 55, MainWidth, 55)];
-//    wechatView.userInteractionEnabled = YES;
-//    [_bottomView addSubview:wechatView];
-//    UITapGestureRecognizer *tapWechat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPay:)];
-//    [wechatView addGestureRecognizer:tapWechat];
+    UIView *wechatView = [[UIView alloc] initWithFrame:CGRectMake(0, 55, MainWidth, 55)];
+    wechatView.userInteractionEnabled = YES;
+    [_bottomView addSubview:wechatView];
+    UITapGestureRecognizer *tapWechat = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPay:)];
+    [wechatView addGestureRecognizer:tapWechat];
     
     UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [submitBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:@""];
     [submitBtn addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
-    submitBtn.frame = CGRectMake(10, CGRectGetMaxY(_bottomView.frame) + 30, MainWidth - 20, 50);
+    submitBtn.frame = CGRectMake(10, CGRectGetMaxY(_bottomView.frame) + 30 + 55, MainWidth - 20, 50);
     [submitBtn setTitle:@"确    定" forState:UIControlStateNormal];
     [_scrollView addSubview:submitBtn];
 }

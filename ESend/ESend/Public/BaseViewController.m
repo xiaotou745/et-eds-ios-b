@@ -18,6 +18,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (IOSVERSION >= 7) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
+    
     self.textFieldList = [NSMutableArray array];
     
     [self bulidNavBar];
