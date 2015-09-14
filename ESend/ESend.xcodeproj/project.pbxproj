@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E5781991BA2774800A04B9D /* ApiXml.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781941BA2774800A04B9D /* ApiXml.mm */; };
+		2E5781991BA2774800A04B9D /* ApiXml.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781941BA2774800A04B9D /* ApiXml.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2E57819A1BA2774800A04B9D /* ApiXml.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781941BA2774800A04B9D /* ApiXml.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		2E57819B1BA2774800A04B9D /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781961BA2774800A04B9D /* payRequsestHandler.mm */; };
+		2E57819B1BA2774800A04B9D /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781961BA2774800A04B9D /* payRequsestHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2E57819C1BA2774800A04B9D /* payRequsestHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781961BA2774800A04B9D /* payRequsestHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		2E57819D1BA2774800A04B9D /* WXUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781981BA2774800A04B9D /* WXUtil.mm */; };
+		2E57819D1BA2774800A04B9D /* WXUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781981BA2774800A04B9D /* WXUtil.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2E57819E1BA2774800A04B9D /* WXUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E5781981BA2774800A04B9D /* WXUtil.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2E5781A31BA2775500A04B9D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5781A01BA2775500A04B9D /* libWeChatSDK.a */; };
 		2E5781A41BA2775500A04B9D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E5781A01BA2775500A04B9D /* libWeChatSDK.a */; };
@@ -2762,7 +2762,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Etao Stars Network Technology (Beijing) Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Etao Stars Network Technology (Beijing) Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2967,7 +2967,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "c7a8ca48-7c1e-4321-baef-b5518d470a08";
+				PROVISIONING_PROFILE = "eda9255e-d86b-47c8-ae64-d34926317b03";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = adhoc;

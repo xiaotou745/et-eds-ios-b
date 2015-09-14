@@ -198,21 +198,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
     [recharge addTarget:self action:@selector(clickRecharge) forControlEvents:UIControlEventTouchUpInside];
     [_topView addSubview:recharge];
     
-//    UIView *vline = [[UIView alloc] initWithFrame:CGRectMake(FRAME_WIDTH(_topView)/2, CGRectGetMaxY(line1.frame), 0.5, 50)];
-//    vline.backgroundColor = line1.backgroundColor;
-//    [_topView addSubview:vline];
-//    
-//    UIButton *withdrew = [UIButton buttonWithType:UIButtonTypeCustom];
-//    withdrew.frame  = CGRectMake(0, CGRectGetMaxY(line1.frame), FRAME_WIDTH(_topView)/2, 50);
-//    [withdrew setTitle:@"电话提现" forState:UIControlStateNormal];
-//    [withdrew setImage:[UIImage imageNamed:@"withdeposit"] forState:UIControlStateNormal];
-//    [withdrew setImage:[UIImage imageNamed:@"withdeposit"] forState:UIControlStateHighlighted];
-//    [withdrew setTitleColor:BlueColor forState:UIControlStateNormal];
-//    withdrew.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-//    withdrew.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
-//    [withdrew addTarget:self action:@selector(clickWithdraw) forControlEvents:UIControlEventTouchUpInside];
-//    [_topView addSubview:withdrew];
-    
     [_topView changeFrameHeight:CGRectGetMaxY(recharge.frame)];
     
     _newMessageIcon = [[UIView alloc] initWithFrame:CGRectMake(130, 35/2, 10, 10)];
@@ -221,22 +206,22 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _newMessageIcon.hidden = YES;
     
     
-    NSArray *titles = @[@"收支明细", @"提款账户", @"订单统计", @"消息中心"];
-    NSArray *icons = @[@"detail", @"account", @"order_detail", @"message_icon"];
+    NSArray *titles = @[@"收支明细",  @"订单统计", @"消息中心"];
+    NSArray *icons = @[@"detail",  @"order_detail", @"message_icon"];
     
     for (NSInteger i = 0; i < titles.count; i++) {
         NSString *contectStr = @"";
         
         MineCell *view = [[MineCell alloc] initWithTitle:titles[i] imageName:icons[i] content:contectStr];
         
-        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45, MainWidth - 20, 45);
+        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45 + ((i==2)?20:0), MainWidth - 20, 45);
         [self.view addSubview:view];
         view.tag = 1000+i;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapView:)];
         [view addGestureRecognizer:tap];
         
-        if (i == 3) {
+        if (i == 2) {
             [view addSubview:_newMessageIcon];
 
         }
@@ -247,7 +232,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
 - (void)tapView:(UITapGestureRecognizer*)tap {
     
-    if (tap.view.tag == 1003) {
+    if (tap.view.tag == 1002) {
         MessagesViewController *vc = [[MessagesViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;
@@ -255,7 +240,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
 
     
-    if (tap.view.tag == 1002) {
+    if (tap.view.tag == 1001) {
         OrderStatisticsViewController *vc = [[OrderStatisticsViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;
@@ -263,20 +248,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
     if (tap.view.tag == 1000) {
         ExpensesViewController *vc = [[ExpensesViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
-        return;
-    }
-    
-    if ([UserInfo getStatus] != UserStatusComplete) {
-        
-        [Tools showHUD:@"暂时无法进行该操作！"];
-        
-        return;
-    }
-    
-    if (tap.view.tag == 1001) {
-        BankViewController *vc = [[BankViewController alloc] init];
-        vc.bank = _bank;
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
