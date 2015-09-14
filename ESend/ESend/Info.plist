@@ -30,10 +30,20 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string></string>
+			<string>alipay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>Esendaipay</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>wechat</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wxbb8fb40942327ec6</string>
 			</array>
 		</dict>
 	</array>

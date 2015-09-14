@@ -25,10 +25,12 @@
 #import "ConsigneeModel.h"
 #import "DataArchive.h"
 
+// 微信支付
+#import "WechatPay.h"
 
 #import "NSString+X136.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<WXApiDelegate>
 {
     BMKMapManager* _mapManager;
     UINavigationController *_rootNav;
@@ -105,6 +107,9 @@
 //    [self updateBankCityList];
 ////    // 同步发单用户电话号码
 //    [self consigneeAddressB];
+    
+    //向微信注册
+    [WXApi registerApp:EDS_APP_ID withDescription:@"EDS_B"];
     
 
     return YES;
@@ -375,18 +380,33 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     
-    //跳转支付宝钱包进行支付，处理支付结果
-    [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-        NSLog(@"result = %@",resultDic);
-        if ([resultDic getIntegerWithKey:@"resultStatus"] == 9000) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:AliPaySuccessNotification object:nil];
-        } else {
-            [Tools showHUD:@"支付失败"];
-        }
-    }];
+    
+    if ([url.host isEqualToString:@"safepay"]) {
+        //Esendaipay://safepay/?%7B%22memo%22:%7B%22result%22:%22%22,%22ResultStatus%22:%226001%22,%22memo%22:%22%E7%94%A8%E6%88%B7%E4%B8%AD%E9%80%94%E5%8F%96%E6%B6%88%22%7D,%22requestType%22:%22safepay%22%7D
+        //跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            if ([resultDic getIntegerWithKey:@"resultStatus"] == 9000) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:AliPaySuccessNotification object:nil];
+            } else {
+                [Tools showHUD:@"支付失败"];
+            }
+        }];
+    }
+    if ([url.host isEqualToString:@"pay"]) {
+         return  [WXApi handleOpenURL:url delegate:self];
+
+    }
     
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
+
 
 #pragma mark - getToken
 

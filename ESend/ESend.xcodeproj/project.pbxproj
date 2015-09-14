@@ -39,6 +39,10 @@
 		2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */; };
 		2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		680557091BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 680557071BA660FB00840495 /* EDSFullfillOptionCell.m */; };
+		6805570A1BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 680557071BA660FB00840495 /* EDSFullfillOptionCell.m */; };
+		6805570B1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */; };
+		6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */; };
 		68090EA41BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */; };
 		68090EA51BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */; };
 		68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */; };
@@ -189,7 +193,7 @@
 		F66FF1391B1D7DD100511B7D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66FF1381B1D7DD100511B7D /* CoreGraphics.framework */; };
 		F66FF13B1B1D7DDA00511B7D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F66FF13A1B1D7DDA00511B7D /* Security.framework */; };
 		F675B64C1B1D96B600014671 /* BaiduMapAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F675B64B1B1D96B600014671 /* BaiduMapAPI.framework */; };
-		F678A7E01B29787E0026DA37 /* wechar_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F678A7DE1B29787E0026DA37 /* wechar_icon@2x.png */; };
+		F678A7E01B29787E0026DA37 /* wechat_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F678A7DE1B29787E0026DA37 /* wechat_icon@2x.png */; };
 		F678A7E11B29787E0026DA37 /* alipay_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F678A7DF1B29787E0026DA37 /* alipay_icon@2x.png */; };
 		F67A58441B282DD300891D53 /* SelectBankPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F67A58431B282DD300891D53 /* SelectBankPicker.m */; };
 		F67D35301B5664A600083DA4 /* MissionDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E402892C1B3C331B00B80417 /* MissionDetailModel.m */; };
@@ -394,7 +398,7 @@
 		F67D35F91B5664A600083DA4 /* phone_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6C6AE731B18386C0007A980 /* phone_icon@2x.png */; };
 		F67D35FA1B5664A600083DA4 /* Images 19-52-49-033.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F65E8D1E1B39807600053141 /* Images 19-52-49-033.xcassets */; };
 		F67D35FB1B5664A600083DA4 /* map_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F6188A831B219CB20033E58B /* map_icon@2x.png */; };
-		F67D35FC1B5664A600083DA4 /* wechar_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F678A7DE1B29787E0026DA37 /* wechar_icon@2x.png */; };
+		F67D35FC1B5664A600083DA4 /* wechat_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F678A7DE1B29787E0026DA37 /* wechat_icon@2x.png */; };
 		F67D35FD1B5664A600083DA4 /* Protocol.txt in Resources */ = {isa = PBXBuildFile; fileRef = F637CF0E1B40F3D100410C24 /* Protocol.txt */; };
 		F67D35FE1B5664A600083DA4 /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F6441B381B3D457300EA3C9D /* AlipaySDK.bundle */; };
 		F67D35FF1B5664A600083DA4 /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F66FF12A1B1D5FED00511B7D /* mapapi.bundle */; };
@@ -530,6 +534,9 @@
 		2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsigneeInfoCell.xib; sourceTree = "<group>"; };
 		2EA0CA801B84C05C00BBAA63 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		2EA0CA811B84C05C00BBAA63 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		680557061BA660FB00840495 /* EDSFullfillOptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSFullfillOptionCell.h; sourceTree = "<group>"; };
+		680557071BA660FB00840495 /* EDSFullfillOptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSFullfillOptionCell.m; sourceTree = "<group>"; };
+		680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSFullfillOptionCell.xib; sourceTree = "<group>"; };
 		68090EA11BA2B248000680D8 /* EDSFullfillMoneyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSFullfillMoneyVC.h; sourceTree = "<group>"; };
 		68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSFullfillMoneyVC.m; sourceTree = "<group>"; };
 		68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSFullfillMoneyVC.xib; sourceTree = "<group>"; };
@@ -853,7 +860,7 @@
 		F66FF1381B1D7DD100511B7D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		F66FF13A1B1D7DDA00511B7D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F675B64B1B1D96B600014671 /* BaiduMapAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BaiduMapAPI.framework; path = "ESend/Lib/Release-iphoneos/BaiduMapAPI.framework"; sourceTree = "<group>"; };
-		F678A7DE1B29787E0026DA37 /* wechar_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wechar_icon@2x.png"; sourceTree = "<group>"; };
+		F678A7DE1B29787E0026DA37 /* wechat_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wechat_icon@2x.png"; sourceTree = "<group>"; };
 		F678A7DF1B29787E0026DA37 /* alipay_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alipay_icon@2x.png"; sourceTree = "<group>"; };
 		F67A58421B282DD300891D53 /* SelectBankPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectBankPicker.h; sourceTree = "<group>"; };
 		F67A58431B282DD300891D53 /* SelectBankPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectBankPicker.m; sourceTree = "<group>"; };
@@ -1248,6 +1255,9 @@
 			children = (
 				F6441B2A1B3C1E9B00EA3C9D /* MineCell.h */,
 				F6441B2B1B3C1E9B00EA3C9D /* MineCell.m */,
+				680557061BA660FB00840495 /* EDSFullfillOptionCell.h */,
+				680557071BA660FB00840495 /* EDSFullfillOptionCell.m */,
+				680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -2006,7 +2016,7 @@
 				F62A73E31B5CCA84001632B5 /* 2@3x.png */,
 				F62E8D001B2E80F1006F3862 /* demo_license@3x.png */,
 				F62E8D011B2E80F1006F3862 /* demo_card@3x.png */,
-				F678A7DE1B29787E0026DA37 /* wechar_icon@2x.png */,
+				F678A7DE1B29787E0026DA37 /* wechat_icon@2x.png */,
 				F678A7DF1B29787E0026DA37 /* alipay_icon@2x.png */,
 				F6188A831B219CB20033E58B /* map_icon@2x.png */,
 				F66CA1271B1DC407006BDDB8 /* blue_border_btn_nor@2x.png */,
@@ -2131,13 +2141,14 @@
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
+				6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */,
 				F67D35F71B5664A600083DA4 /* blue_btn_pre@2x.png in Resources */,
 				F67D35F81B5664A600083DA4 /* Main.storyboard in Resources */,
 				2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
 				F67D35F91B5664A600083DA4 /* phone_icon@2x.png in Resources */,
 				F67D35FA1B5664A600083DA4 /* Images 19-52-49-033.xcassets in Resources */,
 				F67D35FB1B5664A600083DA4 /* map_icon@2x.png in Resources */,
-				F67D35FC1B5664A600083DA4 /* wechar_icon@2x.png in Resources */,
+				F67D35FC1B5664A600083DA4 /* wechat_icon@2x.png in Resources */,
 				F67D35FD1B5664A600083DA4 /* Protocol.txt in Resources */,
 				F62A73E51B5CCA84001632B5 /* 1@1x.png in Resources */,
 				F67D35FE1B5664A600083DA4 /* AlipaySDK.bundle in Resources */,
@@ -2183,12 +2194,13 @@
 				F6C6AE751B18386C0007A980 /* phone_icon@2x.png in Resources */,
 				F65E8D1F1B39807600053141 /* Images 19-52-49-033.xcassets in Resources */,
 				F6188A841B219CB20033E58B /* map_icon@2x.png in Resources */,
-				F678A7E01B29787E0026DA37 /* wechar_icon@2x.png in Resources */,
+				F678A7E01B29787E0026DA37 /* wechat_icon@2x.png in Resources */,
 				F637CF0F1B40F3D100410C24 /* Protocol.txt in Resources */,
 				F6441B3A1B3D457300EA3C9D /* AlipaySDK.bundle in Resources */,
 				F66FF12B1B1D5FED00511B7D /* mapapi.bundle in Resources */,
 				F6C6AE741B18386C0007A980 /* password_icon@2x.png in Resources */,
 				F6C6AC431B12F2640007A980 /* LaunchScreen.xib in Resources */,
+				6805570B1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */,
 				F6C6AD8D1B12F42F0007A980 /* MJPhotoBrowser.bundle in Resources */,
 				2EA0CA7E1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
 				2E5D878F1B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
@@ -2371,6 +2383,7 @@
 				F67D35BE1B5664A600083DA4 /* UIRefreshControl+AFNetworking.m in Sources */,
 				F67D35BF1B5664A600083DA4 /* UserInfo.m in Sources */,
 				F67D35C01B5664A600083DA4 /* HYUploadImage.m in Sources */,
+				6805570A1BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */,
 				F67D35C11B5664A600083DA4 /* MineCell.m in Sources */,
 				2EA0CA741B842E3F00BBAA63 /* Security.m in Sources */,
 				F67D35C21B5664A600083DA4 /* AFSecurityPolicy.m in Sources */,
@@ -2567,6 +2580,7 @@
 				F66CA13E1B1EEC4C006BDDB8 /* UserInfo.m in Sources */,
 				F6C6AD891B12F42F0007A980 /* HYUploadImage.m in Sources */,
 				F6441B2C1B3C1E9B00EA3C9D /* MineCell.m in Sources */,
+				680557091BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */,
 				F6C6AD751B12F42F0007A980 /* AFSecurityPolicy.m in Sources */,
 				2EA0CA731B842E3F00BBAA63 /* Security.m in Sources */,
 				F61C76271B468093009051B9 /* HelpViewController.m in Sources */,

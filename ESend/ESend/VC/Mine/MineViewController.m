@@ -8,6 +8,7 @@
 
 #import "MineViewController.h"
 #import "MoreViewController.h"
+#import "PayViewController.h"
 #import "EDSFullfillMoneyVC.h"
 #import "BankViewController.h"
 #import "FHQNetWorkingAPI.h"

@@ -124,6 +124,9 @@ fprintf(stderr, "-------\n");                                               \
 #define Pink            [UIColor colorWithHexString:@"ff2e75"]
 #define MainRedColor    [UIColor colorWithHexString:@"c83838"]
 
+//
+#define SeparatorLineColor [UIColor colorWithHexString:@"dfdfdf"]
+
 #define isCanUseString(str) ( (str != nil) && ![str isKindOfClass:[NSNull class]] && [str isKindOfClass:[NSString class]] && [str length] > 0 )
 #define isCanUseObj(str) ( str && (str != nil) && ![str isKindOfClass:[NSNull class]] )
 #define isCanUseArray(arr) ( arr && (arr != nil) && ![arr isKindOfClass:[NSNull class]] )
@@ -207,7 +210,7 @@ fprintf(stderr, "-------\n");                                               \
 
 
 
-#if 1
+#if 0
     #define OPEN_API_SEVER @"http://api.edaisong.com/20150827/" //生产
     #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20150827/" //上传图片地址
     #define UPDATE_APP_API_SERVER @"http://api.edaisong.com/" // 升级接口

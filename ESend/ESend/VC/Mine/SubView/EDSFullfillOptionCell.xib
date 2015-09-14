@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="EDSFullfillOptionCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s25-xh-Gdj" userLabel="paymentType">
+                        <rect key="frame" x="10" y="17" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="s25-xh-Gdj" secondAttribute="height" id="AU3-uo-iYA"/>
+                            <constraint firstAttribute="width" constant="20" id="pR0-H4-EG5"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="khb-OX-mC9" userLabel="marker">
+                        <rect key="frame" x="286" y="15" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="khb-OX-mC9" secondAttribute="height" id="dQo-DX-P3a"/>
+                            <constraint firstAttribute="width" constant="24" id="eds-ll-2Ev"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eD9-qe-g5r" userLabel="paymentName">
+                        <rect key="frame" x="40" y="0.0" width="236" height="53"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LBZ-WF-LMv" userLabel="separatorLine">
+                        <rect key="frame" x="0.0" y="53" width="320" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="ltX-G6-5A7"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="eD9-qe-g5r" firstAttribute="leading" secondItem="s25-xh-Gdj" secondAttribute="trailing" constant="10" id="2cx-Vu-ocV"/>
+                    <constraint firstAttribute="centerY" secondItem="khb-OX-mC9" secondAttribute="centerY" id="6ni-cU-nR2"/>
+                    <constraint firstItem="LBZ-WF-LMv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="CBa-Li-N3W"/>
+                    <constraint firstAttribute="trailing" secondItem="khb-OX-mC9" secondAttribute="trailing" constant="10" id="Epn-Xp-Jm3"/>
+                    <constraint firstItem="khb-OX-mC9" firstAttribute="leading" secondItem="eD9-qe-g5r" secondAttribute="trailing" constant="10" id="Tq4-sF-7cf"/>
+                    <constraint firstAttribute="bottom" secondItem="LBZ-WF-LMv" secondAttribute="bottom" id="X3M-1c-hAw"/>
+                    <constraint firstAttribute="trailing" secondItem="LBZ-WF-LMv" secondAttribute="trailing" id="g6b-Tf-qfe"/>
+                    <constraint firstItem="LBZ-WF-LMv" firstAttribute="top" secondItem="eD9-qe-g5r" secondAttribute="bottom" id="gRu-qI-LC1"/>
+                    <constraint firstAttribute="centerY" secondItem="s25-xh-Gdj" secondAttribute="centerY" id="hcj-cD-YXk"/>
+                    <constraint firstItem="eD9-qe-g5r" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tmJ-wo-mVm"/>
+                    <constraint firstItem="s25-xh-Gdj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="ujq-XX-5Zi"/>
+                    <constraint firstAttribute="centerX" secondItem="s25-xh-Gdj" secondAttribute="centerX" id="wpQ-EQ-8gt"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="wpQ-EQ-8gt"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="FFOC_CellSeparatorLine" destination="LBZ-WF-LMv" id="S06-OF-u9j"/>
+                <outlet property="FFOC_PaymentMarker" destination="khb-OX-mC9" id="1wg-uQ-b9t"/>
+                <outlet property="FFOC_PaymentNameLbl" destination="eD9-qe-g5r" id="iIt-87-BWd"/>
+                <outlet property="FFOC_PaymentTypeImg" destination="s25-xh-Gdj" id="XFZ-b8-CBT"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
