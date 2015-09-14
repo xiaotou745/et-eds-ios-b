@@ -190,6 +190,9 @@ fprintf(stderr, "-------\n");                                               \
 //支付宝支付成功通知
 #define AliPaySuccessNotification @"AliPaySuccessNotification"
 
+// 微信支付成功通知
+#define WechatPaySuccessNotification @"WechatPaySuccessNotification"
+
 //发布订单成功
 #define ReleseOrderNotification @"ReleseOrderNotification"
 

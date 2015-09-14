@@ -47,6 +47,10 @@
     [super viewDidLoad];
     self.titleLabel.text = @"充值";
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccess) name:AliPaySuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccess) name:WechatPaySuccessNotification object:nil];
+
+    
     //接口中： 支付宝-paytype-1；微信支付-paytype-2;
     _FFM_Payments = [[NSMutableArray alloc] initWithCapacity:0];
     EDSPaymentTypeModel * aliPay = [[EDSPaymentTypeModel alloc] init];
@@ -192,6 +196,13 @@
         }
     }
     return selectedType;
+}
+
+
+#pragma mark - 通知回调
+- (void)paySuccess {
+    [Tools showHUD:@"充值成功"];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
