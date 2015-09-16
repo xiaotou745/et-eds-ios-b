@@ -1261,6 +1261,27 @@
 			name = Feedback;
 			sourceTree = "<group>";
 		};
+		686745671BA98ED4005F59D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F637CF4E1B437F1D00410C24 /* CoreTelephony.framework */,
+				F637CF4C1B437D2200410C24 /* CFNetwork.framework */,
+				F6441BAC1B3D490000EA3C9D /* libz.1.dylib */,
+				F66CA15A1B1EF14A006BDDB8 /* libsqlite3.dylib */,
+				F675B64B1B1D96B600014671 /* BaiduMapAPI.framework */,
+				F6DB746A1B1D81BB0064CFFB /* Foundation.framework */,
+				F6DB74681B1D81B10064CFFB /* UIKit.framework */,
+				F6DB74661B1D81A80064CFFB /* MessageUI.framework */,
+				F66FF13A1B1D7DDA00511B7D /* Security.framework */,
+				F66FF1381B1D7DD100511B7D /* CoreGraphics.framework */,
+				F66FF1361B1D7DC600511B7D /* SystemConfiguration.framework */,
+				F66FF1341B1D7DBD00511B7D /* OpenGLES.framework */,
+				F66FF1321B1D7DB500511B7D /* QuartzCore.framework */,
+				F66FF1301B1D7DAD00511B7D /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E402892E1B3C356A00B80417 /* Mission */ = {
 			isa = PBXGroup;
 			children = (
@@ -1711,20 +1732,7 @@
 		F6C6AC261B12F2640007A980 = {
 			isa = PBXGroup;
 			children = (
-				F637CF4E1B437F1D00410C24 /* CoreTelephony.framework */,
-				F637CF4C1B437D2200410C24 /* CFNetwork.framework */,
-				F6441BAC1B3D490000EA3C9D /* libz.1.dylib */,
-				F66CA15A1B1EF14A006BDDB8 /* libsqlite3.dylib */,
-				F675B64B1B1D96B600014671 /* BaiduMapAPI.framework */,
-				F6DB746A1B1D81BB0064CFFB /* Foundation.framework */,
-				F6DB74681B1D81B10064CFFB /* UIKit.framework */,
-				F6DB74661B1D81A80064CFFB /* MessageUI.framework */,
-				F66FF13A1B1D7DDA00511B7D /* Security.framework */,
-				F66FF1381B1D7DD100511B7D /* CoreGraphics.framework */,
-				F66FF1361B1D7DC600511B7D /* SystemConfiguration.framework */,
-				F66FF1341B1D7DBD00511B7D /* OpenGLES.framework */,
-				F66FF1321B1D7DB500511B7D /* QuartzCore.framework */,
-				F66FF1301B1D7DAD00511B7D /* CoreLocation.framework */,
+				686745671BA98ED4005F59D4 /* Frameworks */,
 				F6C6AC311B12F2640007A980 /* ESend */,
 				F6C6AC4B1B12F2640007A980 /* ESendTests */,
 				F6C6AC301B12F2640007A980 /* Products */,

@@ -234,7 +234,7 @@ fprintf(stderr, "-------\n");                                               \
     #if 0
         #define Java_API_SERVER @"http://10.8.7.42:8094/api-http/services/" // java服务器-不加密
     #elif 1
-        #define Java_API_SERVER @"http://10.8.7.43:8094/api-http/services/" // java服务器-不加密
+        #define Java_API_SERVER @"http://10.8.7.253:7178/api-http/services/" // java服务器-加密
     #endif
 
 
