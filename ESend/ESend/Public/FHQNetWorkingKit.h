@@ -15,12 +15,14 @@ typedef void (^failureBlock) (NSError *error, AFHTTPRequestOperation *operation)
 
 @interface FHQNetWorkingKit : NSObject
 
+
+/// normal
 + (AFHTTPRequestOperation*)httpRequestWithUrl:(NSString*)urlString
                                    methodType:(NSString*)methodType
                                     prameters:(NSDictionary*)pramaters
                                       success:(successBlock)successBlock
                                       failure:(failureBlock)failBlock;
-
+/// showFailAlert, failAlertString
 + (AFHTTPRequestOperation*)httpRequestWithUrl:(NSString*)urlString
                                    methodType:(NSString*)methodType
                                     prameters:(NSDictionary*)pramaters
@@ -29,6 +31,7 @@ typedef void (^failureBlock) (NSError *error, AFHTTPRequestOperation *operation)
                               isShowFailAlert:(BOOL)isShowFailAlert
                               failAlertString:(NSString*)failAlertString;
 
+/// showFailAlert, failAlertString,host
 + (AFHTTPRequestOperation*)httpRequestWithUrl:(NSString*)urlString
                                    methodType:(NSString*)methodType
                                     prameters:(NSDictionary*)pramaters
@@ -38,6 +41,8 @@ typedef void (^failureBlock) (NSError *error, AFHTTPRequestOperation *operation)
                               failAlertString:(NSString*)failAlertString
                                          host:(NSString *)host;
 
+
+///  uploadimage
 + (AFHTTPRequestOperation*)httpRequestWithUrl:(NSString*)urlString
                                    methodType:(NSString*)methodType
                                     prameters:(NSDictionary*)pramaters
@@ -47,6 +52,8 @@ typedef void (^failureBlock) (NSError *error, AFHTTPRequestOperation *operation)
                               isShowFailAlert:(BOOL)isShowFailAlert
                               failAlertString:(NSString*)failAlertString;
 
+
+///  uploadimage,host
 + (AFHTTPRequestOperation*)httpRequestWithUrl:(NSString*)urlString
                                    methodType:(NSString*)methodType
                                     prameters:(NSDictionary*)pramaters

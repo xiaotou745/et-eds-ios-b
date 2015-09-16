@@ -211,6 +211,10 @@ fprintf(stderr, "-------\n");                                               \
 
 #define APIVersion @"1.0"
 
+// static NSString * const AFAppJavaAPIBaseURLString = @"http://10.8.7.42:8094/api-http/services/";// 新版java接口
+
+
+
 
 
 #if 0
@@ -226,6 +230,13 @@ fprintf(stderr, "-------\n");                                               \
     #define OPEN_API_SEVER @"http://10.8.7.251:7178/"   //本地服务器 251
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
     #define UPDATE_APP_API_SERVER  @""// 升级接口
+
+    #if 0
+        #define Java_API_SERVER @"http://10.8.7.42:8094/api-http/services/" // java服务器-不加密
+    #elif 1
+        #define Java_API_SERVER @"http://10.8.7.43:8094/api-http/services/" // java服务器-不加密
+    #endif
+
 
 #elif 0
     #define  OPEN_API_SEVER @"http://10.8.7.40:7178/"   //本地服务器 40
@@ -260,6 +271,16 @@ fprintf(stderr, "-------\n");                                               \
  百度地图  uazMqGlv1NImlBWYoh4elkOs
  这个是Appstore
  */
+
+
+/// Java版新接口，是否加密
+#if 1
+    #define AES_Security YES   // 加密
+#elif 0
+    #define AES_Security NO    // 不加密
+#endif
+
+
 
 
 

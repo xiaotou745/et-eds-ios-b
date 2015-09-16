@@ -187,4 +187,9 @@
                               successBlock:(successBlock)successBlock
                                    failure:(failureBlock)failure;
 
+/// 1.1.5 意见反馈
++ (AFHTTPRequestOperation *)feedbackB:(NSDictionary *)data
+                         successBlock:(successBlock)successBlock
+                              failure:(failureBlock)failure;
+
 @end

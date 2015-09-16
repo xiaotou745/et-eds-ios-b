@@ -13,6 +13,7 @@
 #import "ForgetPasswordViewController.h"
 #import "AboutViewController.h"
 #import "HelpViewController.h"
+#import "SCFeedbackVC.h"
 
 @interface MoreViewController ()<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
@@ -40,7 +41,7 @@
     [_tableView registerClass:[MoreTableViewCell class] forCellReuseIdentifier:NSStringFromClass([MoreTableViewCell class])];
     [self.view addSubview:_tableView];
     
-    _titles = @[@"修改密码", @"联系客服",  @"版本号"
+    _titles = @[@"修改密码", @"联系客服",@"意见反馈",  @"版本号"
                 ];
     
     UIView *bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 94)];
@@ -90,16 +91,19 @@
         return;
     }
     
-//    if (indexPath.section == 2) {
+    if (indexPath.section == 2) {   // 意见反馈
 //        AboutViewController *vc = [[AboutViewController alloc] init];
 //        [self.navigationController pushViewController:vc animated:YES];
 //        return;
-//    }
-    
-    if (indexPath.section == 3) {
-        HelpViewController *vc = [[HelpViewController alloc] init];
+        SCFeedbackVC * vc = [[SCFeedbackVC alloc] initWithNibName:@"SCFeedbackVC" bundle:nil];
         [self.navigationController pushViewController:vc animated:YES];
+        return;
     }
+    
+//    if (indexPath.section == 3) {
+//        HelpViewController *vc = [[HelpViewController alloc] init];
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
     
     
 

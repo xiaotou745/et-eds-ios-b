@@ -840,4 +840,35 @@
     return operation;
 }
 
+
+/// 意见反馈
++ (AFHTTPRequestOperation *)feedbackB:(NSDictionary *)data
+                         successBlock:(successBlock)successBlock
+                              failure:(failureBlock)failure{
+    
+    /// 网络状态
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        
+        [Tools showHUD:NoNetworkReachableMsg];
+        
+        failure(nil,nil);
+        
+        return nil;
+    }
+    
+    NSString *url = @"feedback/feedbackb";
+
+    AFHTTPRequestOperation * operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
+        if (successBlock) {
+            successBlock(result, operation);
+        }
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (failure) {
+            failure(error,operation);
+        }
+    } isShowFailAlert:NO failAlertString:nil host:Java_API_SERVER];
+    
+    return operation;
+}
+
 @end

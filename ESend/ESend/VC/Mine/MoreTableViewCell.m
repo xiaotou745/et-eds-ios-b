@@ -8,6 +8,8 @@
 
 #import "MoreTableViewCell.h"
 
+#define MoreTableVCFeedbackSubTitle @"产品功能建议与反馈"
+
 @interface MoreTableViewCell ()
 {
     UILabel *_titleLabel;
@@ -50,8 +52,13 @@
 
 - (void)loadData:(NSString*)title {
     if ([title isEqualToString:@"版本号"]) {
-        _contentLabel.text = [NSString stringWithFormat:@"v%@",[Tools getApplicationVersion]];
+        _contentLabel.text = [NSString stringWithFormat:@"V%@",[Tools getApplicationVersion]];
         _leftView.hidden = YES;
+    } else if ([title isEqualToString:@"意见反馈"]){
+        _contentLabel.frame = CGRectMake(MainWidth - 140 - 40, 0, 140, 45);
+
+        _contentLabel.text = MoreTableVCFeedbackSubTitle;
+        _leftView.hidden = NO;
     } else {
         _contentLabel.text = @"";
         _leftView.hidden = NO;

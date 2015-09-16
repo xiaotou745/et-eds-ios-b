@@ -38,6 +38,7 @@
     [signParams setObject: PARTNER_ID        forKey:@"partnerid"];
     [signParams setObject: time_stamp   forKey:@"timestamp"];
     [signParams setObject: prepayId     forKey:@"prepayid"];
+    //[signParams setObject:@"E代送商家充值" forKey:@"body"];
     
     //[signParams setObject: @"MD5"       forKey:@"signType"];
     //生成签名

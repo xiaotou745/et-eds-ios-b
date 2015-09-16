@@ -10,7 +10,7 @@
 
 @interface EDSFullfillMoneyVC : BaseViewController
 
-@property (nonatomic, assign) CGFloat balancePrice;
+@property (nonatomic, assign) double balancePrice;
 
 
 @end

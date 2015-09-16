@@ -63,6 +63,26 @@
 		68580CA81BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580CA51BA840070082C18C /* EDSRiderDelieveListVC.m */; };
 		68580CA91BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580CA61BA840070082C18C /* EDSRiderDelieveListVC.xib */; };
 		68580CAA1BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580CA61BA840070082C18C /* EDSRiderDelieveListVC.xib */; };
+		686745441BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
+		686745451BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
+		686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */; };
+		686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */; };
+		6867454B1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745491BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m */; };
+		6867454C1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745491BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m */; };
+		6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6867454A1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib */; };
+		6867454E1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6867454A1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib */; };
+		686745551BA91AF7005F59D4 /* SCFBCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745511BA91AF7005F59D4 /* SCFBCustomView.m */; };
+		686745561BA91AF7005F59D4 /* SCFBCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745511BA91AF7005F59D4 /* SCFBCustomView.m */; };
+		686745571BA91AF7005F59D4 /* SCFeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745531BA91AF7005F59D4 /* SCFeedbackVC.m */; };
+		686745581BA91AF7005F59D4 /* SCFeedbackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745531BA91AF7005F59D4 /* SCFeedbackVC.m */; };
+		686745591BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686745541BA91AF7005F59D4 /* SCFeedbackVC.xib */; };
+		6867455A1BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686745541BA91AF7005F59D4 /* SCFeedbackVC.xib */; };
+		6867455D1BA91B4C005F59D4 /* ManFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6867455C1BA91B4C005F59D4 /* ManFactory.m */; };
+		6867455E1BA91B4C005F59D4 /* ManFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6867455C1BA91B4C005F59D4 /* ManFactory.m */; };
+		686745611BA9205C005F59D4 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745601BA9205C005F59D4 /* UIView+Common.m */; };
+		686745621BA9205C005F59D4 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745601BA9205C005F59D4 /* UIView+Common.m */; };
+		686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
+		686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
 		E402892D1B3C331B00B80417 /* MissionDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E402892C1B3C331B00B80417 /* MissionDetailModel.m */; };
 		E40289311B3C357C00B80417 /* MissionDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E40289301B3C357C00B80417 /* MissionDetailViewController.m */; };
 		E46C49261B3C48BC00CE0033 /* MDOrderInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E46C49251B3C48BC00CE0033 /* MDOrderInfoCell.m */; };
@@ -569,6 +589,23 @@
 		68580CA41BA840070082C18C /* EDSRiderDelieveListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDelieveListVC.h; sourceTree = "<group>"; };
 		68580CA51BA840070082C18C /* EDSRiderDelieveListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDelieveListVC.m; sourceTree = "<group>"; };
 		68580CA61BA840070082C18C /* EDSRiderDelieveListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDelieveListVC.xib; sourceTree = "<group>"; };
+		686745411BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDeliveryInfoCell.h; sourceTree = "<group>"; };
+		686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDeliveryInfoCell.m; sourceTree = "<group>"; };
+		686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryInfoCell.xib; sourceTree = "<group>"; };
+		686745481BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSMerchantReleaseTaskListVC.h; sourceTree = "<group>"; };
+		686745491BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSMerchantReleaseTaskListVC.m; sourceTree = "<group>"; };
+		6867454A1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSMerchantReleaseTaskListVC.xib; sourceTree = "<group>"; };
+		686745501BA91AF7005F59D4 /* SCFBCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFBCustomView.h; sourceTree = "<group>"; };
+		686745511BA91AF7005F59D4 /* SCFBCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFBCustomView.m; sourceTree = "<group>"; };
+		686745521BA91AF7005F59D4 /* SCFeedbackVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCFeedbackVC.h; sourceTree = "<group>"; };
+		686745531BA91AF7005F59D4 /* SCFeedbackVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCFeedbackVC.m; sourceTree = "<group>"; };
+		686745541BA91AF7005F59D4 /* SCFeedbackVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SCFeedbackVC.xib; sourceTree = "<group>"; };
+		6867455B1BA91B4C005F59D4 /* ManFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManFactory.h; sourceTree = "<group>"; };
+		6867455C1BA91B4C005F59D4 /* ManFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManFactory.m; sourceTree = "<group>"; };
+		6867455F1BA9205C005F59D4 /* UIView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Common.h"; sourceTree = "<group>"; };
+		686745601BA9205C005F59D4 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
+		686745631BA96CF1005F59D4 /* UIImage+tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+tools.h"; sourceTree = "<group>"; };
+		686745641BA96CF1005F59D4 /* UIImage+tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+tools.m"; sourceTree = "<group>"; };
 		E402892B1B3C331B00B80417 /* MissionDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailModel.h; sourceTree = "<group>"; };
 		E402892C1B3C331B00B80417 /* MissionDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionDetailModel.m; sourceTree = "<group>"; };
 		E402892F1B3C357C00B80417 /* MissionDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MissionDetailViewController.h; sourceTree = "<group>"; };
@@ -1193,6 +1230,9 @@
 				68580CA41BA840070082C18C /* EDSRiderDelieveListVC.h */,
 				68580CA51BA840070082C18C /* EDSRiderDelieveListVC.m */,
 				68580CA61BA840070082C18C /* EDSRiderDelieveListVC.xib */,
+				686745481BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.h */,
+				686745491BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m */,
+				6867454A1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib */,
 			);
 			name = OrderStatistics;
 			sourceTree = "<group>";
@@ -1207,6 +1247,18 @@
 				68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */,
 			);
 			name = FullfillMoney;
+			sourceTree = "<group>";
+		};
+		6867454F1BA9197C005F59D4 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				686745501BA91AF7005F59D4 /* SCFBCustomView.h */,
+				686745511BA91AF7005F59D4 /* SCFBCustomView.m */,
+				686745521BA91AF7005F59D4 /* SCFeedbackVC.h */,
+				686745531BA91AF7005F59D4 /* SCFeedbackVC.m */,
+				686745541BA91AF7005F59D4 /* SCFeedbackVC.xib */,
+			);
+			name = Feedback;
 			sourceTree = "<group>";
 		};
 		E402892E1B3C356A00B80417 /* Mission */ = {
@@ -1317,6 +1369,9 @@
 				68580C8E1BA80A930082C18C /* EDSAttachedRiderCell.h */,
 				68580C8F1BA80A930082C18C /* EDSAttachedRiderCell.m */,
 				68580C901BA80A930082C18C /* EDSAttachedRiderCell.xib */,
+				686745411BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.h */,
+				686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */,
+				686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -1620,6 +1675,7 @@
 		F690B26F1B25A8D60044310C /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				6867454F1BA9197C005F59D4 /* Feedback */,
 				68580C8D1BA7BC2F0082C18C /* FullfillMoney */,
 				68580C8C1BA7BB950082C18C /* OrderStatistics */,
 				F61A82BF1B3E87240060558D /* Expenses */,
@@ -1858,6 +1914,12 @@
 				2E5782301BA2872500A04B9D /* WechatPay.m */,
 				68580C9C1BA836E10082C18C /* MNUnderLineButton.h */,
 				68580C9D1BA836E10082C18C /* MNUnderLineButton.m */,
+				6867455B1BA91B4C005F59D4 /* ManFactory.h */,
+				6867455C1BA91B4C005F59D4 /* ManFactory.m */,
+				6867455F1BA9205C005F59D4 /* UIView+Common.h */,
+				686745601BA9205C005F59D4 /* UIView+Common.m */,
+				686745631BA96CF1005F59D4 /* UIImage+tools.h */,
+				686745641BA96CF1005F59D4 /* UIImage+tools.m */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -2192,11 +2254,13 @@
 			files = (
 				F62A73E71B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F67D35F11B5664A600083DA4 /* gray_border_btn_nor@2x.png in Resources */,
+				6867454E1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
 				F62A73EF1B5CCA84001632B5 /* 2@3x.png in Resources */,
 				F67D35F21B5664A600083DA4 /* demo_card@3x.png in Resources */,
 				F67D35F31B5664A600083DA4 /* blue_btn_nor@2x.png in Resources */,
 				68580C941BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				F67D35F41B5664A600083DA4 /* back_nor@2x.png in Resources */,
+				686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
@@ -2225,6 +2289,7 @@
 				F67D36051B5664A600083DA4 /* MJRefresh.bundle in Resources */,
 				F67D36061B5664A600083DA4 /* blue_btn_noSelect@2x.pdf in Resources */,
 				F67D36071B5664A600083DA4 /* demo_license@3x.png in Resources */,
+				6867455A1BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */,
 				F62A73EB1B5CCA84001632B5 /* 2@1x.png in Resources */,
 				F62A73ED1B5CCA84001632B5 /* 2@2x.png in Resources */,
 				F67D36081B5664A600083DA4 /* photo_default@2x.png in Resources */,
@@ -2243,6 +2308,7 @@
 				F62E8D031B2E80F1006F3862 /* demo_card@3x.png in Resources */,
 				2EA0CA431B82C72700BBAA63 /* ComplaintViewController.xib in Resources */,
 				F6C6AE7D1B1845750007A980 /* blue_btn_nor@2x.png in Resources */,
+				686745591BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */,
 				F6549F7F1B1C331300FAACEE /* back_nor@2x.png in Resources */,
 				F62A73E61B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F62A73EC1B5CCA84001632B5 /* 2@2x.png in Resources */,
@@ -2254,7 +2320,9 @@
 				68580CA91BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */,
 				F62A73EA1B5CCA84001632B5 /* 2@1x.png in Resources */,
 				F6C6AE751B18386C0007A980 /* phone_icon@2x.png in Resources */,
+				686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68580C931BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
+				6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
 				F65E8D1F1B39807600053141 /* Images 19-52-49-033.xcassets in Resources */,
 				F6188A841B219CB20033E58B /* map_icon@2x.png in Resources */,
 				F678A7E01B29787E0026DA37 /* wechat_icon@2x.png in Resources */,
@@ -2333,17 +2401,20 @@
 				F67D35541B5664A600083DA4 /* AFNetworkReachabilityManager.m in Sources */,
 				F67D35551B5664A600083DA4 /* RSADataVerifier.m in Sources */,
 				F67D35561B5664A600083DA4 /* UIWebView+AFNetworking.m in Sources */,
+				686745451BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */,
 				F67D35571B5664A600083DA4 /* UIImageView+HighlightedWebCache.m in Sources */,
 				F67D35581B5664A600083DA4 /* MJPhotoToolbar.m in Sources */,
 				F67D35591B5664A600083DA4 /* MJRefreshHeader.m in Sources */,
 				F67D355A1B5664A600083DA4 /* MDOrderInfoCell.m in Sources */,
 				F67D355B1B5664A600083DA4 /* AFHTTPRequestOperation.m in Sources */,
+				686745561BA91AF7005F59D4 /* SCFBCustomView.m in Sources */,
 				F67D355C1B5664A600083DA4 /* NSString+encrypto.m in Sources */,
 				F67D355D1B5664A600083DA4 /* DataBase.m in Sources */,
 				68580CA31BA83A610082C18C /* EDSRiderInfoModel.m in Sources */,
 				F67D355E1B5664A600083DA4 /* CustomTextView.m in Sources */,
 				F67D355F1B5664A600083DA4 /* AFURLRequestSerialization.m in Sources */,
 				F67D35601B5664A600083DA4 /* MapViewController.m in Sources */,
+				686745581BA91AF7005F59D4 /* SCFeedbackVC.m in Sources */,
 				F67D35611B5664A600083DA4 /* MKAnnotationView+WebCache.m in Sources */,
 				F67D35621B5664A600083DA4 /* MJRefreshBackNormalFooter.m in Sources */,
 				F67D35631B5664A600083DA4 /* FMDatabase.m in Sources */,
@@ -2360,11 +2431,14 @@
 				F67D356C1B5664A600083DA4 /* AFURLSessionManager.m in Sources */,
 				F67D356D1B5664A600083DA4 /* UIImageView+AFNetworking.m in Sources */,
 				F67D356E1B5664A600083DA4 /* ViewController.m in Sources */,
+				6867454C1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m in Sources */,
 				F67D356F1B5664A600083DA4 /* InfoInTheReviewViewController.m in Sources */,
 				F67D35701B5664A600083DA4 /* MessageDetailViewController.m in Sources */,
 				F67D35711B5664A600083DA4 /* NSDataEx.m in Sources */,
 				F67D35721B5664A600083DA4 /* AppDelegate.mm in Sources */,
 				F67D35731B5664A600083DA4 /* OBGradientView.m in Sources */,
+				686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
+				6867455E1BA91B4C005F59D4 /* ManFactory.m in Sources */,
 				2EA0CA6B1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F67D35741B5664A600083DA4 /* MDSenderDetailCell.m in Sources */,
 				F6F7033A1B6A52B80094E7A8 /* JKAlertDialog.m in Sources */,
@@ -2411,6 +2485,7 @@
 				F67D35991B5664A600083DA4 /* MessagesViewController.m in Sources */,
 				F67D359A1B5664A600083DA4 /* RSADataSigner.m in Sources */,
 				F67D359B1B5664A600083DA4 /* UIImageView+MJWebCache.m in Sources */,
+				686745621BA9205C005F59D4 /* UIView+Common.m in Sources */,
 				F67D359C1B5664A600083DA4 /* AboutViewController.m in Sources */,
 				F67D359D1B5664A600083DA4 /* MJRefreshAutoFooter.m in Sources */,
 				F67D359E1B5664A600083DA4 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -2535,17 +2610,20 @@
 				F6441B551B3D470100EA3C9D /* RSADataVerifier.m in Sources */,
 				F6C6ADBC1B12F42F0007A980 /* UIWebView+AFNetworking.m in Sources */,
 				F6C6ADB21B12F42F0007A980 /* UIImageView+HighlightedWebCache.m in Sources */,
+				686745441BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */,
 				F6C6AD911B12F42F0007A980 /* MJPhotoToolbar.m in Sources */,
 				F65287641B3E3DE300738E64 /* MJRefreshHeader.m in Sources */,
 				E46C49261B3C48BC00CE0033 /* MDOrderInfoCell.m in Sources */,
 				F6C6AD711B12F42F0007A980 /* AFHTTPRequestOperation.m in Sources */,
 				F6C6AD9E1B12F42F0007A980 /* NSString+encrypto.m in Sources */,
+				686745551BA91AF7005F59D4 /* SCFBCustomView.m in Sources */,
 				F66CA1431B1EEF52006BDDB8 /* DataBase.m in Sources */,
 				F6C6AD7C1B12F42F0007A980 /* CustomTextView.m in Sources */,
 				68580CA21BA83A610082C18C /* EDSRiderInfoModel.m in Sources */,
 				F6C6AD771B12F42F0007A980 /* AFURLRequestSerialization.m in Sources */,
 				F66CA1241B1D9F3F006BDDB8 /* MapViewController.m in Sources */,
 				F6C6ADA51B12F42F0007A980 /* MKAnnotationView+WebCache.m in Sources */,
+				686745571BA91AF7005F59D4 /* SCFeedbackVC.m in Sources */,
 				F65287691B3E3DE300738E64 /* MJRefreshBackNormalFooter.m in Sources */,
 				F66CA1551B1EEF9C006BDDB8 /* FMDatabase.m in Sources */,
 				E40289311B3C357C00B80417 /* MissionDetailViewController.m in Sources */,
@@ -2562,11 +2640,14 @@
 				F6C6ADB91B12F42F0007A980 /* UIImageView+AFNetworking.m in Sources */,
 				F6C6AC3B1B12F2640007A980 /* ViewController.m in Sources */,
 				E48ECF9E1B3FD20500F09660 /* InfoInTheReviewViewController.m in Sources */,
+				6867454B1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m in Sources */,
 				F62E8D151B30188F006F3862 /* MessageDetailViewController.m in Sources */,
 				F6441B521B3D470100EA3C9D /* NSDataEx.m in Sources */,
 				F6C6AC381B12F2640007A980 /* AppDelegate.mm in Sources */,
 				F6C6AD9F1B12F42F0007A980 /* OBGradientView.m in Sources */,
 				E46C49351B3C4A2D00CE0033 /* MDSenderDetailCell.m in Sources */,
+				686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
+				6867455D1BA91B4C005F59D4 /* ManFactory.m in Sources */,
 				2EA0CA6A1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F6C6ADB41B12F42F0007A980 /* UIView+WebCacheOperation.m in Sources */,
 				F652876C1B3E3DE300738E64 /* MJRefreshNormalHeader.m in Sources */,
@@ -2613,6 +2694,7 @@
 				F6441B541B3D470100EA3C9D /* RSADataSigner.m in Sources */,
 				F6C6AD941B12F42F0007A980 /* UIImageView+MJWebCache.m in Sources */,
 				F61C76241B467B50009051B9 /* AboutViewController.m in Sources */,
+				686745611BA9205C005F59D4 /* UIView+Common.m in Sources */,
 				F65287601B3E3DE300738E64 /* MJRefreshAutoFooter.m in Sources */,
 				F6C6ADAB1B12F42F0007A980 /* SDWebImageDownloaderOperation.m in Sources */,
 				F6C6ADB81B12F42F0007A980 /* UIButton+AFNetworking.m in Sources */,

@@ -8,7 +8,6 @@
 
 #import "MineViewController.h"
 #import "MoreViewController.h"
-#import "PayViewController.h"
 #import "EDSFullfillMoneyVC.h"
 #import "BankViewController.h"
 #import "FHQNetWorkingAPI.h"
@@ -271,7 +270,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
 //    }
     
     EDSFullfillMoneyVC *vc = [[EDSFullfillMoneyVC alloc] init];
-    vc.balancePrice = [_business getFloatWithKey:@"BalancePrice"];
+    vc.balancePrice = [[_business objectForKey:@"BalancePrice"] doubleValue];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -64,6 +64,9 @@
     NSString * ssid = [UserInfo getUUID];
     NSString * token = [UserInfo getToken];
     NSString * appkey = [UserInfo getAppkey];
+    NSString * version = [Tools getApplicationVersion];
+    NSString * platform = @"1";
+    NSString * sysversion = [[UIDevice currentDevice] systemVersion];
     NSMutableDictionary * headerDict = [NSMutableDictionary dictionary];
     if (token) {
         [headerDict setObject:token forKey:@"token"];
@@ -73,6 +76,15 @@
     }
     if (ssid) {
         [headerDict setObject:ssid forKey:@"ssid"];
+    }
+    if (version) {
+        [headerDict setObject:version forKey:@"version"];
+    }
+    if (platform) {
+        [headerDict setObject:platform forKey:@"platform"];
+    }
+    if (sysversion) {
+        [headerDict setObject:sysversion forKey:@"sysversion"];
     }
     return headerDict;
 }

@@ -111,7 +111,11 @@
     
     NSDictionary *requestData = @{@"phoneNo"    : _usernameTF.text,
                                   @"passWord"   :[_passwordTF.text ETSMD5],//@"36B8653D62598A052A7B0CDCA1C3DCDD"//
-                                  @"ssid"       : [UserInfo getUUID]
+                                  @"ssid"       : [UserInfo getUUID],
+//                                  @"OperSystem": @"iOS",
+//                                  @"OperSystemModel":@"8.4",
+//                                  @"PhoneType":@"Apple",
+//                                  @"AppVersion":@"1.0.4",
                                   };
 
     NSString * jsonString2 = [requestData JSONString];
