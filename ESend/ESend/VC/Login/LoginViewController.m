@@ -118,7 +118,7 @@
 //                                  @"AppVersion":@"1.0.4",
                                   };
 
-    NSString * jsonString2 = [requestData JSONString];
+    NSString * jsonString2 = [Security JsonStringWithDictionary:requestData];
     
     NSString * aesString = [Security AesEncrypt:jsonString2];
     

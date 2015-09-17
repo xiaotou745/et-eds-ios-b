@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     NSDictionary *requestData = @{@"BussinessId" : [UserInfo getUserId],
                                   @"version" : @"1.0"};
     
-    NSString * jsonString2 = [requestData JSONString];
+    NSString * jsonString2 = [Security JsonStringWithDictionary:requestData];
     
     NSString * aesString = [Security AesEncrypt:jsonString2];
     

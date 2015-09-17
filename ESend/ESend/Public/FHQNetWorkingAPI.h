@@ -187,9 +187,13 @@
                               successBlock:(successBlock)successBlock
                                    failure:(failureBlock)failure;
 
-/// 1.1.5 意见反馈
+/// java 1.1.5 意见反馈
 + (AFHTTPRequestOperation *)feedbackB:(NSDictionary *)data
                          successBlock:(successBlock)successBlock
                               failure:(failureBlock)failure;
 
+/// java 1.1.1 b端首页未读消息接口 message/newmessageb
++ (AFHTTPRequestOperation *)newMessageB:(NSDictionary *)data
+                           successBlock:(successBlock)successBlock
+                                failure:(failureBlock)failure;
 @end

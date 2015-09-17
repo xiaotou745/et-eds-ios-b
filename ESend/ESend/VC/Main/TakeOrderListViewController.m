@@ -15,6 +15,10 @@
 #import "ThirdOrderListViewController.h"
 #import "UserInfo.h"
 #import "MJRefresh.h"
+#import "FHQNetWorkingAPI.h"
+
+#import "SCMessageView.h"
+#import "MessageDetailViewController.h"
 
 @interface TakeOrderListViewController ()<UIScrollViewDelegate, UINavigationControllerDelegate>
 {
@@ -26,7 +30,16 @@
     OrdersListTableViewController *_completeVC;
     
     UIButton * _releseBtn; // 发布按钮
+    
+    
+    // 公告
+    BOOL _has_newMessage;
+    
+    NSString *_newMessageTEXT;
+    NSString *_newMessageID;
 }
+
+@property (strong, nonatomic) SCMessageView *scMsgView;
 
 @end
 
@@ -49,6 +62,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+//    [_scMsgView removeFromSuperview];
+//    _scMsgView=nil;
+
+    
     if ([UserInfo getStatus] == UserStatusComplete) {
         [_releseBtn setTitle:@"发  布" forState:UIControlStateNormal];
         _releseBtn.enabled = YES;
@@ -61,6 +79,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    if ([UserInfo isLogin]) {
+        // 商家端是否有新公告消息
+        [self newMessagesB];
+    }
+    
     [_uncompleteVC.tableView.header beginRefreshing];
     [_completeVC.tableView.header beginRefreshing];
 
@@ -88,7 +112,7 @@
     [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(clickUser) forControlEvents:UIControlEventTouchUpInside];
     
-    NSArray *segmentedList = @[@"未完成",@"已完成"];
+    NSArray *segmentedList = @[@"未完成",@"已完成",@"333"];
     _segmentedControl = [[HMSegmentedControl alloc] initWithFrame:CGRectMake(0, 64, MainWidth, 50)];
     _segmentedControl.sectionTitles                = segmentedList;
     _segmentedControl.selectedSegmentIndex         = 0;
@@ -135,6 +159,7 @@
     if ([UserInfo getStatus] != UserStatusComplete) {
         [_releseBtn setTitle:@"审核中" forState:UIControlStateNormal];
         _releseBtn.enabled = NO;
+        
     }else{
         [_releseBtn setTitle:@"发  布" forState:UIControlStateNormal];
         _releseBtn.enabled = YES;
@@ -186,6 +211,72 @@
     } else {
         navigationController.interactivePopGestureRecognizer.enabled = YES;
     }
+}
+
+
+#pragma mark - API 
+- (void)newMessagesB{
+    
+    NSDictionary * paraData = @{
+                                @"businessId":[NSString stringWithFormat:@"%@",[UserInfo getUserId]],
+                                };
+    
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        
+        paraData = @{
+                     @"data":aesString,
+                     //@"Version":[Tools getApplicationVersion],
+                     };
+    }
+    
+    [FHQNetWorkingAPI newMessageB:paraData successBlock:^(id result, AFHTTPRequestOperation *operation){
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (error.code == 0) {
+            NSDictionary * dict = error.userInfo;
+            if (1 == [[dict objectForKey:@"status"] intValue]) {
+                _newMessageTEXT=dict[@"result"][@"content"];
+                _newMessageID=dict[@"result"][@"id"];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //_ordersTableTop.constant=kSCMessageView_Vheight+64;
+                    //[_ordersTable reloadData];
+                    //
+                    _segmentedControl.frame = CGRectMake(0, 64 + kSCMessageView_Vheight + 5, MainWidth, 50);
+                    //
+                    _scrollView.frame = CGRectMake(0, 64 + 50 + kSCMessageView_Vheight + 5, MainWidth, ScreenHeight - 64 - 50 - kSCMessageView_Vheight);
+                    
+                    _scrollView.contentSize = CGSizeMake(MainWidth * 2, ScreenHeight - 64 - 50 - kSCMessageView_Vheight - 5);
+                    
+                    _scMsgView=[[SCMessageView alloc]initWithWithTitle:_newMessageTEXT   AddToView:self.view onTap:^(){
+                        //goto  msgDetail
+                        MessageDetailViewController *vc=[[MessageDetailViewController alloc]init];
+                        //            vc.titleDic=tilteDic;
+                        vc.messageId=_newMessageID;
+                        [self.navigationController pushViewController:vc animated:YES];
+                        
+                        _segmentedControl.frame = CGRectMake(0, 64, MainWidth, 50);
+                        //
+                        _scrollView.frame = CGRectMake(0, 64 + 50, MainWidth, ScreenHeight - 64 - 50);
+                        
+                        _scrollView.contentSize = CGSizeMake(MainWidth * 2, ScreenHeight - 64 - 50);
+                        
+                        [_scMsgView removeFromSuperview];
+                        _scMsgView = nil;
+                        
+                    }];
+                    
+                });
+                
+                
+
+                    
+            }
+        }
+    }];
 }
 
 @end

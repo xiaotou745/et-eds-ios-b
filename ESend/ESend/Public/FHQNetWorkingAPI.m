@@ -871,4 +871,24 @@
     return operation;
 }
 
+
+/// java 1.1.1 b端首页未读消息接口 message/newmessageb
++ (AFHTTPRequestOperation *)newMessageB:(NSDictionary *)data
+                           successBlock:(successBlock)successBlock
+                                failure:(failureBlock)failure{
+    NSString *url = @"message/newmessageb";
+    
+    AFHTTPRequestOperation * operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
+        if (successBlock) {
+            successBlock(result, operation);
+        }
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (failure) {
+            failure(error,operation);
+        }
+    } isShowFailAlert:NO failAlertString:nil host:Java_API_SERVER];
+    
+    return operation;
+}
+
 @end

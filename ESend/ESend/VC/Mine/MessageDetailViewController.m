@@ -71,8 +71,35 @@
     
     [_bottomView changeFrameHeight:CGRectGetMaxY(_contentLabel.frame) + ScreenHeight];
     
+    if (nil != self.messageId) {
+        [self getMessgaeDetailWithId:self.messageId];
+    }else if (nil != self.message){
+        [self getMessgaeDetail:_message];
+
+    }
+}
+
+- (void)getMessgaeDetailWithId:(NSString*)messageId {
     
-    [self getMessgaeDetail:_message];
+    NSDictionary *requsetData = @{@"MessageId"  : messageId,
+                                  @"Version"    : APIVersion};
+    
+    [FHQNetWorkingAPI getMessageDetail:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        CLog(@"%@",result);
+        if (result) {
+            _dateLabel.text = [result getStringWithKey:@"PubDate"];
+            _contentLabel.text = [result getStringWithKey:@"Content"];
+            _contentLabel.frame = [Tools labelForString:_contentLabel];
+            
+            _scrollView.contentSize = CGSizeMake(MainWidth, CGRectGetMaxY(_contentLabel.frame) + 10);
+            
+            [_bottomView changeFrameHeight:CGRectGetMaxY(_contentLabel.frame) + ScreenHeight];
+        }
+        
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        
+    }];
 }
 
 - (void)getMessgaeDetail:(MessageModel*)message {

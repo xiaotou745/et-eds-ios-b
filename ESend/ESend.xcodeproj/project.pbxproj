@@ -43,6 +43,8 @@
 		6805570A1BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 680557071BA660FB00840495 /* EDSFullfillOptionCell.m */; };
 		6805570B1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */; };
 		6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */; };
+		6807AD6E1BAAB53600238D64 /* SCMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6807AD6D1BAAB53600238D64 /* SCMessageView.m */; settings = {ASSET_TAGS = (); }; };
+		6807AD6F1BAAB53600238D64 /* SCMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6807AD6D1BAAB53600238D64 /* SCMessageView.m */; settings = {ASSET_TAGS = (); }; };
 		68090EA41BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */; };
 		68090EA51BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */; };
 		68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */; };
@@ -573,6 +575,8 @@
 		680557061BA660FB00840495 /* EDSFullfillOptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSFullfillOptionCell.h; sourceTree = "<group>"; };
 		680557071BA660FB00840495 /* EDSFullfillOptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSFullfillOptionCell.m; sourceTree = "<group>"; };
 		680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSFullfillOptionCell.xib; sourceTree = "<group>"; };
+		6807AD6C1BAAB53600238D64 /* SCMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMessageView.h; sourceTree = "<group>"; };
+		6807AD6D1BAAB53600238D64 /* SCMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMessageView.m; sourceTree = "<group>"; };
 		68090EA11BA2B248000680D8 /* EDSFullfillMoneyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSFullfillMoneyVC.h; path = ../EDSFullfillMoneyVC.h; sourceTree = "<group>"; };
 		68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDSFullfillMoneyVC.m; path = ../EDSFullfillMoneyVC.m; sourceTree = "<group>"; };
 		68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EDSFullfillMoneyVC.xib; path = ../EDSFullfillMoneyVC.xib; sourceTree = "<group>"; };
@@ -1219,6 +1223,32 @@
 			path = IOS;
 			sourceTree = "<group>";
 		};
+		6807AD6B1BAAB4DE00238D64 /* subViews */ = {
+			isa = PBXGroup;
+			children = (
+				F62E8D191B311D6B006F3862 /* AddOrderTableViewCell.h */,
+				F62E8D1A1B311D6B006F3862 /* AddOrderTableViewCell.m */,
+				F66CA1391B1EB022006BDDB8 /* OrdersListTableVIewCell.h */,
+				F66CA13A1B1EB022006BDDB8 /* OrdersListTableVIewCell.m */,
+				F66F4D401B21418F005F2BAC /* OrderDetailInfoTableCell.h */,
+				F66F4D411B21418F005F2BAC /* OrderDetailInfoTableCell.m */,
+				F6188A7A1B217FC70033E58B /* OrderDetailSubListTabelCell.h */,
+				F6188A7B1B217FC70033E58B /* OrderDetailSubListTabelCell.m */,
+				F6188A801B2192430033E58B /* OrderDetailRemarkTableCell.h */,
+				F6188A811B2192430033E58B /* OrderDetailRemarkTableCell.m */,
+				E48ECF961B3FC5A800F09660 /* OrderDetailSenderTableCell.h */,
+				E48ECF971B3FC5A800F09660 /* OrderDetailSenderTableCell.m */,
+				E48ECF991B3FC5C700F09660 /* OrderDetailReciverTableCell.h */,
+				E48ECF9A1B3FC5C700F09660 /* OrderDetailReciverTableCell.m */,
+				2EA0CA791B848F6C00BBAA63 /* ConsigneeInfoCell.h */,
+				2EA0CA7A1B848F6C00BBAA63 /* ConsigneeInfoCell.m */,
+				2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */,
+				6807AD6C1BAAB53600238D64 /* SCMessageView.h */,
+				6807AD6D1BAAB53600238D64 /* SCMessageView.m */,
+			);
+			name = subViews;
+			sourceTree = "<group>";
+		};
 		68580C8C1BA7BB950082C18C /* OrderStatistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1632,27 +1662,11 @@
 				F66CA1311B1E9BF2006BDDB8 /* OrdersListTableViewController.m */,
 				F62E8D161B302AFD006F3862 /* ReleseOrderViewController.h */,
 				F62E8D171B302AFD006F3862 /* ReleseOrderViewController.m */,
-				F62E8D191B311D6B006F3862 /* AddOrderTableViewCell.h */,
-				F62E8D1A1B311D6B006F3862 /* AddOrderTableViewCell.m */,
 				F6188A851B219DE90033E58B /* WaitOrderListViewController.h */,
 				F6188A861B219DE90033E58B /* WaitOrderListViewController.m */,
-				F66CA1391B1EB022006BDDB8 /* OrdersListTableVIewCell.h */,
-				F66CA13A1B1EB022006BDDB8 /* OrdersListTableVIewCell.m */,
 				F66F4D3D1B21409F005F2BAC /* OrderDetailViewController.h */,
 				F66F4D3E1B21409F005F2BAC /* OrderDetailViewController.m */,
-				F66F4D401B21418F005F2BAC /* OrderDetailInfoTableCell.h */,
-				F66F4D411B21418F005F2BAC /* OrderDetailInfoTableCell.m */,
-				F6188A7A1B217FC70033E58B /* OrderDetailSubListTabelCell.h */,
-				F6188A7B1B217FC70033E58B /* OrderDetailSubListTabelCell.m */,
-				F6188A801B2192430033E58B /* OrderDetailRemarkTableCell.h */,
-				F6188A811B2192430033E58B /* OrderDetailRemarkTableCell.m */,
-				E48ECF961B3FC5A800F09660 /* OrderDetailSenderTableCell.h */,
-				E48ECF971B3FC5A800F09660 /* OrderDetailSenderTableCell.m */,
-				E48ECF991B3FC5C700F09660 /* OrderDetailReciverTableCell.h */,
-				E48ECF9A1B3FC5C700F09660 /* OrderDetailReciverTableCell.m */,
-				2EA0CA791B848F6C00BBAA63 /* ConsigneeInfoCell.h */,
-				2EA0CA7A1B848F6C00BBAA63 /* ConsigneeInfoCell.m */,
-				2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */,
+				6807AD6B1BAAB4DE00238D64 /* subViews */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -2539,6 +2553,7 @@
 				F67D35C11B5664A600083DA4 /* MineCell.m in Sources */,
 				2EA0CA741B842E3F00BBAA63 /* Security.m in Sources */,
 				F67D35C21B5664A600083DA4 /* AFSecurityPolicy.m in Sources */,
+				6807AD6F1BAAB53600238D64 /* SCMessageView.m in Sources */,
 				F67D35C31B5664A600083DA4 /* HelpViewController.m in Sources */,
 				F67D35C41B5664A600083DA4 /* ACETelPrompt.m in Sources */,
 				F67D35C51B5664A600083DA4 /* CustomTextField.m in Sources */,
@@ -2748,6 +2763,7 @@
 				F6C6AD751B12F42F0007A980 /* AFSecurityPolicy.m in Sources */,
 				2EA0CA731B842E3F00BBAA63 /* Security.m in Sources */,
 				F61C76271B468093009051B9 /* HelpViewController.m in Sources */,
+				6807AD6E1BAAB53600238D64 /* SCMessageView.m in Sources */,
 				F6C6AD701B12F42F0007A980 /* ACETelPrompt.m in Sources */,
 				F6C6AD7B1B12F42F0007A980 /* CustomTextField.m in Sources */,
 				F637CF091B40ECA300410C24 /* ProtocolViewController.m in Sources */,
@@ -2846,6 +2862,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESend/Lib/Release-iphoneos",
@@ -2928,6 +2945,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Etao Stars Network Technology (Beijing) Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Etao Stars Network Technology (Beijing) Co., Ltd.";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESend/Lib/Release-iphoneos",
@@ -2971,6 +2989,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Qiao Song (K8X74FRV4K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Qiao Song (K8X74FRV4K)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESend/Lib/Release-iphoneos",
@@ -3014,6 +3033,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESend/Lib/Release-iphoneos",
@@ -3057,6 +3077,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Etao Stars Network Technology (Beijing) Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Etao Stars Network Technology (Beijing) Co., Ltd.";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESend/Lib/Release-iphoneos",
@@ -3100,6 +3121,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESend/Lib/Release-iphoneos",
@@ -3227,6 +3249,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Yang Zhang (DQFZPFPQ73)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yang Zhang (DQFZPFPQ73)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESend/Lib/Release-iphoneos",
@@ -3270,6 +3293,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ESend/Lib/Release-iphoneos",

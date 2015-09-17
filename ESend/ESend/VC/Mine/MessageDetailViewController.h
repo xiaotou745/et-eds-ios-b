@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) MessageModel *message;
 
+@property (nonatomic, copy) NSString * messageId;
+
 @end

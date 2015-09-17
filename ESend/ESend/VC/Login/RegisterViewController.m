@@ -202,7 +202,7 @@
                               @"timespan"   : @([[NSDate date] timeIntervalSince1970]),
                               @"ssid"       : [UserInfo getUUID],
                               };
-    NSString * jsonString2 = [request JSONString];
+    NSString * jsonString2 = [Security JsonStringWithDictionary:request];
     
     NSString * aesString = [Security AesEncrypt:jsonString2];
     

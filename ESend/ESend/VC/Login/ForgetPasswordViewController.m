@@ -240,7 +240,7 @@
     }
 
     
-    NSString * jsonString2 = [request JSONString];
+    NSString * jsonString2 = [Security JsonStringWithDictionary:request];
     
     NSString * aesString = [Security AesEncrypt:jsonString2];
     

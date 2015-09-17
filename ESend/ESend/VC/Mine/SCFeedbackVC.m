@@ -95,7 +95,7 @@ NSString *scTextViewPlaceHolder_text=@"请输入产品意见，我们将不断�
                                 };
     
     if (AES_Security) {
-        NSString * jsonString2 = [paraData JSONString];
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
         
         NSString * aesString = [Security AesEncrypt:jsonString2];
         
