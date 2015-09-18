@@ -87,4 +87,8 @@ typedef NS_ENUM(NSInteger, UserStatus) {
 // 获取密码
 + (NSString*)getCustomerPassword;
 
+/// 商户手机号
++ (NSString*)getbussinessPhone;
++ (void)setbussinessPhone:(NSString*)bussinessPhone;
+
 @end

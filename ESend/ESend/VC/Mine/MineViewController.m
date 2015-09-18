@@ -30,7 +30,8 @@ typedef NS_ENUM(NSInteger, BottomType) {
 {
     UIView *_topView;
     
-    UILabel *_supplierNameLabel;
+    UILabel *_supplierNameLabel;        // 名称
+    UILabel *_supplierPhoneLbl;         // 手机号
     UILabel *_balanceLabel;
     UILabel *_withdrawDeposit;
     
@@ -87,10 +88,10 @@ typedef NS_ENUM(NSInteger, BottomType) {
         _supplierNameLabel.text = [_business getStringWithKey:@"Name"];
         
         double amountRemain = [[result objectForKey:@"BalancePrice"] doubleValue];
-        double amountCanGet = [[result objectForKey:@"AllowWithdrawPrice"] doubleValue];
+        //double amountCanGet = [[result objectForKey:@"AllowWithdrawPrice"] doubleValue];
         
-        _balanceLabel.text = [NSString stringWithFormat:@"余   额 ￥%.2f",amountRemain];
-        _withdrawDeposit.text = [NSString stringWithFormat:@"可提现 ￥%.2f",amountCanGet];
+        _balanceLabel.text = [NSString stringWithFormat:@"￥%.2f",amountRemain];
+        //_withdrawDeposit.text = [NSString stringWithFormat:@"￥%.2f",amountCanGet];
         
         //是否有新的消息
         if ([result getIntegerWithKey:@"HasMessage"]) {
@@ -117,6 +118,9 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
         //商户名称
         [UserInfo saveBussinessName:[_business getStringWithKey:@"Name"]];
+        [UserInfo setbussinessPhone:[_business getStringWithKey:@"PhoneNo"]];
+        
+        NSLog(@"%@",[_business getStringWithKey:@"PhoneNo"]);
         
         [UserInfo saveDistribSubsidy:[_business getFloatWithKey:@"DistribSubsidy"]];
         
@@ -129,17 +133,21 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
 - (void)bulidView {
     
+    // 导航条
     self.titleLabel.text = @"商家中心";
     
     [self.rightBtn setTitle:@"更多" forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(clickMore) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    // topView
     _topView = [[UIView alloc] initWithFrame:CGRectMake(10, 15 + 64, MainWidth - 20, 100)];
     _topView.backgroundColor = [UIColor whiteColor];
     _topView.layer.cornerRadius = 5;
     [self.view addSubview:_topView];
     
-    _supplierNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, MainWidth - 30 - 110, 50)];
+    // 店铺名称
+    _supplierNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, MainWidth - 30 - 110, 25)];
     _supplierNameLabel.text = [UserInfo getBussinessName];
     _supplierNameLabel.textColor = DeepGrey;
     _supplierNameLabel.font = [UIFont systemFontOfSize:BigFontSize];
@@ -149,7 +157,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _supplierNameLabel.userInteractionEnabled = YES;
     [_supplierNameLabel addGestureRecognizer:tapUserInfo];
     
-    UIImageView *rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MainWidth - 20 - 40, 0, 40, 50)];
+    UIImageView *rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MainWidth - 20 - 40, 10, 40, 50)];
     rightImageView.contentMode = UIViewContentModeCenter;
     rightImageView.image = [UIImage imageNamed:@"right_indicate"];
     rightImageView.userInteractionEnabled = YES;
@@ -158,9 +166,10 @@ typedef NS_ENUM(NSInteger, BottomType) {
     UITapGestureRecognizer *tapName = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUserInfo)];
     [rightImageView addGestureRecognizer:tapName];
     
+    ///
     _userStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    _userStatusBtn.enabled = NO;
-    _userStatusBtn.frame = CGRectMake(MainWidth - 110 - 20, 25/2, 70, 25);
+    _userStatusBtn.frame = CGRectMake(MainWidth - 110 - 20, 25/2 + 10, 70, 25);
     [_userStatusBtn setBackgroundSmallImageNor:@"blue_border_btn_nor" smallImagePre:@"blue_border_btn_nor" smallImageDis:nil];
     [_userStatusBtn setTitleColor:BlueColor forState:UIControlStateNormal];
     [_userStatusBtn setTitle:@"审核中" forState:UIControlStateNormal];
@@ -169,38 +178,66 @@ typedef NS_ENUM(NSInteger, BottomType) {
     [_userStatusBtn addTarget:self action:@selector(showUserInfo) forControlEvents:UIControlEventTouchUpInside];
     [_topView addSubview:_userStatusBtn];
     
+    // 手机号
+    _supplierPhoneLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_supplierNameLabel.frame) + 5, MainWidth - 30 - 110, 25)];
+    _supplierPhoneLbl.text = [UserInfo getbussinessPhone];
+    _supplierPhoneLbl.textColor = DeepGrey;
+    _supplierPhoneLbl.font = [UIFont systemFontOfSize:NormalFontSize];
+    [_topView addSubview:_supplierPhoneLbl];
+    
+    
     UIView *line = [Tools createLine];
-    line.frame = CGRectMake(10, CGRectGetMaxY(_supplierNameLabel.frame), MainWidth - 20 - 20, 0.5);
+    line.frame = CGRectMake(10, CGRectGetMaxY(_supplierPhoneLbl.frame) + 10, MainWidth - 20 - 20, 0.5);
     [_topView addSubview:line];
     
-    _balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(line.frame), MainWidth - 40, 40)];
-    _balanceLabel.text = @"余 额  ￥0.00";
+    /// 余额数值
+    _balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(line.frame), MainWidth/2 - 20, 30)];
+    _balanceLabel.text = @"";
+    _balanceLabel.textAlignment = NSTextAlignmentCenter;
     _balanceLabel.textColor = DeepGrey;
     _balanceLabel.font = [UIFont systemFontOfSize:BigFontSize];
     [_topView addSubview:_balanceLabel];
     
-    _withdrawDeposit = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_balanceLabel.frame), MainWidth - 40, 40)];
-    _withdrawDeposit.text = @"可提现 ￥0.00";
-    _withdrawDeposit.textColor = DeepGrey;
+    // 余额fix
+    _withdrawDeposit = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_balanceLabel.frame), MainWidth/2 - 20, 30)];
+    _withdrawDeposit.text = @"余额";
+    _withdrawDeposit.textAlignment = NSTextAlignmentCenter;
+    _withdrawDeposit.textColor = LightGrey;
     _withdrawDeposit.font = [UIFont systemFontOfSize:BigFontSize];
     [_topView addSubview:_withdrawDeposit];
     
     UIView *line1 = [Tools createLine];
-    line1.frame = CGRectMake(10, CGRectGetMaxY(_withdrawDeposit.frame), MainWidth - 40, 0.5);
+    line1.frame = CGRectMake(FRAME_WIDTH(_topView)/2, CGRectGetMaxY(line.frame), 0.5, 60);
     [_topView addSubview:line1];
     
+    //
+    UIImageView * rechargeImage = [[UIImageView alloc] initWithFrame:CGRectMake(FRAME_WIDTH(_topView)*3/4 - 13, CGRectGetMaxY(line.frame) + 5, 26, 30)];
+    rechargeImage.image = [UIImage imageNamed:@"recharge"];
+    [_topView addSubview:rechargeImage];
+    
+    //
+    UILabel * rechargeLbl = [[UILabel alloc] initWithFrame:CGRectMake(FRAME_WIDTH(_topView)/2,CGRectGetMaxY(_balanceLabel.frame), FRAME_WIDTH(_topView)/2, 25)];
+    rechargeLbl.text = @"充值";
+    rechargeLbl.textAlignment = NSTextAlignmentCenter;
+    rechargeLbl.textColor = BlueColor;
+    rechargeLbl.font = [UIFont systemFontOfSize:BigFontSize];
+    [_topView addSubview:rechargeLbl];
+    
     UIButton *recharge = [UIButton buttonWithType:UIButtonTypeCustom];
-    recharge.frame  = CGRectMake(FRAME_WIDTH(_topView)/2, CGRectGetMaxY(line1.frame), FRAME_WIDTH(_topView)/2, 50);
-    [recharge setTitle:@"充值" forState:UIControlStateNormal];
-    [recharge setImage:[UIImage imageNamed:@"recharge"] forState:UIControlStateNormal];
-    [recharge setImage:[UIImage imageNamed:@"recharge"] forState:UIControlStateHighlighted];
-    [recharge setTitleColor:BlueColor forState:UIControlStateNormal];
-    recharge.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    recharge.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    recharge.frame  = CGRectMake(FRAME_WIDTH(_topView)/2, CGRectGetMaxY(line.frame), FRAME_WIDTH(_topView)/2, 50);
+    [recharge setBackgroundColor:[UIColor clearColor]];
+//    [recharge setTitle:@"充值" forState:UIControlStateNormal];
+//    [recharge setImage:[UIImage imageNamed:@"recharge"] forState:UIControlStateNormal];
+//    [recharge setImage:[UIImage imageNamed:@"recharge"] forState:UIControlStateHighlighted];
+//    [recharge setTitleColor:BlueColor forState:UIControlStateNormal];
+//    recharge.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0);
+//    recharge.imageEdgeInsets = UIEdgeInsetsMake(0, FRAME_WIDTH(_topView)/2 - 13, 26, FRAME_WIDTH(_topView)/2 - 13);
     [recharge addTarget:self action:@selector(clickRecharge) forControlEvents:UIControlEventTouchUpInside];
     [_topView addSubview:recharge];
     
-    [_topView changeFrameHeight:CGRectGetMaxY(recharge.frame)];
+    
+    ///
+    [_topView changeFrameHeight:CGRectGetMaxY(line1.frame)];
     
     _newMessageIcon = [[UIView alloc] initWithFrame:CGRectMake(130, 35/2, 10, 10)];
     _newMessageIcon.backgroundColor = RedDefault;

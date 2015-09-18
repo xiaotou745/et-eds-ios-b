@@ -244,4 +244,17 @@ static NSString *UserInfoKey = @"userInfoKey";
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"maxDate"];
 }
 
+
+/// 商户手机号
++ (NSString*)getbussinessPhone {
+    NSUserDefaults *userDefault =  [NSUserDefaults standardUserDefaults];
+    return [userDefault objectForKey:@"bussinessPhone"];
+}
+
++ (void)setbussinessPhone:(NSString*)bussinessPhone {
+    NSUserDefaults *userDefault =  [NSUserDefaults standardUserDefaults];
+    [userDefault setObject:bussinessPhone forKey:@"bussinessPhone"];
+    [userDefault synchronize];
+}
+
 @end
