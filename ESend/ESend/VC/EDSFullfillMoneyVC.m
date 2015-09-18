@@ -11,6 +11,7 @@
 #import "FHQNetWorkingAPI.h"
 #import "AliPay.h"
 #import "WechatPay.h"
+#import "UserInfo.h"
 
 #define FFM_CellHeight 55.0f
 
@@ -121,7 +122,9 @@
     //
     _PayType = [self _selectedPaymentType];
     
-    NSDictionary *requsetData = @{@"version"    : APIVersion,
+    NSDictionary *requsetData = @{
+                                  @"Businessid" : [UserInfo getUserId],
+                                  @"Version"    : APIVersion,
                                   @"PayType"    : @(_PayType),
                                   @"payAmount"  : [NSNumber numberWithFloat:price]
                                   };

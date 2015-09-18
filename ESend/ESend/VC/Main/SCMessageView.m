@@ -22,7 +22,7 @@ static SCMessageViewBlock _messageViewBlock;
 
     _messageViewBlock=[messageViewBlock copy];
     
-    self=[super  initWithFrame:CGRectMake(5, 64+10, ScreenWidth-10,kSCMessageView_height)];
+    self=[super  initWithFrame:CGRectMake(0, 64+10, ScreenWidth,kSCMessageView_height)];
     
     if (self) {
         _Text=title;

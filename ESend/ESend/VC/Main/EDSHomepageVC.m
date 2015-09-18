@@ -14,10 +14,18 @@
 
 #import "ReleseOrderViewController.h"
 #import "MineViewController.h"
+#import "OrderDetailViewController.h"
+
+#import "SCMessageView.h"
+#import "MessageDetailViewController.h"
 
 #define HPUserStatusInReviewMsg @"您目前没有通过验证，无法发单!"
 #define HPBottomButtonTitleRelease @"发  布"
 #define HPBottomButtonTilteInReview @"审核中"
+
+#define HPNoDataS1 @"您目前没有待接单的订单!"
+#define HPNoDataS2 @"您目前没有待取货的订单!"
+#define HPNoDataS3 @"您目前没有配送中的订单!"
 
 #define Hp_Cell_1st_Id @"Hp_ContentList1stCellId"
 #define Hp_Cell_2nd_Id @"Hp_ContentList2ndCellId"
@@ -52,7 +60,10 @@
     int _timesScrollToMiddle;
     int _timesScrollToRight;
 
-
+    // 首页公告
+    NSString *_newMessageTEXT;
+    NSString *_newMessageID;
+    SCMessageView * _scMsgView;
 }
 @property (strong, nonatomic) IBOutlet UIView *Hp_MainBg;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Hp_MainBg_top;   // default 64
@@ -102,9 +113,14 @@
     self.navigationController.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
+    // notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:LoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:UserStatusChangeToReviewNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releaseOrderSuccess) name:ReleseOrderNotification object:nil];
+    
+    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout) name:LogoutNotifaction object:nil];
+    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releseOrder) name:ReleseOrderNotification object:nil];
+    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelOrder:) name:CancelOrderNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userStatusChanged) name:UserStatusChangeToReviewNotification object:nil];
     
     _Hp_ContentLists1st = [[NSMutableArray alloc] initWithCapacity:0];
     _Hp_ContentLists2nd = [[NSMutableArray alloc] initWithCapacity:0];
@@ -137,6 +153,11 @@
     self.Hp_Option3rd.tag = 3 + HeadButtonTagTrans;
     
     self.Hp_OptionBtn1st.enabled = NO;
+    
+    [self setOptionButton:self.Hp_OptionBtn1st count:0];
+    [self setOptionButton:self.Hp_OptionBtn2nd count:0];
+    [self setOptionButton:self.Hp_Option3rd count:0];
+    
     self.Hp_OptionIndicator.backgroundColor = BlueColor;
     
     self.Hp_Option3rd.titleLabel.font =
@@ -166,14 +187,15 @@
     [self.Hp_BottomBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:@"blue_btn_noSelect"];
     [self.Hp_BottomBtn addTarget:self action:@selector(releseTask) forControlEvents:UIControlEventTouchUpInside];
     
-    if ([UserInfo getStatus] != UserStatusComplete) {
-        [self.Hp_BottomBtn setTitle:HPBottomButtonTilteInReview forState:UIControlStateNormal];
-        self.Hp_BottomBtn.enabled = NO;
-        
-    }else{
-        [self.Hp_BottomBtn setTitle:HPBottomButtonTitleRelease forState:UIControlStateNormal];
-        self.Hp_BottomBtn.enabled = YES;
-    }
+    [self userLoginSuccess];
+//    if ([UserInfo getStatus] != UserStatusComplete) {
+//        [self.Hp_BottomBtn setTitle:HPBottomButtonTilteInReview forState:UIControlStateNormal];
+//        self.Hp_BottomBtn.enabled = NO;
+//        
+//    }else{
+//        [self.Hp_BottomBtn setTitle:HPBottomButtonTitleRelease forState:UIControlStateNormal];
+//        self.Hp_BottomBtn.enabled = YES;
+//    }
     
     // 滚动到section的次数
     _timesScrollToMiddle = 0;
@@ -237,6 +259,12 @@
 
 
 - (void)_refreshOptionAreaAction{
+    
+    if ([UserInfo isLogin]) {
+        // 商家端是否有新公告消息
+        [self newMessagesB];
+    }
+    
     if (![UserInfo isLogin]) {
         if (_orderListStatus == OrderStatusNewOrder) {
             [self.Hp_ContentList1st.header endRefreshing];
@@ -276,6 +304,81 @@
     _operation = [FHQNetWorkingAPI queryorderb:paraData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"111111 result %@",result);
         
+        if ([UserInfo getStatus] != UserStatusComplete) {
+            [UserInfo saveStatus:UserStatusComplete];
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
+        }
+        
+        //java
+        long newCount = [[result objectForKey:@"newCount"] longValue];
+        long takingCount = [[result objectForKey:@"takingCount"] longValue];     // 配送中
+        long deliveryCount = [[result objectForKey:@"deliveryCount"] longValue]; // 待取货
+        
+        [self setOptionButton:self.Hp_OptionBtn1st count:newCount];
+        [self setOptionButton:self.Hp_OptionBtn2nd count:deliveryCount];
+        [self setOptionButton:self.Hp_Option3rd count:takingCount];
+        
+        NSArray * orders = [result objectForKey:@"orders"];
+
+        //
+        
+        if (_orderListStatus == OrderStatusNewOrder) {
+            [self.Hp_ContentList1st.header endRefreshing];
+            
+            [_Hp_ContentLists1st removeAllObjects];
+            for (NSDictionary *dic in orders) {
+                //SupermanOrderModel *order = [[SupermanOrderModel alloc] initWithDic:dic];
+                SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
+                order.orderStatus = [[dic objectForKey:@"status"] integerValue];
+                order.receivePhone = [dic objectForKey:@"recevicePhoneNo"];
+                order.orderId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderId"]];
+                order.orderNumber = [dic objectForKey:@"orderNo"];
+                order.amount = [[dic objectForKey:@"amount"] floatValue];
+                order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
+                order.receiveAddress = [dic objectForKey:@"receviceAddress"];
+                [_Hp_ContentLists1st addObject:order];
+            }
+            
+        }else if (_orderListStatus == OrderStatusAccepted) {
+            [self.Hp_ContentList2nd.header endRefreshing];
+            
+            [_Hp_ContentLists2nd removeAllObjects];
+            for (NSDictionary *dic in orders) {
+                //SupermanOrderModel *order = [[SupermanOrderModel alloc] initWithDic:dic];
+                SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
+                order.orderStatus = [[dic objectForKey:@"status"] integerValue];
+                order.receivePhone = [dic objectForKey:@"recevicePhoneNo"];
+                order.orderId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderId"]];
+                order.orderNumber = [dic objectForKey:@"orderNo"];
+                order.amount = [[dic objectForKey:@"amount"] floatValue];
+                order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
+                order.receiveAddress = [dic objectForKey:@"receviceAddress"];
+                [_Hp_ContentLists2nd addObject:order];
+            }
+            
+        }else if (_orderListStatus == OrderStatusReceive) {
+            [self.Hp_ContentList3rd.header endRefreshing];
+            
+            [_Hp_ContentLists3rd removeAllObjects];
+            for (NSDictionary *dic in orders) {
+                // SupermanOrderModel *order = [[SupermanOrderModel alloc] initWithDic:dic];
+                SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
+                order.orderStatus = [[dic objectForKey:@"status"] integerValue];
+                order.receivePhone = [dic objectForKey:@"recevicePhoneNo"];
+                order.orderId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderId"]];
+                order.orderNumber = [dic objectForKey:@"orderNo"];
+                order.amount = [[dic objectForKey:@"amount"] floatValue];
+                order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
+                order.receiveAddress = [dic objectForKey:@"receviceAddress"];
+                [_Hp_ContentLists3rd addObject:order];
+            }
+        }
+        
+        [self checkIsNoData];
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+         // NSLog(@"222222 error %@",error.userInfo);
+        
         if (_orderListStatus == OrderStatusNewOrder) {
             [self.Hp_ContentList1st.header endRefreshing];
         }else if (_orderListStatus == OrderStatusAccepted) {
@@ -284,18 +387,91 @@
             [self.Hp_ContentList3rd.header endRefreshing];
         }
         
-    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        NSLog(@"222222 error %@",error.userInfo);
-        
-        if (_orderListStatus == OrderStatusNewOrder) {
-            [self.Hp_ContentList1st.header endRefreshing];
-        }else if (_orderListStatus == OrderStatusAccepted) {
-            [self.Hp_ContentList2nd.header endRefreshing];
-        }else if (_orderListStatus == OrderStatusReceive) {
-            [self.Hp_ContentList3rd.header endRefreshing];
+        if (error.code == -500) {
+            NSLog(@"用户状态不对");
+            
+            [UserInfo saveStatus:UserStatusReviewing];
+            [_Hp_ContentLists1st removeAllObjects];
+            [self.Hp_ContentList1st reloadData];
+            
+            [_Hp_ContentLists2nd removeAllObjects];
+            [self.Hp_ContentList2nd reloadData];
+            
+            [_Hp_ContentLists3rd removeAllObjects];
+            [self.Hp_ContentList3rd reloadData];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
+            
+        } else {
+            [self checkIsNoData];
+            NSString *errorMessage = [error.userInfo getStringWithKey:@"Message"];
+            if (isCanUseString(errorMessage)) {
+                [Tools showHUD:errorMessage];
+            } else {
+                if ([AFNetworkReachabilityManager sharedManager].reachable) {
+                    [Tools showHUD:@"请求失败"];
+                }else{
+                    
+                }
+            }
+            
         }
         
     }];
+}
+
+- (void)checkIsNoData{
+    if (_orderListStatus == OrderStatusNewOrder) {
+        if (_Hp_ContentLists1st.count == 0) {
+            _logoImgViewS1.image = [UIImage imageNamed:@"orderLogo"];
+            _markedWordsLabelS1.text = HPNoDataS1;
+        }else{
+            _logoImgViewS1.image     = nil;
+            _markedWordsLabelS1.text = @"";
+        }
+        [self.Hp_ContentList1st reloadData];
+        
+    }else if (_orderListStatus == OrderStatusAccepted) {
+        if (_Hp_ContentLists2nd.count == 0) {
+            _logoImgViewS2.image = [UIImage imageNamed:@"orderLogo"];
+            _markedWordsLabelS2.text = HPNoDataS2;
+        }else{
+            _logoImgViewS2.image     = nil;
+            _markedWordsLabelS2.text = @"";
+        }
+        [self.Hp_ContentList2nd reloadData];
+        
+    }else if (_orderListStatus == OrderStatusReceive){
+        if (_Hp_ContentLists3rd.count == 0) {
+            _logoImgViewS3.image = [UIImage imageNamed:@"orderLogo"];
+            _markedWordsLabelS3.text = HPNoDataS3;
+        }else{
+            _logoImgViewS3.image     = nil;
+            _markedWordsLabelS3.text = @"";
+        }
+        [self.Hp_ContentList3rd reloadData];
+    }
+
+}
+
+- (void)setOptionButton:(UIButton *)btn count:(long)count{
+    NSString * tCount = (count>99)?[NSString stringWithFormat:@"99+"]:[NSString stringWithFormat:@"%ld",count];
+    NSString * text = nil;
+    if (btn.tag == 1 + HeadButtonTagTrans) {
+        text = [NSString stringWithFormat:@"待接单(%@)",tCount];
+    }else if (btn.tag == 2 + HeadButtonTagTrans) {
+        text = [NSString stringWithFormat:@"待取货(%@)",tCount];
+    }else if (btn.tag == 3 + HeadButtonTagTrans) {
+        text = [NSString stringWithFormat:@"配送中(%@)",tCount];
+    }
+    
+    NSMutableAttributedString *AttributedString = [[NSMutableAttributedString alloc] initWithString:text];
+    [AttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4,AttributedString.length - 5)];
+    [btn setAttributedTitle:AttributedString forState:UIControlStateNormal];
+    
+//    if (selected)   [AttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4,AttributedString.length-4-1)];
+//    
+//    else           [AttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:SCColorText3] range:NSMakeRange(0,AttributedString.length)];
 }
 
 #pragma mark - Config Table Exception Views
@@ -434,6 +610,36 @@
 
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (tableView == self.Hp_ContentList1st) { // 待接单
+        [self getOrderDetail:[_Hp_ContentLists1st objectAtIndex:indexPath.section] ];
+    }else if (tableView == self.Hp_ContentList2nd) {  // 待取货
+        [self getOrderDetail:[_Hp_ContentLists2nd objectAtIndex:indexPath.section] ];
+    }else if (tableView == self.Hp_ContentList3rd) {  // 配送中
+        [self getOrderDetail:[_Hp_ContentLists3rd objectAtIndex:indexPath.section] ];
+    }else{
+    }
+}
+
+- (void)getOrderDetail:(SupermanOrderModel*)order  {
+    NSDictionary *requestData = @{@"OrderId"    : order.orderId,
+                                  @"BusinessId" : [UserInfo getUserId],
+                                  @"version"    : @"1.0"};
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    [FHQNetWorkingAPI getOrderDetail:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        
+        [order loadData:result];
+        
+        OrderDetailViewController *vc = [[OrderDetailViewController alloc] init];
+        vc.orderModel = order;
+        [self.navigationController pushViewController:vc animated:YES];
+        [Tools hiddenProgress:HUD];
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        [Tools hiddenProgress:HUD];
+    }];
+}
+
 
 
 #pragma mark - ButtonAction 
@@ -542,5 +748,98 @@
 
 
 #pragma mark - API
+
+#pragma mark - API
+- (void)newMessagesB{
+    
+    NSDictionary * paraData = @{
+                                @"businessId":[NSString stringWithFormat:@"%@",[UserInfo getUserId]],
+                                };
+    
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        
+        paraData = @{
+                     @"data":aesString,
+                     //@"Version":[Tools getApplicationVersion],
+                     };
+    }
+    
+    [FHQNetWorkingAPI newMessageB:paraData successBlock:^(id result, AFHTTPRequestOperation *operation){
+        _newMessageTEXT=result[@"content"];
+        _newMessageID=result[@"id"];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            self.Hp_MainBg_top.constant = 64 + kSCMessageView_Vheight + 5;
+            
+            _scMsgView=[[SCMessageView alloc]initWithWithTitle:_newMessageTEXT   AddToView:self.view onTap:^(){
+                //goto  msgDetail
+                MessageDetailViewController *vc=[[MessageDetailViewController alloc]init];
+                //            vc.titleDic=tilteDic;
+                vc.messageId=_newMessageID;
+                [self.navigationController pushViewController:vc animated:YES];
+
+                [_scMsgView removeFromSuperview];
+                _scMsgView = nil;
+                self.Hp_MainBg_top.constant = 64;
+
+                
+            }];
+            
+        });
+
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+
+    }];
+}
+
+
+#pragma mark - NotificationCenterNotify
+- (void)userLoginSuccess {
+    if ([UserInfo getStatus] != UserStatusComplete) {
+        [self.Hp_BottomBtn setTitle:HPBottomButtonTilteInReview forState:UIControlStateNormal];
+        self.Hp_BottomBtn.enabled = NO;
+        
+    }else{
+        [self.Hp_BottomBtn setTitle:HPBottomButtonTitleRelease forState:UIControlStateNormal];
+        self.Hp_BottomBtn.enabled = YES;
+    }
+}
+
+//- (void)userLogout {
+//    [_ordersList removeAllObjects];
+//    [self.tableView reloadData];
+//}
+
+- (void)userStatusChanged {
+    
+    [_Hp_ContentLists1st removeAllObjects];
+    [_Hp_ContentLists2nd removeAllObjects];
+    [_Hp_ContentLists3rd removeAllObjects];
+    
+    if ([UserInfo getStatus] != UserStatusComplete) {
+        _logoImgViewS3.image =
+        _logoImgViewS2.image =
+        _logoImgViewS1.image = [UIImage imageNamed:@"checkLogo"];
+        _markedWordsLabelS3.text =
+        _markedWordsLabelS2.text =
+        _markedWordsLabelS1.text = HPUserStatusInReviewMsg;
+        
+    }else if ([UserInfo isLogin]) {
+        _logoImgViewS3.image =
+        _logoImgViewS2.image =
+        _logoImgViewS1.image = nil;
+        _markedWordsLabelS3.text =
+        _markedWordsLabelS2.text =
+        _markedWordsLabelS1.text = @"";
+        
+    }
+    
+}
+
 
 @end

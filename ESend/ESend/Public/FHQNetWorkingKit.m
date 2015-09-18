@@ -45,7 +45,7 @@
         operation = [manager POST:urlString
                        parameters:pramaters
                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                              NSError *error = [self fiterResult:responseObject];
+                              NSError *error = [self fiterResult:responseObject host:host];
                               
                               if (error) {
                                   if (failBlock) {
@@ -58,7 +58,13 @@
                                   }
                                   
                               } else if (successBlock) {
-                                  successBlock([responseObject objectForKey:@"Result"], operation) ;
+                                  id result = [responseObject objectForKey:@"Result"];
+                                  if (nil != host ) {
+                                      if ([host compare:Java_API_SERVER] == NSOrderedSame) {
+                                          result = [responseObject objectForKey:@"result"];
+                                      }
+                                  }
+                                  successBlock(result, operation) ;
                               }
                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                               
@@ -80,7 +86,7 @@
         
         //get请求
         operation = [manager GET:urlString parameters:pramaters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSError *error = [self fiterResult:responseObject];
+            NSError *error = [self fiterResult:responseObject host:host];
             
             if (error) {
                 if (failBlock) {
@@ -91,7 +97,14 @@
                     }
                 }
             } else if (successBlock) {
-                successBlock([responseObject objectForKey:@"Result"], operation) ;
+                id result = [responseObject objectForKey:@"Result"];
+                if (nil != host ) {
+                    if ([host compare:Java_API_SERVER] == NSOrderedSame) {
+                        result = [responseObject objectForKey:@"result"];
+                    }
+                }
+                successBlock(result, operation) ;
+                // successBlock([responseObject objectForKey:@"Result"], operation) ;
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -176,7 +189,7 @@
 
                        }
                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                              NSError *error = [self fiterResult:responseObject];
+                              NSError *error = [self fiterResult:responseObject host:host];
                               
                               if (error) {
                                   if (failBlock) {
@@ -189,7 +202,14 @@
                                   }
                                   
                               } else if (successBlock) {
-                                  successBlock([responseObject objectForKey:@"Result"], operation) ;
+                                  id result = [responseObject objectForKey:@"Result"];
+                                  if (nil != host ) {
+                                      if ([host compare:Java_API_SERVER] == NSOrderedSame) {
+                                          result = [responseObject objectForKey:@"result"];
+                                      }
+                                  }
+                                  successBlock(result, operation) ;
+                                  // successBlock([responseObject objectForKey:@"Result"], operation) ;
                               }
                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                               
@@ -210,7 +230,7 @@
     } else {
         //get请求
         operation = [manager GET:urlString parameters:pramaters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSError *error = [self fiterResult:responseObject];
+            NSError *error = [self fiterResult:responseObject host:host];
             
             if (error) {
                 if (failBlock) {
@@ -221,7 +241,14 @@
                     }
                 }
             } else if (successBlock) {
-                successBlock([responseObject objectForKey:@"Result"], operation) ;
+                id result = [responseObject objectForKey:@"Result"];
+                if (nil != host ) {
+                    if ([host compare:Java_API_SERVER] == NSOrderedSame) {
+                        result = [responseObject objectForKey:@"result"];
+                    }
+                }
+                successBlock(result, operation) ;
+                // successBlock([responseObject objectForKey:@"Result"], operation) ;
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
@@ -286,11 +313,17 @@
 }
 
 //返回数据拦截
-+ (NSError*)fiterResult:(id)responseObject {
++ (NSError*)fiterResult:(id)responseObject host:(NSString *)host{
     
     NSError *error = nil;
     if (responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
         NSInteger code = [[responseObject objectForKey:@"Status"] integerValue];
+        if (nil != host) {
+            if ([host compare:Java_API_SERVER] == NSOrderedSame) {
+                code = [[responseObject objectForKey:@"status"] integerValue];
+            }
+        }
+
         if (code != 1) {
             error = [NSError errorWithDomain:@"BussineError" code:code userInfo:responseObject];
 //            [Tools showHUD:[responseObject objectForKey:@"Message"]];

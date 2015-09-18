@@ -52,6 +52,12 @@
     _listView.separatorStyle  = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_listView];
     
+    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    [_listView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(refreshingData)];
+    
+    // 隐藏时间
+    // _listView.header.updatedTimeHidden = YES;
+
 //    _listView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshingData)];
     [_listView.header beginRefreshing];
     

@@ -51,7 +51,9 @@
     [self.view addSubview:_tableView];
     
     // addLegendHeaderWithRefreshingTarget
-//    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    [_tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    [_tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+
 //    _tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     
     [_tableView.header beginRefreshing];

@@ -244,8 +244,12 @@ fprintf(stderr, "-------\n");                                               \
     #define UPDATE_APP_API_SERVER  @""// 升级接口
 
 #elif 0
-    #define  OPEN_API_SEVER @"http://10.8.7.44:7178/"   //本地服务器 都海潮
+    #define  OPEN_API_SEVER @"http://10.8.7.44:7178/"   //本地服务器 窦海超
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
+    #define UPDATE_APP_API_SERVER  @""// 升级接口
+
+    #define Java_API_SERVER @"http://10.8.7.42:8094/api-http/services/" // java服务器-不加密
+
 #elif 0
     #define  OPEN_API_SEVER @"http://10.8.8.105:8069/api/ios/" //边亮
 #elif 0

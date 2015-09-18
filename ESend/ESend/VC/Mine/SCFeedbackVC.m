@@ -108,7 +108,8 @@ NSString *scTextViewPlaceHolder_text=@"请输入产品意见，我们将不断�
     [FHQNetWorkingAPI feedbackB:paraData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         [Tools hiddenProgress:waitingProcess];
         
-        
+        [Tools showHUD:@"提交成功"];
+        [self.navigationController popViewControllerAnimated:YES];
         
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
         [Tools hiddenProgress:waitingProcess];
@@ -120,22 +121,7 @@ NSString *scTextViewPlaceHolder_text=@"请输入产品意见，我们将不断�
             }
         }
     }];
-//    [SLAppAPIClient feedBackWithFeedbacktype:_selectTypeText.text  Content:_scTextView.text  success:^(AFHTTPRequestOperation *operation,id responseObject){
-//        //[Tools hiddenProgress];
-//        if ([responseObject[@"status"]intValue] ==1) {
-//            
-//            [self postAlertWithMsg:@"您的反馈已发送，我们会尽快核实处理！"];
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }
-//        else
-//        {
-//            [self postAlertWithMsg:responseObject[@"Message"]];
-//            
-//        }
-//        
-//    } failure:^(AFHTTPRequestOperation *operation,NSError *error){
-//        [self hiddenProgress];
-//    }];
+
 
 }
 
