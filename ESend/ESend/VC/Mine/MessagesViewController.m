@@ -50,6 +50,7 @@
     [_tableView registerClass:[MessagesTableViewCell class] forCellReuseIdentifier:NSStringFromClass([MessagesTableViewCell class])];
     [self.view addSubview:_tableView];
     
+    // addLegendHeaderWithRefreshingTarget
     _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
     _tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     

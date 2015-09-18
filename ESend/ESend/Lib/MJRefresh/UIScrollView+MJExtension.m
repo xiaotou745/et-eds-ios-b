@@ -4,14 +4,12 @@
 //  MJRefreshExample
 //
 //  Created by MJ Lee on 14-5-28.
-//  Copyright (c) 2014年 小码哥. All rights reserved.
+//  Copyright (c) 2014年 itcast. All rights reserved.
 //
 
 #import "UIScrollView+MJExtension.h"
-#import <objc/runtime.h>
 
 @implementation UIScrollView (MJExtension)
-
 - (void)setMj_insetT:(CGFloat)mj_insetT
 {
     UIEdgeInsets inset = self.contentInset;
@@ -84,26 +82,26 @@
     return self.contentOffset.y;
 }
 
-- (void)setMj_contentW:(CGFloat)mj_contentW
+- (void)setMj_contentSizeW:(CGFloat)mj_contentSizeW
 {
     CGSize size = self.contentSize;
-    size.width = mj_contentW;
+    size.width = mj_contentSizeW;
     self.contentSize = size;
 }
 
-- (CGFloat)mj_contentW
+- (CGFloat)mj_contentSizeW
 {
     return self.contentSize.width;
 }
 
-- (void)setMj_contentH:(CGFloat)mj_contentH
+- (void)setMj_contentSizeH:(CGFloat)mj_contentSizeH
 {
     CGSize size = self.contentSize;
-    size.height = mj_contentH;
+    size.height = mj_contentSizeH;
     self.contentSize = size;
 }
 
-- (CGFloat)mj_contentH
+- (CGFloat)mj_contentSizeH
 {
     return self.contentSize.height;
 }
