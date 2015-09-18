@@ -39,7 +39,7 @@
     [_tableView registerClass:[ThirdOrderTableViewCell class] forCellReuseIdentifier:NSStringFromClass([ThirdOrderTableViewCell class])];
     [self.view addSubview:_tableView];
     
-    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+//    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
 }
 
 - (void)refreshData {

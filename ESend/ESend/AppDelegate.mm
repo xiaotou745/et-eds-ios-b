@@ -12,7 +12,7 @@
 #import "APService.h"
 #import "MessageDetailViewController.h"
 #import "MessageModel.h"
-#import "TakeOrderListViewController.h"
+#import "EDSHomepageVC.h"
 #import "RegisterViewController.h"
 #import "WelcomeViewController.h"
 #import "MobClick.h"
@@ -78,7 +78,7 @@
         CLog(@"flai");
     }
     
-    TakeOrderListViewController * takeOrderVC = [[TakeOrderListViewController alloc] init];
+    EDSHomepageVC * takeOrderVC = [[EDSHomepageVC alloc] initWithNibName:@"EDSHomepageVC" bundle:nil];
     _rootNav = [[UINavigationController alloc] initWithRootViewController:takeOrderVC];
     _rootNav.navigationBarHidden = YES;
     self.window.rootViewController = _rootNav;

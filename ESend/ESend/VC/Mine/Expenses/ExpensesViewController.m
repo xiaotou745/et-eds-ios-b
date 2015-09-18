@@ -52,7 +52,7 @@
     _listView.separatorStyle  = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_listView];
     
-    _listView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshingData)];
+//    _listView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshingData)];
     [_listView.header beginRefreshing];
     
     _emptyAlertView = [[EmptyAlterView alloc] initWithMessage:@"暂时没有收支记录，快去发布任务吧"];

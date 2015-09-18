@@ -196,4 +196,10 @@
 + (AFHTTPRequestOperation *)newMessageB:(NSDictionary *)data
                            successBlock:(successBlock)successBlock
                                 failure:(failureBlock)failure;
+
+///  java 1.1.7 商户app首页获取商家订单列表
+///  url:/order/queryorderb POST
++ (AFHTTPRequestOperation *)queryorderb:(NSDictionary *)data
+                           successBlock:(successBlock)successBlock
+                                failure:(failureBlock)failure;
 @end

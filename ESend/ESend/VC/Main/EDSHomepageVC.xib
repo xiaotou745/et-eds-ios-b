@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -43,6 +43,9 @@
                                     <state key="normal" title="待接单(0)">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="s1ButtonAction:" destination="-1" eventType="touchUpInside" id="O0Y-0E-Xli"/>
+                                    </connections>
                                 </button>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUm-9c-7el" userLabel="separator11">
                                     <rect key="frame" x="198" y="10" width="1" height="30"/>
@@ -56,21 +59,27 @@
                                     <state key="normal" title="待取货(0)">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="s2ButtonAction:" destination="-1" eventType="touchUpInside" id="48f-at-CqE"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InH-vl-2nm" userLabel="indicator">
                                     <rect key="frame" x="0.0" y="49" width="196" height="1"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="0.5" id="qDy-3E-3gv"/>
+                                        <constraint firstAttribute="height" constant="1" id="qDy-3E-3gv"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9W-6m-sPO">
-                                    <rect key="frame" x="402" y="0.0" width="196" height="50"/>
+                                    <rect key="frame" x="402" y="0.0" width="196" height="48"/>
                                     <state key="normal" title="配送中(0)">
                                         <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="s3ButtonAction:" destination="-1" eventType="touchUpInside" id="Gn1-0c-L43"/>
+                                    </connections>
                                 </button>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tUy-Jk-vgU" userLabel="separator12">
                                     <rect key="frame" x="399" y="10" width="1" height="30"/>
@@ -97,12 +106,12 @@
                                 <constraint firstItem="tUy-Jk-vgU" firstAttribute="centerY" secondItem="h4F-Td-dtv" secondAttribute="centerY" id="cgD-WU-J9j"/>
                                 <constraint firstItem="Ms1-8x-oS4" firstAttribute="leading" secondItem="bUm-9c-7el" secondAttribute="trailing" constant="2" id="g74-qe-LC9"/>
                                 <constraint firstAttribute="bottom" secondItem="InH-vl-2nm" secondAttribute="bottom" id="gDI-ac-nwD"/>
-                                <constraint firstAttribute="bottom" secondItem="S9W-6m-sPO" secondAttribute="bottom" id="kjO-qV-IzP"/>
+                                <constraint firstAttribute="bottom" secondItem="S9W-6m-sPO" secondAttribute="bottom" constant="2" id="kjO-qV-IzP"/>
                                 <constraint firstItem="Ms1-8x-oS4" firstAttribute="top" secondItem="h4F-Td-dtv" secondAttribute="top" id="nvr-ZG-FfI"/>
                                 <constraint firstItem="S9W-6m-sPO" firstAttribute="top" secondItem="h4F-Td-dtv" secondAttribute="top" id="sEE-gg-cV2"/>
                             </constraints>
                         </view>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="gCh-lk-GYg" userLabel="HorizonScroller">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="gCh-lk-GYg" userLabel="HorizonScroller">
                             <rect key="frame" x="0.0" y="50" width="600" height="486"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uVM-o2-s8K" userLabel="HorizonScrollerContent">

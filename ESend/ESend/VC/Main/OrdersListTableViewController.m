@@ -53,26 +53,26 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 64)];
     
 //    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
-    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
-    [header setImages:@[[UIImage imageNamed:@"1"],[UIImage imageNamed:@"2"]]
-             duration:0.2
-             forState:MJRefreshStateRefreshing];
-    [header setImages:@[[UIImage imageNamed:@"1"]]
-             duration:10
-             forState:MJRefreshStateIdle];
-    header.stateLabel.hidden = YES;
-    header.lastUpdatedTimeLabel.hidden = YES;
-    self.tableView.header = header;
-
-    MJRefreshBackGifFooter *footer = [MJRefreshBackGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
-    [footer setImages:@[[UIImage imageNamed:@"1"],[UIImage imageNamed:@"2"]]
-             duration:0.2
-             forState:MJRefreshStateRefreshing];
-    [footer setImages:@[[UIImage imageNamed:@"1"]]
-             duration:10
-             forState:MJRefreshStateIdle];
-    footer.stateLabel.hidden = YES;
-    self.tableView.footer = footer;
+//    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+//    [header setImages:@[[UIImage imageNamed:@"1"],[UIImage imageNamed:@"2"]]
+//             duration:0.2
+//             forState:MJRefreshStateRefreshing];
+//    [header setImages:@[[UIImage imageNamed:@"1"]]
+//             duration:10
+//             forState:MJRefreshStateIdle];
+//    header.stateLabel.hidden = YES;
+//    header.lastUpdatedTimeLabel.hidden = YES;
+//    self.tableView.header = header;
+//
+//    MJRefreshBackGifFooter *footer = [MJRefreshBackGifFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
+//    [footer setImages:@[[UIImage imageNamed:@"1"],[UIImage imageNamed:@"2"]]
+//             duration:0.2
+//             forState:MJRefreshStateRefreshing];
+//    [footer setImages:@[[UIImage imageNamed:@"1"]]
+//             duration:10
+//             forState:MJRefreshStateIdle];
+//    footer.stateLabel.hidden = YES;
+//    self.tableView.footer = footer;
     
     
     // 提示logo

@@ -891,4 +891,24 @@
     return operation;
 }
 
+///  java 1.1.7 商户app首页获取商家订单列表
+///  url:/order/queryorderb POST
++ (AFHTTPRequestOperation *)queryorderb:(NSDictionary *)data
+                           successBlock:(successBlock)successBlock
+                                failure:(failureBlock)failure{
+    NSString *url = @"order/queryorderb";
+    
+    AFHTTPRequestOperation * operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
+        if (successBlock) {
+            successBlock(result, operation);
+        }
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (failure) {
+            failure(error,operation);
+        }
+    } isShowFailAlert:NO failAlertString:nil host:Java_API_SERVER];
+    
+    return operation;
+}
+
 @end

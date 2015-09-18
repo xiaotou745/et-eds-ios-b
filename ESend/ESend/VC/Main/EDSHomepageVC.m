@@ -13,10 +13,19 @@
 #import "UserInfo.h"
 
 #import "ReleseOrderViewController.h"
+#import "MineViewController.h"
 
 #define HPUserStatusInReviewMsg @"您目前没有通过验证，无法发单!"
 #define HPBottomButtonTitleRelease @"发  布"
 #define HPBottomButtonTilteInReview @"审核中"
+
+#define Hp_Cell_1st_Id @"Hp_ContentList1stCellId"
+#define Hp_Cell_2nd_Id @"Hp_ContentList2ndCellId"
+#define Hp_Cell_3rd_Id @"Hp_ContentList3rdCellId"
+
+#define HeadButtonTagTrans 918
+
+
 
 @interface EDSHomepageVC ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,UINavigationControllerDelegate>
 {
@@ -31,6 +40,19 @@
     // 第三个table,异常提示
     UIImageView * _logoImgViewS3;
     UILabel     * _markedWordsLabelS3;
+    
+    ///
+    OrderStatus _orderListStatus;  //0,2,4
+    
+    /// operation
+    AFHTTPRequestOperation *_operation;
+    
+    // 第一次滚动到右边时刷新，0次，2次以及多次不自动刷新
+    // 滚动到section的次数
+    int _timesScrollToMiddle;
+    int _timesScrollToRight;
+
+
 }
 @property (strong, nonatomic) IBOutlet UIView *Hp_MainBg;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Hp_MainBg_top;   // default 64
@@ -43,7 +65,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *Hp_Option3rd;              // 配送中 button
 
 @property (strong, nonatomic) IBOutlet UIImageView *Hp_OptionSeparator11;   // 分割线11
-
 @property (strong, nonatomic) IBOutlet UIImageView *Hp_OptionSeparator12;   // 分割线12
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Hp_OptionSeparatorHeight;    // default 30
 
@@ -78,6 +99,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.delegate = self;
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:LoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:UserStatusChangeToReviewNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releaseOrderSuccess) name:ReleseOrderNotification object:nil];
@@ -86,13 +110,57 @@
     _Hp_ContentLists2nd = [[NSMutableArray alloc] initWithCapacity:0];
     _Hp_ContentLists3rd = [[NSMutableArray alloc] initWithCapacity:0];
     
+    _orderListStatus = OrderStatusNewOrder;
+    
+    self.titleLabel.text = @"呼叫配送员";
+    
+    CGSize titleSize = [self.titleLabel.text sizeWithAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:18]}];
+    
+    UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(MainWidth/2 - titleSize.width/2 - 20 - 5, 20 + (44 - titleSize.height)/2, 20, 20)];
+    iconView.image = [UIImage imageNamed:@"icon_80"];
+    iconView.layer.cornerRadius = 5;
+    iconView.layer.masksToBounds = YES;
+    [self.navBar addSubview:iconView];
+    
+    self.leftBtn.hidden = YES;
+    
+    [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
+    [self.rightBtn addTarget:self action:@selector(clickUser) forControlEvents:UIControlEventTouchUpInside];
+    
+    // separators config
+    self.Hp_OptionSeparator11.backgroundColor =
+    self.Hp_OptionSeparator12.backgroundColor = LightGrey;
+    
+    // optionView  buttons
+    self.Hp_OptionBtn1st.tag = 1 + HeadButtonTagTrans;
+    self.Hp_OptionBtn2nd.tag = 2 + HeadButtonTagTrans;
+    self.Hp_Option3rd.tag = 3 + HeadButtonTagTrans;
+    
+    self.Hp_OptionBtn1st.enabled = NO;
+    self.Hp_OptionIndicator.backgroundColor = BlueColor;
+    
+    self.Hp_Option3rd.titleLabel.font =
+    self.Hp_OptionBtn2nd.titleLabel.font =
+    self.Hp_OptionBtn1st.titleLabel.font = [UIFont systemFontOfSize:BigFontSize];
+    self.Hp_Option3rd.backgroundColor =
+    self.Hp_OptionBtn2nd.backgroundColor =
+    self.Hp_OptionBtn1st.backgroundColor = [UIColor whiteColor];
+    [self.Hp_Option3rd setTitleColor:DeepGrey forState:UIControlStateNormal];
+    [self.Hp_OptionBtn2nd setTitleColor:DeepGrey forState:UIControlStateNormal];
+    [self.Hp_OptionBtn1st setTitleColor:DeepGrey forState:UIControlStateNormal];
+    
+    // table refresh
+    
     [self _configOptionPullRefresh:self.Hp_ContentList1st];
     [self _configOptionPullRefresh:self.Hp_ContentList2nd];
     [self _configOptionPullRefresh:self.Hp_ContentList3rd];
     
     /// table状态显示
     [self _configTableExceptionViews];
+    /// 设置tables
+    [self _configTablesProperty];
     
+    /// 底部button
     [self.Hp_BottomBtn setTitle:HPBottomButtonTitleRelease forState:UIControlStateNormal];
     [self.Hp_BottomBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.Hp_BottomBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:@"blue_btn_noSelect"];
@@ -105,6 +173,22 @@
     }else{
         [self.Hp_BottomBtn setTitle:HPBottomButtonTitleRelease forState:UIControlStateNormal];
         self.Hp_BottomBtn.enabled = YES;
+    }
+    
+    // 滚动到section的次数
+    _timesScrollToMiddle = 0;
+    _timesScrollToRight = 0;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    //
+    if (_orderListStatus == OrderStatusNewOrder) {
+        [self.Hp_ContentList1st.header beginRefreshing];
+    }else if (_orderListStatus == OrderStatusAccepted) {
+        [self.Hp_ContentList2nd.header beginRefreshing];
+    }else if (_orderListStatus == OrderStatusReceive){
+        [self.Hp_ContentList3rd.header beginRefreshing];
     }
 }
 
@@ -125,11 +209,11 @@
     // 添加动画图片的下拉刷新
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
     if (tabler == self.Hp_ContentList1st) {
-        [tabler addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(_refreshOptionArea1st)];
+        [tabler addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(_refreshOptionAreaAction)];
     }else if (tabler == self.Hp_ContentList2nd) {
-        [tabler addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(_refreshOptionArea2nd)];
+        [tabler addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(_refreshOptionAreaAction)];
     }else if (tabler == self.Hp_ContentList3rd) {
-        [tabler addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(_refreshOptionArea3rd)];
+        [tabler addGifHeaderWithRefreshingTarget:self refreshingAction:@selector(_refreshOptionAreaAction)];
     }
     // 隐藏时间
     tabler.header.updatedTimeHidden = YES;
@@ -152,17 +236,66 @@
 }
 
 
-
-- (void)_refreshOptionArea1st{
+- (void)_refreshOptionAreaAction{
+    if (![UserInfo isLogin]) {
+        if (_orderListStatus == OrderStatusNewOrder) {
+            [self.Hp_ContentList1st.header endRefreshing];
+        }else if (_orderListStatus == OrderStatusAccepted) {
+            [self.Hp_ContentList2nd.header endRefreshing];
+        }else if (_orderListStatus == OrderStatusReceive) {
+            [self.Hp_ContentList3rd.header endRefreshing];
+        }
+        return;
+    }
     
-}
-
-- (void)_refreshOptionArea2nd{
+    if (_operation) {
+        [_operation cancel];
+        _operation = nil;
+        if (_orderListStatus == OrderStatusNewOrder) {
+            [self.Hp_ContentList1st.header endRefreshing];
+        }else if (_orderListStatus == OrderStatusAccepted) {
+            [self.Hp_ContentList2nd.header endRefreshing];
+        }else if (_orderListStatus == OrderStatusReceive) {
+            [self.Hp_ContentList3rd.header endRefreshing];
+        }
+    }
     
-}
-
-- (void)_refreshOptionArea3rd{
+    NSDictionary * paraData = @{
+                                @"businessId":[UserInfo getUserId],
+                                @"status":[NSString stringWithFormat:@"%ld",(long)_orderListStatus],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraData = @{
+                     @"data":aesString,
+                     //@"Version":[Tools getApplicationVersion],
+                     };
+    }
     
+    _operation = [FHQNetWorkingAPI queryorderb:paraData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        NSLog(@"111111 result %@",result);
+        
+        if (_orderListStatus == OrderStatusNewOrder) {
+            [self.Hp_ContentList1st.header endRefreshing];
+        }else if (_orderListStatus == OrderStatusAccepted) {
+            [self.Hp_ContentList2nd.header endRefreshing];
+        }else if (_orderListStatus == OrderStatusReceive) {
+            [self.Hp_ContentList3rd.header endRefreshing];
+        }
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        NSLog(@"222222 error %@",error.userInfo);
+        
+        if (_orderListStatus == OrderStatusNewOrder) {
+            [self.Hp_ContentList1st.header endRefreshing];
+        }else if (_orderListStatus == OrderStatusAccepted) {
+            [self.Hp_ContentList2nd.header endRefreshing];
+        }else if (_orderListStatus == OrderStatusReceive) {
+            [self.Hp_ContentList3rd.header endRefreshing];
+        }
+        
+    }];
 }
 
 #pragma mark - Config Table Exception Views
@@ -226,13 +359,34 @@
     }
 }
 
+- (void)_configTablesProperty{
+    [self.Hp_ContentList1st registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:Hp_Cell_1st_Id];
+    [self.Hp_ContentList2nd registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:Hp_Cell_2nd_Id];
+    [self.Hp_ContentList3rd registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:Hp_Cell_3rd_Id];
+    
+    self.Hp_ContentList3rd.backgroundColor =
+    self.Hp_ContentList2nd.backgroundColor =
+    self.Hp_ContentList1st.backgroundColor = [UIColor clearColor];
+    self.Hp_ContentList3rd.separatorStyle =
+    self.Hp_ContentList2nd.separatorStyle =
+    self.Hp_ContentList1st.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return _ordersList.count;
+    if (tableView == self.Hp_ContentList1st) {
+        return _Hp_ContentLists1st.count;
+    }else if (tableView == self.Hp_ContentList2nd) {
+        return _Hp_ContentLists2nd.count;
+    }else if (tableView == self.Hp_ContentList3rd) {
+        return _Hp_ContentLists3rd.count;
+    }else{
+        return 0;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -247,13 +401,37 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    OrdersListTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([OrdersListTableVIewCell class]) forIndexPath:indexPath];
-    [cell loadData:_ordersList[indexPath.section]];
-    return cell;
+    
+    if (tableView == self.Hp_ContentList1st) { // 待接单
+        OrdersListTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:Hp_Cell_1st_Id forIndexPath:indexPath];
+        [cell loadData:_Hp_ContentLists1st[indexPath.section]];
+        return cell;
+    }else if (tableView == self.Hp_ContentList2nd) {  // 待取货
+        OrdersListTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:Hp_Cell_2nd_Id forIndexPath:indexPath];
+        [cell loadData:_Hp_ContentLists2nd[indexPath.section]];
+        return cell;
+    }else if (tableView == self.Hp_ContentList3rd) {  // 配送中
+        OrdersListTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:Hp_Cell_3rd_Id forIndexPath:indexPath];
+        [cell loadData:_Hp_ContentLists3rd[indexPath.section]];
+        return cell;
+    }else{
+        return nil;
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [OrdersListTableVIewCell calculateCellHeight:[_ordersList objectAtIndex:indexPath.section]];
+
+    if (tableView == self.Hp_ContentList1st) { // 待接单
+        return [OrdersListTableVIewCell calculateCellHeight:[_Hp_ContentLists1st objectAtIndex:indexPath.section]];
+    }else if (tableView == self.Hp_ContentList2nd) {  // 待取货
+        return [OrdersListTableVIewCell calculateCellHeight:[_Hp_ContentLists2nd objectAtIndex:indexPath.section]];
+    }else if (tableView == self.Hp_ContentList3rd) {  // 配送中
+        return [OrdersListTableVIewCell calculateCellHeight:[_Hp_ContentLists3rd objectAtIndex:indexPath.section]];
+    }else{
+        return 0.0f;
+    }
+
 }
 
 
@@ -265,6 +443,36 @@
 }
 
 
+- (void)clickUser{
+    MineViewController *vc = [[MineViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)s1ButtonAction:(UIButton *)sender {
+    [self _buttonEventWithSender:sender];
+
+}
+- (IBAction)s2ButtonAction:(UIButton *)sender {
+    [self _buttonEventWithSender:sender];
+
+}
+- (IBAction)s3ButtonAction:(UIButton *)sender {
+    [self _buttonEventWithSender:sender];
+
+}
+
+- (void)_enableHeadBtns{
+    self.Hp_OptionBtn1st.enabled = YES;
+    self.Hp_OptionBtn2nd.enabled = YES;
+    self.Hp_Option3rd.enabled = YES;
+}
+
+- (void)_buttonEventWithSender:(UIButton *)sender{
+    [self _enableHeadBtns];
+    sender.enabled = NO;
+    [self.Hp_ListMainScroller setContentOffset:CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds])*(sender.tag - 1 - HeadButtonTagTrans), 0) animated:YES];
+}
+
 #pragma mark - UINavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if (navigationController.viewControllers.count == 1) {
@@ -273,5 +481,66 @@
         navigationController.interactivePopGestureRecognizer.enabled = YES;
     }
 }
+
+
+#pragma mark - Scroller
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat delta = ScreenWidth/6;
+    if (scrollView == self.Hp_ListMainScroller) {
+        CGFloat movCenterY = self.Hp_OptionIndicator.center.y;
+        CGFloat newCenterX = scrollView.contentOffset.x/3 + delta;
+        self.Hp_OptionIndicator.center = CGPointMake(newCenterX, movCenterY);
+        if (scrollView.contentOffset.x == 0) {// 待接单
+            self.Hp_OptionBtn1st.enabled = NO;
+            self.Hp_OptionBtn2nd.enabled = YES;
+            self.Hp_Option3rd.enabled = YES;
+            self.Hp_ContentList1st.scrollsToTop = YES;
+            self.Hp_ContentList2nd.scrollsToTop = NO;
+            self.Hp_ContentList3rd.scrollsToTop = NO;
+            _orderListStatus = OrderStatusNewOrder;
+            
+            //[self switchToTakingBTN:NO];
+            
+        }
+        if (scrollView.contentOffset.x == ScreenWidth) { // 待取货
+            self.Hp_OptionBtn1st.enabled = YES;
+            self.Hp_OptionBtn2nd.enabled = NO;
+            self.Hp_Option3rd.enabled = YES;
+            self.Hp_ContentList1st.scrollsToTop = NO;
+            self.Hp_ContentList2nd.scrollsToTop = YES;
+            self.Hp_ContentList3rd.scrollsToTop = NO;
+            _orderListStatus = OrderStatusAccepted;
+            
+//            [self switchToTakingBTN:YES];
+            
+            _timesScrollToMiddle ++;
+            if (_timesScrollToMiddle == 1) {
+                [self.Hp_ContentList2nd.header beginRefreshing];
+            }
+            
+        }
+        
+        if (scrollView.contentOffset.x == ScreenWidth * 2) { // 配送中
+            self.Hp_OptionBtn1st.enabled = YES;
+            self.Hp_OptionBtn2nd.enabled = YES;
+            self.Hp_Option3rd.enabled = NO;
+            self.Hp_ContentList1st.scrollsToTop = NO;
+            self.Hp_ContentList2nd.scrollsToTop = NO;
+            self.Hp_ContentList3rd.scrollsToTop = YES;
+            _orderListStatus = OrderStatusReceive;
+            
+            //            [self switchToTakingBTN:YES];
+
+            _timesScrollToRight ++;
+            if (_timesScrollToRight == 1) {
+                [self.Hp_ContentList3rd.header beginRefreshing];
+            }
+            
+        }
+    }
+}
+
+
+#pragma mark - API
 
 @end
