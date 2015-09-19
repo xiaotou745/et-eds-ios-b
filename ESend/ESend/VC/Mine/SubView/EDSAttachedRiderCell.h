@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EDSRiderInfoModel.h"
+#import "EDSStatisticsInfoClienterInfoModel.h"
 
 @interface EDSAttachedRiderCell : UITableViewCell
 
@@ -17,6 +17,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *AR_RiderPhone;
 @property (strong, nonatomic) IBOutlet UILabel *AR_RiderOrderCount;
 
-@property (strong, nonatomic) EDSRiderInfoModel * riderInfo;
+@property (strong, nonatomic) EDSStatisticsInfoClienterInfoModel * riderInfo;
 
 @end

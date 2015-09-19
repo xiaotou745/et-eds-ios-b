@@ -202,4 +202,11 @@
 + (AFHTTPRequestOperation *)queryorderb:(NSDictionary *)data
                            successBlock:(successBlock)successBlock
                                 failure:(failureBlock)failure;
+
+/// java 1.1.9 B端任务统计接口
+/// url:/order/orderstatisticsb POST
++ (AFHTTPRequestOperation *)orderstatisticsb:(NSDictionary *)data
+                                successBlock:(successBlock)successBlock
+                                     failure:(failureBlock)failure;
+
 @end

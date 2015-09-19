@@ -336,6 +336,7 @@
                 order.amount = [[dic objectForKey:@"amount"] floatValue];
                 order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
                 order.receiveAddress = [dic objectForKey:@"receviceAddress"];
+                order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
                 [_Hp_ContentLists1st addObject:order];
             }
             
@@ -353,6 +354,7 @@
                 order.amount = [[dic objectForKey:@"amount"] floatValue];
                 order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
                 order.receiveAddress = [dic objectForKey:@"receviceAddress"];
+                order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
                 [_Hp_ContentLists2nd addObject:order];
             }
             
@@ -370,6 +372,7 @@
                 order.amount = [[dic objectForKey:@"amount"] floatValue];
                 order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
                 order.receiveAddress = [dic objectForKey:@"receviceAddress"];
+                order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
                 [_Hp_ContentLists3rd addObject:order];
             }
         }
@@ -466,8 +469,15 @@
     }
     
     NSMutableAttributedString *AttributedString = [[NSMutableAttributedString alloc] initWithString:text];
-    [AttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4,AttributedString.length - 5)];
+    [AttributedString addAttribute:NSForegroundColorAttributeName value:DeepGrey range:NSMakeRange(0,AttributedString.length)];
     [btn setAttributedTitle:AttributedString forState:UIControlStateNormal];
+    
+    NSMutableAttributedString * hightedAttributedString = [[NSMutableAttributedString alloc] initWithString:text];
+    [hightedAttributedString addAttribute:NSForegroundColorAttributeName value:BlueColor range:NSMakeRange(0, hightedAttributedString.length)];
+//    [hightedAttributedString addAttribute:NSForegroundColorAttributeName value:BlueColor range:NSMakeRange(0, 4)];
+//    [hightedAttributedString addAttribute:NSForegroundColorAttributeName value:BlueColor range:NSMakeRange(AttributedString.length - 1, 1)];
+
+    [btn setAttributedTitle:hightedAttributedString forState:UIControlStateDisabled];
     
 //    if (selected)   [AttributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4,AttributedString.length-4-1)];
 //    

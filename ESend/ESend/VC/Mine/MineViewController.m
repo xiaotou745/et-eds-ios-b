@@ -18,7 +18,7 @@
 #import "WithdrewViewController.h"
 #import "ExpensesViewController.h"
 #import "PrefectInfoViewController.h"
-#import "OrderStatisticsViewController.h"
+#import "EDSOrderStatisticsVC.h"
 
 typedef NS_ENUM(NSInteger, BottomType) {
     BottomTypeDetail = 1000,    //收支明细
@@ -77,13 +77,13 @@ typedef NS_ENUM(NSInteger, BottomType) {
         NSLog(@"%@",result);
         _business = result;
         
-        //银行卡信息
-        NSArray *bankList = [result objectForKey:@"listBFAcount"];
-        if (bankList.count > 0) {
-            _bank = [[BankModel alloc] initWithDic:bankList[0]];
-            MineCell *mineCell = (MineCell*)[self.view viewWithTag:1001];
-            mineCell.contentLabel.text = [NSString stringWithFormat:@"%@ ****%@",_bank.openBank,[_bank.bankCardNumber substringWithRange:NSMakeRange(_bank.bankCardNumber.length - 4, 4)]];
-        }
+//        //银行卡信息
+//        NSArray *bankList = [result objectForKey:@"listBFAcount"];
+//        if (bankList.count > 0) {
+//            _bank = [[BankModel alloc] initWithDic:bankList[0]];
+//            MineCell *mineCell = (MineCell*)[self.view viewWithTag:1001];
+//            mineCell.contentLabel.text = [NSString stringWithFormat:@"%@ ****%@",_bank.openBank,[_bank.bankCardNumber substringWithRange:NSMakeRange(_bank.bankCardNumber.length - 4, 4)]];
+//        }
         
         _supplierNameLabel.text = [_business getStringWithKey:@"Name"];
         
@@ -211,12 +211,12 @@ typedef NS_ENUM(NSInteger, BottomType) {
     [_topView addSubview:line1];
     
     //
-    UIImageView * rechargeImage = [[UIImageView alloc] initWithFrame:CGRectMake(FRAME_WIDTH(_topView)*3/4 - 13, CGRectGetMaxY(line.frame) + 5, 26, 30)];
+    UIImageView * rechargeImage = [[UIImageView alloc] initWithFrame:CGRectMake(FRAME_WIDTH(_topView)*3/4 - 13, CGRectGetMaxY(line.frame) + 5, 26, 26)];
     rechargeImage.image = [UIImage imageNamed:@"recharge"];
     [_topView addSubview:rechargeImage];
     
     //
-    UILabel * rechargeLbl = [[UILabel alloc] initWithFrame:CGRectMake(FRAME_WIDTH(_topView)/2,CGRectGetMaxY(_balanceLabel.frame), FRAME_WIDTH(_topView)/2, 25)];
+    UILabel * rechargeLbl = [[UILabel alloc] initWithFrame:CGRectMake(FRAME_WIDTH(_topView)/2,CGRectGetMaxY(_balanceLabel.frame) +2 , FRAME_WIDTH(_topView)/2, 25)];
     rechargeLbl.text = @"充值";
     rechargeLbl.textAlignment = NSTextAlignmentCenter;
     rechargeLbl.textColor = BlueColor;
@@ -245,7 +245,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _newMessageIcon.hidden = YES;
     
     
-    NSArray *titles = @[@"收支明细",  @"订单统计", @"消息中心"];
+    NSArray *titles = @[@"账单",  @"任务统计", @"消息中心"];
     NSArray *icons = @[@"detail",  @"order_detail", @"message_icon"];
     
     for (NSInteger i = 0; i < titles.count; i++) {
@@ -280,7 +280,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
     
     if (tap.view.tag == 1001) {
-        OrderStatisticsViewController *vc = [[OrderStatisticsViewController alloc] init];
+        EDSOrderStatisticsVC *vc = [[EDSOrderStatisticsVC alloc] initWithNibName:@"EDSOrderStatisticsVC" bundle:nil];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }

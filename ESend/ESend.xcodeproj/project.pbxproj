@@ -43,6 +43,10 @@
 		6805570A1BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 680557071BA660FB00840495 /* EDSFullfillOptionCell.m */; };
 		6805570B1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */; };
 		6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */; };
+		68063DE91BAD510300CEB155 /* EDSStatisticsInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68063DE81BAD510300CEB155 /* EDSStatisticsInfoModel.m */; settings = {ASSET_TAGS = (); }; };
+		68063DEA1BAD510300CEB155 /* EDSStatisticsInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68063DE81BAD510300CEB155 /* EDSStatisticsInfoModel.m */; settings = {ASSET_TAGS = (); }; };
+		68063DED1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68063DEC1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m */; settings = {ASSET_TAGS = (); }; };
+		68063DEE1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68063DEC1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m */; settings = {ASSET_TAGS = (); }; };
 		6807AD6E1BAAB53600238D64 /* SCMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6807AD6D1BAAB53600238D64 /* SCMessageView.m */; settings = {ASSET_TAGS = (); }; };
 		6807AD6F1BAAB53600238D64 /* SCMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6807AD6D1BAAB53600238D64 /* SCMessageView.m */; settings = {ASSET_TAGS = (); }; };
 		68090EA41BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */; };
@@ -59,8 +63,6 @@
 		68580C941BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580C901BA80A930082C18C /* EDSAttachedRiderCell.xib */; };
 		68580C9E1BA836E10082C18C /* MNUnderLineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C9D1BA836E10082C18C /* MNUnderLineButton.m */; };
 		68580C9F1BA836E10082C18C /* MNUnderLineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C9D1BA836E10082C18C /* MNUnderLineButton.m */; };
-		68580CA21BA83A610082C18C /* EDSRiderInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580CA11BA83A610082C18C /* EDSRiderInfoModel.m */; };
-		68580CA31BA83A610082C18C /* EDSRiderInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580CA11BA83A610082C18C /* EDSRiderInfoModel.m */; };
 		68580CA71BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580CA51BA840070082C18C /* EDSRiderDelieveListVC.m */; };
 		68580CA81BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580CA51BA840070082C18C /* EDSRiderDelieveListVC.m */; };
 		68580CA91BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580CA61BA840070082C18C /* EDSRiderDelieveListVC.xib */; };
@@ -565,6 +567,10 @@
 		680557061BA660FB00840495 /* EDSFullfillOptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSFullfillOptionCell.h; sourceTree = "<group>"; };
 		680557071BA660FB00840495 /* EDSFullfillOptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSFullfillOptionCell.m; sourceTree = "<group>"; };
 		680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSFullfillOptionCell.xib; sourceTree = "<group>"; };
+		68063DE71BAD510300CEB155 /* EDSStatisticsInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSStatisticsInfoModel.h; sourceTree = "<group>"; };
+		68063DE81BAD510300CEB155 /* EDSStatisticsInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSStatisticsInfoModel.m; sourceTree = "<group>"; };
+		68063DEB1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSStatisticsInfoClienterInfoModel.h; sourceTree = "<group>"; };
+		68063DEC1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSStatisticsInfoClienterInfoModel.m; sourceTree = "<group>"; };
 		6807AD6C1BAAB53600238D64 /* SCMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMessageView.h; sourceTree = "<group>"; };
 		6807AD6D1BAAB53600238D64 /* SCMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMessageView.m; sourceTree = "<group>"; };
 		68090EA11BA2B248000680D8 /* EDSFullfillMoneyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSFullfillMoneyVC.h; path = ../EDSFullfillMoneyVC.h; sourceTree = "<group>"; };
@@ -578,8 +584,6 @@
 		68580C901BA80A930082C18C /* EDSAttachedRiderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSAttachedRiderCell.xib; sourceTree = "<group>"; };
 		68580C9C1BA836E10082C18C /* MNUnderLineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNUnderLineButton.h; sourceTree = "<group>"; };
 		68580C9D1BA836E10082C18C /* MNUnderLineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNUnderLineButton.m; sourceTree = "<group>"; };
-		68580CA01BA83A610082C18C /* EDSRiderInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderInfoModel.h; sourceTree = "<group>"; };
-		68580CA11BA83A610082C18C /* EDSRiderInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderInfoModel.m; sourceTree = "<group>"; };
 		68580CA41BA840070082C18C /* EDSRiderDelieveListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDelieveListVC.h; sourceTree = "<group>"; };
 		68580CA51BA840070082C18C /* EDSRiderDelieveListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDelieveListVC.m; sourceTree = "<group>"; };
 		68580CA61BA840070082C18C /* EDSRiderDelieveListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDelieveListVC.xib; sourceTree = "<group>"; };
@@ -1202,6 +1206,17 @@
 			path = IOS;
 			sourceTree = "<group>";
 		};
+		68063DE61BAD509300CEB155 /* OrderSmodel */ = {
+			isa = PBXGroup;
+			children = (
+				68063DE71BAD510300CEB155 /* EDSStatisticsInfoModel.h */,
+				68063DE81BAD510300CEB155 /* EDSStatisticsInfoModel.m */,
+				68063DEB1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.h */,
+				68063DEC1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m */,
+			);
+			name = OrderSmodel;
+			sourceTree = "<group>";
+		};
 		6807AD6B1BAAB4DE00238D64 /* subViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1231,6 +1246,7 @@
 		68580C8C1BA7BB950082C18C /* OrderStatistics */ = {
 			isa = PBXGroup;
 			children = (
+				68063DE61BAD509300CEB155 /* OrderSmodel */,
 				E482C3601B3E4D3E008471E8 /* OrderStatisticsViewController.h */,
 				E482C3611B3E4D3E008471E8 /* OrderStatisticsViewController.m */,
 				68580C851BA7BB7E0082C18C /* EDSOrderStatisticsVC.h */,
@@ -1812,8 +1828,6 @@
 				2EA0CA691B841EA800BBAA63 /* ConsigneeModel.m */,
 				2EA0CA751B843A0300BBAA63 /* DataArchive.h */,
 				2EA0CA761B843A0300BBAA63 /* DataArchive.m */,
-				68580CA01BA83A610082C18C /* EDSRiderInfoModel.h */,
-				68580CA11BA83A610082C18C /* EDSRiderInfoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2303,6 +2317,7 @@
 				F67D35321B5664A600083DA4 /* UIButton+WebCache.m in Sources */,
 				F67D35331B5664A600083DA4 /* TakeOrderListViewController.m in Sources */,
 				CF22B0441BAB4A61000F19D9 /* UIScrollView+MJRefresh.m in Sources */,
+				68063DEA1BAD510300CEB155 /* EDSStatisticsInfoModel.m in Sources */,
 				F67D35341B5664A600083DA4 /* BaseTableViewCell.m in Sources */,
 				CF22B0131BAB2BC7000F19D9 /* EDSHomepageVC.m in Sources */,
 				CF22B0461BAB4A61000F19D9 /* UIView+MJExtension.m in Sources */,
@@ -2356,7 +2371,6 @@
 				686745561BA91AF7005F59D4 /* SCFBCustomView.m in Sources */,
 				F67D355C1B5664A600083DA4 /* NSString+encrypto.m in Sources */,
 				F67D355D1B5664A600083DA4 /* DataBase.m in Sources */,
-				68580CA31BA83A610082C18C /* EDSRiderInfoModel.m in Sources */,
 				F67D355E1B5664A600083DA4 /* CustomTextView.m in Sources */,
 				F67D355F1B5664A600083DA4 /* AFURLRequestSerialization.m in Sources */,
 				F67D35601B5664A600083DA4 /* MapViewController.m in Sources */,
@@ -2457,6 +2471,7 @@
 				F67D35B71B5664A600083DA4 /* MJPhoto.m in Sources */,
 				CF22B0341BAB4A61000F19D9 /* MJRefreshConst.m in Sources */,
 				2EA0CA781B843A0300BBAA63 /* DataArchive.m in Sources */,
+				68063DEE1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m in Sources */,
 				F67D35B81B5664A600083DA4 /* MPNotificationView.m in Sources */,
 				2EA0CA6F1B842A1600BBAA63 /* NSString+X136.m in Sources */,
 				F67D35B91B5664A600083DA4 /* UIProgressView+AFNetworking.m in Sources */,
@@ -2507,6 +2522,7 @@
 				F6C6ADAE1B12F42F0007A980 /* UIButton+WebCache.m in Sources */,
 				F66CA12C1B1E9982006BDDB8 /* TakeOrderListViewController.m in Sources */,
 				CF22B0431BAB4A61000F19D9 /* UIScrollView+MJRefresh.m in Sources */,
+				68063DE91BAD510300CEB155 /* EDSStatisticsInfoModel.m in Sources */,
 				F6C6AC9B1B12F3EB0007A980 /* BaseTableViewCell.m in Sources */,
 				CF22B0121BAB2BC7000F19D9 /* EDSHomepageVC.m in Sources */,
 				CF22B0451BAB4A61000F19D9 /* UIView+MJExtension.m in Sources */,
@@ -2560,7 +2576,6 @@
 				686745551BA91AF7005F59D4 /* SCFBCustomView.m in Sources */,
 				F66CA1431B1EEF52006BDDB8 /* DataBase.m in Sources */,
 				F6C6AD7C1B12F42F0007A980 /* CustomTextView.m in Sources */,
-				68580CA21BA83A610082C18C /* EDSRiderInfoModel.m in Sources */,
 				F6C6AD771B12F42F0007A980 /* AFURLRequestSerialization.m in Sources */,
 				F66CA1241B1D9F3F006BDDB8 /* MapViewController.m in Sources */,
 				F6C6ADA51B12F42F0007A980 /* MKAnnotationView+WebCache.m in Sources */,
@@ -2661,6 +2676,7 @@
 				F6C6AD9D1B12F42F0007A980 /* MPNotificationView.m in Sources */,
 				CF22B0331BAB4A61000F19D9 /* MJRefreshConst.m in Sources */,
 				2EA0CA771B843A0300BBAA63 /* DataArchive.m in Sources */,
+				68063DED1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m in Sources */,
 				F6C6ADBA1B12F42F0007A980 /* UIProgressView+AFNetworking.m in Sources */,
 				2EA0CA6E1B842A1600BBAA63 /* NSString+X136.m in Sources */,
 				F6C6AD871B12F42F0007A980 /* DZNSegmentedControl.m in Sources */,

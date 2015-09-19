@@ -124,6 +124,8 @@ fprintf(stderr, "-------\n");                                               \
 #define Pink            [UIColor colorWithHexString:@"ff2e75"]
 #define MainRedColor    [UIColor colorWithHexString:@"c83838"]
 
+#define TextColor6       [UIColor colorWithHexString:@"666666"]  //e8e8e8
+#define BackgroundColor  [UIColor colorWithHexString:@"e8e8e8"]
 //
 #define SeparatorLineColor [UIColor colorWithHexString:@"dfdfdf"]
 

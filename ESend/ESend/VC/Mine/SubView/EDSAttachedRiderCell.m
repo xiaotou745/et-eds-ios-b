@@ -7,6 +7,7 @@
 //
 
 #import "EDSAttachedRiderCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation EDSAttachedRiderCell
 
@@ -18,6 +19,14 @@
     self.AR_RiderPortrait.layer.borderWidth = 2.0f;
     self.AR_RiderPortrait.layer.borderColor = [SeparatorLineColor CGColor];
     
+    self.AR_RiderName.font = [UIFont systemFontOfSize:BigFontSize];
+    self.AR_RiderName.textColor = DeepGrey;
+    
+    self.AR_RiderPhone.font =
+    self.AR_RiderOrderCount.font = [UIFont systemFontOfSize:BigFontSize];
+    
+    self.AR_RiderPhone.textColor =
+    self.AR_RiderOrderCount.textColor = TextColor6;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -32,11 +41,12 @@
 
 }
 
-- (void)setRiderInfo:(EDSRiderInfoModel *)riderInfo{
+- (void)setRiderInfo:(EDSStatisticsInfoClienterInfoModel *)riderInfo{
     _riderInfo = riderInfo;
-    self.AR_RiderName.text = _riderInfo.riderName;
-    self.AR_RiderPhone.text = _riderInfo.riderPhone;
-    self.AR_RiderOrderCount.text = [NSString stringWithFormat:@"完成订单量 %@",_riderInfo.riderOrderCount];
+    self.AR_RiderName.text = _riderInfo.clienterName;
+    self.AR_RiderPhone.text = _riderInfo.clienterPhone;
+    self.AR_RiderOrderCount.text = [NSString stringWithFormat:@"完成订单量 %ld",_riderInfo.orderCount];
+    [self.AR_RiderPortrait sd_setImageWithURL:[NSURL URLWithString:_riderInfo.clienterPhoto] placeholderImage:nil];
 }
 
 @end

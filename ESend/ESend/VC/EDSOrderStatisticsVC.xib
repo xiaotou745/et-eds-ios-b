@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EDSOrderStatisticsVC">
             <connections>
+                <outlet property="OS_ClienterCount" destination="Et2-9r-8O0" id="3ty-2l-Hu5"/>
+                <outlet property="OS_ClienterCountFx" destination="lLz-UO-JoI" id="gLA-PN-U1s"/>
                 <outlet property="OS_HeaderBg" destination="htY-vF-s7X" id="KDU-fU-CgH"/>
+                <outlet property="OS_Month" destination="qJO-zu-UbH" id="Qyu-r5-8eL"/>
+                <outlet property="OS_OrderAmount" destination="b32-Y1-RNS" id="uHE-uU-Yq5"/>
+                <outlet property="OS_OrderAmountFx" destination="mTS-SP-3Tt" id="n9M-jY-x8H"/>
+                <outlet property="OS_OrderCount" destination="sm7-2A-239" id="fiX-14-UOM"/>
+                <outlet property="OS_OrderCountFx" destination="kDZ-jj-xQ7" id="0QN-DR-cZC"/>
                 <outlet property="OS_OrdersTable" destination="zgK-AU-XKj" id="jOo-3g-ChX"/>
+                <outlet property="OS_Year" destination="LV0-O4-kDY" id="XGt-e0-CMS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,19 +32,19 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTx-tl-6ga" userLabel="view1">
                             <rect key="frame" x="0.0" y="0.0" width="129" height="65"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015年" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LV0-O4-kDY" userLabel="yearLbl">
-                                    <rect key="frame" x="0.0" y="12" width="129" height="20"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09月" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJO-zu-UbH" userLabel="monthLbl">
+                                    <rect key="frame" x="0.0" y="32" width="129" height="21"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="20" id="eN2-Qm-jWF"/>
+                                        <constraint firstAttribute="height" constant="21" id="I69-xb-KGV"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09月" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJO-zu-UbH" userLabel="monthLbl">
-                                    <rect key="frame" x="0.0" y="32" width="129" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015年" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LV0-O4-kDY" userLabel="yearLbl">
+                                    <rect key="frame" x="0.0" y="12" width="129" height="20"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="21" id="I69-xb-KGV"/>
+                                        <constraint firstAttribute="height" constant="20" id="eN2-Qm-jWF"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

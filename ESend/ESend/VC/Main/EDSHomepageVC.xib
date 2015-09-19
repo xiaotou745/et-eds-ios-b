@@ -111,7 +111,7 @@
                                 <constraint firstItem="S9W-6m-sPO" firstAttribute="top" secondItem="h4F-Td-dtv" secondAttribute="top" id="sEE-gg-cV2"/>
                             </constraints>
                         </view>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="gCh-lk-GYg" userLabel="HorizonScroller">
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="gCh-lk-GYg" userLabel="HorizonScroller">
                             <rect key="frame" x="0.0" y="50" width="600" height="486"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uVM-o2-s8K" userLabel="HorizonScrollerContent">

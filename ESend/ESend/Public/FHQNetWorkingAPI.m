@@ -911,4 +911,24 @@
     return operation;
 }
 
+/// java 1.1.9 B端任务统计接口
+/// url:/order/orderstatisticsb POST
++ (AFHTTPRequestOperation *)orderstatisticsb:(NSDictionary *)data
+                                successBlock:(successBlock)successBlock
+                                     failure:(failureBlock)failure{
+    
+    NSString *url = @"order/orderstatisticsb";
+    AFHTTPRequestOperation * operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
+        if (successBlock) {
+            successBlock(result, operation);
+        }
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (failure) {
+            failure(error,operation);
+        }
+    } isShowFailAlert:NO failAlertString:nil host:Java_API_SERVER];
+    
+    return operation;
+}
+
 @end
