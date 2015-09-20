@@ -15,12 +15,15 @@
 #import "EDSRiderDelieveListVC.h"
 #import "EDSMerchantReleaseTaskListVC.h"
 
+#import "MNDatePicker.h"
+
+
 #define OS_ORDER_CELL_HEADER_HEIGHT 50.0f
 #define OS_ORDER_CELL_HEADER_CONTENT_HEIGHT 40.0f
 
 #define OS_ORDER_CELL_HEIGHT 74.0f
 
-@interface EDSOrderStatisticsVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface EDSOrderStatisticsVC ()<UITableViewDataSource,UITableViewDelegate,MNDatePicerDelegate>
 {
     long _orderCount;                   // 订单数量
     double _totalAmount;                // 订单金额
@@ -46,6 +49,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *OS_ClienterCountFx;
 @property (strong, nonatomic) IBOutlet UILabel *OS_ClienterCount;
 
+@property (strong, nonatomic) MNDatePicker * datePicker;
 
 // table
 @property (strong, nonatomic) IBOutlet UITableView *OS_OrdersTable;
@@ -301,6 +305,33 @@
 #pragma mark - button action
 - (IBAction)yearMonthSelectAction:(UIButton *)sender {
     self.OS_triangleIndicator.highlighted = !self.OS_triangleIndicator.highlighted;
+}
+
+#pragma mark - datePicker
+- (void)showDatePicker{
+    [self dismissDatePicker];
+    self.datePicker = [[MNDatePicker alloc] initWithDelegate:self];
+    [self.datePicker showInView:self.view];
+}
+
+- (void)dismissDatePicker{
+    [self.datePicker cancelPicker];
+    self.datePicker.delegate = nil;
+    self.datePicker = nil;
+}
+
+- (void)MNDatePickerDidSelected:(MNDatePicker *)datePicker{
+    NSLog(@"MNDatePickerDidSelected==%@",datePicker.datePicker.date);
+    NSString *dateString=[datePicker.datePicker.date description];
+    NSString *yearMonthDay=[[dateString componentsSeparatedByString:@" "]firstObject];
+    
+    // [self changeBirth:yearMonthDay];
+    //    NSMutableArray *dateArr=(NSMutableArray *)[yearMonthDay componentsSeparatedByString:@"-"];
+    //
+    //    [dateArr insertObject:@"日" atIndex:dateArr.count];
+    //    [dateArr insertObject:@"月" atIndex:dateArr.count-2];
+    //    [dateArr insertObject:@"年" atIndex:dateArr.count-4];
+    
 }
 
 @end
