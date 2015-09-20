@@ -28,6 +28,7 @@
     long _orderCount;                   // 订单数量
     double _totalAmount;                // 订单金额
     long _serviceClienterCount;         // 服务骑士数量
+
 }
 // header
 @property (strong, nonatomic) IBOutlet UIView *OS_HeaderBg;
@@ -56,6 +57,11 @@
 
 @property (strong, nonatomic) NSMutableArray * OS_OrdersData;
 
+// ob
+@property (nonatomic, copy) NSString * selectedYear;    // 选中年
+@property (nonatomic, copy) NSString * selectedMonth;   // 选中月
+@property (nonatomic, copy) NSString * selectedYearAndMonth;    // 选中年-月
+
 @end
 
 @implementation EDSOrderStatisticsVC
@@ -64,6 +70,8 @@
     [super viewDidLoad];
     // datasource
     _OS_OrdersData = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    [self registerForKVO];
     
     self.titleLabel.text = @"任务统计";
     // header
@@ -89,6 +97,44 @@
     
     // api
     [self getOrdersStatisticsWithTimeInfo:[self currentYearAndMonth]];
+}
+
+- (void)dealloc {
+    [self unregisterFromKVO];
+}
+
+
+#pragma mark - register ob
+- (void)registerForKVO {
+    for (NSString *keyPath in [self observableKeypaths]) {
+        [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
+    }
+}
+
+- (void)unregisterFromKVO {
+    for (NSString *keyPath in [self observableKeypaths]) {
+        [self removeObserver:self forKeyPath:keyPath];
+    }
+}
+
+- (NSArray *)observableKeypaths {
+    return [NSArray arrayWithObjects:@"selectedYear", @"selectedMonth", nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(updateUIForKeypath:) withObject:keyPath waitUntilDone:NO];
+    } else {
+        [self updateUIForKeypath:keyPath];
+    }
+}
+
+- (void)updateUIForKeypath:(NSString *)keyPath{
+    if ([keyPath isEqualToString:@"selectedYear"]) {
+        self.OS_Year.text = [NSString stringWithFormat:@"%@年",self.selectedYear];
+    }else if ([keyPath isEqualToString:@"selectedMonth"]){
+        self.OS_Month.text = [NSString stringWithFormat:@"%@月",self.selectedMonth];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -270,6 +316,12 @@
     NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
     [dateFormatter setLocale:[NSLocale currentLocale]];
+    [dateFormatter setDateFormat:@"yyyy"];
+    NSString * year = [dateFormatter stringFromDate:localeDate];
+    self.selectedYear = year;
+    [dateFormatter setDateFormat:@"MM"];
+    NSString * month = [dateFormatter stringFromDate:localeDate];
+    self.selectedMonth = month;
     [dateFormatter setDateFormat:@"yyyy-MM"];
     return [dateFormatter stringFromDate:localeDate];
 }
@@ -304,13 +356,14 @@
 
 #pragma mark - button action
 - (IBAction)yearMonthSelectAction:(UIButton *)sender {
-    self.OS_triangleIndicator.highlighted = !self.OS_triangleIndicator.highlighted;
+    // self.OS_triangleIndicator.image = [UIImage imageNamed:@"triangle_up"];
+    [self showDatePicker];
 }
 
 #pragma mark - datePicker
 - (void)showDatePicker{
     [self dismissDatePicker];
-    self.datePicker = [[MNDatePicker alloc] initWithDelegate:self];
+    self.datePicker = [[MNDatePicker alloc] initWithDelegate:self year:_selectedYear month:_selectedMonth];
     [self.datePicker showInView:self.view];
 }
 
@@ -320,10 +373,27 @@
     self.datePicker = nil;
 }
 
-- (void)MNDatePickerDidSelected:(MNDatePicker *)datePicker{
-    NSLog(@"MNDatePickerDidSelected==%@",datePicker.datePicker.date);
-    NSString *dateString=[datePicker.datePicker.date description];
-    NSString *yearMonthDay=[[dateString componentsSeparatedByString:@" "]firstObject];
+- (void)MNDatePickerDidCancel:(MNDatePicker *)datePicker{
+    self.OS_triangleIndicator.image = [UIImage imageNamed:@"triangle_down"];
+
+}
+
+- (void)MNDatePickerDidCompleteShowed:(MNDatePicker *)datePicker{
+     self.OS_triangleIndicator.image = [UIImage imageNamed:@"triangle_up"];
+
+}
+
+- (void)MNDatePickerDidSelected:(MNDatePicker *)datePicker YearMonthString:(NSString *)yearMonth year:(NSString *)year month:(NSString *)month{
+    NSLog(@"%@",yearMonth);
+    self.selectedYear = year;
+    self.selectedMonth = month;
+    self.selectedYearAndMonth = yearMonth;
+    
+    [self getOrdersStatisticsWithTimeInfo:yearMonth];
+    
+//    NSLog(@"MNDatePickerDidSelected==%@",datePicker.datePicker.date);
+//    NSString *dateString=[datePicker.datePicker.date description];
+//    NSString *yearMonthDay=[[dateString componentsSeparatedByString:@" "]firstObject];
     
     // [self changeBirth:yearMonthDay];
     //    NSMutableArray *dateArr=(NSMutableArray *)[yearMonthDay componentsSeparatedByString:@"-"];

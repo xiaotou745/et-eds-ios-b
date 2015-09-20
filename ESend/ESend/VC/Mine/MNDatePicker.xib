@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -49,27 +49,28 @@
                         <constraint firstAttribute="height" constant="46" id="piZ-Fo-tqb"/>
                     </constraints>
                 </view>
-                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAq-Av-bnd">
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g53-rg-LVa">
                     <rect key="frame" x="0.0" y="46" width="600" height="162"/>
-                    <date key="date" timeIntervalSinceReferenceDate="-347144399.74313354">
-                        <!--1990-01-01 03:00:00 +0000-->
-                    </date>
-                </datePicker>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="yMd-Fz-LDZ"/>
+                        <outlet property="delegate" destination="-1" id="ehi-2X-CH3"/>
+                    </connections>
+                </pickerView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="AAz-lH-6cQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="6ZY-Gy-9sa"/>
                 <constraint firstItem="AAz-lH-6cQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="7d8-Jk-kBQ"/>
-                <constraint firstAttribute="bottom" secondItem="LAq-Av-bnd" secondAttribute="bottom" id="9S0-eS-hef"/>
-                <constraint firstAttribute="trailing" secondItem="LAq-Av-bnd" secondAttribute="trailing" id="K9C-zm-deg"/>
-                <constraint firstItem="LAq-Av-bnd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hst-eu-IeJ"/>
+                <constraint firstItem="g53-rg-LVa" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="hpq-zA-pMB"/>
+                <constraint firstAttribute="bottom" secondItem="g53-rg-LVa" secondAttribute="bottom" id="wS9-Wp-dbE"/>
+                <constraint firstItem="g53-rg-LVa" firstAttribute="top" secondItem="AAz-lH-6cQ" secondAttribute="bottom" id="xkl-gc-mjP"/>
                 <constraint firstAttribute="trailing" secondItem="AAz-lH-6cQ" secondAttribute="trailing" id="xz2-xU-mEM"/>
-                <constraint firstItem="LAq-Av-bnd" firstAttribute="top" secondItem="AAz-lH-6cQ" secondAttribute="bottom" id="zUR-nO-0b7"/>
+                <constraint firstAttribute="trailing" secondItem="g53-rg-LVa" secondAttribute="trailing" id="zbg-4U-Cjk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="actionBg" destination="AAz-lH-6cQ" id="We6-zs-dS3"/>
-                <outlet property="datePicker" destination="LAq-Av-bnd" id="dGr-9K-EDS"/>
+                <outlet property="datePicker" destination="g53-rg-LVa" id="QHQ-nt-Mxs"/>
             </connections>
         </view>
     </objects>

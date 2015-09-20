@@ -12,7 +12,9 @@
 
 @protocol MNDatePicerDelegate<NSObject>
 
-- (void)MNDatePickerDidSelected:(MNDatePicker *)datePicker;
+- (void)MNDatePickerDidSelected:(MNDatePicker *)datePicker YearMonthString:(NSString *)yearMonth year:(NSString *)year month:(NSString *)month;
+- (void)MNDatePickerDidCancel:(MNDatePicker *)datePicker;
+- (void)MNDatePickerDidCompleteShowed:(MNDatePicker *)datePicker;
 
 @end
 
@@ -23,10 +25,10 @@
 @property (weak,nonatomic) id<MNDatePicerDelegate>delegate;
 
 @property (strong, nonatomic) IBOutlet UIView *actionBg;
-@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (strong, nonatomic) IBOutlet UIPickerView *datePicker;
 
 
-- (id)initWithDelegate:(id <MNDatePicerDelegate>)delegate;
+- (id)initWithDelegate:(id <MNDatePicerDelegate>)delegate year:(NSString *)year month:(NSString *)month;
 - (void)showInView:(UIView *)view;
 - (void)cancelPicker;
 
