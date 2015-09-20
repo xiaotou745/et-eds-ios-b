@@ -337,6 +337,7 @@
                 order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
                 order.receiveAddress = [dic objectForKey:@"receviceAddress"];
                 order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
+                order.pubDate = [dic objectForKey:@"pubDate"];
                 [_Hp_ContentLists1st addObject:order];
             }
             
@@ -355,6 +356,8 @@
                 order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
                 order.receiveAddress = [dic objectForKey:@"receviceAddress"];
                 order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
+                order.pubDate = [dic objectForKey:@"pubDate"];
+
                 [_Hp_ContentLists2nd addObject:order];
             }
             
@@ -373,6 +376,8 @@
                 order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
                 order.receiveAddress = [dic objectForKey:@"receviceAddress"];
                 order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
+                order.pubDate = [dic objectForKey:@"pubDate"];
+
                 [_Hp_ContentLists3rd addObject:order];
             }
         }

@@ -7,8 +7,19 @@
 //
 
 #import "EDSMerchantReleaseTaskListVC.h"
+#import "OrdersListTableVIewCell.h"
+#import "FHQNetWorkingAPI.h"
 
-@interface EDSMerchantReleaseTaskListVC ()
+#import "UserInfo.h"
+
+#define MRTL_Cell_Id @"MRTL_Cell_Id"
+
+@interface EDSMerchantReleaseTaskListVC ()<UITableViewDataSource,UITableViewDelegate>
+@property (strong, nonatomic) IBOutlet UILabel *MRTL_Header;
+@property (strong, nonatomic) IBOutlet UITableView *MRTL_OrderListTable;
+
+// 数据源
+@property (nonatomic, strong) NSMutableArray * MRTLorderList;
 
 @end
 
@@ -17,6 +28,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.titleLabel.text = @"任务列表";
+    
+    _MRTLorderList = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    [self.MRTL_OrderListTable registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:MRTL_Cell_Id];
+    
+    self.MRTL_Header.textColor = DeepGrey;
+    self.MRTL_Header.font = [UIFont systemFontOfSize:BigFontSize];
+    self.MRTL_Header.text = [NSString stringWithFormat:@"%@       订单量 %@",self.dateInfo,self.orderCount];
+    
+    
+    MBProgressHUD * waitingProcess = [Tools showProgressWithTitle:@""];
+    
+    NSDictionary *requstData = @{
+                                 @"dateInfo" : self.dateInfo,
+                                 @"businessId"  : [UserInfo getUserId],
+                                 };
+    
+    
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:requstData];
+        
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        
+        requstData = @{
+                       @"data":aesString,
+                       //@"Version":[Tools getApplicationVersion],
+                       };
+    }
+    
+    [FHQNetWorkingAPI getcompliteorderb:nil successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        
+        NSLog(@"%@",result);
+        
+        [Tools hiddenProgress:waitingProcess];
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        
+        [Tools hiddenProgress:waitingProcess];
+        
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +77,34 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - UITableViewDataSource,UITableViewDelegate
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    OrdersListTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:MRTL_Cell_Id forIndexPath:indexPath];
+    [cell loadData:_MRTLorderList[indexPath.section]];
+    return cell;
 }
-*/
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [OrdersListTableVIewCell calculateCellHeight:[_MRTLorderList objectAtIndex:indexPath.section]];
+    
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return _MRTLorderList.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 20)];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
 
 @end

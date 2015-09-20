@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -18,6 +19,8 @@
                 <outlet property="OS_OrderCountFx" destination="kDZ-jj-xQ7" id="0QN-DR-cZC"/>
                 <outlet property="OS_OrdersTable" destination="zgK-AU-XKj" id="jOo-3g-ChX"/>
                 <outlet property="OS_Year" destination="LV0-O4-kDY" id="XGt-e0-CMS"/>
+                <outlet property="OS_YearMonthSelectBtn" destination="RKw-nl-1MG" id="LOq-gs-Ne8"/>
+                <outlet property="OS_triangleIndicator" destination="H2M-TL-uS4" id="2j8-nA-gjh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,15 +35,49 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTx-tl-6ga" userLabel="view1">
                             <rect key="frame" x="0.0" y="0.0" width="129" height="65"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09月" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJO-zu-UbH" userLabel="monthLbl">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c78-ki-pjJ">
                                     <rect key="frame" x="0.0" y="32" width="129" height="21"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09月" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJO-zu-UbH" userLabel="monthLbl">
+                                            <rect key="frame" x="0.0" y="0.0" width="85" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="I69-xb-KGV"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EKo-em-zyi">
+                                            <rect key="frame" x="86" y="0.0" width="43" height="21"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle_down" highlightedImage="triangle_up" translatesAutoresizingMaskIntoConstraints="NO" id="H2M-TL-uS4">
+                                                    <rect key="frame" x="0.0" y="6" width="8" height="8"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="H2M-TL-uS4" secondAttribute="height" multiplier="1:1" id="Afh-8n-zyW"/>
+                                                        <constraint firstAttribute="width" constant="8" id="EoN-4Y-uPO"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="H2M-TL-uS4" firstAttribute="leading" secondItem="EKo-em-zyi" secondAttribute="leading" id="cZ5-3M-kuq"/>
+                                                <constraint firstItem="H2M-TL-uS4" firstAttribute="centerY" secondItem="EKo-em-zyi" secondAttribute="centerY" id="dZx-5d-HvM"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="21" id="I69-xb-KGV"/>
+                                        <constraint firstAttribute="trailing" secondItem="EKo-em-zyi" secondAttribute="trailing" id="8Iz-zy-RzC"/>
+                                        <constraint firstAttribute="bottom" secondItem="qJO-zu-UbH" secondAttribute="bottom" id="MSM-a5-sgh"/>
+                                        <constraint firstItem="EKo-em-zyi" firstAttribute="leading" secondItem="qJO-zu-UbH" secondAttribute="trailing" constant="1" id="NAn-k2-os2"/>
+                                        <constraint firstAttribute="bottom" secondItem="EKo-em-zyi" secondAttribute="bottom" id="Wjf-RG-WH9"/>
+                                        <constraint firstAttribute="height" constant="21" id="YA3-hI-SZ7"/>
+                                        <constraint firstItem="EKo-em-zyi" firstAttribute="top" secondItem="c78-ki-pjJ" secondAttribute="top" id="g1B-2W-bHk"/>
+                                        <constraint firstItem="qJO-zu-UbH" firstAttribute="leading" secondItem="c78-ki-pjJ" secondAttribute="leading" id="isx-Ym-WLE"/>
+                                        <constraint firstItem="qJO-zu-UbH" firstAttribute="top" secondItem="c78-ki-pjJ" secondAttribute="top" id="sGV-oI-4iz"/>
+                                        <constraint firstItem="EKo-em-zyi" firstAttribute="width" secondItem="qJO-zu-UbH" secondAttribute="width" multiplier="9:18" id="sqG-bc-vTK"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015年" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LV0-O4-kDY" userLabel="yearLbl">
                                     <rect key="frame" x="0.0" y="12" width="129" height="20"/>
                                     <constraints>
@@ -50,15 +87,26 @@
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKw-nl-1MG">
+                                    <rect key="frame" x="0.0" y="0.0" width="129" height="65"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <action selector="yearMonthSelectAction:" destination="-1" eventType="touchUpInside" id="aGV-7h-BA8"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="qJO-zu-UbH" firstAttribute="top" secondItem="LV0-O4-kDY" secondAttribute="bottom" id="6SV-cC-gXf"/>
-                                <constraint firstItem="qJO-zu-UbH" firstAttribute="leading" secondItem="MTx-tl-6ga" secondAttribute="leading" id="86u-IN-sxV"/>
+                                <constraint firstItem="c78-ki-pjJ" firstAttribute="top" secondItem="LV0-O4-kDY" secondAttribute="bottom" id="4qA-r1-tvc"/>
+                                <constraint firstAttribute="trailing" secondItem="c78-ki-pjJ" secondAttribute="trailing" id="Dp8-FK-8oG"/>
                                 <constraint firstAttribute="trailing" secondItem="LV0-O4-kDY" secondAttribute="trailing" id="FGz-2g-Mk2"/>
-                                <constraint firstAttribute="trailing" secondItem="qJO-zu-UbH" secondAttribute="trailing" id="iEx-Iv-daY"/>
+                                <constraint firstAttribute="bottom" secondItem="RKw-nl-1MG" secondAttribute="bottom" id="g0Y-dw-8rc"/>
+                                <constraint firstItem="RKw-nl-1MG" firstAttribute="leading" secondItem="MTx-tl-6ga" secondAttribute="leading" id="jyE-Xz-WVM"/>
                                 <constraint firstItem="LV0-O4-kDY" firstAttribute="top" secondItem="MTx-tl-6ga" secondAttribute="top" constant="12" id="p17-58-hyY"/>
+                                <constraint firstItem="c78-ki-pjJ" firstAttribute="leading" secondItem="MTx-tl-6ga" secondAttribute="leading" id="tol-4m-uEt"/>
                                 <constraint firstItem="LV0-O4-kDY" firstAttribute="leading" secondItem="MTx-tl-6ga" secondAttribute="leading" id="ubr-hZ-IhA"/>
+                                <constraint firstAttribute="trailing" secondItem="RKw-nl-1MG" secondAttribute="trailing" id="vKt-eB-dAm"/>
+                                <constraint firstItem="RKw-nl-1MG" firstAttribute="top" secondItem="MTx-tl-6ga" secondAttribute="top" id="yF0-a0-Zme"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tCr-MT-YRr" userLabel="view2">
@@ -201,4 +249,8 @@
             <point key="canvasLocation" x="454" y="297"/>
         </view>
     </objects>
+    <resources>
+        <image name="triangle_down" width="8" height="8"/>
+        <image name="triangle_up" width="8" height="8"/>
+    </resources>
 </document>

@@ -8,7 +8,7 @@
 
 #import "MoreTableViewCell.h"
 
-#define MoreTableVCFeedbackSubTitle @"产品功能建议与反馈"
+#define MoreTableVCFeedbackSubTitle @"产品建议与反馈"
 
 @interface MoreTableViewCell ()
 {

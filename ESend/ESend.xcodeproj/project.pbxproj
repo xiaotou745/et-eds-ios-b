@@ -67,6 +67,10 @@
 		68580CA81BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580CA51BA840070082C18C /* EDSRiderDelieveListVC.m */; };
 		68580CA91BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580CA61BA840070082C18C /* EDSRiderDelieveListVC.xib */; };
 		68580CAA1BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580CA61BA840070082C18C /* EDSRiderDelieveListVC.xib */; };
+		68586AA71BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */; settings = {ASSET_TAGS = (); }; };
+		68586AA81BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */; settings = {ASSET_TAGS = (); }; };
+		68586AA91BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */; settings = {ASSET_TAGS = (); }; };
+		68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */; settings = {ASSET_TAGS = (); }; };
 		686745441BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
 		686745451BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
 		686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */; };
@@ -587,6 +591,9 @@
 		68580CA41BA840070082C18C /* EDSRiderDelieveListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDelieveListVC.h; sourceTree = "<group>"; };
 		68580CA51BA840070082C18C /* EDSRiderDelieveListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDelieveListVC.m; sourceTree = "<group>"; };
 		68580CA61BA840070082C18C /* EDSRiderDelieveListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDelieveListVC.xib; sourceTree = "<group>"; };
+		68586AA41BAE8E6800B26780 /* EDSRiderDeliveryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDeliveryCell.h; sourceTree = "<group>"; };
+		68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDeliveryCell.m; sourceTree = "<group>"; };
+		68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryCell.xib; sourceTree = "<group>"; };
 		686745411BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDeliveryInfoCell.h; sourceTree = "<group>"; };
 		686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDeliveryInfoCell.m; sourceTree = "<group>"; };
 		686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryInfoCell.xib; sourceTree = "<group>"; };
@@ -1258,6 +1265,9 @@
 				686745481BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.h */,
 				686745491BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m */,
 				6867454A1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib */,
+				68586AA41BAE8E6800B26780 /* EDSRiderDeliveryCell.h */,
+				68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */,
+				68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */,
 			);
 			name = OrderStatistics;
 			sourceTree = "<group>";
@@ -2219,6 +2229,7 @@
 				686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				CF22B0301BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
+				68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */,
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
 				6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */,
@@ -2301,6 +2312,7 @@
 				E48ECF951B3FBC2F00F09660 /* blue_btn_noSelect@2x.pdf in Resources */,
 				F62E8D021B2E80F1006F3862 /* demo_license@3x.png in Resources */,
 				F6549F7A1B1C27D900FAACEE /* photo_default@2x.png in Resources */,
+				68586AA91BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */,
 				F66CA15D1B1EF5F9006BDDB8 /* Address.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2373,6 +2385,7 @@
 				F67D355D1B5664A600083DA4 /* DataBase.m in Sources */,
 				F67D355E1B5664A600083DA4 /* CustomTextView.m in Sources */,
 				F67D355F1B5664A600083DA4 /* AFURLRequestSerialization.m in Sources */,
+				68586AA81BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */,
 				F67D35601B5664A600083DA4 /* MapViewController.m in Sources */,
 				686745581BA91AF7005F59D4 /* SCFeedbackVC.m in Sources */,
 				F67D35611B5664A600083DA4 /* MKAnnotationView+WebCache.m in Sources */,
@@ -2578,6 +2591,7 @@
 				F6C6AD7C1B12F42F0007A980 /* CustomTextView.m in Sources */,
 				F6C6AD771B12F42F0007A980 /* AFURLRequestSerialization.m in Sources */,
 				F66CA1241B1D9F3F006BDDB8 /* MapViewController.m in Sources */,
+				68586AA71BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */,
 				F6C6ADA51B12F42F0007A980 /* MKAnnotationView+WebCache.m in Sources */,
 				686745571BA91AF7005F59D4 /* SCFeedbackVC.m in Sources */,
 				F66CA1551B1EEF9C006BDDB8 /* FMDatabase.m in Sources */,

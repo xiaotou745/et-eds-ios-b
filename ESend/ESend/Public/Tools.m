@@ -56,13 +56,19 @@
 
 + (CGRect)labelForString:(UILabel*)label
 {
-    CGSize contentSize =
-    [label.text boundingRectWithSize:CGSizeMake(FRAME_WIDTH(label), MAXFLOAT)
-                             options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                          attributes:@{NSFontAttributeName : label.font}
-                             context:nil].size;
-       
-    return CGRectMake(FRAME_X(label), FRAME_Y(label), FRAME_WIDTH(label), contentSize.height);
+//// pppp
+    if (isCanUseString(label.text)) {
+        CGSize contentSize =
+        [label.text boundingRectWithSize:CGSizeMake(FRAME_WIDTH(label), MAXFLOAT)
+                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                              attributes:@{NSFontAttributeName : label.font}
+                                 context:nil].size;
+        
+        return CGRectMake(FRAME_X(label), FRAME_Y(label), FRAME_WIDTH(label), contentSize.height);
+    }else {
+        return CGRectZero;
+    }
+
     
 }
 

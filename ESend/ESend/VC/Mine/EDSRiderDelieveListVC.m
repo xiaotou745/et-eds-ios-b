@@ -7,8 +7,21 @@
 //
 
 #import "EDSRiderDelieveListVC.h"
+#import "OrdersListTableVIewCell.h"
+#import "FHQNetWorkingAPI.h"
 
-@interface EDSRiderDelieveListVC ()
+#import "UserInfo.h"
+
+#define Rd_Cell_Id @"Rd_Cell_Id"
+
+
+@interface EDSRiderDelieveListVC ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (strong, nonatomic) IBOutlet UILabel *Rd_Header;
+@property (nonatomic, strong) IBOutlet UITableView * Rd_ContentList;
+
+// 数据源
+@property (nonatomic, strong) NSMutableArray * orderList;
 
 @end
 
@@ -17,6 +30,47 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.titleLabel.text = @"配送列表";
+    
+    _orderList = [[NSMutableArray alloc] initWithCapacity:0];
+    [self.Rd_ContentList registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:Rd_Cell_Id];
+    
+    self.Rd_Header.textColor = DeepGrey;
+    self.Rd_Header.font = [UIFont systemFontOfSize:BigFontSize];
+    self.Rd_Header.text = [NSString stringWithFormat:@"%@ %@ 骑士配送%@单",self.dateInfo,self.clienterName,self.orderCount];
+    
+    MBProgressHUD * waitingProcess = [Tools showProgressWithTitle:@""];
+    
+    NSDictionary *requstData = @{
+                                 @"dateInfo" : self.dateInfo,
+                                 @"clienterId": self.clienterId,
+                                 @"businessId"  : [UserInfo getUserId],
+                                 };
+    
+    
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:requstData];
+        
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        
+        requstData = @{
+                       @"data":aesString,
+                       //@"Version":[Tools getApplicationVersion],
+                       };
+    }
+    
+    [FHQNetWorkingAPI getcompliteorderb:nil successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        
+        NSLog(@"%@",result);
+        
+        [Tools hiddenProgress:waitingProcess];
+
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        
+        [Tools hiddenProgress:waitingProcess];
+
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +78,38 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - UITableViewDataSource,UITableViewDelegate
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    OrdersListTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:Rd_Cell_Id forIndexPath:indexPath];
+    [cell loadData:_orderList[indexPath.section]];
+    return cell;
 }
-*/
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [OrdersListTableVIewCell calculateCellHeight:[_orderList objectAtIndex:indexPath.section]];
+
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return _orderList.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 20)];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
+
+
 
 @end

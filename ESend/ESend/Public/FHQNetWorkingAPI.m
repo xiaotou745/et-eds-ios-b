@@ -931,4 +931,24 @@
     return operation;
 }
 
+
+/// java 1.2.0 B端已完成任务列表或者某个配送员配送列表
+//url:/order/getcompliteorderb POST
++ (AFHTTPRequestOperation *)getcompliteorderb:(NSDictionary *)data
+                                 successBlock:(successBlock)successBlock
+                                      failure:(failureBlock)failure{
+    NSString *url = @"order/getcompliteorderb";
+    AFHTTPRequestOperation * operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
+        if (successBlock) {
+            successBlock(result, operation);
+        }
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (failure) {
+            failure(error,operation);
+        }
+    } isShowFailAlert:NO failAlertString:nil host:Java_API_SERVER];
+    
+    return operation;
+}
+
 @end

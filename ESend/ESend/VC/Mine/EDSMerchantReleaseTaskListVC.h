@@ -10,4 +10,8 @@
 
 @interface EDSMerchantReleaseTaskListVC : BaseViewController
 
+/// 上级页面入参
+@property (nonatomic, copy) NSString * dateInfo;
+@property (nonatomic, copy) NSString * orderCount;  // 店内订单量
+
 @end

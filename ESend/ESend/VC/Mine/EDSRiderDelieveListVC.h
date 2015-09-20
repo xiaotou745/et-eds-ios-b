@@ -10,4 +10,20 @@
 
 @interface EDSRiderDelieveListVC : BaseViewController
 
+/// 上级页面入参
+@property (nonatomic, copy) NSString * dateInfo;
+@property (nonatomic, copy) NSString * clienterId;
+
+@property (nonatomic, copy) NSString * clienterName;
+@property (nonatomic, copy) NSString * orderCount;      // 骑士订单量
+
+
+/*
+ @property (nonatomic, assign) long clienterId;
+ @property (nonatomic, copy) NSString * clienterName;
+ @property (nonatomic, copy) NSString * clienterPhone;
+ @property (nonatomic, copy) NSString * clienterPhoto;
+ @property (nonatomic, assign) long orderCount;
+ @property (nonatomic, copy) NSString * pubDate;
+ */
 @end

@@ -12,6 +12,9 @@
 #import "FHQNetWorkingAPI.h"
 #import "EDSStatisticsInfoModel.h"
 
+#import "EDSRiderDelieveListVC.h"
+#import "EDSMerchantReleaseTaskListVC.h"
+
 #define OS_ORDER_CELL_HEADER_HEIGHT 50.0f
 #define OS_ORDER_CELL_HEADER_CONTENT_HEIGHT 40.0f
 
@@ -28,6 +31,8 @@
 // date
 @property (strong, nonatomic) IBOutlet UILabel *OS_Year;
 @property (strong, nonatomic) IBOutlet UILabel *OS_Month;
+@property (strong, nonatomic) IBOutlet UIImageView *OS_triangleIndicator;
+@property (strong, nonatomic) IBOutlet UIButton *OS_YearMonthSelectBtn;
 
 // order count
 @property (strong, nonatomic) IBOutlet UILabel *OS_OrderCountFx;
@@ -173,14 +178,31 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    // monthDate
+    EDSStatisticsInfoModel * info = [_OS_OrdersData objectAtIndex:indexPath.section];
+    EDSRiderDelieveListVC * vc = [[EDSRiderDelieveListVC alloc] initWithNibName:@"EDSRiderDelieveListVC" bundle:nil];
+    vc.dateInfo = info.monthDate;
+    EDSStatisticsInfoClienterInfoModel * clienterInfo = [info.serviceClienters objectAtIndex:indexPath.row];
+    vc.clienterId = [NSString stringWithFormat:@"%ld",clienterInfo.clienterId];
+    vc.clienterName = clienterInfo.clienterName;
+    vc.orderCount = [NSString stringWithFormat:@"%ld",clienterInfo.orderCount];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
 
 #pragma mark - 订单量事件
 - (void)orderCountButtonAction:(UIButton *)sender{
+    
     NSLog(@"%ld",(long)sender.tag);
+    EDSMerchantReleaseTaskListVC * vc = [[EDSMerchantReleaseTaskListVC alloc] initWithNibName:@"EDSMerchantReleaseTaskListVC" bundle:nil];
+    EDSStatisticsInfoModel * info = [_OS_OrdersData objectAtIndex:sender.tag];
+    vc.dateInfo = info.monthDate;
+    vc.orderCount = [NSString stringWithFormat:@"%ld",info.orderCount];
+    [self.navigationController pushViewController:vc animated:YES];
+
+
 }
 
 
@@ -205,7 +227,7 @@
     }
     [FHQNetWorkingAPI orderstatisticsb:requstData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         
-        NSLog(@"----=--=--===- %@",result);
+        // NSLog(@"----=--=--===- %@",result);
         
         [Tools hiddenProgress:waitingProcess];
         _orderCount = [result getIntegerWithKey:@"orderCount"];
@@ -274,6 +296,11 @@
     [resultString appendString:@"."];
     [resultString appendString:floatPart];
     return resultString;
+}
+
+#pragma mark - button action
+- (IBAction)yearMonthSelectAction:(UIButton *)sender {
+    self.OS_triangleIndicator.highlighted = !self.OS_triangleIndicator.highlighted;
 }
 
 @end

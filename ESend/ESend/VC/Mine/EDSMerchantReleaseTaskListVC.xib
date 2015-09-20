@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EDSMerchantReleaseTaskListVC">
             <connections>
+                <outlet property="MRTL_Header" destination="qYh-I6-0W7" id="OHu-9W-Ogr"/>
+                <outlet property="MRTL_OrderListTable" destination="134-Tj-hCt" id="OhE-Gk-gee"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -14,7 +16,35 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYh-I6-0W7">
+                    <rect key="frame" x="10" y="74" width="590" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="jmU-4G-ShP"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="134-Tj-hCt">
+                    <rect key="frame" x="0.0" y="94" width="600" height="506"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="DcV-ue-jij"/>
+                        <outlet property="delegate" destination="-1" id="kk9-7R-Fbl"/>
+                    </connections>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="134-Tj-hCt" firstAttribute="top" secondItem="qYh-I6-0W7" secondAttribute="bottom" id="NB3-27-GFi"/>
+                <constraint firstItem="qYh-I6-0W7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Oxl-Hj-G2e"/>
+                <constraint firstItem="qYh-I6-0W7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="74" id="XtQ-ud-iSr"/>
+                <constraint firstAttribute="trailing" secondItem="qYh-I6-0W7" secondAttribute="trailing" id="aZi-5N-3co"/>
+                <constraint firstAttribute="trailing" secondItem="134-Tj-hCt" secondAttribute="trailing" id="eJV-HZ-hbD"/>
+                <constraint firstAttribute="bottom" secondItem="134-Tj-hCt" secondAttribute="bottom" id="wXZ-83-4Uc"/>
+                <constraint firstItem="134-Tj-hCt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xp5-4W-ae8"/>
+            </constraints>
         </view>
     </objects>
 </document>
