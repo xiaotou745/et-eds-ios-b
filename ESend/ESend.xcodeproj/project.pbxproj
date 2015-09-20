@@ -91,6 +91,10 @@
 		686745621BA9205C005F59D4 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745601BA9205C005F59D4 /* UIView+Common.m */; };
 		686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
 		686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
+		CF07AEE11BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; settings = {ASSET_TAGS = (); }; };
+		CF07AEE21BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; settings = {ASSET_TAGS = (); }; };
+		CF07AEE31BAEB30D005A93EB /* MNDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */; settings = {ASSET_TAGS = (); }; };
+		CF07AEE41BAEB30D005A93EB /* MNDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */; settings = {ASSET_TAGS = (); }; };
 		CF22B0121BAB2BC7000F19D9 /* EDSHomepageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CF22B0101BAB2BC7000F19D9 /* EDSHomepageVC.m */; settings = {ASSET_TAGS = (); }; };
 		CF22B0131BAB2BC7000F19D9 /* EDSHomepageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = CF22B0101BAB2BC7000F19D9 /* EDSHomepageVC.m */; settings = {ASSET_TAGS = (); }; };
 		CF22B0141BAB2BC7000F19D9 /* EDSHomepageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF22B0111BAB2BC7000F19D9 /* EDSHomepageVC.xib */; settings = {ASSET_TAGS = (); }; };
@@ -611,6 +615,9 @@
 		686745601BA9205C005F59D4 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
 		686745631BA96CF1005F59D4 /* UIImage+tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+tools.h"; sourceTree = "<group>"; };
 		686745641BA96CF1005F59D4 /* UIImage+tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+tools.m"; sourceTree = "<group>"; };
+		CF07AEDE1BAEB30D005A93EB /* MNDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNDatePicker.h; sourceTree = "<group>"; };
+		CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNDatePicker.m; sourceTree = "<group>"; };
+		CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MNDatePicker.xib; sourceTree = "<group>"; };
 		CF22B00F1BAB2BC7000F19D9 /* EDSHomepageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSHomepageVC.h; sourceTree = "<group>"; };
 		CF22B0101BAB2BC7000F19D9 /* EDSHomepageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSHomepageVC.m; sourceTree = "<group>"; };
 		CF22B0111BAB2BC7000F19D9 /* EDSHomepageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSHomepageVC.xib; sourceTree = "<group>"; };
@@ -1268,6 +1275,9 @@
 				68586AA41BAE8E6800B26780 /* EDSRiderDeliveryCell.h */,
 				68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */,
 				68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */,
+				CF07AEDE1BAEB30D005A93EB /* MNDatePicker.h */,
+				CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */,
+				CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */,
 			);
 			name = OrderStatistics;
 			sourceTree = "<group>";
@@ -2225,6 +2235,7 @@
 				F67D35F21B5664A600083DA4 /* demo_card@3x.png in Resources */,
 				F67D35F31B5664A600083DA4 /* blue_btn_nor@2x.png in Resources */,
 				68580C941BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
+				CF07AEE41BAEB30D005A93EB /* MNDatePicker.xib in Resources */,
 				F67D35F41B5664A600083DA4 /* back_nor@2x.png in Resources */,
 				686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
@@ -2287,6 +2298,7 @@
 				F6C6AE7C1B1845750007A980 /* blue_btn_pre@2x.png in Resources */,
 				F6C6AC3E1B12F2640007A980 /* Main.storyboard in Resources */,
 				68580CA91BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */,
+				CF07AEE31BAEB30D005A93EB /* MNDatePicker.xib in Resources */,
 				CF22B02F1BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
 				F62A73EA1B5CCA84001632B5 /* 2@1x.png in Resources */,
 				F6C6AE751B18386C0007A980 /* phone_icon@2x.png in Resources */,
@@ -2468,6 +2480,7 @@
 				F67D35A71B5664A600083DA4 /* SupermanOrderModel.m in Sources */,
 				F67D35A81B5664A600083DA4 /* BussinessModel.m in Sources */,
 				F67D35A91B5664A600083DA4 /* SDWebImageManager.m in Sources */,
+				CF07AEE21BAEB30D005A93EB /* MNDatePicker.m in Sources */,
 				F67D35AA1B5664A600083DA4 /* ThirdOrderTableViewCell.m in Sources */,
 				68580C891BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */,
 				F67D35AB1B5664A600083DA4 /* RegisterViewController.m in Sources */,
@@ -2674,6 +2687,7 @@
 				F62E8D061B2EB23D006F3862 /* BussinessModel.m in Sources */,
 				F6C6ADAC1B12F42F0007A980 /* SDWebImageManager.m in Sources */,
 				F660625C1B3AC7EE00F9AF0A /* ThirdOrderTableViewCell.m in Sources */,
+				CF07AEE11BAEB30D005A93EB /* MNDatePicker.m in Sources */,
 				F6C6AE801B185F630007A980 /* RegisterViewController.m in Sources */,
 				68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */,
 				F6C6AD821B12F42F0007A980 /* CWStarRateView.m in Sources */,
