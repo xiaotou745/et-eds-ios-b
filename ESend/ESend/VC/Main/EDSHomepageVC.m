@@ -784,7 +784,7 @@
     
     [FHQNetWorkingAPI newMessageB:paraData successBlock:^(id result, AFHTTPRequestOperation *operation){
         _newMessageTEXT=result[@"content"];
-        _newMessageID=result[@"id"];
+        _newMessageID=[NSString stringWithFormat:@"%@",result[@"id"]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             

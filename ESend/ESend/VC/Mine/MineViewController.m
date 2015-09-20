@@ -20,6 +20,9 @@
 #import "PrefectInfoViewController.h"
 #import "EDSOrderStatisticsVC.h"
 
+
+#define BusinessInfoMsg @"商铺信息管理"
+
 typedef NS_ENUM(NSInteger, BottomType) {
     BottomTypeDetail = 1000,    //收支明细
     BottomTypeAccount,          //提款账户
@@ -40,6 +43,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
     UIView *_newMessageIcon;
     UIButton *_userStatusBtn;
+    UILabel * _businessFixNote;
 }
 
 @end
@@ -104,13 +108,14 @@ typedef NS_ENUM(NSInteger, BottomType) {
         [UserInfo saveStatus:[result getIntegerWithKey:@"Status"]];
         if ([UserInfo getStatus] != UserStatusComplete) {
             _userStatusBtn.hidden = NO;
-            
+            _businessFixNote.hidden = YES;
             [_supplierNameLabel changeFrameWidth:MainWidth - 30 - 110];
             
             [_userStatusBtn setTitle:[UserInfo getStatusStr] forState:UIControlStateNormal];
             [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
         } else {
             _userStatusBtn.hidden = YES;
+            _businessFixNote.hidden = NO;
             [_supplierNameLabel changeFrameWidth:MainWidth - 30 - 20];
         }
         
@@ -165,6 +170,16 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
     UITapGestureRecognizer *tapName = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUserInfo)];
     [rightImageView addGestureRecognizer:tapName];
+    
+    // msg
+    _businessFixNote = [[UILabel alloc] init];
+    _businessFixNote.frame = CGRectMake(MainWidth - 110 - 20, 25/2 + 10, 90, 25);
+    _businessFixNote.text = BusinessInfoMsg;
+    _businessFixNote.textColor = LightGrey;
+    _businessFixNote.font = [UIFont systemFontOfSize:NormalFontSize];
+    _businessFixNote.backgroundColor = [UIColor clearColor];
+    _businessFixNote.hidden = NO;
+    [_topView addSubview:_businessFixNote];
     
     ///
     _userStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];

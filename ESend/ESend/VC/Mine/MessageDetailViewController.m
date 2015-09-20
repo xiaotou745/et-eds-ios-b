@@ -90,6 +90,7 @@
             _dateLabel.text = [result getStringWithKey:@"PubDate"];
             _contentLabel.text = [result getStringWithKey:@"Content"];
             _contentLabel.frame = [Tools labelForString:_contentLabel];
+            NSLog(@"%@",NSStringFromCGRect(_contentLabel.frame));
             
             _scrollView.contentSize = CGSizeMake(MainWidth, CGRectGetMaxY(_contentLabel.frame) + 10);
             
