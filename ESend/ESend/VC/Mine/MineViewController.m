@@ -126,7 +126,8 @@ typedef NS_ENUM(NSInteger, BottomType) {
         [UserInfo setbussinessPhone:[_business getStringWithKey:@"PhoneNo"]];
         
         NSLog(@"%@",[_business getStringWithKey:@"PhoneNo"]);
-        
+        _supplierPhoneLbl.text = [UserInfo getbussinessPhone];
+
         [UserInfo saveDistribSubsidy:[_business getFloatWithKey:@"DistribSubsidy"]];
         
         [Tools hiddenProgress:HUD];
@@ -260,7 +261,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _newMessageIcon.hidden = YES;
     
     
-    NSArray *titles = @[@"账单",  @"任务统计", @"消息中心"];
+    NSArray *titles = @[@"账单",  @"订单统计", @"消息中心"];
     NSArray *icons = @[@"detail",  @"order_detail", @"message_icon"];
     
     for (NSInteger i = 0; i < titles.count; i++) {

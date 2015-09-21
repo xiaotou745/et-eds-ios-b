@@ -90,5 +90,6 @@ typedef NS_ENUM(NSInteger, UserStatus) {
 /// 商户手机号
 + (NSString*)getbussinessPhone;
 + (void)setbussinessPhone:(NSString*)bussinessPhone;
++ (void)clearBusinessPhone;
 
 @end

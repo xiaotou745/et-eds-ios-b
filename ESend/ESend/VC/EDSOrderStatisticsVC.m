@@ -73,7 +73,7 @@
     
     [self registerForKVO];
     
-    self.titleLabel.text = @"任务统计";
+    self.titleLabel.text = @"订单统计";
     // header
     self.OS_Year.font =
     self.OS_OrderAmountFx.font =
@@ -194,9 +194,17 @@
         
         // 订单数量 80
         UILabel * orderCount = [[UILabel alloc] initWithFrame:CGRectMake(77, 10, 130, OS_ORDER_CELL_HEADER_CONTENT_HEIGHT)];
-        NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"完成订单量 %ld",info.orderCount]];
+        NSString * infoCountString = nil;
+        if (info.orderCount > 1000) {
+            infoCountString = [NSString stringWithFormat:@"完成订单量 1000+"];
+        }else {
+            infoCountString = [NSString stringWithFormat:@"完成订单量 %ld",info.orderCount];
+        }
+        NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:infoCountString];
         NSRange contentRange = {0, [content length]};
-        [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
+        if (info.orderCount > 0) {
+            [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:contentRange];
+        }
         [content addAttribute:NSForegroundColorAttributeName value:DeepGrey range:contentRange];
         [content addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15.0f] range:contentRange];
         orderCount.textAlignment = NSTextAlignmentLeft;
@@ -205,11 +213,14 @@
         orderCount.backgroundColor = [UIColor clearColor];
         [header addSubview:orderCount];
         
-        UIButton * orderCountBtn = [[UIButton alloc] initWithFrame:CGRectMake(77, 10, 130, OS_ORDER_CELL_HEADER_CONTENT_HEIGHT)];
-        [orderCountBtn setBackgroundColor:[UIColor clearColor]];
-        orderCountBtn.tag = section;
-        [orderCountBtn addTarget:self action:@selector(orderCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [header addSubview:orderCountBtn];
+        if (info.orderCount > 0) {
+            UIButton * orderCountBtn = [[UIButton alloc] initWithFrame:CGRectMake(77, 10, 130, OS_ORDER_CELL_HEADER_CONTENT_HEIGHT)];
+            [orderCountBtn setBackgroundColor:[UIColor clearColor]];
+            orderCountBtn.tag = section;
+            [orderCountBtn addTarget:self action:@selector(orderCountButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+            [header addSubview:orderCountBtn];
+        }
+
         
         // 骑士数量 10
         float riderCountWidth = 80.0f;
@@ -295,9 +306,11 @@
         NSArray * tempAry = [result getArrayWithKey:@"datas"];
         for (NSDictionary * tempDict in tempAry) {
             EDSStatisticsInfoModel * statistInfo = [[EDSStatisticsInfoModel alloc] initWithDic:tempDict];
-            if (statistInfo.orderCount > 0) {
-                [_OS_OrdersData addObject:statistInfo];
-            }
+//            if (statistInfo.orderCount > 0) {
+//                [_OS_OrdersData addObject:statistInfo];
+//            }
+            [_OS_OrdersData addObject:statistInfo];
+
         }
         [self.OS_OrdersTable reloadData];
         

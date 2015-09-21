@@ -70,12 +70,12 @@
             //SupermanOrderModel *order = [[SupermanOrderModel alloc] initWithDic:dic];
             SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
             order.orderStatus = [[dic objectForKey:@"status"] integerValue];
-            order.receivePhone = [dic objectForKey:@"recevicePhoneNo"];
+            order.receivePhone = [dic getStringWithKey:@"recevicePhoneNo"];
             order.orderId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderId"]];
             order.orderNumber = [dic objectForKey:@"orderNo"];
             order.amount = [[dic objectForKey:@"amount"] floatValue];
             order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
-            order.receiveAddress = [dic objectForKey:@"receviceAddress"];
+            order.receiveAddress = [dic getStringWithKey:@"receviceAddress"];
             order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
             order.pubDate = [dic objectForKey:@"pubDate"];
             [_orderList addObject:order];

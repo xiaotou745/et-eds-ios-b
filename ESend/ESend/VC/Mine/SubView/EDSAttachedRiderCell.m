@@ -46,7 +46,7 @@
     self.AR_RiderName.text = _riderInfo.clienterName;
     self.AR_RiderPhone.text = _riderInfo.clienterPhone;
     self.AR_RiderOrderCount.text = [NSString stringWithFormat:@"完成订单量 %ld",_riderInfo.orderCount];
-    [self.AR_RiderPortrait sd_setImageWithURL:[NSURL URLWithString:_riderInfo.clienterPhoto] placeholderImage:nil];
+    [self.AR_RiderPortrait sd_setImageWithURL:[NSURL URLWithString:_riderInfo.clienterPhoto] placeholderImage:[UIImage imageNamed:@"clienter_default_portrait"]];
 }
 
 @end

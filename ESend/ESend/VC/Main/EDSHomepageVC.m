@@ -117,7 +117,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:LoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:UserStatusChangeToReviewNotification object:nil];
     
-    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout) name:LogoutNotifaction object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout) name:LogoutNotifaction object:nil];
     // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releseOrder) name:ReleseOrderNotification object:nil];
     // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelOrder:) name:CancelOrderNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userStatusChanged) name:UserStatusChangeToReviewNotification object:nil];
@@ -854,6 +854,10 @@
         
     }
     
+}
+
+- (void)userLogout{
+    [self userStatusChanged];
 }
 
 

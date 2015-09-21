@@ -257,4 +257,10 @@ static NSString *UserInfoKey = @"userInfoKey";
     [userDefault synchronize];
 }
 
++ (void)clearBusinessPhone {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:nil forKey:@"bussinessPhone"];
+    [userDefaults synchronize];
+}
+
 @end

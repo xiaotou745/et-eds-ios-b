@@ -121,6 +121,8 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
         [UserInfo clearUserInfo];
+        [UserInfo clearBusinessPhone ];
+        
         [APPDLE showLoginAnimated:YES];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:LogoutNotifaction object:nil];
