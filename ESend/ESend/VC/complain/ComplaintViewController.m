@@ -37,10 +37,10 @@
 
     [self.rightBtn setFrame:CGRectMake(MainWidth - 12 - 75, OffsetBarHeight + 6, 75, 32)];
     [self.rightBtn setTitle:@"提交" forState:UIControlStateNormal];
-    [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.rightBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:@"blue_btn_noSelect"];
-    self.rightBtn.layer.masksToBounds = YES;
-    self.rightBtn.layer.cornerRadius = 3;
+//    [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [self.rightBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:@"blue_btn_noSelect"];
+//    self.rightBtn.layer.masksToBounds = YES;
+//    self.rightBtn.layer.cornerRadius = 3;
     [self.rightBtn addTarget:self action:@selector(complaintAction) forControlEvents:UIControlEventTouchUpInside];
 }
 

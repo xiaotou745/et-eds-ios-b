@@ -28,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userModifiedPassword:) name:UserModifiedPasswordNotification object:nil];
+    
     self.navigationController.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 }
@@ -183,6 +185,11 @@
     } else {
         navigationController.interactivePopGestureRecognizer.enabled = YES;
     }
+}
+
+#pragma mark - Notification 
+- (void)userModifiedPassword:(NSNotification *)notify{
+    _passwordTF.text = @"";
 }
 
 @end

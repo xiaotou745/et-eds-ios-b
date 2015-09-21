@@ -39,6 +39,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)bulidView {
@@ -292,8 +294,9 @@
             NSLog(@"%@",error.userInfo);
             if ([error.userInfo getIntegerWithKey:@"Status"] == 0) {
                 [Tools showHUD:@"修改成功"];
-
-                    [self.navigationController popViewControllerAnimated:YES];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:UserModifiedPasswordNotification object:nil];
+                [self.navigationController popViewControllerAnimated:YES];
                 
                 
             } else {
@@ -309,6 +312,12 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    if (_isChangePassword && textField == _passwordTF2) {
+        
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

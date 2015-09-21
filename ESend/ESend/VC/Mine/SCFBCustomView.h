@@ -20,9 +20,10 @@ typedef void(^SCFBSelectBlock)(NSInteger index);
 
     UIImageView *cancelImageV;
     
-    UIView *BGView;
     
 }
+@property (nonatomic, strong) UIView *BGView;
+
 //@property(strong,nonatomic)UILabel *indexText;
 
 -(id)initWithWithTitle:(NSString *)title

@@ -49,10 +49,10 @@ NSString *scTextViewPlaceHolder_text=@"请输入产品意见，我们将不断�
     self.titleLabel.text = @"意见反馈";
     [self.rightBtn setTitle:@"提交" forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(feedBack) forControlEvents:UIControlEventTouchUpInside];
-    [self.rightBtn setFrame:CGRectMake(ScreenWidth -10 -60, 5+20, 60, 30)];
-    [self.rightBtn setBackgroundImage:[UIImage createImageWithColor:BlueColor] forState:UIControlStateNormal];
-    self.rightBtn.layer.masksToBounds = YES;
-    self.rightBtn.layer.cornerRadius = 2;
+//    [self.rightBtn setFrame:CGRectMake(ScreenWidth -10 -60, 5+20, 60, 30)];
+//    [self.rightBtn setBackgroundImage:[UIImage createImageWithColor:BlueColor] forState:UIControlStateNormal];
+//    self.rightBtn.layer.masksToBounds = YES;
+//    self.rightBtn.layer.cornerRadius = 2;
     
     self.fbTableView.delegate=self;
     self.fbTableView.dataSource=self;

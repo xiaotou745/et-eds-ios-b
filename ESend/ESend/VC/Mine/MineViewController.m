@@ -174,8 +174,9 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
     // msg
     _businessFixNote = [[UILabel alloc] init];
-    _businessFixNote.frame = CGRectMake(MainWidth - 110 - 20, 25/2 + 10, 90, 25);
+    _businessFixNote.frame = CGRectMake(MainWidth - 90 - 60, 25/2 + 10, 90, 25);
     _businessFixNote.text = BusinessInfoMsg;
+    _businessFixNote.textAlignment = NSTextAlignmentRight;
     _businessFixNote.textColor = LightGrey;
     _businessFixNote.font = [UIFont systemFontOfSize:NormalFontSize];
     _businessFixNote.backgroundColor = [UIColor clearColor];

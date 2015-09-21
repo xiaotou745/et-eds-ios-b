@@ -123,6 +123,10 @@ typedef NS_ENUM(NSInteger, ContentLabelType) {
     
     height += [Tools stringHeight:data.receiveAddress fontSize:NormalFontSize width:MainWidth - 105].height;
     
+    if (iPhone6plus) {
+        height += 10;
+    }
+    
     return height;
 }
 

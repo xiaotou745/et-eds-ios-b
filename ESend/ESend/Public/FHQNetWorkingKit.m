@@ -45,6 +45,7 @@
         operation = [manager POST:urlString
                        parameters:pramaters
                           success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                              
                               NSError *error = [self fiterResult:responseObject host:host];
                               
                               if (error) {

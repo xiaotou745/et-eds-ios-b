@@ -202,6 +202,14 @@
     _timesScrollToRight = 0;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (_scMsgView) {
+        [_scMsgView removeFromSuperview];
+        _scMsgView = nil;
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     //
@@ -468,7 +476,7 @@
     if (btn.tag == 1 + HeadButtonTagTrans) {
         text = [NSString stringWithFormat:@"待接单(%@)",tCount];
     }else if (btn.tag == 2 + HeadButtonTagTrans) {
-        text = [NSString stringWithFormat:@"待取货(%@)",tCount];
+        text = [NSString stringWithFormat:@"取货中(%@)",tCount];
     }else if (btn.tag == 3 + HeadButtonTagTrans) {
         text = [NSString stringWithFormat:@"配送中(%@)",tCount];
     }

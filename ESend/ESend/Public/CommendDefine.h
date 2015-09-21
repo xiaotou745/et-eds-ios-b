@@ -19,6 +19,13 @@
 
 #define isiPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
 
+//判断iPhone6+
+#define iPhone6plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(1125, 2001), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size)) : NO)
+
+//判断iPad
+#define IPAD ([[UIDevice currentDevice] respondsToSelector:@selector(userInterfaceIdiom)] && [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+
+
 #define isSmallScreen (isiPhone5 || isiPhone4)
 
 #define OffsetBarHeight  (([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)? (20):(0))
@@ -207,6 +214,9 @@ fprintf(stderr, "-------\n");                                               \
 
 //用户状态改变 进入审核
 #define UserStatusChangeToReviewNotification @"UserStatusChangeToReviewNotification"
+
+// 修改密码，成功之后的通知
+#define UserModifiedPasswordNotification @"UserModifiedPasswordNotification"
 
 //获取验证码倒计时时间
 #define CodeWaitTime 120

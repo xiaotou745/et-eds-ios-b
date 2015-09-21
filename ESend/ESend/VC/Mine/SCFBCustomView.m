@@ -36,9 +36,10 @@ static SCFBSelectBlock _selectBlock;
         titleTxxt=titleText;
         titlesss=[Titles copy];
         selectIndex=index;
+        [[DEF_APP window] addSubview:self];
+
         [self makeUI];
 //        AppDelegate *appdelegate= (AppDelegate *)[UIApplication sharedApplication].delegate;
-        [[DEF_APP window] addSubview:self];
     }
     return self;
 }
@@ -52,28 +53,28 @@ static SCFBSelectBlock _selectBlock;
     UITapGestureRecognizer *ges=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapHandle)];
     [self addGestureRecognizer:ges];
     
-    BGView=[ManFactory createImageViewWithFrame:CGRectMake(0, 0, 260, (titlesss.count+2)*SCFBCustomView_rowHeight) ImageName:@""];
-    BGView.layer.cornerRadius=5;
-    BGView.layer.masksToBounds=YES;
+    self.BGView=[ManFactory createImageViewWithFrame:CGRectMake(0, 0, 260, (titlesss.count+2)*SCFBCustomView_rowHeight) ImageName:@""];
+    self.BGView.layer.cornerRadius=5;
+    self.BGView.layer.masksToBounds=YES;
 
-    BGView.alpha=1;
-    BGView.center=CGPointMake(ScreenWidth/2, ScreenHeight/2);
-    BGView.backgroundColor=[UIColor whiteColor];
-    [self addSubview:BGView];
+    self.BGView.alpha=1;
+    self.BGView.center=CGPointMake(ScreenWidth/2, ScreenHeight/2);
+    self.BGView.backgroundColor=[UIColor whiteColor];
+    [[DEF_APP window] addSubview:self.BGView];
     
     
-    UILabel *titleTxet=[ManFactory createLabelWithFrame:CGRectMake(0, 0, BGView.width, SCFBCustomView_rowHeight) Font:18 Text:titleTxxt];
+    UILabel *titleTxet=[ManFactory createLabelWithFrame:CGRectMake(0, 0, self.BGView.width, SCFBCustomView_rowHeight) Font:18 Text:titleTxxt];
     titleTxet.textAlignment=NSTextAlignmentCenter;
     titleTxet.backgroundColor=[UIColor whiteColor];
-    [BGView addSubview:titleTxet];
+    [self.BGView addSubview:titleTxet];
     
-    UIImageView *cancelIcon=[ManFactory createImageViewWithFrame:CGRectMake(BGView.width-25, 10, 15, 15) ImageName:@"feedBack_cancel"];
+    UIImageView *cancelIcon=[ManFactory createImageViewWithFrame:CGRectMake(self.BGView.width-25, 10, 15, 15) ImageName:@"feedBack_cancel"];
 //    cancelIcon.layer.cornerRadius=0;
 //    cancelIcon.layer.masksToBounds=YES;
     cancelIcon.backgroundColor=[UIColor whiteColor];
     UITapGestureRecognizer *gessss=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapHandle)];
     [cancelIcon addGestureRecognizer:gessss];
-    [BGView addSubview:cancelIcon];
+    [self.BGView addSubview:cancelIcon];
     
     for (int i=0; i<titlesss.count; i++) {
         
@@ -91,33 +92,33 @@ static SCFBSelectBlock _selectBlock;
         
         UILabel  *contentText=[ManFactory createLabelWithFrame:CGRectMake(Icon.right+10, SCFBCustomView_rowHeight*(i+1), 100, SCFBCustomView_rowHeight) Font:17 Text:titlesss[i]];
         
-        [BGView addSubview:Icon];
-        [BGView addSubview:contentText];
+        [self.BGView addSubview:Icon];
+        [self.BGView addSubview:contentText];
 
         //灰色线条
-        UILabel *topline=[ManFactory createLabelWithFrame:CGRectMake(30, SCFBCustomView_rowHeight*(i+1), BGView.width-60, 1) Font:15 Text:@""];
+        UILabel *topline=[ManFactory createLabelWithFrame:CGRectMake(30, SCFBCustomView_rowHeight*(i+1), self.BGView.width-60, 1) Font:15 Text:@""];
         topline.backgroundColor=[UIColor lightGrayColor];
-        [BGView addSubview:topline];
+        [self.BGView addSubview:topline];
         
        
         //bottomline
-        UILabel *bottomline=[ManFactory createLabelWithFrame:CGRectMake(0, SCFBCustomView_rowHeight*(titlesss.count+1), BGView.width, 1) Font:15 Text:@""];
+        UILabel *bottomline=[ManFactory createLabelWithFrame:CGRectMake(0, SCFBCustomView_rowHeight*(titlesss.count+1), self.BGView.width, 1) Font:15 Text:@""];
         bottomline.backgroundColor=[UIColor lightGrayColor];
-        [BGView addSubview:bottomline];
+        [self.BGView addSubview:bottomline];
         
-        UIButton *confirmBTN=[ManFactory createButtonWithFrame:CGRectMake(0, bottomline.bottom, BGView.width, SCFBCustomView_rowHeight) ImageName:@"" Target:self Action:@selector(confirmClick) Title:@"确定"];
+        UIButton *confirmBTN=[ManFactory createButtonWithFrame:CGRectMake(0, bottomline.bottom, self.BGView.width, SCFBCustomView_rowHeight) ImageName:@"" Target:self Action:@selector(confirmClick) Title:@"确定"];
         [confirmBTN setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [confirmBTN setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
 
-        [BGView addSubview:confirmBTN];
+        [self.BGView addSubview:confirmBTN];
         
         
         //覆盖透明view  添加选择手势
-        UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, SCFBCustomView_rowHeight*(i+1), BGView.width, SCFBCustomView_rowHeight)];
+        UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, SCFBCustomView_rowHeight*(i+1), self.BGView.width, SCFBCustomView_rowHeight)];
         view.tag=2000+i;
         UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectIndex:)];
         [view addGestureRecognizer:tap];
-        [BGView addSubview:view];
+        [self.BGView addSubview:view];
         
         
     }
@@ -151,6 +152,7 @@ static SCFBSelectBlock _selectBlock;
 }
 -(void)cancelClick
 {
+    [self.BGView removeFromSuperview];
     [self removeFromSuperview];
     //self.grCancelBock();
 }
