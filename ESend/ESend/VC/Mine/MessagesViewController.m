@@ -95,6 +95,7 @@
 }
 
 - (void)loadMoreData {
+    
     _page++;
     
     NSDictionary *requsetData = @{@"version" : APIVersion,
