@@ -118,6 +118,7 @@
     NSDictionary *requstData = @{
                                  @"dateInfo" : self.dateInfo,
                                  @"businessId"  : [UserInfo getUserId],
+                                 @"currentPage":[NSNumber numberWithInt:_currentPage],
                                  };
     
     
@@ -152,13 +153,14 @@
         }
         [self.MRTL_OrderListTable reloadData];
         if ([result count] == 0) {
-            _currentPage--;
+            // _currentPage--;
+            [Tools showHUD:@"没有更多了"];
         }
         
         [self.MRTL_OrderListTable.footer endRefreshing];
         
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        _currentPage -- ;
+        // _currentPage -- ;
         [self.MRTL_OrderListTable.footer endRefreshing];
         
         
