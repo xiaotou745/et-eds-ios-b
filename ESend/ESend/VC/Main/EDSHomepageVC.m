@@ -563,6 +563,7 @@
 
 
 - (void)_configTablesProperty{
+    
     [self.Hp_ContentList1st registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:Hp_Cell_1st_Id];
     [self.Hp_ContentList2nd registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:Hp_Cell_2nd_Id];
     [self.Hp_ContentList3rd registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:Hp_Cell_3rd_Id];

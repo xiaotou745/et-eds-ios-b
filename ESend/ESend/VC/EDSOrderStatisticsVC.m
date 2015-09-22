@@ -28,7 +28,11 @@
     long _orderCount;                   // 订单数量
     double _totalAmount;                // 订单金额
     long _serviceClienterCount;         // 服务骑士数量
-
+    
+    // 空订单的显示
+    UIView * _mkView;                   // bgView
+    UIImageView * _logoImgView;         // 空 logo
+    UILabel * _markedWordsLabel;        // 空 label
 }
 // header
 @property (strong, nonatomic) IBOutlet UIView *OS_HeaderBg;
@@ -246,6 +250,10 @@
     vc.dateInfo = info.monthDate;
     EDSStatisticsInfoClienterInfoModel * clienterInfo = [info.serviceClienters objectAtIndex:indexPath.row];
     vc.clienterId = [NSString stringWithFormat:@"%ld",clienterInfo.clienterId];
+    if (clienterInfo.clienterId == 0) {
+        // [Tools showHUD:@"未知骑士"];
+        return;
+    }
     vc.clienterName = clienterInfo.clienterName;
     vc.orderCount = [NSString stringWithFormat:@"%ld",clienterInfo.orderCount];
     [self.navigationController pushViewController:vc animated:YES];
@@ -303,15 +311,25 @@
         
         [_OS_OrdersData removeAllObjects];
         
-        NSArray * tempAry = [result getArrayWithKey:@"datas"];
-        for (NSDictionary * tempDict in tempAry) {
-            EDSStatisticsInfoModel * statistInfo = [[EDSStatisticsInfoModel alloc] initWithDic:tempDict];
-//            if (statistInfo.orderCount > 0) {
-//                [_OS_OrdersData addObject:statistInfo];
-//            }
-            [_OS_OrdersData addObject:statistInfo];
-
+        if (_orderCount > 0) {
+            NSArray * tempAry = [result getArrayWithKey:@"datas"];
+            for (NSDictionary * tempDict in tempAry) {
+                EDSStatisticsInfoModel * statistInfo = [[EDSStatisticsInfoModel alloc] initWithDic:tempDict];
+                //            if (statistInfo.orderCount > 0) {
+                //                [_OS_OrdersData addObject:statistInfo];
+                //            }
+                [_OS_OrdersData addObject:statistInfo];
+                
+            }
         }
+
+        
+        if (_orderCount == 0) {
+            [self _showNoOrderView];
+        }else {
+            [self _removeNoOrderView];
+        }
+        
         [self.OS_OrdersTable reloadData];
         
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
@@ -397,7 +415,7 @@
 }
 
 - (void)MNDatePickerDidSelected:(MNDatePicker *)datePicker YearMonthString:(NSString *)yearMonth year:(NSString *)year month:(NSString *)month{
-    NSLog(@"%@",yearMonth);
+    // NSLog(@"%@",yearMonth);
     self.selectedYear = year;
     self.selectedMonth = month;
     self.selectedYearAndMonth = yearMonth;
@@ -416,5 +434,34 @@
     //    [dateArr insertObject:@"年" atIndex:dateArr.count-4];
     
 }
+
+- (void)_showNoOrderView{ // header 65
+    // 提示logo s1
+    _mkView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - 64 - 65)];
+    _mkView.backgroundColor = [UIColor whiteColor];
+    [self.OS_OrdersTable addSubview:_mkView];
+    
+    _logoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+    _logoImgView.backgroundColor = [UIColor clearColor];
+    _logoImgView.image = [UIImage imageNamed:@"gray_icon"];
+    _logoImgView.center = CGPointMake(ScreenWidth/2, (ScreenHeight-64-65)/3);
+    [_mkView addSubview:_logoImgView];
+    // 提示语 s1
+    _markedWordsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgView) +Space_Big, ScreenWidth, 30)];
+    _markedWordsLabel.backgroundColor = [UIColor clearColor];
+    _markedWordsLabel.textAlignment = NSTextAlignmentCenter;
+    _markedWordsLabel.textColor  = DeepGrey;
+    _markedWordsLabel.font = FONT_SIZE(BigFontSize);
+    _markedWordsLabel.text = @"无任何记录";
+    [_mkView addSubview:_markedWordsLabel];
+}
+
+- (void)_removeNoOrderView{
+    if (_mkView) {
+        [_mkView removeFromSuperview];
+        _mkView = nil;
+    }
+}
+
 
 @end

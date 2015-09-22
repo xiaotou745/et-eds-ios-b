@@ -272,7 +272,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
         
         MineCell *view = [[MineCell alloc] initWithTitle:titles[i] imageName:icons[i] content:contectStr];
         
-        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45 + ((i>=2)?20:0), MainWidth - 20, 45);
+        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45 + ((i>=2)?20:0) + ((i==3)?20:0), MainWidth - 20, 45);
         [self.view addSubview:view];
         view.tag = 1000+i;
         

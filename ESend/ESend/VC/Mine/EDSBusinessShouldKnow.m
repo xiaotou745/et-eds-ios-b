@@ -10,9 +10,12 @@
 
 #define BusinessShouldKnowURL @"http://m.edaisong.com/htmls/rule.html"
 
-@interface EDSBusinessShouldKnow ()
-@property (strong, nonatomic) IBOutlet UIWebView *BS_businessShouldKnow;
+@interface EDSBusinessShouldKnow ()<UIWebViewDelegate>
+{
+    MBProgressHUD *_HUD;
+}
 
+@property (strong, nonatomic) IBOutlet UIWebView *BS_businessShouldKnow;
 
 @end
 
@@ -40,5 +43,22 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    if (_HUD) {
+        [Tools hiddenProgress:_HUD];
+    }
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    _HUD = [Tools showProgressWithTitle:@""];
+
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    if (_HUD) {
+        [Tools hiddenProgress:_HUD];
+    }
+}
 
 @end
