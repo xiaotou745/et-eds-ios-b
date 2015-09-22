@@ -193,12 +193,12 @@
         [header addSubview:name];
         
         // 订单数量 80
-        UILabel * orderCount = [[UILabel alloc] initWithFrame:CGRectMake(77, 10, 130, OS_ORDER_CELL_HEADER_CONTENT_HEIGHT)];
+        UILabel * orderCount = [[UILabel alloc] initWithFrame:CGRectMake(75, 10, 130, OS_ORDER_CELL_HEADER_CONTENT_HEIGHT)];
         NSString * infoCountString = nil;
         if (info.orderCount > 1000) {
-            infoCountString = [NSString stringWithFormat:@"完成订单量 1000+"];
+            infoCountString = [NSString stringWithFormat:@"订单量 1000+"];
         }else {
-            infoCountString = [NSString stringWithFormat:@"完成订单量 %ld",info.orderCount];
+            infoCountString = [NSString stringWithFormat:@"订单量 %ld",info.orderCount];
         }
         NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:infoCountString];
         NSRange contentRange = {0, [content length]};

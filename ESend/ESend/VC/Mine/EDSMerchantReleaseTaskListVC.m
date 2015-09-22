@@ -13,6 +13,8 @@
 #import "UserInfo.h"
 #import "MJRefresh.h"
 
+#import "OrderDetailViewController.h"
+
 #define MRTL_Cell_Id @"MRTL_Cell_Id"
 
 @interface EDSMerchantReleaseTaskListVC ()<UITableViewDataSource,UITableViewDelegate>
@@ -192,6 +194,31 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 20)];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self getOrderDetail:[_MRTLorderList objectAtIndex:indexPath.section] ];
+}
+
+- (void)getOrderDetail:(SupermanOrderModel*)order  {
+    NSDictionary *requestData = @{@"OrderId"    : order.orderId,
+                                  @"BusinessId" : [UserInfo getUserId],
+                                  @"version"    : @"1.0"};
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    [FHQNetWorkingAPI getOrderDetail:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        
+        [order loadData:result];
+        
+        OrderDetailViewController *vc = [[OrderDetailViewController alloc] init];
+        vc.orderModel = order;
+        [self.navigationController pushViewController:vc animated:YES];
+        [Tools hiddenProgress:HUD];
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        [Tools hiddenProgress:HUD];
+    }];
 }
 
 @end

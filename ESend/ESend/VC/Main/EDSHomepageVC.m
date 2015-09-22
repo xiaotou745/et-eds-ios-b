@@ -207,6 +207,8 @@
     if (_scMsgView) {
         [_scMsgView removeFromSuperview];
         _scMsgView = nil;
+        self.Hp_MainBg_top.constant = 64;
+
     }
 }
 
@@ -295,6 +297,7 @@
             [self.Hp_ContentList3rd.header endRefreshing];
         }
     }
+    
     
     NSDictionary * paraData = @{
                                 @"businessId":[UserInfo getUserId],
@@ -557,6 +560,7 @@
         
     }
 }
+
 
 - (void)_configTablesProperty{
     [self.Hp_ContentList1st registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:Hp_Cell_1st_Id];

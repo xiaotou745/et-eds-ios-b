@@ -13,6 +13,8 @@
 #import "UserInfo.h"
 #import "MJRefresh.h"
 
+#import "OrderDetailViewController.h"
+
 #define Rd_Cell_Id @"Rd_Cell_Id"
 
 
@@ -202,6 +204,30 @@
     return view;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self getOrderDetail:[_orderList objectAtIndex:indexPath.section] ];
+}
+
+- (void)getOrderDetail:(SupermanOrderModel*)order  {
+    NSDictionary *requestData = @{@"OrderId"    : order.orderId,
+                                  @"BusinessId" : [UserInfo getUserId],
+                                  @"version"    : @"1.0"};
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    [FHQNetWorkingAPI getOrderDetail:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        
+        [order loadData:result];
+        
+        OrderDetailViewController *vc = [[OrderDetailViewController alloc] init];
+        vc.orderModel = order;
+        [self.navigationController pushViewController:vc animated:YES];
+        [Tools hiddenProgress:HUD];
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        [Tools hiddenProgress:HUD];
+    }];
+}
 
 
 @end
