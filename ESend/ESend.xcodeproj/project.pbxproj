@@ -91,6 +91,10 @@
 		686745621BA9205C005F59D4 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745601BA9205C005F59D4 /* UIView+Common.m */; };
 		686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
 		686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
+		6878F7811BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; settings = {ASSET_TAGS = (); }; };
+		6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; settings = {ASSET_TAGS = (); }; };
+		6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; settings = {ASSET_TAGS = (); }; };
+		6878F7841BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; settings = {ASSET_TAGS = (); }; };
 		CF07AEE11BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; settings = {ASSET_TAGS = (); }; };
 		CF07AEE21BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; settings = {ASSET_TAGS = (); }; };
 		CF07AEE31BAEB30D005A93EB /* MNDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */; settings = {ASSET_TAGS = (); }; };
@@ -615,6 +619,9 @@
 		686745601BA9205C005F59D4 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
 		686745631BA96CF1005F59D4 /* UIImage+tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+tools.h"; sourceTree = "<group>"; };
 		686745641BA96CF1005F59D4 /* UIImage+tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+tools.m"; sourceTree = "<group>"; };
+		6878F77E1BB1559800E33ACD /* EDSBusinessShouldKnow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBusinessShouldKnow.h; sourceTree = "<group>"; };
+		6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBusinessShouldKnow.m; sourceTree = "<group>"; };
+		6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBusinessShouldKnow.xib; sourceTree = "<group>"; };
 		CF07AEDE1BAEB30D005A93EB /* MNDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNDatePicker.h; sourceTree = "<group>"; };
 		CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNDatePicker.m; sourceTree = "<group>"; };
 		CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MNDatePicker.xib; sourceTree = "<group>"; };
@@ -1327,6 +1334,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6878F77D1BB1555800E33ACD /* BusinessNote */ = {
+			isa = PBXGroup;
+			children = (
+				6878F77E1BB1559800E33ACD /* EDSBusinessShouldKnow.h */,
+				6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */,
+				6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */,
+			);
+			name = BusinessNote;
+			sourceTree = "<group>";
+		};
 		CF22B0161BAB4A61000F19D9 /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1666,6 +1683,7 @@
 		F690B26F1B25A8D60044310C /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				6878F77D1BB1555800E33ACD /* BusinessNote */,
 				6867454F1BA9197C005F59D4 /* Feedback */,
 				68580C8D1BA7BC2F0082C18C /* FullfillMoney */,
 				68580C8C1BA7BB950082C18C /* OrderStatistics */,
@@ -2248,6 +2266,7 @@
 				F67D35F81B5664A600083DA4 /* Main.storyboard in Resources */,
 				2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
 				F67D35F91B5664A600083DA4 /* phone_icon@2x.png in Resources */,
+				6878F7841BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */,
 				F67D35FA1B5664A600083DA4 /* Images 19-52-49-033.xcassets in Resources */,
 				F67D35FB1B5664A600083DA4 /* map_icon@2x.png in Resources */,
 				68580CAA1BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */,
@@ -2305,6 +2324,7 @@
 				686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68580C931BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
+				6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */,
 				F65E8D1F1B39807600053141 /* Images 19-52-49-033.xcassets in Resources */,
 				F6188A841B219CB20033E58B /* map_icon@2x.png in Resources */,
 				F678A7E01B29787E0026DA37 /* wechat_icon@2x.png in Resources */,
@@ -2413,6 +2433,7 @@
 				2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				F67D356B1B5664A600083DA4 /* OrderDetailReciverTableCell.m in Sources */,
 				F67D356C1B5664A600083DA4 /* AFURLSessionManager.m in Sources */,
+				6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */,
 				F67D356D1B5664A600083DA4 /* UIImageView+AFNetworking.m in Sources */,
 				F67D356E1B5664A600083DA4 /* ViewController.m in Sources */,
 				6867454C1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m in Sources */,
@@ -2620,6 +2641,7 @@
 				2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				F6C6AD791B12F42F0007A980 /* AFURLSessionManager.m in Sources */,
 				F6C6ADB91B12F42F0007A980 /* UIImageView+AFNetworking.m in Sources */,
+				6878F7811BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */,
 				F6C6AC3B1B12F2640007A980 /* ViewController.m in Sources */,
 				E48ECF9E1B3FD20500F09660 /* InfoInTheReviewViewController.m in Sources */,
 				6867454B1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m in Sources */,

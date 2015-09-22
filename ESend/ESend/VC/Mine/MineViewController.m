@@ -20,6 +20,8 @@
 #import "PrefectInfoViewController.h"
 #import "EDSOrderStatisticsVC.h"
 
+#import "EDSBusinessShouldKnow.h"
+
 
 #define BusinessInfoMsg @"商铺信息管理"
 
@@ -262,15 +264,15 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _newMessageIcon.hidden = YES;
     
     
-    NSArray *titles = @[@"账单",  @"订单统计", @"消息中心"];
-    NSArray *icons = @[@"detail",  @"order_detail", @"message_icon"];
+    NSArray *titles = @[@"账单",  @"订单统计", @"消息中心",@"商家须知"];
+    NSArray *icons = @[@"detail",  @"order_detail", @"message_icon",@"business_note"];
     
     for (NSInteger i = 0; i < titles.count; i++) {
         NSString *contectStr = @"";
         
         MineCell *view = [[MineCell alloc] initWithTitle:titles[i] imageName:icons[i] content:contectStr];
         
-        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45 + ((i==2)?20:0), MainWidth - 20, 45);
+        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45 + ((i>=2)?20:0), MainWidth - 20, 45);
         [self.view addSubview:view];
         view.tag = 1000+i;
         
@@ -296,7 +298,11 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
 
     
-    if (tap.view.tag == 1001) {
+    if (tap.view.tag == 1001) {// 订单统计
+        if ([UserInfo getStatus] != UserStatusComplete) {
+            [Tools showHUD:@"您尚未审核通过"];
+            return;
+        }
         EDSOrderStatisticsVC *vc = [[EDSOrderStatisticsVC alloc] initWithNibName:@"EDSOrderStatisticsVC" bundle:nil];
         [self.navigationController pushViewController:vc animated:YES];
         return;
@@ -306,6 +312,13 @@ typedef NS_ENUM(NSInteger, BottomType) {
         ExpensesViewController *vc = [[ExpensesViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;
+    }
+    
+    if (tap.view.tag == 1003) {
+        //NSLog(@"1003");
+        // http://m.edaisong.com/htmls/rule.html
+        EDSBusinessShouldKnow * bskVC = [[EDSBusinessShouldKnow alloc] initWithNibName:@"EDSBusinessShouldKnow" bundle:nil];
+        [self.navigationController pushViewController:bskVC animated:YES];
     }
 }
 
