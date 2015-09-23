@@ -118,7 +118,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:UserStatusChangeToReviewNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout) name:LogoutNotifaction object:nil];
-    // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releseOrder) name:ReleseOrderNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releseOrderSuccessfully:) name:ReleseOrderNotification object:nil];
     // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelOrder:) name:CancelOrderNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userStatusChanged) name:UserStatusChangeToReviewNotification object:nil];
     
@@ -407,7 +407,7 @@
         }
         
         if (error.code == -500) {
-            NSLog(@"用户状态不对");
+            // NSLog(@"用户状态不对");
             
             [UserInfo saveStatus:UserStatusReviewing];
             [_Hp_ContentLists1st removeAllObjects];
@@ -418,6 +418,10 @@
             
             [_Hp_ContentLists3rd removeAllObjects];
             [self.Hp_ContentList3rd reloadData];
+            
+            [self setOptionButton:self.Hp_OptionBtn1st count:0];
+            [self setOptionButton:self.Hp_OptionBtn2nd count:0];
+            [self setOptionButton:self.Hp_Option3rd count:0];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
             
@@ -803,6 +807,14 @@
             
             self.Hp_MainBg_top.constant = 64 + kSCMessageView_Vheight + 5;
             
+            /// 先释放
+            if (_scMsgView) {
+                [_scMsgView removeFromSuperview];
+                _scMsgView = nil;
+                self.Hp_MainBg_top.constant = 64;
+                
+            }
+            
             _scMsgView=[[SCMessageView alloc]initWithWithTitle:_newMessageTEXT   AddToView:self.view onTap:^(){
                 //goto  msgDetail
                 MessageDetailViewController *vc=[[MessageDetailViewController alloc]init];
@@ -871,6 +883,10 @@
 
 - (void)userLogout{
     [self userStatusChanged];
+}
+
+- (void)releseOrderSuccessfully:(NSNotification *)notify{
+    [self s1ButtonAction:self.Hp_OptionBtn1st];
 }
 
 

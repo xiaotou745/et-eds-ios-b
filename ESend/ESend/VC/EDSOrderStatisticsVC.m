@@ -79,6 +79,9 @@
     
     self.titleLabel.text = @"订单统计";
     // header
+    self.OS_HeaderBg.layer.borderColor = [SeparatorLineColor CGColor];
+    self.OS_HeaderBg.layer.borderWidth = 0.5f;
+    
     self.OS_Year.font =
     self.OS_OrderAmountFx.font =
     self.OS_OrderCountFx.font =
