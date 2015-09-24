@@ -53,7 +53,8 @@ static SCFBSelectBlock _selectBlock;
     UITapGestureRecognizer *ges=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapHandle)];
     [self addGestureRecognizer:ges];
     
-    self.BGView=[ManFactory createImageViewWithFrame:CGRectMake(0, 0, 260, (titlesss.count+2)*SCFBCustomView_rowHeight) ImageName:@""];
+    self.BGView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 260, (titlesss.count+2)*SCFBCustomView_rowHeight)];
+    self.BGView.userInteractionEnabled=YES;
     self.BGView.layer.cornerRadius=5;
     self.BGView.layer.masksToBounds=YES;
 
@@ -78,8 +79,10 @@ static SCFBSelectBlock _selectBlock;
     
     for (int i=0; i<titlesss.count; i++) {
         
-        UIImageView *Icon=[ManFactory createImageViewWithFrame:CGRectMake(30,SCFBCustomView_rowHeight*(i+1)+15, 20, 20) ImageName:@""];
-        
+        //UIImageView *Icon=[ManFactory createImageViewWithFrame:CGRectMake(30,SCFBCustomView_rowHeight*(i+1)+15, 20, 20) ImageName:nil];
+        UIImageView*Icon=[[UIImageView alloc]initWithFrame:CGRectMake(30,SCFBCustomView_rowHeight*(i+1)+15, 20, 20)];
+        Icon.image=nil;
+        Icon.userInteractionEnabled=YES;
         Icon.backgroundColor=[UIColor lightGrayColor];
         if (i == selectIndex) {
 //            Icon.backgroundColor=[UIColor greenColor];
@@ -128,11 +131,11 @@ static SCFBSelectBlock _selectBlock;
 {
     selectIndex=tapHandle.view.tag-2000;
     
-    UIImageView *icon=(UIImageView *)[self viewWithTag:(tapHandle.view.tag-1000)];
+    UIImageView *icon=(UIImageView *)[self.BGView viewWithTag:(tapHandle.view.tag-1000)];
     
     for (int i=0; i<titlesss.count; i++) {
-        UIImageView *vvvvv=(UIImageView *)[self viewWithTag:1000+i];
-        vvvvv.image=[UIImage imageNamed:@""];
+        UIImageView *vvvvv=(UIImageView *)[self.BGView viewWithTag:1000+i];
+        vvvvv.image=nil;
         vvvvv.backgroundColor=[UIColor lightGrayColor];
     }
     
