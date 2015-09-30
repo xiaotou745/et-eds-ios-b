@@ -67,6 +67,8 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     //
     NSMutableArray * _consigneeArray;
     NSMutableArray * _consigneeArrayForDisplay;
+    
+    JKAlertDialog *_JKalert;
 }
 @end
 
@@ -622,15 +624,22 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         
         CGFloat distrib = [result getFloatWithKey:@"DistribSubsidy"];
         NSString *str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld\n配送费:%.2f元",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count,distrib * _priceTFList.count];
-        
-        JKAlertDialog *alert = [[JKAlertDialog alloc] initWithTitle:@"确定要发布订单吗？" message:str];
-        [alert addButton:Button_CANCEL withTitle:@"取消" handler:^(JKAlertDialogItem *item) {
+        if (distrib == 0) {
+            str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count];
+        }
+        if (_JKalert) {
+            [_JKalert removeFromSuperview];
+            _JKalert = nil;
+        }
+        _JKalert = [[JKAlertDialog alloc] initWithTitle:@"确定要发布订单吗？" message:str];
+        [_JKalert addButton:Button_CANCEL withTitle:@"取消" handler:^(JKAlertDialogItem *item) {
             
         }];
-        [alert addButton:Button_OK withTitle:@"确定" handler:^(JKAlertDialogItem *item) {
-            [self releseInfo];
+        __block ReleseOrderViewController * blockSelf = self;
+        [_JKalert addButton:Button_OK withTitle:@"确定" handler:^(JKAlertDialogItem *item) {
+            [blockSelf releseInfo];
         }];
-        [alert show];
+        [_JKalert show];
         [Tools hiddenProgress:HUD];
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
         [Tools hiddenProgress:HUD];

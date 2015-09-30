@@ -71,6 +71,10 @@
 		68586AA81BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */; settings = {ASSET_TAGS = (); }; };
 		68586AA91BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */; settings = {ASSET_TAGS = (); }; };
 		68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */; settings = {ASSET_TAGS = (); }; };
+		685E53B01BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */; settings = {ASSET_TAGS = (); }; };
+		685E53B11BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */; settings = {ASSET_TAGS = (); }; };
+		685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; settings = {ASSET_TAGS = (); }; };
+		685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; settings = {ASSET_TAGS = (); }; };
 		686745441BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
 		686745451BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
 		686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */; };
@@ -602,6 +606,9 @@
 		68586AA41BAE8E6800B26780 /* EDSRiderDeliveryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDeliveryCell.h; sourceTree = "<group>"; };
 		68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDeliveryCell.m; sourceTree = "<group>"; };
 		68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryCell.xib; sourceTree = "<group>"; };
+		685E53AD1BBB878E00BE429C /* EDSBillStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsVC.h; sourceTree = "<group>"; };
+		685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsVC.m; sourceTree = "<group>"; };
+		685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsVC.xib; sourceTree = "<group>"; };
 		686745411BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDeliveryInfoCell.h; sourceTree = "<group>"; };
 		686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDeliveryInfoCell.m; sourceTree = "<group>"; };
 		686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryInfoCell.xib; sourceTree = "<group>"; };
@@ -1301,6 +1308,16 @@
 			name = FullfillMoney;
 			sourceTree = "<group>";
 		};
+		685E53AC1BBB86FC00BE429C /* BillStatistics */ = {
+			isa = PBXGroup;
+			children = (
+				685E53AD1BBB878E00BE429C /* EDSBillStatisticsVC.h */,
+				685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */,
+				685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */,
+			);
+			name = BillStatistics;
+			sourceTree = "<group>";
+		};
 		6867454F1BA9197C005F59D4 /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
@@ -1683,6 +1700,7 @@
 		F690B26F1B25A8D60044310C /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				685E53AC1BBB86FC00BE429C /* BillStatistics */,
 				6878F77D1BB1555800E33ACD /* BusinessNote */,
 				6867454F1BA9197C005F59D4 /* Feedback */,
 				68580C8D1BA7BC2F0082C18C /* FullfillMoney */,
@@ -2258,6 +2276,7 @@
 				686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				CF22B0301BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
+				685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
 				68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */,
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
@@ -2310,6 +2329,7 @@
 				F6549F7F1B1C331300FAACEE /* back_nor@2x.png in Resources */,
 				F62A73E61B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F62A73EC1B5CCA84001632B5 /* 2@2x.png in Resources */,
+				685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
 				68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */,
 				F6549F811B1C364100FAACEE /* verifty_icon@2x.png in Resources */,
 				CF22B0141BAB2BC7000F19D9 /* EDSHomepageVC.xib in Resources */,
@@ -2553,6 +2573,7 @@
 				F67D35D41B5664A600083DA4 /* OrderDetailSenderTableCell.m in Sources */,
 				F67D35D51B5664A600083DA4 /* BankModel.m in Sources */,
 				F67D35D61B5664A600083DA4 /* PlaceholderTextView.m in Sources */,
+				685E53B11BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */,
 				F67D35D81B5664A600083DA4 /* ChildOrderModel.m in Sources */,
 				F67D35D91B5664A600083DA4 /* OrdersListTableViewController.m in Sources */,
 				F67D35DA1B5664A600083DA4 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -2761,6 +2782,7 @@
 				E48ECF981B3FC5A800F09660 /* OrderDetailSenderTableCell.m in Sources */,
 				F62E8D091B2FC92C006F3862 /* BankModel.m in Sources */,
 				F6C6ADA01B12F42F0007A980 /* PlaceholderTextView.m in Sources */,
+				685E53B01BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */,
 				F6441B241B3BD99C00EA3C9D /* ChildOrderModel.m in Sources */,
 				F66CA1321B1E9BF2006BDDB8 /* OrdersListTableViewController.m in Sources */,
 				F6C6ADB51B12F42F0007A980 /* AFNetworkActivityIndicatorManager.m in Sources */,
