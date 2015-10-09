@@ -951,4 +951,23 @@
     return operation;
 }
 
+
+/// java 1.1.8 B端商户点击账单按钮 获取所有的筛选条件类型
+// url:/common/getrecordtypeb POST
++ (AFHTTPRequestOperation *)getrecordtypebSuccessBlock:(successBlock)successBlock
+                                               failure:(failureBlock)failure{
+    NSString *url = @"common/getrecordtypeb";
+    AFHTTPRequestOperation * operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:nil success:^(id result, AFHTTPRequestOperation *operation) {
+        if (successBlock) {
+            successBlock(result, operation);
+        }
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        if (failure) {
+            failure(error,operation);
+        }
+    } isShowFailAlert:NO failAlertString:nil host:Java_API_SERVER];
+    
+    return operation;
+}
+
 @end

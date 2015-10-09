@@ -8,6 +8,8 @@
 
 #import "EDSBillStatisticsVC.h"
 
+#import "FHQNetWorkingAPI.h"
+
 @interface EDSBillStatisticsVC ()
 
 @end
@@ -17,6 +19,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [FHQNetWorkingAPI getrecordtypebSuccessBlock:^(id result, AFHTTPRequestOperation *operation) {
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

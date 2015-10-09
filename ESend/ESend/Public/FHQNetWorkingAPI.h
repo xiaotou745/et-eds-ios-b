@@ -215,4 +215,9 @@
                                  successBlock:(successBlock)successBlock
                                       failure:(failureBlock)failure;
 
+/// java 1.1.8 B端商户点击账单按钮 获取所有的筛选条件类型
+// url:/common/getrecordtypeb POST
++ (AFHTTPRequestOperation *)getrecordtypebSuccessBlock:(successBlock)successBlock
+                                               failure:(failureBlock)failure;
+
 @end
