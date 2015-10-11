@@ -21,6 +21,7 @@
 #import "EDSOrderStatisticsVC.h"
 
 #import "EDSBusinessShouldKnow.h"
+#import "EDSBillStatisticsVC.h"
 
 
 #define BusinessInfoMsg @"商铺信息管理"
@@ -298,7 +299,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
 
     
-    if (tap.view.tag == 1001) {// 订单统计
+    if (tap.view.tag == 1001) { // 订单统计
         if ([UserInfo getStatus] != UserStatusComplete) {
             [Tools showHUD:@"您尚未审核通过"];
             return;
@@ -308,10 +309,17 @@ typedef NS_ENUM(NSInteger, BottomType) {
         return;
     }
     
-    if (tap.view.tag == 1000) {
-        ExpensesViewController *vc = [[ExpensesViewController alloc] init];
+    if (tap.view.tag == 1000) { // 账单统计
+        // v1.2.1之前的订单统计
+//        ExpensesViewController *vc = [[ExpensesViewController alloc] init];
+//        [self.navigationController pushViewController:vc animated:YES];
+//        return;
+        
+        // v1.2.1的订单统计
+        EDSBillStatisticsVC * vc = [[EDSBillStatisticsVC alloc] initWithNibName:@"EDSBillStatisticsVC" bundle:nil];
         [self.navigationController pushViewController:vc animated:YES];
         return;
+        
     }
     
     if (tap.view.tag == 1003) {

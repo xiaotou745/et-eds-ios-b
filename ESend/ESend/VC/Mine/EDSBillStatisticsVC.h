@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface EDSBillStatisticsVC : UIViewController
+typedef NS_ENUM(NSInteger, EDSBillStatisticsVCStyle) {
+    EDSBillStatisticsVCStyleDay,     // Day
+    EDSBillStatisticsVCStyleMonth     // Month
+};
+
+@interface EDSBillStatisticsVC : BaseViewController
 
 @end

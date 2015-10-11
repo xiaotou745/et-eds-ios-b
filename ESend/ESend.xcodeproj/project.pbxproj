@@ -39,6 +39,18 @@
 		2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */; };
 		2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA0CA811B84C05C00BBAA63 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		6801E3B81BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6801E3AD1BC8B1BD00CE13ED /* KMMonthDateCalendarView.m */; settings = {ASSET_TAGS = (); }; };
+		6801E3B91BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6801E3AD1BC8B1BD00CE13ED /* KMMonthDateCalendarView.m */; settings = {ASSET_TAGS = (); }; };
+		6801E3BA1BC8B1BD00CE13ED /* NSDate+KMdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6801E3B01BC8B1BD00CE13ED /* NSDate+KMdate.m */; settings = {ASSET_TAGS = (); }; };
+		6801E3BB1BC8B1BD00CE13ED /* NSDate+KMdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6801E3B01BC8B1BD00CE13ED /* NSDate+KMdate.m */; settings = {ASSET_TAGS = (); }; };
+		6801E3BC1BC8B1BD00CE13ED /* NSString+KM_String.m in Sources */ = {isa = PBXBuildFile; fileRef = 6801E3B21BC8B1BD00CE13ED /* NSString+KM_String.m */; settings = {ASSET_TAGS = (); }; };
+		6801E3BD1BC8B1BD00CE13ED /* NSString+KM_String.m in Sources */ = {isa = PBXBuildFile; fileRef = 6801E3B21BC8B1BD00CE13ED /* NSString+KM_String.m */; settings = {ASSET_TAGS = (); }; };
+		6801E3BE1BC8B1BD00CE13ED /* UIColor+KMhexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6801E3B41BC8B1BD00CE13ED /* UIColor+KMhexColor.m */; settings = {ASSET_TAGS = (); }; };
+		6801E3BF1BC8B1BD00CE13ED /* UIColor+KMhexColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6801E3B41BC8B1BD00CE13ED /* UIColor+KMhexColor.m */; settings = {ASSET_TAGS = (); }; };
+		6801E3C01BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6801E3B61BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png */; settings = {ASSET_TAGS = (); }; };
+		6801E3C11BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6801E3B61BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png */; settings = {ASSET_TAGS = (); }; };
+		6801E3C21BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6801E3B71BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png */; settings = {ASSET_TAGS = (); }; };
+		6801E3C31BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6801E3B71BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png */; settings = {ASSET_TAGS = (); }; };
 		680557091BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 680557071BA660FB00840495 /* EDSFullfillOptionCell.m */; };
 		6805570A1BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 680557071BA660FB00840495 /* EDSFullfillOptionCell.m */; };
 		6805570B1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */; };
@@ -53,6 +65,12 @@
 		68090EA51BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */; };
 		68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */; };
 		68090EA71BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */; };
+		6811E0CB1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0CA1BCA5B9200F81F03 /* RecordTypeModel.m */; settings = {ASSET_TAGS = (); }; };
+		6811E0CC1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0CA1BCA5B9200F81F03 /* RecordTypeModel.m */; settings = {ASSET_TAGS = (); }; };
+		6811E0CF1BCA5C5300F81F03 /* DayBillInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0CE1BCA5C5300F81F03 /* DayBillInfo.m */; settings = {ASSET_TAGS = (); }; };
+		6811E0D01BCA5C5300F81F03 /* DayBillInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0CE1BCA5C5300F81F03 /* DayBillInfo.m */; settings = {ASSET_TAGS = (); }; };
+		6811E0D31BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */; settings = {ASSET_TAGS = (); }; };
+		6811E0D41BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */; settings = {ASSET_TAGS = (); }; };
 		68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C891BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C8A1BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */; };
@@ -99,6 +117,16 @@
 		6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; settings = {ASSET_TAGS = (); }; };
 		6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; settings = {ASSET_TAGS = (); }; };
 		6878F7841BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; settings = {ASSET_TAGS = (); }; };
+		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; settings = {ASSET_TAGS = (); }; };
+		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; settings = {ASSET_TAGS = (); }; };
+		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; settings = {ASSET_TAGS = (); }; };
+		68AE2BD81BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; settings = {ASSET_TAGS = (); }; };
+		68AE2BDC1BC8E95600E8149C /* EDSBillStatisticsDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BDA1BC8E95600E8149C /* EDSBillStatisticsDayCell.m */; settings = {ASSET_TAGS = (); }; };
+		68AE2BDD1BC8E95600E8149C /* EDSBillStatisticsDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BDA1BC8E95600E8149C /* EDSBillStatisticsDayCell.m */; settings = {ASSET_TAGS = (); }; };
+		68AE2BDE1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BDB1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib */; settings = {ASSET_TAGS = (); }; };
+		68AE2BDF1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BDB1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib */; settings = {ASSET_TAGS = (); }; };
+		68AE2BE21BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; settings = {ASSET_TAGS = (); }; };
+		68AE2BE31BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; settings = {ASSET_TAGS = (); }; };
 		CF07AEE11BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; settings = {ASSET_TAGS = (); }; };
 		CF07AEE21BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; settings = {ASSET_TAGS = (); }; };
 		CF07AEE31BAEB30D005A93EB /* MNDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */; settings = {ASSET_TAGS = (); }; };
@@ -580,6 +608,16 @@
 		2EA0CA7B1B848F6C00BBAA63 /* ConsigneeInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsigneeInfoCell.xib; sourceTree = "<group>"; };
 		2EA0CA801B84C05C00BBAA63 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		2EA0CA811B84C05C00BBAA63 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		6801E3AC1BC8B1BD00CE13ED /* KMMonthDateCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMMonthDateCalendarView.h; sourceTree = "<group>"; };
+		6801E3AD1BC8B1BD00CE13ED /* KMMonthDateCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMMonthDateCalendarView.m; sourceTree = "<group>"; };
+		6801E3AF1BC8B1BD00CE13ED /* NSDate+KMdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+KMdate.h"; sourceTree = "<group>"; };
+		6801E3B01BC8B1BD00CE13ED /* NSDate+KMdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+KMdate.m"; sourceTree = "<group>"; };
+		6801E3B11BC8B1BD00CE13ED /* NSString+KM_String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KM_String.h"; sourceTree = "<group>"; };
+		6801E3B21BC8B1BD00CE13ED /* NSString+KM_String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KM_String.m"; sourceTree = "<group>"; };
+		6801E3B31BC8B1BD00CE13ED /* UIColor+KMhexColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+KMhexColor.h"; sourceTree = "<group>"; };
+		6801E3B41BC8B1BD00CE13ED /* UIColor+KMhexColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+KMhexColor.m"; sourceTree = "<group>"; };
+		6801E3B61BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_indicator_left_normal@2x.png"; sourceTree = "<group>"; };
+		6801E3B71BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar_indicator_right_normal@2x.png"; sourceTree = "<group>"; };
 		680557061BA660FB00840495 /* EDSFullfillOptionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSFullfillOptionCell.h; sourceTree = "<group>"; };
 		680557071BA660FB00840495 /* EDSFullfillOptionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSFullfillOptionCell.m; sourceTree = "<group>"; };
 		680557081BA660FB00840495 /* EDSFullfillOptionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSFullfillOptionCell.xib; sourceTree = "<group>"; };
@@ -592,6 +630,12 @@
 		68090EA11BA2B248000680D8 /* EDSFullfillMoneyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSFullfillMoneyVC.h; path = ../EDSFullfillMoneyVC.h; sourceTree = "<group>"; };
 		68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDSFullfillMoneyVC.m; path = ../EDSFullfillMoneyVC.m; sourceTree = "<group>"; };
 		68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EDSFullfillMoneyVC.xib; path = ../EDSFullfillMoneyVC.xib; sourceTree = "<group>"; };
+		6811E0C91BCA5B9200F81F03 /* RecordTypeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordTypeModel.h; sourceTree = "<group>"; };
+		6811E0CA1BCA5B9200F81F03 /* RecordTypeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordTypeModel.m; sourceTree = "<group>"; };
+		6811E0CD1BCA5C5300F81F03 /* DayBillInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayBillInfo.h; sourceTree = "<group>"; };
+		6811E0CE1BCA5C5300F81F03 /* DayBillInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayBillInfo.m; sourceTree = "<group>"; };
+		6811E0D11BCA5D2000F81F03 /* DayBillDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayBillDetailInfo.h; sourceTree = "<group>"; };
+		6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayBillDetailInfo.m; sourceTree = "<group>"; };
 		68580C851BA7BB7E0082C18C /* EDSOrderStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSOrderStatisticsVC.h; path = ../EDSOrderStatisticsVC.h; sourceTree = "<group>"; };
 		68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDSOrderStatisticsVC.m; path = ../EDSOrderStatisticsVC.m; sourceTree = "<group>"; };
 		68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EDSOrderStatisticsVC.xib; path = ../EDSOrderStatisticsVC.xib; sourceTree = "<group>"; };
@@ -629,6 +673,14 @@
 		6878F77E1BB1559800E33ACD /* EDSBusinessShouldKnow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBusinessShouldKnow.h; sourceTree = "<group>"; };
 		6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBusinessShouldKnow.m; sourceTree = "<group>"; };
 		6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBusinessShouldKnow.xib; sourceTree = "<group>"; };
+		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
+		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
+		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
+		68AE2BD91BC8E95600E8149C /* EDSBillStatisticsDayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsDayCell.h; sourceTree = "<group>"; };
+		68AE2BDA1BC8E95600E8149C /* EDSBillStatisticsDayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsDayCell.m; sourceTree = "<group>"; };
+		68AE2BDB1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsDayCell.xib; sourceTree = "<group>"; };
+		68AE2BE01BC9161600E8149C /* KMNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMNavigationTitleView.h; sourceTree = "<group>"; };
+		68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMNavigationTitleView.m; sourceTree = "<group>"; };
 		CF07AEDE1BAEB30D005A93EB /* MNDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNDatePicker.h; sourceTree = "<group>"; };
 		CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNDatePicker.m; sourceTree = "<group>"; };
 		CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MNDatePicker.xib; sourceTree = "<group>"; };
@@ -1234,6 +1286,39 @@
 			path = IOS;
 			sourceTree = "<group>";
 		};
+		6801E3AB1BC8B1BD00CE13ED /* KMMonthDateCalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				6801E3AC1BC8B1BD00CE13ED /* KMMonthDateCalendarView.h */,
+				6801E3AD1BC8B1BD00CE13ED /* KMMonthDateCalendarView.m */,
+				6801E3AE1BC8B1BD00CE13ED /* KMutility */,
+				6801E3B51BC8B1BD00CE13ED /* resource */,
+			);
+			path = KMMonthDateCalendarView;
+			sourceTree = "<group>";
+		};
+		6801E3AE1BC8B1BD00CE13ED /* KMutility */ = {
+			isa = PBXGroup;
+			children = (
+				6801E3AF1BC8B1BD00CE13ED /* NSDate+KMdate.h */,
+				6801E3B01BC8B1BD00CE13ED /* NSDate+KMdate.m */,
+				6801E3B11BC8B1BD00CE13ED /* NSString+KM_String.h */,
+				6801E3B21BC8B1BD00CE13ED /* NSString+KM_String.m */,
+				6801E3B31BC8B1BD00CE13ED /* UIColor+KMhexColor.h */,
+				6801E3B41BC8B1BD00CE13ED /* UIColor+KMhexColor.m */,
+			);
+			path = KMutility;
+			sourceTree = "<group>";
+		};
+		6801E3B51BC8B1BD00CE13ED /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				6801E3B61BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png */,
+				6801E3B71BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
 		68063DE61BAD509300CEB155 /* OrderSmodel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1269,6 +1354,19 @@
 				6807AD6D1BAAB53600238D64 /* SCMessageView.m */,
 			);
 			name = subViews;
+			sourceTree = "<group>";
+		};
+		6811E0C81BCA5B3600F81F03 /* dataModel */ = {
+			isa = PBXGroup;
+			children = (
+				6811E0C91BCA5B9200F81F03 /* RecordTypeModel.h */,
+				6811E0CA1BCA5B9200F81F03 /* RecordTypeModel.m */,
+				6811E0CD1BCA5C5300F81F03 /* DayBillInfo.h */,
+				6811E0CE1BCA5C5300F81F03 /* DayBillInfo.m */,
+				6811E0D11BCA5D2000F81F03 /* DayBillDetailInfo.h */,
+				6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */,
+			);
+			name = dataModel;
 			sourceTree = "<group>";
 		};
 		68580C8C1BA7BB950082C18C /* OrderStatistics */ = {
@@ -1311,6 +1409,10 @@
 		685E53AC1BBB86FC00BE429C /* BillStatistics */ = {
 			isa = PBXGroup;
 			children = (
+				6811E0C81BCA5B3600F81F03 /* dataModel */,
+				68AE2BE41BC9161E00E8149C /* KMTitleView */,
+				68AE2BD11BC8E88D00E8149C /* Cells */,
+				6801E3AB1BC8B1BD00CE13ED /* KMMonthDateCalendarView */,
 				685E53AD1BBB878E00BE429C /* EDSBillStatisticsVC.h */,
 				685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */,
 				685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */,
@@ -1359,6 +1461,28 @@
 				6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */,
 			);
 			name = BusinessNote;
+			sourceTree = "<group>";
+		};
+		68AE2BD11BC8E88D00E8149C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */,
+				68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */,
+				68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */,
+				68AE2BD91BC8E95600E8149C /* EDSBillStatisticsDayCell.h */,
+				68AE2BDA1BC8E95600E8149C /* EDSBillStatisticsDayCell.m */,
+				68AE2BDB1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		68AE2BE41BC9161E00E8149C /* KMTitleView */ = {
+			isa = PBXGroup;
+			children = (
+				68AE2BE01BC9161600E8149C /* KMNavigationTitleView.h */,
+				68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */,
+			);
+			name = KMTitleView;
 			sourceTree = "<group>";
 		};
 		CF22B0161BAB4A61000F19D9 /* MJRefresh */ = {
@@ -2268,12 +2392,15 @@
 				F67D35F11B5664A600083DA4 /* gray_border_btn_nor@2x.png in Resources */,
 				6867454E1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
 				F62A73EF1B5CCA84001632B5 /* 2@3x.png in Resources */,
+				6801E3C31BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png in Resources */,
 				F67D35F21B5664A600083DA4 /* demo_card@3x.png in Resources */,
 				F67D35F31B5664A600083DA4 /* blue_btn_nor@2x.png in Resources */,
 				68580C941BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				CF07AEE41BAEB30D005A93EB /* MNDatePicker.xib in Resources */,
 				F67D35F41B5664A600083DA4 /* back_nor@2x.png in Resources */,
 				686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
+				68AE2BDF1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
+				6801E3C11BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				CF22B0301BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
 				685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
@@ -2281,6 +2408,7 @@
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
 				6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */,
+				68AE2BD81BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
 				F67D35F71B5664A600083DA4 /* blue_btn_pre@2x.png in Resources */,
 				F67D35F81B5664A600083DA4 /* Main.storyboard in Resources */,
 				2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
@@ -2322,6 +2450,7 @@
 				F67D36141B56658800083DA4 /* Property List.plist in Resources */,
 				F6549F831B1C378900FAACEE /* gray_border_btn_nor@2x.png in Resources */,
 				F62A73E81B5CCA84001632B5 /* 1@3x.png in Resources */,
+				68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
 				F62E8D031B2E80F1006F3862 /* demo_card@3x.png in Resources */,
 				2EA0CA431B82C72700BBAA63 /* ComplaintViewController.xib in Resources */,
 				F6C6AE7D1B1845750007A980 /* blue_btn_nor@2x.png in Resources */,
@@ -2334,6 +2463,7 @@
 				F6549F811B1C364100FAACEE /* verifty_icon@2x.png in Resources */,
 				CF22B0141BAB2BC7000F19D9 /* EDSHomepageVC.xib in Resources */,
 				F678A7E11B29787E0026DA37 /* alipay_icon@2x.png in Resources */,
+				6801E3C21BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png in Resources */,
 				F6C6AE7C1B1845750007A980 /* blue_btn_pre@2x.png in Resources */,
 				F6C6AC3E1B12F2640007A980 /* Main.storyboard in Resources */,
 				68580CA91BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */,
@@ -2360,6 +2490,8 @@
 				2E5D878F1B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
 				F62A73EE1B5CCA84001632B5 /* 2@3x.png in Resources */,
 				F66CA1281B1DC407006BDDB8 /* blue_border_btn_nor@2x.png in Resources */,
+				6801E3C01BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */,
+				68AE2BDE1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
 				F637CF511B437F5700410C24 /* PushConfig.plist in Resources */,
 				E48ECF951B3FBC2F00F09660 /* blue_btn_noSelect@2x.pdf in Resources */,
 				F62E8D021B2E80F1006F3862 /* demo_license@3x.png in Resources */,
@@ -2382,9 +2514,11 @@
 				F67D35331B5664A600083DA4 /* TakeOrderListViewController.m in Sources */,
 				CF22B0441BAB4A61000F19D9 /* UIScrollView+MJRefresh.m in Sources */,
 				68063DEA1BAD510300CEB155 /* EDSStatisticsInfoModel.m in Sources */,
+				6801E3BB1BC8B1BD00CE13ED /* NSDate+KMdate.m in Sources */,
 				F67D35341B5664A600083DA4 /* BaseTableViewCell.m in Sources */,
 				CF22B0131BAB2BC7000F19D9 /* EDSHomepageVC.m in Sources */,
 				CF22B0461BAB4A61000F19D9 /* UIView+MJExtension.m in Sources */,
+				6811E0D41BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */,
 				F67D35351B5664A600083DA4 /* WelcomeViewController.m in Sources */,
 				CF22B03E1BAB4A61000F19D9 /* MJRefreshLegendFooter.m in Sources */,
 				F67D35361B5664A600083DA4 /* FMDatabaseAdditions.m in Sources */,
@@ -2406,6 +2540,7 @@
 				F67D35441B5664A600083DA4 /* OrderDetailViewController.m in Sources */,
 				F67D35451B5664A600083DA4 /* AppAudioPlayer.m in Sources */,
 				68090EA51BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */,
+				68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */,
 				F67D35471B5664A600083DA4 /* GYBankCardFormatTextField.m in Sources */,
 				F67D35481B5664A600083DA4 /* OrderDetailInfoTableCell.m in Sources */,
 				F67D35491B5664A600083DA4 /* AFHTTPSessionManager.m in Sources */,
@@ -2451,6 +2586,7 @@
 				F67D35691B5664A600083DA4 /* DataSigner.m in Sources */,
 				F67D356A1B5664A600083DA4 /* base64.m in Sources */,
 				2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */,
+				6801E3B91BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */,
 				F67D356B1B5664A600083DA4 /* OrderDetailReciverTableCell.m in Sources */,
 				F67D356C1B5664A600083DA4 /* AFURLSessionManager.m in Sources */,
 				6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */,
@@ -2464,6 +2600,7 @@
 				F67D35731B5664A600083DA4 /* OBGradientView.m in Sources */,
 				686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
 				6867455E1BA91B4C005F59D4 /* ManFactory.m in Sources */,
+				6811E0D01BCA5C5300F81F03 /* DayBillInfo.m in Sources */,
 				2EA0CA6B1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F67D35741B5664A600083DA4 /* MDSenderDetailCell.m in Sources */,
 				F6F7033A1B6A52B80094E7A8 /* JKAlertDialog.m in Sources */,
@@ -2487,6 +2624,7 @@
 				F67D35861B5664A600083DA4 /* LineProgressView.m in Sources */,
 				F67D35871B5664A600083DA4 /* PaymentDetailViewController.m in Sources */,
 				F67D35881B5664A600083DA4 /* HMSegmentedControl.m in Sources */,
+				68AE2BE31BC9161600E8149C /* KMNavigationTitleView.m in Sources */,
 				CF22B0361BAB4A61000F19D9 /* MJRefreshFooter.m in Sources */,
 				F67D35891B5664A600083DA4 /* QRadioButton.m in Sources */,
 				2E57819E1BA2774800A04B9D /* WXUtil.mm in Sources */,
@@ -2522,6 +2660,7 @@
 				F67D35A81B5664A600083DA4 /* BussinessModel.m in Sources */,
 				F67D35A91B5664A600083DA4 /* SDWebImageManager.m in Sources */,
 				CF07AEE21BAEB30D005A93EB /* MNDatePicker.m in Sources */,
+				6811E0CC1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */,
 				F67D35AA1B5664A600083DA4 /* ThirdOrderTableViewCell.m in Sources */,
 				68580C891BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */,
 				F67D35AB1B5664A600083DA4 /* RegisterViewController.m in Sources */,
@@ -2535,10 +2674,12 @@
 				F67D35B21B5664A600083DA4 /* UIImage+MultiFormat.m in Sources */,
 				F67D35B31B5664A600083DA4 /* MDSenderInfoCell.m in Sources */,
 				F67D35B51B5664A600083DA4 /* SubOrderModel.m in Sources */,
+				6801E3BF1BC8B1BD00CE13ED /* UIColor+KMhexColor.m in Sources */,
 				F67D35B71B5664A600083DA4 /* MJPhoto.m in Sources */,
 				CF22B0341BAB4A61000F19D9 /* MJRefreshConst.m in Sources */,
 				2EA0CA781B843A0300BBAA63 /* DataArchive.m in Sources */,
 				68063DEE1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m in Sources */,
+				6801E3BD1BC8B1BD00CE13ED /* NSString+KM_String.m in Sources */,
 				F67D35B81B5664A600083DA4 /* MPNotificationView.m in Sources */,
 				2EA0CA6F1B842A1600BBAA63 /* NSString+X136.m in Sources */,
 				F67D35B91B5664A600083DA4 /* UIProgressView+AFNetworking.m in Sources */,
@@ -2560,6 +2701,7 @@
 				F67D35C61B5664A600083DA4 /* ProtocolViewController.m in Sources */,
 				F67D35C71B5664A600083DA4 /* FMDatabaseQueue.m in Sources */,
 				F67D35C81B5664A600083DA4 /* SelectBankPicker.m in Sources */,
+				68AE2BDD1BC8E95600E8149C /* EDSBillStatisticsDayCell.m in Sources */,
 				F67D35C91B5664A600083DA4 /* LMJPageControl.m in Sources */,
 				F67D35CA1B5664A600083DA4 /* AddOrderTableViewCell.m in Sources */,
 				F67D35CB1B5664A600083DA4 /* MJPhotoView.m in Sources */,
@@ -2591,9 +2733,11 @@
 				F66CA12C1B1E9982006BDDB8 /* TakeOrderListViewController.m in Sources */,
 				CF22B0431BAB4A61000F19D9 /* UIScrollView+MJRefresh.m in Sources */,
 				68063DE91BAD510300CEB155 /* EDSStatisticsInfoModel.m in Sources */,
+				6801E3BA1BC8B1BD00CE13ED /* NSDate+KMdate.m in Sources */,
 				F6C6AC9B1B12F3EB0007A980 /* BaseTableViewCell.m in Sources */,
 				CF22B0121BAB2BC7000F19D9 /* EDSHomepageVC.m in Sources */,
 				CF22B0451BAB4A61000F19D9 /* UIView+MJExtension.m in Sources */,
+				6811E0D31BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */,
 				E48ECF931B3F9A2800F09660 /* WelcomeViewController.m in Sources */,
 				CF22B03D1BAB4A61000F19D9 /* MJRefreshLegendFooter.m in Sources */,
 				F66CA1561B1EEF9C006BDDB8 /* FMDatabaseAdditions.m in Sources */,
@@ -2615,6 +2759,7 @@
 				F66F4D3F1B21409F005F2BAC /* OrderDetailViewController.m in Sources */,
 				F6C6AD7A1B12F42F0007A980 /* AppAudioPlayer.m in Sources */,
 				68090EA41BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */,
+				68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */,
 				F643BB2B1B2719F00050E3AE /* GYBankCardFormatTextField.m in Sources */,
 				F66F4D421B21418F005F2BAC /* OrderDetailInfoTableCell.m in Sources */,
 				F6C6AD731B12F42F0007A980 /* AFHTTPSessionManager.m in Sources */,
@@ -2660,6 +2805,7 @@
 				F6441B4E1B3D470100EA3C9D /* base64.m in Sources */,
 				E48ECF9B1B3FC5C700F09660 /* OrderDetailReciverTableCell.m in Sources */,
 				2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */,
+				6801E3B81BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */,
 				F6C6AD791B12F42F0007A980 /* AFURLSessionManager.m in Sources */,
 				F6C6ADB91B12F42F0007A980 /* UIImageView+AFNetworking.m in Sources */,
 				6878F7811BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */,
@@ -2673,6 +2819,7 @@
 				E46C49351B3C4A2D00CE0033 /* MDSenderDetailCell.m in Sources */,
 				686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
 				6867455D1BA91B4C005F59D4 /* ManFactory.m in Sources */,
+				6811E0CF1BCA5C5300F81F03 /* DayBillInfo.m in Sources */,
 				2EA0CA6A1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F6C6ADB41B12F42F0007A980 /* UIView+WebCacheOperation.m in Sources */,
 				F6F703191B68D8740094E7A8 /* JKAlertDialog.m in Sources */,
@@ -2696,6 +2843,7 @@
 				F64DFD731B26D01D00A909E5 /* PaymentDetailViewController.m in Sources */,
 				F6C6AD881B12F42F0007A980 /* HMSegmentedControl.m in Sources */,
 				F6C6ADA11B12F42F0007A980 /* QRadioButton.m in Sources */,
+				68AE2BE21BC9161600E8149C /* KMNavigationTitleView.m in Sources */,
 				CF22B0351BAB4A61000F19D9 /* MJRefreshFooter.m in Sources */,
 				2E57819D1BA2774800A04B9D /* WXUtil.mm in Sources */,
 				F64DFD791B270E9F00A909E5 /* BankViewController.m in Sources */,
@@ -2731,6 +2879,7 @@
 				F6C6ADAC1B12F42F0007A980 /* SDWebImageManager.m in Sources */,
 				F660625C1B3AC7EE00F9AF0A /* ThirdOrderTableViewCell.m in Sources */,
 				CF07AEE11BAEB30D005A93EB /* MNDatePicker.m in Sources */,
+				6811E0CB1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */,
 				F6C6AE801B185F630007A980 /* RegisterViewController.m in Sources */,
 				68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */,
 				F6C6AD821B12F42F0007A980 /* CWStarRateView.m in Sources */,
@@ -2744,10 +2893,12 @@
 				E46C49291B3C48CE00CE0033 /* MDSenderInfoCell.m in Sources */,
 				F6188A7F1B2182310033E58B /* SubOrderModel.m in Sources */,
 				F6C6AD8C1B12F42F0007A980 /* MJPhoto.m in Sources */,
+				6801E3BE1BC8B1BD00CE13ED /* UIColor+KMhexColor.m in Sources */,
 				F6C6AD9D1B12F42F0007A980 /* MPNotificationView.m in Sources */,
 				CF22B0331BAB4A61000F19D9 /* MJRefreshConst.m in Sources */,
 				2EA0CA771B843A0300BBAA63 /* DataArchive.m in Sources */,
 				68063DED1BAD549C00CEB155 /* EDSStatisticsInfoClienterInfoModel.m in Sources */,
+				6801E3BC1BC8B1BD00CE13ED /* NSString+KM_String.m in Sources */,
 				F6C6ADBA1B12F42F0007A980 /* UIProgressView+AFNetworking.m in Sources */,
 				2EA0CA6E1B842A1600BBAA63 /* NSString+X136.m in Sources */,
 				F6C6AD871B12F42F0007A980 /* DZNSegmentedControl.m in Sources */,
@@ -2769,6 +2920,7 @@
 				F66CA1581B1EEF9C006BDDB8 /* FMDatabaseQueue.m in Sources */,
 				F67A58441B282DD300891D53 /* SelectBankPicker.m in Sources */,
 				E48ECF901B3F8DE200F09660 /* LMJPageControl.m in Sources */,
+				68AE2BDC1BC8E95600E8149C /* EDSBillStatisticsDayCell.m in Sources */,
 				F62E8D1B1B311D6B006F3862 /* AddOrderTableViewCell.m in Sources */,
 				F6C6AD921B12F42F0007A980 /* MJPhotoView.m in Sources */,
 				F6C6AD721B12F42F0007A980 /* AFHTTPRequestOperationManager.m in Sources */,
