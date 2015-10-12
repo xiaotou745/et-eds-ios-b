@@ -17,14 +17,15 @@
 @property (nonatomic, strong) UIImageView * titleImg;
 @property (nonatomic, strong) UIButton * titleBtn;
 
-@property (nonatomic, assign) BOOL imgIsUp;                 // showing
-
 @end
 
 @implementation KMNavigationTitleView
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self configViews];
+        
+        // default value
+        self.style = KMNavigationTitleViewStyleDay;
     }
     return self;
 }

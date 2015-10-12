@@ -27,6 +27,11 @@
 #define BS_ColorGray @"666666"
 #define BS_ColorBlue @"00bcd5"
 
+#define BS_calloutTopPadding 15.0f
+#define BS_calloutBottomPadding 15.0f
+#define BS_calloutMargin 10.0f
+#define BS_calloutContentHeight 30.0f
+
 
 // #define BillStatisticsAPIHost @"http://10.8.7.253:7178/api-http/services/"
 
@@ -36,6 +41,10 @@
     
     double _inMoney;
     double _outMoney;
+    
+    // call out view
+    UIView * _callOutBillTypeView;
+    UIView * _maskView;
 }
 @property (strong, nonatomic) IBOutlet UIView *BS_OptionHeaderView;
 @property (strong, nonatomic) IBOutlet UIView *BS_MidTitleBg;
@@ -92,7 +101,8 @@
     [self.BS_inBillBtn setTitleColor:[UIColor km_colorWithHexString:BS_ColorGray] forState:UIControlStateNormal];
     [self.BS_inBillBtn setTitleColor:[UIColor km_colorWithHexString:BS_ColorBlue] forState:UIControlStateDisabled];
     
-    [self.BS_billTypeSwither setTitle:BS_BillTypeSwitchTitleMonth forState:UIControlStateNormal];
+    // 默认是天
+    [self.BS_billTypeSwither setTitle:BS_BillTypeSwitchTitleDay forState:UIControlStateNormal];
     [self.BS_billTypeSwither setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.BS_billTypeSwither setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
 
@@ -337,40 +347,31 @@
 
 
 #pragma mark - billTypeS
-- (NSArray *)_BS_getAllBillTypes{
+- (NSArray *)_BS_getBillTypesWithType:(BS_RecordType)type{
     if (_allBillTypes.count > 0) {
         NSMutableArray * array = [[NSMutableArray alloc] initWithCapacity:0];
         RecordTypeModel * allTp = [[RecordTypeModel alloc] init];
         allTp.code = 0;
         allTp.desc = @"全部";
-        allTp.type = BS_RecordTypeAll;
+        allTp.type = type;
         allTp.selected = YES;
         [array addObject:allTp];
         for (RecordTypeModel * atype in _allBillTypes) {
-            atype.selected = NO;
-            [array addObject:atype];
-        }
-        return array;
-    }else{
-        return nil;
-    }
-}
-
-/// 获得所有出账类型
-- (NSArray *)_BS_getOutBillTypes{
-    if (_allBillTypes.count > 0) {
-        NSMutableArray * array = [[NSMutableArray alloc] initWithCapacity:0];
-        RecordTypeModel * allTp = [[RecordTypeModel alloc] init];
-        allTp.code = 0;
-        allTp.desc = @"全部";
-        allTp.type = BS_RecordTypeOut;
-        allTp.selected = YES;
-        [array addObject:allTp];
-        for (RecordTypeModel * atype in _allBillTypes) {
-            if (atype.type == BS_RecordTypeOut) {
+            if (BS_RecordTypeAll == type) {
                 atype.selected = NO;
                 [array addObject:atype];
+            }else if (BS_RecordTypeOut == type){
+                if (atype.type == BS_RecordTypeOut) {
+                    atype.selected = NO;
+                    [array addObject:atype];
+                }
+            }else if (BS_RecordTypeIn == type){
+                if (atype.type == BS_RecordTypeIn) {
+                    atype.selected = NO;
+                    [array addObject:atype];
+                }
             }
+
         }
         return array;
     }else{
@@ -378,35 +379,50 @@
     }
 }
 
-/// 获得所有入账类型
-- (NSArray *)_BS_getInBillTypes{
-    if (_allBillTypes.count > 0) {
-        NSMutableArray * array = [[NSMutableArray alloc] initWithCapacity:0];
-        RecordTypeModel * allTp = [[RecordTypeModel alloc] init];
-        allTp.code = 0;
-        allTp.desc = @"全部";
-        allTp.type = BS_RecordTypeIn;
-        allTp.selected = YES;
-        [array addObject:allTp];
-        for (RecordTypeModel * atype in _allBillTypes) {
-            if (atype.type == BS_RecordTypeIn) {
-                atype.selected = NO;
-                [array addObject:atype];
-            }
-        }
-        return array;
-    }else{
-        return nil;
-    }
-}
 
-#pragma mark - KMNavigationTitleViewDelegate   title回调
+#pragma mark - KMNavigationTitleViewDelegate title回调
 - (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldHideContentView:(KMNavigationTitleViewOptionType)optionType typeId:(NSInteger)typeId{
-    
+    //
+    NSLog(@"%s",__func__);
+    if (_callOutBillTypeView) {
+
+        [UIView animateWithDuration:0.5 animations:^{
+            CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
+            CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
+            _callOutBillTypeView.frame = CGRectMake(0, -height, width, height);
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
 }
 
 - (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldShowContentView:(KMNavigationTitleViewOptionType)ot typeId:(NSInteger)tid{
     // show
+    if (!_callOutBillTypeView) {
+        _callOutBillTypeView = [[UIView alloc] initWithFrame:CGRectMake(0, -200, ScreenWidth, 200)];
+        _callOutBillTypeView.backgroundColor = [UIColor redColor];
+        [self.view addSubview:_callOutBillTypeView];
+        [self.view bringSubviewToFront:self.navBar];
+    }
+    
+    NSArray * types = [self _BS_getBillTypesWithType:(BS_RecordType)ot];
+    NSLog(@"%@",types);
+    
+//    [UIView animateWithDuration:3 delay:0.1 usingSpringWithDamping:0.2 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+//        CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
+//        CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
+//        _callOutBillTypeView.frame = CGRectMake(0, 64, width, height);
+//    } completion:^(BOOL finished) {
+//        
+//    }];
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
+        CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
+        _callOutBillTypeView.frame = CGRectMake(0, 64, width, height);
+    } completion:^(BOOL finished) {
+//        view.imgIsUp
+    }];
 }
 
 

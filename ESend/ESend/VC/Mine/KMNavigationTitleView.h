@@ -15,9 +15,9 @@ typedef NS_ENUM(NSInteger, KMNavigationTitleViewStyle) {
 
 // 分类type
 typedef NS_ENUM(NSInteger, KMNavigationTitleViewOptionType) {
-    KMNavigationTitleViewOptionTypeAll,     // all
-    KMNavigationTitleViewOptionTypePay,     // pay
-    KMNavigationTitleViewOptionTypeIncome   // income
+    KMNavigationTitleViewOptionTypeAll = 0,     // all
+    KMNavigationTitleViewOptionTypePay = 1,     // pay
+    KMNavigationTitleViewOptionTypeIncome = 2   // income
 };
 
 @class KMNavigationTitleView;
@@ -35,7 +35,9 @@ typedef NS_ENUM(NSInteger, KMNavigationTitleViewOptionType) {
 
 @property (nonatomic, assign) KMNavigationTitleViewStyle style;
 @property (nonatomic, assign) KMNavigationTitleViewOptionType optionType; // 0,1,2
-@property (nonatomic, assign) NSInteger typeId; // 
+@property (nonatomic, assign) NSInteger typeId; //
+
+@property (nonatomic, assign) BOOL imgIsUp;                 // showing
 
 @property (nonatomic, weak) id<KMNavigationTitleViewDelegate>delegate;
 

@@ -46,7 +46,7 @@ static NSInteger const KMCalendarNormalFontSize = 16;
         self.userInteractionEnabled = YES;
         self.dateStyleLastDate = [NSDate new];
         self.monthStyleLastDate = [NSDate new];
-        self.style = KMMonthDateCalendarViewStyleMonth;
+        self.style = KMMonthDateCalendarViewStyleDate; // 默认是 天
         [self addSubview:self.backgroundImageView];
     }
     return self;
