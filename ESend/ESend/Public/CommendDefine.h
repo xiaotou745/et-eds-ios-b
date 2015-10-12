@@ -136,6 +136,9 @@ fprintf(stderr, "-------\n");                                               \
 //
 #define SeparatorLineColor [UIColor colorWithHexString:@"dfdfdf"]
 
+// 1f2226
+#define BlackColor  [UIColor colorWithHexString:@"1f2226"]
+
 #define isCanUseString(str) ( (str != nil) && ![str isKindOfClass:[NSNull class]] && [str isKindOfClass:[NSString class]] && [str length] > 0 )
 #define isCanUseObj(str) ( str && (str != nil) && ![str isKindOfClass:[NSNull class]] )
 #define isCanUseArray(arr) ( arr && (arr != nil) && ![arr isKindOfClass:[NSNull class]] )

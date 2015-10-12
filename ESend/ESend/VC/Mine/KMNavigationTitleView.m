@@ -40,10 +40,10 @@
 - (UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KmNavigationTitleLabelWidth, self.bounds.size.height)];
-        _titleLabel.backgroundColor = [UIColor whiteColor];
+        _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = [UIFont boldSystemFontOfSize:18];
         _titleLabel.textAlignment = NSTextAlignmentRight;
-        _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.text = @"全部账单";
     }
     return _titleLabel;
@@ -93,16 +93,18 @@
     _style = style;
     if (_style == KMNavigationTitleViewStyleDay) { // 天，有img
         [UIView animateWithDuration:0.1 animations:^{
-            _titleLabel.frame = CGRectMake(0, 0, KmNavigationTitleLabelWidth, self.bounds.size.height);
-            //_titleImg.frame = CGRectMake(KmNavigationTitleLabelWidth + 2, (44-KmNavigationTiltelImgWidth)/2, KmNavigationTiltelImgWidth, KmNavigationTiltelImgWidth);
+            // _titleLabel.frame = CGRectMake(0, 0, KmNavigationTitleLabelWidth, self.bounds.size.height);
+            // _titleImg.frame = CGRectMake(KmNavigationTitleLabelWidth + 2, (44-KmNavigationTiltelImgWidth)/2, KmNavigationTiltelImgWidth, KmNavigationTiltelImgWidth);
+            _titleImg.hidden = NO;
         } completion:^(BOOL finished) {
             //_titleLabel.textAlignment = NSTextAlignmentRight;
         }];
     }else if (_style == KMNavigationTitleViewStyleMonth){
         [UIView animateWithDuration:0.1 animations:^{
-            _titleLabel.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+            // _titleLabel.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+            _titleImg.hidden = YES;
         } completion:^(BOOL finished) {
-            //_titleLabel.textAlignment = NSTextAlignmentCenter;
+            // _titleLabel.textAlignment = NSTextAlignmentCenter;
         }];
     }
 }

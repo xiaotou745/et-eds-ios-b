@@ -8,6 +8,8 @@
 
 #import "EDSBillStatisticsVC.h"
 #import "KMMonthDateCalendarView.h"
+#import "UIColor+KMhexColor.h"
+
 #import "FHQNetWorkingAPI.h"
 #import "KMNavigationTitleView.h"
 
@@ -16,6 +18,16 @@
 
 #import "Encryption.h"
 #import "UserInfo.h"
+
+#define BS_OptionTypeBtnTitleAll @"全部"
+#define BS_OptionTypeBtnTitleOut @"出账"
+#define BS_OptionTypeBtnTitleIn @"入账"
+
+#define BS_BillTypeSwitchTitleMonth @"切换到日"
+#define BS_BillTypeSwitchTitleDay @"切换到月"
+
+#define BS_ColorGray @"666666"
+#define BS_ColorBlue @"00bcd5"
 
 
 #define BillStatisticsAPIHost @"http://10.8.7.253:7178/api-http/services/"
@@ -31,6 +43,14 @@
 @property (strong, nonatomic) IBOutlet UIView *BS_MidTitleBg;
 @property (strong, nonatomic) IBOutlet UILabel *BS_MidTextV;
 @property (strong, nonatomic) IBOutlet UITableView *BS_TableView;
+
+// option buttons
+@property (strong, nonatomic) IBOutlet UIButton *BS_allBillBtn;
+@property (strong, nonatomic) IBOutlet UIButton *BS_outBillBtn;
+@property (strong, nonatomic) IBOutlet UIButton *BS_inBillBtn;
+@property (strong, nonatomic) IBOutlet UIImageView *BS_billTypeIndicator;
+
+@property (strong, nonatomic) IBOutlet UIButton *BS_billTypeSwither;
 
 @property (strong, nonatomic) KMNavigationTitleView * titleView;
 @property (strong, nonatomic) KMMonthDateCalendarView * calendarView;
@@ -50,6 +70,26 @@
     _bills = [[NSMutableArray alloc] initWithCapacity:0];
     self.style = EDSBillStatisticsVCStyleDay;
     
+    // 全部，出账，入账
+    [self.BS_allBillBtn setTitle:BS_OptionTypeBtnTitleAll forState:UIControlStateNormal];
+    [self.BS_allBillBtn setTitleColor:[UIColor km_colorWithHexString:BS_ColorGray] forState:UIControlStateNormal];
+    [self.BS_allBillBtn setTitleColor:[UIColor km_colorWithHexString:BS_ColorBlue] forState:UIControlStateDisabled];
+    
+    [self.BS_outBillBtn setTitle:BS_OptionTypeBtnTitleOut forState:UIControlStateNormal];
+    [self.BS_outBillBtn setTitleColor:[UIColor km_colorWithHexString:BS_ColorGray] forState:UIControlStateNormal];
+    [self.BS_outBillBtn setTitleColor:[UIColor km_colorWithHexString:BS_ColorBlue] forState:UIControlStateDisabled];
+    
+    [self.BS_inBillBtn setTitle:BS_OptionTypeBtnTitleIn forState:UIControlStateNormal];
+    [self.BS_inBillBtn setTitleColor:[UIColor km_colorWithHexString:BS_ColorGray] forState:UIControlStateNormal];
+    [self.BS_inBillBtn setTitleColor:[UIColor km_colorWithHexString:BS_ColorBlue] forState:UIControlStateDisabled];
+    
+    [self.BS_billTypeSwither setTitle:BS_BillTypeSwitchTitleMonth forState:UIControlStateNormal];
+    [self.BS_billTypeSwither setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.BS_billTypeSwither setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
+
+    // indicator
+    self.BS_billTypeIndicator.backgroundColor = [UIColor km_colorWithHexString:BS_ColorBlue];
+    
     // titel view
     _titleView = [[KMNavigationTitleView alloc] initWithFrame:CGRectMake((ScreenWidth - 100)/2, 20, 100, 44)];
     _titleView.style = KMNavigationTitleViewStyleDay;
@@ -65,10 +105,6 @@
     self.BS_MidTextV.font = [UIFont systemFontOfSize:BigFontSize];
     [self.view addSubview:self.calendarView];
     //
-    
-    UIButton * butn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-    [self.BS_MidTitleBg addSubview:butn];
-    [butn addTarget:self action:@selector(butnA:) forControlEvents:UIControlEventTouchUpInside];
     
     //
     [self getrecordtypeb];
@@ -134,6 +170,67 @@
 }
 
 
+#pragma mark - option button action
+
+- (IBAction)allBillTypeAction:(UIButton *)sender {
+    [self _BS_buttonEventWithSender:sender];
+}
+
+- (IBAction)outBillTypeAction:(UIButton *)sender {
+    [self _BS_buttonEventWithSender:sender];
+
+}
+
+- (IBAction)inBillTypeAction:(UIButton *)sender {
+    [self _BS_buttonEventWithSender:sender];
+
+}
+
+- (void)_enableAllOptionBtns{
+    self.BS_allBillBtn.enabled = YES;
+    self.BS_outBillBtn.enabled = YES;
+    self.BS_inBillBtn.enabled = YES;
+}
+
+- (void)_BS_buttonEventWithSender:(UIButton *)sender{
+    [self _enableAllOptionBtns];
+    sender.enabled = NO;
+//    [self.Hp_ListMainScroller setContentOffset:CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds])*(sender.tag - 1 - HeadButtonTagTrans), 0) animated:YES];
+    CGFloat movCenterY = self.BS_billTypeIndicator.center.y;
+    CGFloat newCenterX = sender.center.x;
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.BS_billTypeIndicator.center = CGPointMake(newCenterX, movCenterY);
+
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (IBAction)monthDaySwitchAction:(UIButton *)sender {
+    if ([sender.currentTitle isEqualToString:BS_BillTypeSwitchTitleMonth]) {    // 切换到日
+        
+        [sender setTitle:BS_BillTypeSwitchTitleDay forState:UIControlStateNormal];
+        
+        _calendarView.style = KMMonthDateCalendarViewStyleDate;
+        
+    }else{  // 切换到月
+        
+        [sender setTitle:BS_BillTypeSwitchTitleMonth forState:UIControlStateNormal];
+        
+        _calendarView.style = KMMonthDateCalendarViewStyleMonth;
+
+    }
+    
+    if (_titleView.style == KMNavigationTitleViewStyleMonth) {
+        _titleView.style = KMNavigationTitleViewStyleDay;
+        
+    }else{
+        _titleView.style = KMNavigationTitleViewStyleMonth;
+        
+    }
+    
+}
 
 
 #pragma mark - apis

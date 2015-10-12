@@ -25,4 +25,7 @@
 /// 判断是否是当月
 - (BOOL)isTheCurrentMonth;
 
+- (BOOL)is20140101Day;
+- (BOOL)is201401Month;
+
 @end

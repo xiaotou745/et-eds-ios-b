@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -11,6 +11,11 @@
                 <outlet property="BS_MidTitleBg" destination="4OO-oy-eYj" id="u0B-m6-EcX"/>
                 <outlet property="BS_OptionHeaderView" destination="ntp-uz-odQ" id="bAU-hr-gho"/>
                 <outlet property="BS_TableView" destination="l74-4f-jPU" id="os7-Vx-okk"/>
+                <outlet property="BS_allBillBtn" destination="5mh-hR-LBK" id="vn0-71-REV"/>
+                <outlet property="BS_billTypeIndicator" destination="Xm9-SO-WhK" id="njp-M5-JZf"/>
+                <outlet property="BS_billTypeSwither" destination="F2V-g3-Gy8" id="sxl-N9-bGb"/>
+                <outlet property="BS_inBillBtn" destination="8Hx-5j-yAP" id="jfR-N1-Wfq"/>
+                <outlet property="BS_outBillBtn" destination="ybA-7e-W22" id="BaC-Jj-jep"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,13 +26,85 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntp-uz-odQ" userLabel="OptionHeader">
                     <rect key="frame" x="0.0" y="64" width="600" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2V-g3-Gy8" userLabel="switch">
+                            <rect key="frame" x="500" y="10" width="85" height="30"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="G0u-9n-9t9"/>
+                                <constraint firstAttribute="width" constant="85" id="eec-QP-Yf7"/>
+                            </constraints>
+                            <state key="normal" title="切换到月"/>
+                            <connections>
+                                <action selector="monthDaySwitchAction:" destination="-1" eventType="touchUpInside" id="JAg-Yo-U1f"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mh-hR-LBK" userLabel="all">
+                            <rect key="frame" x="0.0" y="1" width="55" height="43"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="55" id="EX5-Ds-Rfu"/>
+                            </constraints>
+                            <state key="normal" title="全部">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="allBillTypeAction:" destination="-1" eventType="touchUpInside" id="ncR-3Z-ne0"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybA-7e-W22" userLabel="out">
+                            <rect key="frame" x="55" y="1" width="55" height="43"/>
+                            <animations/>
+                            <state key="normal" title="出账">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="outBillTypeAction:" destination="-1" eventType="touchUpInside" id="PDX-wR-y5K"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Hx-5j-yAP" userLabel="in">
+                            <rect key="frame" x="110" y="1" width="55" height="46"/>
+                            <animations/>
+                            <state key="normal" title="入账">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="inBillTypeAction:" destination="-1" eventType="touchUpInside" id="eHv-tZ-Q6r"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xm9-SO-WhK" userLabel="indicator">
+                            <rect key="frame" x="0.0" y="46" width="45" height="3"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="45" id="hKf-Z3-Vox"/>
+                                <constraint firstAttribute="height" constant="3" id="w68-g8-LMe"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="Xm9-SO-WhK" firstAttribute="leading" secondItem="ntp-uz-odQ" secondAttribute="leading" id="0oJ-zM-nlt"/>
                         <constraint firstAttribute="height" constant="50" id="2d8-fy-keM"/>
+                        <constraint firstItem="ybA-7e-W22" firstAttribute="width" secondItem="5mh-hR-LBK" secondAttribute="width" id="3y5-d4-HnW"/>
+                        <constraint firstItem="5mh-hR-LBK" firstAttribute="top" secondItem="ntp-uz-odQ" secondAttribute="top" constant="1" id="9uo-4k-4jh"/>
+                        <constraint firstAttribute="bottom" secondItem="8Hx-5j-yAP" secondAttribute="bottom" constant="3" id="A2m-VW-A33"/>
+                        <constraint firstItem="Xm9-SO-WhK" firstAttribute="top" secondItem="ybA-7e-W22" secondAttribute="bottom" constant="2" id="AUK-K3-yzC"/>
+                        <constraint firstItem="8Hx-5j-yAP" firstAttribute="top" secondItem="ntp-uz-odQ" secondAttribute="top" constant="1" id="EY9-nO-Nio"/>
+                        <constraint firstItem="F2V-g3-Gy8" firstAttribute="centerY" secondItem="ntp-uz-odQ" secondAttribute="centerY" id="XRZ-6c-KqF"/>
+                        <constraint firstItem="8Hx-5j-yAP" firstAttribute="width" secondItem="5mh-hR-LBK" secondAttribute="width" id="ZRS-LY-zQ6"/>
+                        <constraint firstItem="5mh-hR-LBK" firstAttribute="leading" secondItem="ntp-uz-odQ" secondAttribute="leading" id="c5W-s1-NHY"/>
+                        <constraint firstAttribute="trailing" secondItem="F2V-g3-Gy8" secondAttribute="trailing" constant="15" id="cvA-Wj-Ur0"/>
+                        <constraint firstItem="Xm9-SO-WhK" firstAttribute="top" secondItem="5mh-hR-LBK" secondAttribute="bottom" constant="2" id="fkM-v8-Cjk"/>
+                        <constraint firstItem="ybA-7e-W22" firstAttribute="top" secondItem="ntp-uz-odQ" secondAttribute="top" constant="1" id="gN0-Nz-Rh6"/>
+                        <constraint firstItem="ybA-7e-W22" firstAttribute="leading" secondItem="5mh-hR-LBK" secondAttribute="trailing" id="hAa-gc-cSL"/>
+                        <constraint firstAttribute="bottom" secondItem="Xm9-SO-WhK" secondAttribute="bottom" constant="1" id="wUt-t9-hyH"/>
+                        <constraint firstItem="8Hx-5j-yAP" firstAttribute="leading" secondItem="ybA-7e-W22" secondAttribute="trailing" id="xoA-jZ-khd"/>
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="l74-4f-jPU">
                     <rect key="frame" x="0.0" y="239" width="600" height="361"/>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="cQU-HY-gbL"/>
@@ -39,11 +116,13 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="账单明细" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="44j-Hc-GrI">
                             <rect key="frame" x="10" y="0.0" width="590" height="25"/>
+                            <animations/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="44j-Hc-GrI" firstAttribute="leading" secondItem="4OO-oy-eYj" secondAttribute="leading" constant="10" id="Jnx-wc-LWi"/>
@@ -54,6 +133,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="l74-4f-jPU" secondAttribute="trailing" id="1lb-sP-0h3"/>

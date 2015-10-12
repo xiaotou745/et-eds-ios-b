@@ -127,6 +127,8 @@
 		68AE2BDF1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BDB1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib */; settings = {ASSET_TAGS = (); }; };
 		68AE2BE21BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; settings = {ASSET_TAGS = (); }; };
 		68AE2BE31BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; settings = {ASSET_TAGS = (); }; };
+		68C3D71D1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; settings = {ASSET_TAGS = (); }; };
+		68C3D71E1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; settings = {ASSET_TAGS = (); }; };
 		CF07AEE11BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; settings = {ASSET_TAGS = (); }; };
 		CF07AEE21BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; settings = {ASSET_TAGS = (); }; };
 		CF07AEE31BAEB30D005A93EB /* MNDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */; settings = {ASSET_TAGS = (); }; };
@@ -681,6 +683,8 @@
 		68AE2BDB1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsDayCell.xib; sourceTree = "<group>"; };
 		68AE2BE01BC9161600E8149C /* KMNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMNavigationTitleView.h; sourceTree = "<group>"; };
 		68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMNavigationTitleView.m; sourceTree = "<group>"; };
+		68C3D71B1BCBA6140081D082 /* UIImage+KmImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KmImg.h"; sourceTree = "<group>"; };
+		68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KmImg.m"; sourceTree = "<group>"; };
 		CF07AEDE1BAEB30D005A93EB /* MNDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNDatePicker.h; sourceTree = "<group>"; };
 		CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNDatePicker.m; sourceTree = "<group>"; };
 		CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MNDatePicker.xib; sourceTree = "<group>"; };
@@ -1306,6 +1310,8 @@
 				6801E3B21BC8B1BD00CE13ED /* NSString+KM_String.m */,
 				6801E3B31BC8B1BD00CE13ED /* UIColor+KMhexColor.h */,
 				6801E3B41BC8B1BD00CE13ED /* UIColor+KMhexColor.m */,
+				68C3D71B1BCBA6140081D082 /* UIImage+KmImg.h */,
+				68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */,
 			);
 			path = KMutility;
 			sourceTree = "<group>";
@@ -2654,6 +2660,7 @@
 				F67D35A21B5664A600083DA4 /* OrderRefuseViewController.m in Sources */,
 				F67D35A31B5664A600083DA4 /* openssl_wrapper.m in Sources */,
 				F67D35A41B5664A600083DA4 /* MJPhotoLoadingView.m in Sources */,
+				68C3D71E1BCBA6140081D082 /* UIImage+KmImg.m in Sources */,
 				F67D35A51B5664A600083DA4 /* Encryption.m in Sources */,
 				F67D35A61B5664A600083DA4 /* FMDatabasePool.m in Sources */,
 				F67D35A71B5664A600083DA4 /* SupermanOrderModel.m in Sources */,
@@ -2873,6 +2880,7 @@
 				F6441B531B3D470100EA3C9D /* openssl_wrapper.m in Sources */,
 				F6C6AD8F1B12F42F0007A980 /* MJPhotoLoadingView.m in Sources */,
 				F6C6AC9E1B12F3EB0007A980 /* Encryption.m in Sources */,
+				68C3D71D1BCBA6140081D082 /* UIImage+KmImg.m in Sources */,
 				F66CA1571B1EEF9C006BDDB8 /* FMDatabasePool.m in Sources */,
 				F6441B1E1B3BC2AC00EA3C9D /* SupermanOrderModel.m in Sources */,
 				F62E8D061B2EB23D006F3862 /* BussinessModel.m in Sources */,

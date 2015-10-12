@@ -188,6 +188,12 @@ static NSInteger const KMCalendarNormalFontSize = 16;
         }else if (_style == KMMonthDateCalendarViewStyleMonth && [self.monthStyleLastDate isTheCurrentMonth]){
             return;
         }
+    }else{
+        if (_style == KMMonthDateCalendarViewStyleDate && [self.dateStyleLastDate is20140101Day]) {
+            return;
+        }else if (_style == KMMonthDateCalendarViewStyleMonth && [self.monthStyleLastDate is201401Month]){
+            return;
+        }
     }
     
     CATransition *animation = [CATransition animation];
@@ -210,10 +216,12 @@ static NSInteger const KMCalendarNormalFontSize = 16;
         self.dateStyleLastDate = [self.dateStyleLastDate addDays:swipeDirectionRight?-1:1];
         resultDateString = [self.dateStyleLastDate dateToStringWithFormat:KMCalendarDatePrintFormat];
         _rightIndicatorImg.highlighted = [self.dateStyleLastDate isToday];
+        _leftIndicatorImg.highlighted = [self.dateStyleLastDate is20140101Day];
     }else if (_style == KMMonthDateCalendarViewStyleMonth){
         self.monthStyleLastDate = [self.monthStyleLastDate addMonths:swipeDirectionRight?-1:1];
         resultDateString = [self.monthStyleLastDate dateToStringWithFormat:KMCalendarMonthPrintFormat];
         _rightIndicatorImg.highlighted = [self.monthStyleLastDate isTheCurrentMonth];
+        _leftIndicatorImg.highlighted = [self.monthStyleLastDate is201401Month];
     }
     _dateTimeLabel.text = resultDateString;
 }

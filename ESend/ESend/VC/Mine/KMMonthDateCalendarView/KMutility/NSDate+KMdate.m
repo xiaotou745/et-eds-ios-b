@@ -84,7 +84,49 @@
     return result;
 }
 
+- (BOOL)is201401Month{
+    BOOL result = NO;
+    NSDateComponents *compsToday = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSYearCalendarUnit |
+    NSMonthCalendarUnit |
+    NSDayCalendarUnit |
+    NSWeekdayCalendarUnit |
+    NSHourCalendarUnit |
+    NSMinuteCalendarUnit |
+    NSSecondCalendarUnit;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    compsToday = [calendar components:unitFlags fromDate:self];
+    //NSInteger weekToday = [compsToday weekday];
+    NSInteger yearToday = [compsToday year];
+    NSInteger monthToday = [compsToday month];
+    if (2014 == yearToday && 1 == monthToday) {
+        result = YES;
+    }
+    return result;
+}
 
+- (BOOL)is20140101Day{
+    BOOL result = NO;
+    NSDateComponents *compsToday = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSYearCalendarUnit |
+    NSMonthCalendarUnit |
+    NSDayCalendarUnit |
+    NSWeekdayCalendarUnit |
+    NSHourCalendarUnit |
+    NSMinuteCalendarUnit |
+    NSSecondCalendarUnit;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    compsToday = [calendar components:unitFlags fromDate:self];
+    //NSInteger weekToday = [compsToday weekday];
+    NSInteger yearToday = [compsToday year];
+    NSInteger monthToday = [compsToday month];
+    NSInteger dayToday = [compsToday day];
+    
+    if (2014 == yearToday && 1 == monthToday && 1 == dayToday) {
+        result = YES;
+    }
+    return result;
+}
 
 
 @end
