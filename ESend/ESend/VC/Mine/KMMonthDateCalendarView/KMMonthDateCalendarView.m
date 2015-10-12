@@ -161,9 +161,14 @@ static NSInteger const KMCalendarNormalFontSize = 16;
         if (_style == KMMonthDateCalendarViewStyleDate) {
             _dateTimeLabel.text = [self.dateStyleLastDate dateToStringWithFormat:KMCalendarDatePrintFormat];
             _rightIndicatorImg.highlighted = [self.dateStyleLastDate isToday];
+
         }else if (_style == KMMonthDateCalendarViewStyleMonth) {
             _dateTimeLabel.text = [self.monthStyleLastDate dateToStringWithFormat:KMCalendarMonthPrintFormat];
             _rightIndicatorImg.highlighted = [self.monthStyleLastDate isTheCurrentMonth];
+
+        }
+        if ([self.delegate respondsToSelector:@selector(calendarView:SwitchToType:dateString:)]) {
+            [self.delegate calendarView:self SwitchToType:_style dateString:_dateTimeLabel.text];
         }
     }
 
@@ -238,9 +243,18 @@ static NSInteger const KMCalendarNormalFontSize = 16;
     
     //
     
-    if ([self.delegate respondsToSelector:@selector(calendarView:didStopChangeDate:)]) {
-        //[self.delegate calendarView:self didStopChangeDate: ];
+    if ([self.delegate respondsToSelector:@selector(calendarView:didStopChangeDate:dateString:)]) {
+        if (_style == KMMonthDateCalendarViewStyleDate) {
+            [self.delegate calendarView:self didStopChangeDate:self.dateStyleLastDate dateString:[self.dateStyleLastDate dateToStringWithFormat:KMCalendarDatePrintFormat]];
+        }else if (_style == KMMonthDateCalendarViewStyleMonth){
+            [self.delegate calendarView:self didStopChangeDate:self.monthStyleLastDate dateString:[self.monthStyleLastDate dateToStringWithFormat:KMCalendarMonthPrintFormat]];
+        }
     }
+}
+
+/// 请求接口得到出账入账金额
+- (void)setOutBillAmount:(double)outAmount inAmount:(double)inAmout{
+    NSLog(@"%f,%f",outAmount,inAmout);
 }
 
 /*

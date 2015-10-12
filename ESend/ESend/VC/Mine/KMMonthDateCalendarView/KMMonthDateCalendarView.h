@@ -28,10 +28,11 @@ typedef NS_ENUM(NSInteger, KMMonthDateCalendarViewStyle) {
 @class KMMonthDateCalendarView;
 
 @protocol KMMonthDateCalendarViewDelegate <NSObject>
-
+/// 动画开始
 - (void)calendarViewDidStartChangeDate:(KMMonthDateCalendarView *)calendarView;
-- (void)calendarView:(KMMonthDateCalendarView *)calendarView didStopChangeDate:(NSDate *)date;
-
+- (void)calendarView:(KMMonthDateCalendarView *)calendarView didStopChangeDate:(NSDate *)date dateString:(NSString *)dateString;
+/// 日，月切换
+- (void)calendarView:(KMMonthDateCalendarView *)calendarView SwitchToType:(KMMonthDateCalendarViewStyle)style dateString:(NSString *)dateString;
 @end
 
 
@@ -40,5 +41,8 @@ typedef NS_ENUM(NSInteger, KMMonthDateCalendarViewStyle) {
 @property (nonatomic, weak) id<KMMonthDateCalendarViewDelegate>delegate;
 
 @property (nonatomic, assign) KMMonthDateCalendarViewStyle style;
+
+/// 请求接口得到出账入账金额
+- (void)setOutBillAmount:(double)outAmount inAmount:(double)inAmout;
 
 @end

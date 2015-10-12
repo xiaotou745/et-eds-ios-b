@@ -34,8 +34,8 @@ typedef NS_ENUM(NSInteger, KMNavigationTitleViewOptionType) {
 @interface KMNavigationTitleView : UIView
 
 @property (nonatomic, assign) KMNavigationTitleViewStyle style;
-@property (nonatomic, assign) KMNavigationTitleViewOptionType optionType;
-@property (nonatomic, assign) NSInteger typeId;
+@property (nonatomic, assign) KMNavigationTitleViewOptionType optionType; // 0,1,2
+@property (nonatomic, assign) NSInteger typeId; // 
 
 @property (nonatomic, weak) id<KMNavigationTitleViewDelegate>delegate;
 

@@ -10,4 +10,17 @@
 
 @implementation RecordTypeModel
 
+- (id)initWithDic:(NSDictionary *)dic {
+    self = [super init];
+    if (self) {
+        
+        self.code = [dic getIntegerWithKey:@"code"];
+        self.desc = [dic getStringWithKey:@"desc"];
+        self.type = [dic getIntegerWithKey:@"type"];
+        
+        self.selected = NO;
+    }
+    return self;
+}
+
 @end

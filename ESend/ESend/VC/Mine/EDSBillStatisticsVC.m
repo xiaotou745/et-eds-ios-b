@@ -9,15 +9,13 @@
 #import "EDSBillStatisticsVC.h"
 #import "KMMonthDateCalendarView.h"
 #import "UIColor+KMhexColor.h"
-
 #import "FHQNetWorkingAPI.h"
 #import "KMNavigationTitleView.h"
-
 #import "EDSBillStatisticsMonthCell.h"
 #import "EDSBillStatisticsDayCell.h"
-
 #import "Encryption.h"
 #import "UserInfo.h"
+#import "RecordTypeModel.h"
 
 #define BS_OptionTypeBtnTitleAll @"全部"
 #define BS_OptionTypeBtnTitleOut @"出账"
@@ -30,9 +28,9 @@
 #define BS_ColorBlue @"00bcd5"
 
 
-#define BillStatisticsAPIHost @"http://10.8.7.253:7178/api-http/services/"
+// #define BillStatisticsAPIHost @"http://10.8.7.253:7178/api-http/services/"
 
-@interface EDSBillStatisticsVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface EDSBillStatisticsVC ()<UITableViewDataSource,UITableViewDelegate,KMNavigationTitleViewDelegate,KMMonthDateCalendarViewDelegate>
 {
     NSInteger _currentPage;
     
@@ -59,6 +57,11 @@
 
 @property (strong, nonatomic) NSMutableArray * bills;
 
+// typeDataSource
+@property (strong, nonatomic) NSMutableArray * allBillTypes;
+@property (strong, nonatomic) NSMutableArray * outBillTypes;
+@property (strong, nonatomic) NSMutableArray * inBillTypes;
+
 @end
 
 @implementation EDSBillStatisticsVC
@@ -66,8 +69,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // data alloc
     _currentPage = 1;
     _bills = [[NSMutableArray alloc] initWithCapacity:0];
+    _allBillTypes = [[NSMutableArray alloc] initWithCapacity:0];
+    _outBillTypes = [[NSMutableArray alloc] initWithCapacity:0];
+    _inBillTypes = [[NSMutableArray alloc] initWithCapacity:0];
+    
+#pragma mark - type
     self.style = EDSBillStatisticsVCStyleDay;
     
     // 全部，出账，入账
@@ -93,6 +102,7 @@
     // titel view
     _titleView = [[KMNavigationTitleView alloc] initWithFrame:CGRectMake((ScreenWidth - 100)/2, 20, 100, 44)];
     _titleView.style = KMNavigationTitleViewStyleDay;
+    _titleView.delegate = self;
     [self.navBar addSubview:_titleView];
     
     // option view
@@ -105,24 +115,13 @@
     self.BS_MidTextV.font = [UIFont systemFontOfSize:BigFontSize];
     [self.view addSubview:self.calendarView];
     //
-    
-    //
     [self getrecordtypeb];
-}
-
-- (void)butnA:(id)sender{
-    if (_titleView.style == KMNavigationTitleViewStyleMonth) {
-        _titleView.style = KMNavigationTitleViewStyleDay;
-
-    }else{
-        _titleView.style = KMNavigationTitleViewStyleMonth;
-
-    }
 }
 
 - (KMMonthDateCalendarView *)calendarView{
     if (!_calendarView) {
         _calendarView = [[KMMonthDateCalendarView alloc] initWithFrame:CGRectMake(0, 50+64, ScreenWidth, KMMonthDateCalenderViewHeight)];
+        _calendarView.delegate = self;
     }
     return _calendarView;
 }
@@ -209,39 +208,28 @@
 
 - (IBAction)monthDaySwitchAction:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:BS_BillTypeSwitchTitleMonth]) {    // 切换到日
-        
         [sender setTitle:BS_BillTypeSwitchTitleDay forState:UIControlStateNormal];
-        
         _calendarView.style = KMMonthDateCalendarViewStyleDate;
-        
     }else{  // 切换到月
-        
         [sender setTitle:BS_BillTypeSwitchTitleMonth forState:UIControlStateNormal];
-        
         _calendarView.style = KMMonthDateCalendarViewStyleMonth;
-
     }
     
     if (_titleView.style == KMNavigationTitleViewStyleMonth) {
         _titleView.style = KMNavigationTitleViewStyleDay;
-        
     }else{
         _titleView.style = KMNavigationTitleViewStyleMonth;
-        
     }
-    
 }
 
 
 #pragma mark - apis
 - (AFHTTPRequestOperationManager *)_manager{
-    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer.timeoutInterval = 30;
-    
     NSDictionary * headerDict = [Encryption ESendB_Encryptioin];
     //NSLog(@"headerDicts:%@",headerDict);
     NSArray * keys = [headerDict allKeys];
@@ -254,11 +242,37 @@
 
 /// 1.1.8 B端商户点击账单按钮 获取所有的筛选条件类型
 - (AFHTTPRequestOperation *)getrecordtypeb{
-    NSString * urlstring = [NSString stringWithFormat:@"%@common/getrecordtypeb",BillStatisticsAPIHost];
-    AFHTTPRequestOperation * operation = [[self _manager] POST:urlstring parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    MBProgressHUD * waitingProcess = [Tools showProgressWithTitle:@""];
+    NSString * urlstring = [NSString stringWithFormat:@"%@common/getrecordtypeb",Java_API_SERVER];
+    NSDictionary *requstData = @{
+                                 @"Version":[Tools getApplicationVersion],
+                                 };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:requstData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        requstData = @{
+                       @"data":aesString,
+                       //@"Version":[Tools getApplicationVersion],
+                       };
+    }
+    AFHTTPRequestOperation * operation = [[self _manager] POST:urlstring parameters:requstData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:waitingProcess];
         // 系统错误 -1
+        NSInteger status = [responseObject[@"status"] integerValue];
+        NSString * message = responseObject[@"message"];
+        NSArray * result = responseObject[@"result"];
+        if (1 == status) {
+            [_allBillTypes removeAllObjects];
+            // 1 出账， 2 入账
+            for (NSDictionary * typeDict in result) {
+                RecordTypeModel * typeModel = [[RecordTypeModel alloc] initWithDic:typeDict];
+                [_allBillTypes addObject:typeModel];
+            }
+        }else{
+            NSLog(@"message:%@",message);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        [Tools hiddenProgress:waitingProcess];
     }];
     return operation;
 }
@@ -266,7 +280,7 @@
 // 加密？
 /// 1.1.2商户获取月账单(java必须大小写符合) // getbilllistb
 - (AFHTTPRequestOperation *)getbilllistMonthbWithMonth:(NSString *)monthString{
-    NSString * urlstring = [NSString stringWithFormat:@"%@accountbill/getbilllistb",BillStatisticsAPIHost];
+    NSString * urlstring = [NSString stringWithFormat:@"%@accountbill/getbilllistb",Java_API_SERVER];
     NSDictionary * paraDict = @{
                                 @"monthInfo":monthString,
                                 @"businessId":[UserInfo getUserId],
@@ -285,7 +299,7 @@
                                    billType:(NSInteger)billType
                                  recordType:(NSInteger)recordType
 {
-    NSString * urlstring = [NSString stringWithFormat:@"%@accountbill/getbilllistdayb",BillStatisticsAPIHost];
+    NSString * urlstring = [NSString stringWithFormat:@"%@accountbill/getbilllistdayb",Java_API_SERVER];
     
     NSDictionary * paraDict = @{
                                 @"dayInfo":dayString,
@@ -306,7 +320,7 @@
 /// 1.1.4商户获取账单详情(java必须大小写符合)//getbilldetailb
 - (AFHTTPRequestOperation *)getbilldetailbWithRecordId:(NSInteger)recordId
 {
-    NSString * urlstring = [NSString stringWithFormat:@"%@accountbill/getbilldetailb",BillStatisticsAPIHost];
+    NSString * urlstring = [NSString stringWithFormat:@"%@accountbill/getbilldetailb",Java_API_SERVER];
     
     NSDictionary * paraDict = @{
                                 @"recordId":[NSNumber numberWithInteger:recordId],
@@ -319,6 +333,97 @@
         
     }];
     return operation;
+}
+
+
+#pragma mark - billTypeS
+- (NSArray *)_BS_getAllBillTypes{
+    if (_allBillTypes.count > 0) {
+        NSMutableArray * array = [[NSMutableArray alloc] initWithCapacity:0];
+        RecordTypeModel * allTp = [[RecordTypeModel alloc] init];
+        allTp.code = 0;
+        allTp.desc = @"全部";
+        allTp.type = BS_RecordTypeAll;
+        allTp.selected = YES;
+        [array addObject:allTp];
+        for (RecordTypeModel * atype in _allBillTypes) {
+            atype.selected = NO;
+            [array addObject:atype];
+        }
+        return array;
+    }else{
+        return nil;
+    }
+}
+
+/// 获得所有出账类型
+- (NSArray *)_BS_getOutBillTypes{
+    if (_allBillTypes.count > 0) {
+        NSMutableArray * array = [[NSMutableArray alloc] initWithCapacity:0];
+        RecordTypeModel * allTp = [[RecordTypeModel alloc] init];
+        allTp.code = 0;
+        allTp.desc = @"全部";
+        allTp.type = BS_RecordTypeOut;
+        allTp.selected = YES;
+        [array addObject:allTp];
+        for (RecordTypeModel * atype in _allBillTypes) {
+            if (atype.type == BS_RecordTypeOut) {
+                atype.selected = NO;
+                [array addObject:atype];
+            }
+        }
+        return array;
+    }else{
+        return nil;
+    }
+}
+
+/// 获得所有入账类型
+- (NSArray *)_BS_getInBillTypes{
+    if (_allBillTypes.count > 0) {
+        NSMutableArray * array = [[NSMutableArray alloc] initWithCapacity:0];
+        RecordTypeModel * allTp = [[RecordTypeModel alloc] init];
+        allTp.code = 0;
+        allTp.desc = @"全部";
+        allTp.type = BS_RecordTypeIn;
+        allTp.selected = YES;
+        [array addObject:allTp];
+        for (RecordTypeModel * atype in _allBillTypes) {
+            if (atype.type == BS_RecordTypeIn) {
+                atype.selected = NO;
+                [array addObject:atype];
+            }
+        }
+        return array;
+    }else{
+        return nil;
+    }
+}
+
+#pragma mark - KMNavigationTitleViewDelegate   title回调
+- (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldHideContentView:(KMNavigationTitleViewOptionType)optionType typeId:(NSInteger)typeId{
+    
+}
+
+- (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldShowContentView:(KMNavigationTitleViewOptionType)ot typeId:(NSInteger)tid{
+    // show
+}
+
+
+
+
+
+#pragma mark - KMMonthDateCalendarViewDelegate calendar
+- (void)calendarView:(KMMonthDateCalendarView *)calendarView didStopChangeDate:(NSDate *)date dateString:(NSString *)dateString{
+    NSLog(@"ds:%@",dateString);
+}
+
+- (void)calendarView:(KMMonthDateCalendarView *)calendarView SwitchToType:(KMMonthDateCalendarViewStyle)style dateString:(NSString *)dateString{
+    NSLog(@"dss:%@",dateString);
+}
+
+- (void)calendarViewDidStartChangeDate:(KMMonthDateCalendarView *)calendarView{
+    // non
 }
 
 @end
