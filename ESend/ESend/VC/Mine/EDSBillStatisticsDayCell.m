@@ -22,12 +22,12 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    self.amountLbl.font = [UIFont boldSystemFontOfSize:20.0f];
+    self.amountLbl.font = [UIFont boldSystemFontOfSize:16.0f];
     self.amountLbl.textColor = RedDefault;
     self.rmbMark.textColor = RedDefault;
     
-    self.timeLbl.font = 
-    self.remarkLbl.font = [UIFont boldSystemFontOfSize:15.0f];
+    self.remarkLbl.font = [UIFont boldSystemFontOfSize:13.0f];
+    self.timeLbl.font = [UIFont systemFontOfSize:13.0f];
     self.remarkLbl.textColor = DeepGrey;
     
     self.timeLbl.textColor = TextColor6;

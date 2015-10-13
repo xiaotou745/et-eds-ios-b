@@ -18,7 +18,7 @@ static NSString* const KMCalendarHexColorDark = @"333333";
 static NSString* const KMCalendarHexColorGray = @"666666";
 
 static NSInteger const KMCalendarBigFontSize = 20;
-static NSInteger const KMCalendarNormalFontSize = 16;
+static NSInteger const KMCalendarNormalFontSize = 14;
 
 
 @interface KMMonthDateCalendarView ()<UIGestureRecognizerDelegate>

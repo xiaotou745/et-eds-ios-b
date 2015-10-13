@@ -38,6 +38,8 @@
 
 #define BS_calloutContentCountPerRow 3
 
+#define BS_EmptyBillText @"暂无账单信息"
+
 
 // #define BillStatisticsAPIHost @"http://10.8.7.253:7178/api-http/services/"
 
@@ -164,13 +166,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _bills.count;
-//    if (self.style == EDSBillStatisticsVCStyleDay) {
-//        return _dayBills.count;
-//    }else if (self.style == EDSBillStatisticsVCStyleMonth){
-//        return _monthBills.count;
-//    }else{
-//        return 0;
-//    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -188,6 +183,7 @@
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"EDSBillStatisticsMonthCell" owner:self options:nil] objectAtIndex:0];
         }
+        cell.daybillInfo = [_bills objectAtIndex:indexPath.row];
         return cell;
     }else{
         return nil;
@@ -210,7 +206,10 @@
         DayBillDetailInfo * dayInfo = [_bills objectAtIndex:indexPath.row];
         [self getbilldetailbWithRecordId:dayInfo.recordId];
     }else if (EDSBillStatisticsVCStyleMonth == self.style){
-        [self monthDaySwitchAction:self.BS_billTypeSwither];
+        DayBillInfo * dayInfo = [_bills objectAtIndex:indexPath.row];
+        if (1 == dayInfo.hasDatas) {
+            [self monthDaySwitchAction:self.BS_billTypeSwither];
+        }
     }
 }
 
@@ -269,18 +268,22 @@
 - (IBAction)monthDaySwitchAction:(UIButton *)sender {
     if ([sender.currentTitle isEqualToString:BS_BillTypeSwitchTitleMonth]) {    // 切换到日
         [sender setTitle:BS_BillTypeSwitchTitleDay forState:UIControlStateNormal];
-        _calendarView.style = KMMonthDateCalendarViewStyleDate;
         _BS_outBillBtn.hidden = _BS_inBillBtn.hidden = NO;
         self.style = EDSBillStatisticsVCStyleDay;
+        
+        _calendarView.style = KMMonthDateCalendarViewStyleDate;
+
     }else{  // 切换到月
         [sender setTitle:BS_BillTypeSwitchTitleMonth forState:UIControlStateNormal];
-        _calendarView.style = KMMonthDateCalendarViewStyleMonth;
         _BS_outBillBtn.hidden = _BS_inBillBtn.hidden = YES;
         _titleView.titleString = @"全部订单";
         _currentType = BS_RecordTypeAll;
         _currentTypeSub= 0;
-        self.style = EDSBillStatisticsVCStyleDay;
+        self.style = EDSBillStatisticsVCStyleMonth;
         [self allBillTypeAction:_BS_allBillBtn];
+        
+        _calendarView.style = KMMonthDateCalendarViewStyleMonth;
+
     }
     
     if (_titleView.style == KMNavigationTitleViewStyleMonth) {
@@ -367,6 +370,33 @@
     AFHTTPRequestOperation * operation = [[self _manager] POST:urlstring parameters:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:waitingProcess];
         
+        NSInteger status = [responseObject[@"status"] integerValue];
+        NSString * message = responseObject[@"message"];
+        NSDictionary * result = responseObject[@"result"];
+        if (1 == status) {
+            NSLog(@"%@",result);
+            _inMoney = [result[@"inMoney"] doubleValue];
+            _outMoney = [result[@"outMoney"] doubleValue];
+            NSArray * listDays = result[@"listDays"];
+            
+            [self _removeBSEmptyBillView];
+            if (listDays.count == 0) {
+                [self _showBSEmptyBillView];
+            }
+            
+            [_calendarView setOutBillAmount:_outMoney inAmount:_inMoney];
+            [_bills removeAllObjects];
+            for (NSDictionary * aRecords in listDays) {
+                DayBillInfo * dayInfo = [[DayBillInfo alloc] initWithDic:aRecords];
+                [_bills addObject:dayInfo];
+            }
+            [self.BS_TableView reloadData];
+            
+        }else{
+            [_calendarView setOutBillAmount:0 inAmount:0];
+            [Tools showHUD:message];
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:waitingProcess];
         
@@ -384,6 +414,7 @@
     NSString * urlstring = [NSString stringWithFormat:@"%@accountbill/getbilllistdayb",Java_API_SERVER];
     NSDictionary * paraDict = @{
                                 @"dayInfo":dayString,
+                                
                                 @"businessId":@"2007",//[UserInfo getUserId],
                                 @"billType":[NSNumber numberWithInteger:billType],
                                 @"recordType":[NSNumber numberWithInteger:recordType],
@@ -408,6 +439,12 @@
             _inMoney = [result[@"inMoney"] doubleValue];
             _outMoney = [result[@"outMoney"] doubleValue];
             NSArray * listRecordS = result[@"listRecordS"];
+            
+            [self _removeBSEmptyBillView];
+            if (listRecordS.count == 0) {
+                [self _showBSEmptyBillView];
+            }
+            
             [_calendarView setOutBillAmount:_outMoney inAmount:_inMoney];
             [_bills removeAllObjects];
             for (NSDictionary * aRecords in listRecordS) {
@@ -629,5 +666,36 @@
 
 
 #pragma mark - 空订单的情况
+- (void)_showBSEmptyBillView{
+    if (!_emptyBillImg) {
+        // 61 * 61
+        _emptyBillImg = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _emptyBillImg.image = [UIImage imageNamed:@"gray_icon"];
+        _emptyBillImg.frame = CGRectMake(0, 0, 61, 61);
+    }
+    if (!_emptyBillTextLbl) {
+        _emptyBillTextLbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 20)];
+        _emptyBillTextLbl.backgroundColor = [UIColor clearColor];
+        _emptyBillTextLbl.text = BS_EmptyBillText;
+        _emptyBillTextLbl.font = [UIFont systemFontOfSize:15];
+        _emptyBillTextLbl.textAlignment = NSTextAlignmentCenter;
+        _emptyBillTextLbl.textColor = LightGrey;
+        
+    }
+    CGFloat tvHeight = ScreenHeight - 240;
+    CGPoint imgCenter = CGPointMake(ScreenWidth/2, tvHeight/2);
+    _emptyBillImg.center = imgCenter;
+    [self.BS_TableView addSubview:_emptyBillImg];
+    _emptyBillTextLbl.frame = CGRectMake(0, CGRectGetMaxY(_emptyBillImg.frame) + 10, ScreenWidth, 20) ;
+    [self.BS_TableView addSubview:_emptyBillTextLbl];
+    
+}
+
+- (void)_removeBSEmptyBillView{
+    if (_emptyBillImg) {
+        [_emptyBillImg removeFromSuperview];
+        [_emptyBillTextLbl removeFromSuperview];
+    }
+}
 
 @end

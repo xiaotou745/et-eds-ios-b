@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DayBillInfo.h"
 
 @interface EDSBillStatisticsMonthCell : UITableViewCell
+
+@property (nonatomic, strong) DayBillInfo * daybillInfo;
 
 @end

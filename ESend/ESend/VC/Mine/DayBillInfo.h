@@ -14,6 +14,6 @@
 @property (nonatomic, copy) NSString * dayInfo;     // 天数信息
 @property (nonatomic, assign) double inMoney;       // 当天总收入
 @property (nonatomic, assign) double outMoney;      // 当天总支出
-@property (nonatomic, assign) int hasDatas;        // 1:当天有数据 0:当天没有数据
+@property (nonatomic, assign) NSInteger hasDatas;        // 1:当天有数据 0:当天没有数据
 
 @end

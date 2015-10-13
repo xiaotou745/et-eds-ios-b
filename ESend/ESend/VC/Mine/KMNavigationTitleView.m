@@ -32,7 +32,7 @@
 
 
 - (void)configViews{
-    self.backgroundColor = [UIColor clearColor];
+    //self.backgroundColor = [UIColor clearColor];
     [self addSubview:self.titleImg];
     [self addSubview:self.titleLabel];
     [self addSubview:self.titleBtn];
@@ -54,7 +54,7 @@
     if (!_titleImg) {
         _titleImg = [[UIImageView alloc] initWithFrame:CGRectMake(KmNavigationTitleLabelWidth + 2, (44-KmNavigationTiltelImgWidth)/2, KmNavigationTiltelImgWidth, KmNavigationTiltelImgWidth)];
         _titleImg.image = [UIImage imageNamed:@"triangle_down"];
-        _titleImg.backgroundColor = [UIColor whiteColor];
+        //_titleImg.backgroundColor = [UIColor whiteColor];
     }
     return _titleImg;
 }
