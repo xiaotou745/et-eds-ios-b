@@ -390,36 +390,46 @@
             CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
             CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
             _callOutBillTypeView.frame = CGRectMake(0, -height, width, height);
+            _maskView.alpha = 0.0;
         } completion:^(BOOL finished) {
-            
+            [_maskView removeFromSuperview];
+            _maskView = nil;
         }];
     }
 }
 
+- (void)masktapAction:(UITapGestureRecognizer *)sender{
+    [self KMNavigationTitleView:nil shouldHideContentView:0 typeId:0];
+}
+
 - (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldShowContentView:(KMNavigationTitleViewOptionType)ot typeId:(NSInteger)tid{
     // show
+    if (!_maskView) {
+        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+        _maskView.backgroundColor = BackgroundColor;
+        [self.view addSubview:_maskView];
+    }
+    UITapGestureRecognizer * maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(masktapAction:)];
+    [_maskView addGestureRecognizer:maskTap];
+    _maskView.alpha = 0.0;
     if (!_callOutBillTypeView) {
         _callOutBillTypeView = [[UIView alloc] initWithFrame:CGRectMake(0, -200, ScreenWidth, 200)];
         _callOutBillTypeView.backgroundColor = [UIColor redColor];
         [self.view addSubview:_callOutBillTypeView];
-        [self.view bringSubviewToFront:self.navBar];
     }
+    [self.view bringSubviewToFront:self.navBar];
+
+    
+
     
     NSArray * types = [self _BS_getBillTypesWithType:(BS_RecordType)ot];
     NSLog(@"%@",types);
-    
-//    [UIView animateWithDuration:3 delay:0.1 usingSpringWithDamping:0.2 initialSpringVelocity:0.2 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-//        CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
-//        CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
-//        _callOutBillTypeView.frame = CGRectMake(0, 64, width, height);
-//    } completion:^(BOOL finished) {
-//        
-//    }];
     
     [UIView animateWithDuration:0.5 animations:^{
         CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
         CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
         _callOutBillTypeView.frame = CGRectMake(0, 64, width, height);
+        _maskView.alpha = 1.0f;
     } completion:^(BOOL finished) {
 //        view.imgIsUp
     }];
