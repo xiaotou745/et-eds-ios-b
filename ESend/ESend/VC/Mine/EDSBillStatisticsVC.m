@@ -51,6 +51,10 @@
     // call out view
     UIView * _callOutBillTypeView;
     UIView * _maskView;
+    
+    // 订单为空的情况
+    UIImageView * _emptyBillImg;
+    UILabel * _emptyBillTextLbl;
 }
 @property (strong, nonatomic) IBOutlet UIView *BS_OptionHeaderView;
 @property (strong, nonatomic) IBOutlet UIView *BS_MidTitleBg;
@@ -622,5 +626,8 @@
 - (void)calendarViewDidStartChangeDate:(KMMonthDateCalendarView *)calendarView{
     // non
 }
+
+
+#pragma mark - 空订单的情况
 
 @end
