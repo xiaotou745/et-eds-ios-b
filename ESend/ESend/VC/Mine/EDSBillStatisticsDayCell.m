@@ -22,13 +22,37 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.amountLbl.font = [UIFont boldSystemFontOfSize:20.0f];
+    self.amountLbl.textColor = RedDefault;
+    self.rmbMark.textColor = RedDefault;
     
+    self.timeLbl.font = 
+    self.remarkLbl.font = [UIFont boldSystemFontOfSize:15.0f];
+    self.remarkLbl.textColor = DeepGrey;
+    
+    self.timeLbl.textColor = TextColor6;
+    
+    self.separator.backgroundColor = SeparatorLineColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    self.separator.backgroundColor = SeparatorLineColor;
 
     // Configure the view for the selected state
+}
+
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    [super setHighlighted:highlighted animated:animated];
+    self.separator.backgroundColor = SeparatorLineColor;
+
+}
+
+- (void)setBillInfo:(DayBillDetailInfo *)billInfo{
+    _billInfo = billInfo;
+    self.amountLbl.text = [NSString stringWithFormat:@"%.2f",_billInfo.amount];
+    self.remarkLbl.text = _billInfo.recordType;
+    self.timeLbl.text = _billInfo.operateTime;
 }
 
 @end

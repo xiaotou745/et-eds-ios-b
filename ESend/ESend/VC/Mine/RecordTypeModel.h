@@ -8,12 +8,8 @@
 
 #import "BaseModel.h"
 
-typedef NS_ENUM(NSInteger, BS_RecordType) {
-    BS_RecordTypeAll = 0,     // 出账入账
-    BS_RecordTypeOut = 1,     // 出账
-    BS_RecordTypeIn = 2,      // 入账
-};
 
+#import "BS_Header.h"
 
 @interface RecordTypeModel : BaseModel
 

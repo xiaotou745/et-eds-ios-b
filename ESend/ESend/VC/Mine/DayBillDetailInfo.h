@@ -14,7 +14,7 @@
 @property (nonatomic, assign) NSInteger recordId;
 @property (nonatomic, copy) NSString * relationNo;
 @property (nonatomic, assign) double amount;
-@property (nonatomic, assign) NSInteger recordType;
+@property (nonatomic, copy) NSString * recordType;
 @property (nonatomic, copy) NSString * operateTime;
 
 @end

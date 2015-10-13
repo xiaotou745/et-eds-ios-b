@@ -159,10 +159,12 @@ static NSInteger const KMCalendarNormalFontSize = 16;
     // render
     if (_dateTimeLabel) {
         if (_style == KMMonthDateCalendarViewStyleDate) {
+            self.dateStyleLastDate = [NSDate new];
             _dateTimeLabel.text = [self.dateStyleLastDate dateToStringWithFormat:KMCalendarDatePrintFormat];
             _rightIndicatorImg.highlighted = [self.dateStyleLastDate isToday];
 
         }else if (_style == KMMonthDateCalendarViewStyleMonth) {
+            self.monthStyleLastDate = [NSDate new];
             _dateTimeLabel.text = [self.monthStyleLastDate dateToStringWithFormat:KMCalendarMonthPrintFormat];
             _rightIndicatorImg.highlighted = [self.monthStyleLastDate isTheCurrentMonth];
 
@@ -255,6 +257,7 @@ static NSInteger const KMCalendarNormalFontSize = 16;
 /// 请求接口得到出账入账金额
 - (void)setOutBillAmount:(double)outAmount inAmount:(double)inAmout{
     NSLog(@"%f,%f",outAmount,inAmout);
+    _OrderOverviewLabel.text = [NSString stringWithFormat:@"出账 %.2f元  入账 %.2f元",outAmount,inAmout];
 }
 
 /*

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -15,67 +15,74 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUH-2w-z1d">
-                        <rect key="frame" x="15" y="9" width="17" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OUH-2w-z1d">
+                        <rect key="frame" x="12" y="9" width="17" height="17"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="OUH-2w-z1d" secondAttribute="height" multiplier="1:1" id="7H5-4s-BaP"/>
                             <constraint firstAttribute="height" constant="17" id="eAG-KR-ThV"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjd-kj-aUf" userLabel="amount">
-                        <rect key="frame" x="32" y="5" width="150" height="23"/>
+                        <rect key="frame" x="29" y="5" width="80" height="23"/>
+                        <animations/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="150" id="1TK-ke-XD4"/>
+                            <constraint firstAttribute="width" constant="80" id="1TK-ke-XD4"/>
                             <constraint firstAttribute="height" constant="23" id="by8-De-XzU"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giw-OO-yaL" userLabel="remark">
-                        <rect key="frame" x="15" y="28" width="150" height="18"/>
+                        <rect key="frame" x="15" y="28" width="60" height="18"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="0cl-yJ-xP6"/>
-                            <constraint firstAttribute="width" constant="150" id="wbo-hK-aRz"/>
+                            <constraint firstAttribute="width" constant="60" id="wbo-hK-aRz"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Zr-IX-VOp" userLabel="separator">
                         <rect key="frame" x="15" y="47" width="305" height="1"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="Zc3-8p-1Jf"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rt-pa-zw7" userLabel="time">
-                        <rect key="frame" x="199" y="14" width="100" height="21"/>
+                        <rect key="frame" x="109" y="14" width="201" height="21"/>
+                        <animations/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="LiY-qy-Lbc"/>
                             <constraint firstAttribute="height" constant="21" id="MWE-4L-v3b"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <animations/>
                 <constraints>
                     <constraint firstItem="OUH-2w-z1d" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="AYx-Uc-G1o"/>
+                    <constraint firstItem="7rt-pa-zw7" firstAttribute="leading" secondItem="hjd-kj-aUf" secondAttribute="trailing" id="FPD-hJ-NSU"/>
                     <constraint firstItem="giw-OO-yaL" firstAttribute="top" secondItem="hjd-kj-aUf" secondAttribute="bottom" id="GoD-bf-zd3"/>
                     <constraint firstAttribute="bottom" secondItem="6Zr-IX-VOp" secondAttribute="bottom" constant="1" id="Ode-4i-kzh"/>
                     <constraint firstItem="7rt-pa-zw7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="bE3-EY-VhW"/>
                     <constraint firstItem="hjd-kj-aUf" firstAttribute="leading" secondItem="OUH-2w-z1d" secondAttribute="trailing" id="bf8-t1-YZn"/>
-                    <constraint firstItem="OUH-2w-z1d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="bwV-ov-sEY"/>
+                    <constraint firstItem="OUH-2w-z1d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="bwV-ov-sEY"/>
                     <constraint firstItem="hjd-kj-aUf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="coq-nH-1YS"/>
                     <constraint firstItem="giw-OO-yaL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="kOY-pn-yan"/>
                     <constraint firstAttribute="trailing" secondItem="6Zr-IX-VOp" secondAttribute="trailing" id="lTT-QY-Sbc"/>
-                    <constraint firstAttribute="trailing" secondItem="7rt-pa-zw7" secondAttribute="trailing" constant="21" id="u7U-Qk-7YF"/>
+                    <constraint firstAttribute="trailing" secondItem="7rt-pa-zw7" secondAttribute="trailing" constant="10" id="u7U-Qk-7YF"/>
                     <constraint firstItem="6Zr-IX-VOp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="upG-82-86D"/>
                 </constraints>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="amountLbl" destination="hjd-kj-aUf" id="f2S-bO-mtp"/>
                 <outlet property="remarkLbl" destination="giw-OO-yaL" id="LCC-tl-1uk"/>
@@ -83,6 +90,7 @@
                 <outlet property="separator" destination="6Zr-IX-VOp" id="NES-DB-aN6"/>
                 <outlet property="timeLbl" destination="7rt-pa-zw7" id="5Bp-LF-6zE"/>
             </connections>
+            <point key="canvasLocation" x="-16" y="279"/>
         </tableViewCell>
     </objects>
 </document>

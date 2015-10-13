@@ -10,6 +10,6 @@
 
 @interface UIImage (KmImg)
 
-//- (UIImage)
++ (UIImage *)KM_createImageWithColor:(UIColor *)color;
 
 @end

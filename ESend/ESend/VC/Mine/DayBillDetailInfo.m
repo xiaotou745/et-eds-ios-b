@@ -9,5 +9,16 @@
 #import "DayBillDetailInfo.h"
 
 @implementation DayBillDetailInfo
-
+- (id)initWithDic:(NSDictionary *)dic{
+    self = [super init];
+    if (self) {
+        
+        self.amount = [dic getDoubleWithKey:@"amount"];
+        self.operateTime = [dic getStringWithKey:@"operateTime"];
+        self.recordId = [dic getIntegerWithKey:@"recordId"];
+        self.recordType = [dic getStringWithKey:@"recordType"];
+        self.relationNo = [dic getStringWithKey:@"relationNo"];
+    }
+    return self;
+}
 @end

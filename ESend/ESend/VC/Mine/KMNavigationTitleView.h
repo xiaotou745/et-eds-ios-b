@@ -8,24 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+#import "BS_Header.h"
+
 typedef NS_ENUM(NSInteger, KMNavigationTitleViewStyle) {
     KMNavigationTitleViewStyleDay,     // Date view
     KMNavigationTitleViewStyleMonth     // Month view
 };
 
-// 分类type
-typedef NS_ENUM(NSInteger, KMNavigationTitleViewOptionType) {
-    KMNavigationTitleViewOptionTypeAll = 0,     // all
-    KMNavigationTitleViewOptionTypePay = 1,     // pay
-    KMNavigationTitleViewOptionTypeIncome = 2   // income
-};
 
 @class KMNavigationTitleView;
 
 @protocol KMNavigationTitleViewDelegate <NSObject>
 
-- (void)KMNavigationTitleView:(KMNavigationTitleView*)view shouldHideContentView:(KMNavigationTitleViewOptionType)optionType typeId:(NSInteger)typeId;
-- (void)KMNavigationTitleView:(KMNavigationTitleView*)view shouldShowContentView:(KMNavigationTitleViewOptionType)ot typeId:(NSInteger)tid;
+- (void)KMNavigationTitleView:(KMNavigationTitleView*)view shouldHideContentView:(BS_RecordType)optionType typeId:(NSInteger)typeId;
+- (void)KMNavigationTitleView:(KMNavigationTitleView*)view shouldShowContentView:(BS_RecordType)ot typeId:(NSInteger)tid;
 
 @end
 
@@ -34,11 +30,16 @@ typedef NS_ENUM(NSInteger, KMNavigationTitleViewOptionType) {
 @interface KMNavigationTitleView : UIView
 
 @property (nonatomic, assign) KMNavigationTitleViewStyle style;
-@property (nonatomic, assign) KMNavigationTitleViewOptionType optionType; // 0,1,2
+@property (nonatomic, assign) BS_RecordType optionType; // 0,1,2
 @property (nonatomic, assign) NSInteger typeId; //
+@property (nonatomic,copy) NSString * titleString;  
 
 @property (nonatomic, assign) BOOL imgIsUp;                 // showing
 
 @property (nonatomic, weak) id<KMNavigationTitleViewDelegate>delegate;
+
+- (void)titleButtonAction:(UIButton *)sender;
+
+
 
 @end

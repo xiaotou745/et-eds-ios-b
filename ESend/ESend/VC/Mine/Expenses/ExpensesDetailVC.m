@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *expenseAmount;
 @property (strong, nonatomic) IBOutlet UIImageView *FirstBlockSeperator;
 @property (strong, nonatomic) IBOutlet UILabel *expenseOperationName;
+@property (strong, nonatomic) IBOutlet UIImageView *rightIndicatorImg;
 
 
 @property (strong, nonatomic) IBOutlet UIView *SecondBlock;
@@ -23,6 +24,9 @@
 @property (strong, nonatomic) IBOutlet UILabel *expenseDetail;
 @property (strong, nonatomic) IBOutlet UILabel *timeFix;
 @property (strong, nonatomic) IBOutlet UILabel *expenseTime;
+@property (strong, nonatomic) IBOutlet UIImageView *secondBlockSeperator2;
+@property (strong, nonatomic) IBOutlet UILabel *thirdFix;
+@property (strong, nonatomic) IBOutlet UILabel *thirdLabel;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollerHeight;  // scrollerView高度
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *SecondBlockHeight;
@@ -37,7 +41,7 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
 
-    self.titleLabel.text = @"收支详情";
+    self.titleLabel.text = @"账单详情";
     
     self.FirstBlock.backgroundColor =
     self.SecondBlock.backgroundColor = [UIColor whiteColor];
@@ -51,6 +55,7 @@
     
     self.expenseAmount.font = [UIFont boldSystemFontOfSize:37.5];
     
+    self.secondBlockSeperator2.backgroundColor =
     self.secondBlockSeperator.backgroundColor =
     self.FirstBlockSeperator.backgroundColor = [UIColor colorWithHexString:@"dfdfdf"];
     
@@ -59,6 +64,8 @@
     
     self.detailFix.font =
     self.timeFix.font =
+    self.thirdFix.font =
+    self.thirdLabel.font =
     self.expenseDetail.font =
     self.expenseTime.font = [UIFont systemFontOfSize:16];
     
@@ -112,14 +119,41 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+- (void)setDetailInfo:(NSDictionary *)detailInfo{
+    _detailInfo = detailInfo;
+    
+    double amount = [_detailInfo[@"amount"] doubleValue];
+    NSString * status = _detailInfo[@"status"];
+    NSString * withwardId = _detailInfo[@"withwardId"];
+    NSString * relationNo = _detailInfo[@"relationNo"];
+    NSString * recordType = _detailInfo[@"recordType"];
+    NSString * operateTime = _detailInfo[@"operateTime"];
+    NSString * remark = _detailInfo[@"remark"];
+    NSString * noDesc = _detailInfo[@"noDesc"];
+    NSInteger isOrder = [_detailInfo[@"isOrder"] integerValue];
+    
+    self.expenseStatus.text = status;
+    self.expenseAmount.text = [NSString stringWithFormat:@"%.2f",amount];
+    
+    self.expenseOperationName.text = nil;
+    
+    //1
+    self.expenseDetail.text = recordType;
+    //2
+    self.expenseTime.text = remark;
+    //3
+    self.thirdLabel.text = operateTime;
+    
+    if (1 == isOrder) {
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(EdTapAction:)];
+        self.expenseOperationName.userInteractionEnabled = YES;
+        [self.expenseOperationName addGestureRecognizer:tap];
+    }
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
-*/
+
+- (void)EdTapAction:(UITapGestureRecognizer *)sender{
+    
+}
 
 @end

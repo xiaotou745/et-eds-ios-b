@@ -43,7 +43,7 @@
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KmNavigationTitleLabelWidth, self.bounds.size.height)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        _titleLabel.textAlignment = NSTextAlignmentRight;
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.text = @"全部账单";
     }
@@ -108,6 +108,11 @@
             // _titleLabel.textAlignment = NSTextAlignmentCenter;
         }];
     }
+}
+
+- (void)setTitleString:(NSString *)titleString{
+    _titleString = titleString;
+    _titleLabel.text = _titleString;
 }
 
 /*

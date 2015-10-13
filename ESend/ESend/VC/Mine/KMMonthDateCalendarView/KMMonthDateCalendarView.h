@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, KMMonthDateCalendarViewStyle) {
 #define KMIndicatorWidthHeight 15.5f
 
 #define KMOrderOverviewHeight 21.0f
-#define KMOrderOverviewTextDefault @"出账          入账       "
+#define KMOrderOverviewTextDefault @"出账 00.00元  入账 00.00元"
 
 @class KMMonthDateCalendarView;
 
