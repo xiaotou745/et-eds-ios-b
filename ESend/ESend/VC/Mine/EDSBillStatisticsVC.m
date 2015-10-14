@@ -84,6 +84,8 @@
 @property (nonatomic, assign) BS_RecordType currentType;  // 0,1,2 default 0
 @property (nonatomic, assign) NSInteger currentTypeSub; // default 0
 
+@property (nonatomic, copy) NSString * currentTimeInfo; // 接口时间串
+
 @end
 
 @implementation EDSBillStatisticsVC
@@ -262,7 +264,7 @@
         self.BS_billTypeIndicator.center = CGPointMake(newCenterX, movCenterY);
 
     } completion:^(BOOL finished) {
-        
+        // 
     }];
 }
 
