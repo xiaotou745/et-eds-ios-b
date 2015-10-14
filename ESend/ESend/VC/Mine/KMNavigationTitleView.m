@@ -32,7 +32,7 @@
 
 
 - (void)configViews{
-    //self.backgroundColor = [UIColor clearColor];
+    //self.backgroundColor = [UIColor redColor];
     [self addSubview:self.titleImg];
     [self addSubview:self.titleLabel];
     [self addSubview:self.titleBtn];
@@ -53,7 +53,7 @@
 - (UIImageView *)titleImg{
     if (!_titleImg) {
         _titleImg = [[UIImageView alloc] initWithFrame:CGRectMake(KmNavigationTitleLabelWidth + 2, (44-KmNavigationTiltelImgWidth)/2, KmNavigationTiltelImgWidth, KmNavigationTiltelImgWidth)];
-        _titleImg.image = [UIImage imageNamed:@"triangle_down"];
+        _titleImg.image = [UIImage imageNamed:@"bs_triangle_down"];
         //_titleImg.backgroundColor = [UIColor whiteColor];
     }
     return _titleImg;
@@ -76,14 +76,14 @@
     
     if (_imgIsUp) { // 显示中...
         _imgIsUp = NO;
-        _titleImg.image = [UIImage imageNamed:@"triangle_down"];
+        _titleImg.image = [UIImage imageNamed:@"bs_triangle_down"];
         if ([self.delegate respondsToSelector:@selector(KMNavigationTitleView:shouldHideContentView:typeId:)]) {
             [self.delegate KMNavigationTitleView:self shouldHideContentView:self.optionType typeId:self.typeId];
         }
         
     }else{
         _imgIsUp = YES;
-        _titleImg.image = [UIImage imageNamed:@"triangle_up"];
+        _titleImg.image = [UIImage imageNamed:@"bs_triangle_up"];
         if ([self.delegate respondsToSelector:@selector(KMNavigationTitleView:shouldShowContentView:typeId:)]) {
             [self.delegate KMNavigationTitleView:self shouldShowContentView:self.optionType typeId:self.typeId];
         }

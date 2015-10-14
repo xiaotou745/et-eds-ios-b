@@ -208,7 +208,8 @@
     }else if (EDSBillStatisticsVCStyleMonth == self.style){
         DayBillInfo * dayInfo = [_bills objectAtIndex:indexPath.row];
         if (1 == dayInfo.hasDatas) {
-            [self monthDaySwitchAction:self.BS_billTypeSwither];
+            NSString * dayString = dayInfo.dayInfo;
+             [self monthDaySwitchAction:self.BS_billTypeSwither];
         }
     }
 }
