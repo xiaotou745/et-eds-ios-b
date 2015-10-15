@@ -16,5 +16,10 @@ typedef NS_ENUM(NSInteger, BS_RecordType) {
     BS_RecordTypeIn = 2,      // 入账
 };
 
+typedef NS_ENUM(NSInteger, EDSBillStatisticsVCStyle) {
+    EDSBillStatisticsVCStyleDay,     // Day
+    EDSBillStatisticsVCStyleMonth     // Month
+};
+
 
 #endif /* BS_Header_h */

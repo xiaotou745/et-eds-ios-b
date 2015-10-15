@@ -10,7 +10,6 @@
 #import "KMMonthDateCalendarView.h"
 #import "UIColor+KMhexColor.h"
 #import "FHQNetWorkingAPI.h"
-#import "KMNavigationTitleView.h"
 #import "EDSBillStatisticsMonthCell.h"
 #import "EDSBillStatisticsDayCell.h"
 #import "Encryption.h"
@@ -20,6 +19,9 @@
 #import "BS_Header.h"
 #import "NSDate+KMdate.h"
 #import "ExpensesDetailVC.h"
+
+#define BS_RightNavTitleChoose @"筛选"
+#define BS_RightNavTitleDismiss @"收起"
 
 #define BS_OptionTypeBtnTitleAll @"全部"
 #define BS_OptionTypeBtnTitleOut @"出账"
@@ -43,7 +45,7 @@
 
 // #define BillStatisticsAPIHost @"http://10.8.7.253:7178/api-http/services/"
 
-@interface EDSBillStatisticsVC ()<UITableViewDataSource,UITableViewDelegate,KMNavigationTitleViewDelegate,KMMonthDateCalendarViewDelegate>
+@interface EDSBillStatisticsVC ()<UITableViewDataSource,UITableViewDelegate,KMMonthDateCalendarViewDelegate>
 {
     NSInteger _currentPage;
     
@@ -71,20 +73,17 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *BS_billTypeSwither;
 
-@property (strong, nonatomic) KMNavigationTitleView * titleView;
+
 @property (strong, nonatomic) KMMonthDateCalendarView * calendarView;
-
-@property (assign, nonatomic) EDSBillStatisticsVCStyle style;
-
-@property (strong, nonatomic) NSMutableArray * bills;
-
+@property (strong, nonatomic) NSMutableArray * bills;           // table datasource
 // typeDataSource
-@property (strong, nonatomic) NSMutableArray * allBillTypes;
+@property (strong, nonatomic) NSMutableArray * allBillTypes;    // all bill types
 @property (strong, nonatomic) NSMutableArray * currentBillTypes;
-@property (nonatomic, assign) BS_RecordType currentType;  // 0,1,2 default 0
-@property (nonatomic, assign) NSInteger currentTypeSub; // default 0
-
-@property (nonatomic, copy) NSString * currentTimeInfo; // 接口时间串
+@property (assign, nonatomic) EDSBillStatisticsVCStyle style;   // 日 or 月
+/// 0,1,2 default 0
+@property (nonatomic, assign) BS_RecordType currentType;        // 0,1,2 default 0
+@property (nonatomic, assign) NSInteger currentTypeSub;         // default 0
+@property (nonatomic, copy) NSString * currentTimeInfo;         // 接口时间串
 
 @end
 
@@ -93,7 +92,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // data alloc
+    // data default value
     _currentPage = 1;
     _currentType = BS_RecordTypeAll;
     _currentTypeSub = 0;
@@ -103,6 +102,21 @@
     
 #pragma mark - type
     self.style = EDSBillStatisticsVCStyleDay;
+    
+    [self _configViews];
+    //
+    [self getrecordtypeb];
+    
+    // 日账单
+    [self getbilllistDayb:[[NSDate new] dateToStringWithFormat:@"yyyy-MM-dd"] billType:0 recordType:0];
+}
+
+/// build views
+- (void)_configViews{
+    // right nav button
+    self.titleLabel.text = @"账单";
+    [self.rightBtn setTitle:BS_RightNavTitleChoose forState:UIControlStateNormal];
+    [self.rightBtn addTarget:self action:@selector(bsRightNavAction:) forControlEvents:UIControlEventTouchUpInside];
     
     // 全部，出账，入账
     [self.BS_allBillBtn setTitle:BS_OptionTypeBtnTitleAll forState:UIControlStateNormal];
@@ -121,15 +135,9 @@
     [self.BS_billTypeSwither setTitle:BS_BillTypeSwitchTitleDay forState:UIControlStateNormal];
     [self.BS_billTypeSwither setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.BS_billTypeSwither setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
-
+    
     // indicator
     self.BS_billTypeIndicator.backgroundColor = [UIColor km_colorWithHexString:BS_ColorBlue];
-    
-    // titel view
-    _titleView = [[KMNavigationTitleView alloc] initWithFrame:CGRectMake((ScreenWidth - 100)/2, 20, 100, 44)];
-    _titleView.style = KMNavigationTitleViewStyleDay;
-    _titleView.delegate = self;
-    [self.navBar addSubview:_titleView];
     
     // option view
     self.BS_OptionHeaderView.layer.masksToBounds = YES;
@@ -140,11 +148,6 @@
     self.BS_MidTextV.backgroundColor = [UIColor clearColor];
     self.BS_MidTextV.font = [UIFont systemFontOfSize:BigFontSize];
     [self.view addSubview:self.calendarView];
-    //
-    [self getrecordtypeb];
-    
-    // 日账单
-    [self getbilllistDayb:[[NSDate new] dateToStringWithFormat:@"yyyy-MM-dd"] billType:0 recordType:0];
 }
 
 - (KMMonthDateCalendarView *)calendarView{
@@ -158,6 +161,98 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Nav right button action
+- (void)bsRightNavAction:(UIButton *)sender{
+    if ([sender.currentTitle isEqualToString:BS_RightNavTitleChoose]) { // 弹出筛选项
+        // disable sender
+        sender.enabled = NO;
+        // show
+        if (!_maskView) {
+            _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+            _maskView.backgroundColor = BlackColor;
+        }
+        UITapGestureRecognizer * maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(masktapAction:)];
+        [_maskView addGestureRecognizer:maskTap];
+        _maskView.alpha = 0.0;
+        [self.view addSubview:_maskView];
+
+
+        if (!_callOutBillTypeView) {
+            _callOutBillTypeView = [[UIView alloc] initWithFrame:CGRectMake(0, -200, ScreenWidth, 200)];
+            _callOutBillTypeView.backgroundColor = [UIColor whiteColor];
+            [self.view addSubview:_callOutBillTypeView];
+        }
+        [self.view bringSubviewToFront:_callOutBillTypeView];
+        [self.view bringSubviewToFront:self.navBar];
+
+
+        CGFloat buttonWidth = (ScreenWidth - (BS_calloutContentCountPerRow + 1) * BS_calloutMargin)/ BS_calloutContentCountPerRow;
+        CGFloat billTypeViewHeight = 0;
+
+        [_currentBillTypes removeAllObjects];
+        [_currentBillTypes addObjectsFromArray:[self _BS_getBillTypesWithType:self.currentType]];
+        for (int i = 0; i < _currentBillTypes.count; i++) {
+            int row=i/BS_calloutContentCountPerRow;//行号
+            int loc=i%BS_calloutContentCountPerRow;//列号
+            CGFloat buttonX = BS_calloutMargin + loc*(BS_calloutMargin + buttonWidth);
+            CGFloat buttonY = BS_calloutTopPadding + row*(BS_calloutMargin + BS_calloutContentHeight);
+
+            RecordTypeModel * typeModel = [_currentBillTypes objectAtIndex:i];
+
+            UIButton * typeButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonWidth, BS_calloutContentHeight)];
+            [typeButton setBackgroundImage:[UIImage KM_createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+            [typeButton setBackgroundImage:[UIImage KM_createImageWithColor:BlueColor] forState:UIControlStateSelected];
+            typeButton.layer.masksToBounds = YES;
+            typeButton.layer.borderColor = [SeparatorLineColor CGColor];
+            typeButton.layer.borderWidth = 0.5f;
+            [typeButton setTitle:typeModel.desc forState:UIControlStateNormal];
+            [typeButton setTitleColor:DeepGrey forState:UIControlStateNormal];
+            [typeButton setSelected:typeModel.selected];
+            typeButton.tag = i;
+            [typeButton addTarget:self action:@selector(typeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+            [_callOutBillTypeView addSubview:typeButton];
+
+            billTypeViewHeight = CGRectGetMaxY(typeButton.frame);
+        }
+        billTypeViewHeight += BS_calloutBottomPadding;
+        [_callOutBillTypeView setFrame:CGRectMake(0, -billTypeViewHeight, ScreenWidth, billTypeViewHeight)];
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
+            CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
+            _callOutBillTypeView.frame = CGRectMake(0, 64, width, height);
+            _maskView.alpha = 0.8f;
+        } completion:^(BOOL finished) {
+    //        view.imgIsUp
+            [sender setTitle:BS_RightNavTitleDismiss forState:UIControlStateNormal];
+            sender.enabled = YES;
+
+        }];
+    }else if ([sender.currentTitle isEqualToString:BS_RightNavTitleDismiss]){ // 收起筛选项
+        if (_callOutBillTypeView) {
+            sender.enabled = NO;
+            [UIView animateWithDuration:0.5 animations:^{
+                CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
+                CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
+                _callOutBillTypeView.frame = CGRectMake(0, -height, width, height);
+                _maskView.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                for (UIView * subview in _callOutBillTypeView.subviews) {
+                    [subview removeFromSuperview];
+                }
+                [_maskView removeFromSuperview];
+                _maskView = nil;
+                [sender setTitle:BS_RightNavTitleChoose forState:UIControlStateNormal];
+                sender.enabled = YES;
+            }];
+        }
+    }
+}
+
+- (void)masktapAction:(UITapGestureRecognizer *)sender{
+    [self bsRightNavAction:self.rightBtn];
 }
 
 
@@ -222,8 +317,7 @@
 - (IBAction)allBillTypeAction:(UIButton *)sender {
     _currentType = BS_RecordTypeAll;
     _currentTypeSub = 0;
-    _titleView.optionType = _currentType;
-    _titleView.titleString = @"全部";
+
     
     [self _BS_buttonEventWithSender:sender];
 }
@@ -231,8 +325,7 @@
 - (IBAction)outBillTypeAction:(UIButton *)sender {
     _currentType = BS_RecordTypeOut;
     _currentTypeSub = 0;
-    _titleView.optionType = _currentType;
-    _titleView.titleString = @"全部";
+
     [self _BS_buttonEventWithSender:sender];
 
 }
@@ -240,8 +333,7 @@
 - (IBAction)inBillTypeAction:(UIButton *)sender {
     _currentType = BS_RecordTypeIn;
     _currentTypeSub = 0;
-    _titleView.optionType = _currentType;
-    _titleView.titleString = @"全部";
+
 
     [self _BS_buttonEventWithSender:sender];
 
@@ -279,7 +371,6 @@
     }else{  // 切换到月
         [sender setTitle:BS_BillTypeSwitchTitleMonth forState:UIControlStateNormal];
         _BS_outBillBtn.hidden = _BS_inBillBtn.hidden = YES;
-        _titleView.titleString = @"全部订单";
         _currentType = BS_RecordTypeAll;
         _currentTypeSub= 0;
         self.style = EDSBillStatisticsVCStyleMonth;
@@ -289,11 +380,7 @@
 
     }
     
-    if (_titleView.style == KMNavigationTitleViewStyleMonth) {
-        _titleView.style = KMNavigationTitleViewStyleDay;
-    }else{
-        _titleView.style = KMNavigationTitleViewStyleMonth;
-    }
+
 }
 
 
@@ -541,92 +628,89 @@
 }
 
 
-#pragma mark - KMNavigationTitleViewDelegate title回调
-- (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldHideContentView:(BS_RecordType)optionType typeId:(NSInteger)typeId{
-    //
-    if (_callOutBillTypeView) {
+//#pragma mark - KMNavigationTitleViewDelegate title回调
+//- (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldHideContentView:(BS_RecordType)optionType typeId:(NSInteger)typeId{
+//    //
+//    if (_callOutBillTypeView) {
+//
+//        [UIView animateWithDuration:0.5 animations:^{
+//            CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
+//            CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
+//            _callOutBillTypeView.frame = CGRectMake(0, -height, width, height);
+//            _maskView.alpha = 0.0;
+//        } completion:^(BOOL finished) {
+//            for (UIView * subview in _callOutBillTypeView.subviews) {
+//                [subview removeFromSuperview];
+//            }
+//            [_maskView removeFromSuperview];
+//            _maskView = nil;
+//        }];
+//    }
+//}
+//
 
-        [UIView animateWithDuration:0.5 animations:^{
-            CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
-            CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
-            _callOutBillTypeView.frame = CGRectMake(0, -height, width, height);
-            _maskView.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            for (UIView * subview in _callOutBillTypeView.subviews) {
-                [subview removeFromSuperview];
-            }
-            [_maskView removeFromSuperview];
-            _maskView = nil;
-        }];
-    }
-}
-
-- (void)masktapAction:(UITapGestureRecognizer *)sender{
-    // [self KMNavigationTitleView:nil shouldHideContentView:0 typeId:0];
-    [_titleView titleButtonAction:nil];
-}
-
-- (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldShowContentView:(BS_RecordType)ot typeId:(NSInteger)tid{
-    // show
-    if (!_maskView) {
-        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-        _maskView.backgroundColor = BlackColor;
-    }
-    UITapGestureRecognizer * maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(masktapAction:)];
-    [_maskView addGestureRecognizer:maskTap];
-    _maskView.alpha = 0.0;
-    [self.view addSubview:_maskView];
-
-
-    if (!_callOutBillTypeView) {
-        _callOutBillTypeView = [[UIView alloc] initWithFrame:CGRectMake(0, -200, ScreenWidth, 200)];
-        _callOutBillTypeView.backgroundColor = [UIColor whiteColor];
-        [self.view addSubview:_callOutBillTypeView];
-    }
-    [self.view bringSubviewToFront:_callOutBillTypeView];
-    [self.view bringSubviewToFront:self.navBar];
-
-    
-    CGFloat buttonWidth = (ScreenWidth - (BS_calloutContentCountPerRow + 1) * BS_calloutMargin)/ BS_calloutContentCountPerRow;
-    CGFloat billTypeViewHeight = 0;
-    
-    [_currentBillTypes removeAllObjects];
-    [_currentBillTypes addObjectsFromArray:[self _BS_getBillTypesWithType:(BS_RecordType)ot]];
-    for (int i = 0; i < _currentBillTypes.count; i++) {
-        int row=i/BS_calloutContentCountPerRow;//行号
-        int loc=i%BS_calloutContentCountPerRow;//列号
-        CGFloat buttonX = BS_calloutMargin + loc*(BS_calloutMargin + buttonWidth);
-        CGFloat buttonY = BS_calloutTopPadding + row*(BS_calloutMargin + BS_calloutContentHeight);
-        
-        RecordTypeModel * typeModel = [_currentBillTypes objectAtIndex:i];
-        
-        UIButton * typeButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonWidth, BS_calloutContentHeight)];
-        [typeButton setBackgroundImage:[UIImage KM_createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-        [typeButton setBackgroundImage:[UIImage KM_createImageWithColor:BlueColor] forState:UIControlStateSelected];
-        typeButton.layer.masksToBounds = YES;
-        typeButton.layer.borderColor = [SeparatorLineColor CGColor];
-        typeButton.layer.borderWidth = 0.5f;
-        [typeButton setTitle:typeModel.desc forState:UIControlStateNormal];
-        [typeButton setTitleColor:DeepGrey forState:UIControlStateNormal];
-        [typeButton setSelected:typeModel.selected];
-        typeButton.tag = i;
-        [typeButton addTarget:self action:@selector(typeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_callOutBillTypeView addSubview:typeButton];
-        
-        billTypeViewHeight = CGRectGetMaxY(typeButton.frame);
-    }
-    billTypeViewHeight += BS_calloutBottomPadding;
-    [_callOutBillTypeView setFrame:CGRectMake(0, -billTypeViewHeight, ScreenWidth, billTypeViewHeight)];
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
-        CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
-        _callOutBillTypeView.frame = CGRectMake(0, 64, width, height);
-        _maskView.alpha = 0.8f;
-    } completion:^(BOOL finished) {
-//        view.imgIsUp
-    }];
-}
+//
+//- (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldShowContentView:(BS_RecordType)ot typeId:(NSInteger)tid{
+//    // show
+//    if (!_maskView) {
+//        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+//        _maskView.backgroundColor = BlackColor;
+//    }
+//    UITapGestureRecognizer * maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(masktapAction:)];
+//    [_maskView addGestureRecognizer:maskTap];
+//    _maskView.alpha = 0.0;
+//    [self.view addSubview:_maskView];
+//
+//
+//    if (!_callOutBillTypeView) {
+//        _callOutBillTypeView = [[UIView alloc] initWithFrame:CGRectMake(0, -200, ScreenWidth, 200)];
+//        _callOutBillTypeView.backgroundColor = [UIColor whiteColor];
+//        [self.view addSubview:_callOutBillTypeView];
+//    }
+//    [self.view bringSubviewToFront:_callOutBillTypeView];
+//    [self.view bringSubviewToFront:self.navBar];
+//
+//    
+//    CGFloat buttonWidth = (ScreenWidth - (BS_calloutContentCountPerRow + 1) * BS_calloutMargin)/ BS_calloutContentCountPerRow;
+//    CGFloat billTypeViewHeight = 0;
+//    
+//    [_currentBillTypes removeAllObjects];
+//    [_currentBillTypes addObjectsFromArray:[self _BS_getBillTypesWithType:(BS_RecordType)ot]];
+//    for (int i = 0; i < _currentBillTypes.count; i++) {
+//        int row=i/BS_calloutContentCountPerRow;//行号
+//        int loc=i%BS_calloutContentCountPerRow;//列号
+//        CGFloat buttonX = BS_calloutMargin + loc*(BS_calloutMargin + buttonWidth);
+//        CGFloat buttonY = BS_calloutTopPadding + row*(BS_calloutMargin + BS_calloutContentHeight);
+//        
+//        RecordTypeModel * typeModel = [_currentBillTypes objectAtIndex:i];
+//        
+//        UIButton * typeButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonWidth, BS_calloutContentHeight)];
+//        [typeButton setBackgroundImage:[UIImage KM_createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+//        [typeButton setBackgroundImage:[UIImage KM_createImageWithColor:BlueColor] forState:UIControlStateSelected];
+//        typeButton.layer.masksToBounds = YES;
+//        typeButton.layer.borderColor = [SeparatorLineColor CGColor];
+//        typeButton.layer.borderWidth = 0.5f;
+//        [typeButton setTitle:typeModel.desc forState:UIControlStateNormal];
+//        [typeButton setTitleColor:DeepGrey forState:UIControlStateNormal];
+//        [typeButton setSelected:typeModel.selected];
+//        typeButton.tag = i;
+//        [typeButton addTarget:self action:@selector(typeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [_callOutBillTypeView addSubview:typeButton];
+//        
+//        billTypeViewHeight = CGRectGetMaxY(typeButton.frame);
+//    }
+//    billTypeViewHeight += BS_calloutBottomPadding;
+//    [_callOutBillTypeView setFrame:CGRectMake(0, -billTypeViewHeight, ScreenWidth, billTypeViewHeight)];
+//    
+//    [UIView animateWithDuration:0.5 animations:^{
+//        CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
+//        CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
+//        _callOutBillTypeView.frame = CGRectMake(0, 64, width, height);
+//        _maskView.alpha = 0.8f;
+//    } completion:^(BOOL finished) {
+////        view.imgIsUp
+//    }];
+//}
 
 - (void)typeButtonAction:(UIButton *)typeButton{
     // _titleView.optionType
@@ -638,9 +722,6 @@
     RecordTypeModel * selectedType = [_currentBillTypes objectAtIndex:idx];
     _currentType = selectedType.type;
     _currentTypeSub = selectedType.code;
-    //
-    _titleView.titleString = selectedType.desc;
-    [_titleView titleButtonAction:nil];
     //
 }
 

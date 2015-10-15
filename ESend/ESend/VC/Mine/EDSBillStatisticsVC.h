@@ -8,11 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "BS_Header.h"
 
-typedef NS_ENUM(NSInteger, EDSBillStatisticsVCStyle) {
-    EDSBillStatisticsVCStyleDay,     // Day
-    EDSBillStatisticsVCStyleMonth     // Month
-};
 
 @interface EDSBillStatisticsVC : BaseViewController
 
