@@ -27,7 +27,7 @@
     self.rmbMark.textColor = RedDefault;
     
     self.remarkLbl.font = [UIFont boldSystemFontOfSize:13.0f];
-    self.timeLbl.font = [UIFont systemFontOfSize:13.0f];
+    self.timeLbl.font = [UIFont systemFontOfSize:15.0f];
     self.remarkLbl.textColor = DeepGrey;
     
     self.timeLbl.textColor = TextColor6;
@@ -52,7 +52,9 @@
     _billInfo = billInfo;
     self.amountLbl.text = [NSString stringWithFormat:@"%.2f",_billInfo.amount];
     self.remarkLbl.text = _billInfo.recordType;
-    self.timeLbl.text = _billInfo.operateTime;
+    NSString * hms = [[_billInfo.operateTime componentsSeparatedByString:@" "] lastObject];
+    NSString * hm = [hms substringWithRange:NSMakeRange(0, 5)];
+    self.timeLbl.text = hm;
 }
 
 @end
