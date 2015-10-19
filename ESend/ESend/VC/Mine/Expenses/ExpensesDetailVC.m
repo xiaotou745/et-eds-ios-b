@@ -7,8 +7,14 @@
 //
 
 #import "ExpensesDetailVC.h"
+#import "UserInfo.h"
+#import "FHQNetWorkingAPI.h"
+#import "OrderDetailViewController.h"
 
 @interface ExpensesDetailVC ()
+{
+    NSInteger _withwardId;
+}
 @property (strong, nonatomic) IBOutlet UIView *FirstBlock;
 @property (strong, nonatomic) IBOutlet UILabel *expenseStatus;
 @property (strong, nonatomic) IBOutlet UILabel *RMBFlag;
@@ -46,8 +52,8 @@
     self.FirstBlock.backgroundColor =
     self.SecondBlock.backgroundColor = [UIColor whiteColor];
     
-    self.expenseStatus.textColor = [UIColor colorWithHexString:@"bbc0c7"];
-    self.expenseStatus.font = [UIFont systemFontOfSize:12];
+    self.expenseStatus.textColor = TextColor6;
+    self.expenseStatus.font = [UIFont systemFontOfSize:14];
     
     self.RMBFlag.font = [UIFont boldSystemFontOfSize:27.5];
     self.expenseAmount.textColor =
@@ -59,7 +65,7 @@
     self.secondBlockSeperator.backgroundColor =
     self.FirstBlockSeperator.backgroundColor = [UIColor colorWithHexString:@"dfdfdf"];
     
-    self.expenseOperationName.font = [UIFont systemFontOfSize:12];
+    self.expenseOperationName.font = [UIFont systemFontOfSize:14];
     self.expenseOperationName.textColor = DeepGrey;
     
     self.detailFix.font =
@@ -71,60 +77,21 @@
     
     self.detailFix.textColor =
     self.timeFix.textColor =
+    self.thirdFix.textColor = DeepGrey;
+    
+    self.thirdLabel.textColor =
     self.expenseDetail.textColor =
-    self.expenseTime.textColor = DeepGrey;
+    self.expenseTime.textColor = TextColor6;
     
     self.expenseDetail.numberOfLines = 0;
     
-    ///
-    NSString * remarkString = _expenseInfoModel.Remark;
-    //remarkString = @"我的八十多了空间烦死了都放假了圣诞节放了假佛网i示例打开副教授李的会计覅偶尔建佛寺就放塑料袋口附近噢诶骄傲圣诞节烦死了快放假的累计放假的累计";
-    
-    
-    self.expenseStatus.text = _expenseInfoModel.state;
-    self.expenseAmount.text = [NSString stringWithFormat:@"%.2f",_expenseInfoModel.amount];
-    self.expenseOperationName.text = _expenseInfoModel.infoType;
-    
-    self.expenseDetail.text = remarkString;
-    self.expenseTime.text = _expenseInfoModel.OperateTime;
-    
-    
-    
-    // 46-16 = 30, 30/2 = 15;
-    // width ;  12 + 76 + 10 + width + 12 = screenWidth
-    CGFloat remarkHeight = [Tools stringHeight:remarkString fontSize:16 width:ScreenWidth - 12 - 76 - 10 - 12].height - 2;
-    CGFloat remarkLabelHeight = remarkHeight + 30;
-    
-    //
-    self.expenseDetailHeight.constant = remarkLabelHeight;
-    self.SecondBlockHeight.constant = remarkLabelHeight + 4 + 50;
-    
-    self.scrollerHeight.constant = MAX(ScreenHeight - 64, remarkLabelHeight + 4 + 50 + 10 + 160 + 15);
-}
 
-
-//- (void)setExpenseInfoModel:(ExpensesInfoModel *)expenseInfoModel{
-//    _expenseInfoModel = expenseInfoModel;
-//    
-//    self.expenseStatus.text = _expenseInfoModel.state;
-//    self.expenseAmount.text = [NSString stringWithFormat:@"%.2f",_expenseInfoModel.amount];
-//    self.expenseOperationName.text = _expenseInfoModel.infoType;
-//    
-//    self.expenseDetail.text = _expenseInfoModel.infoType;
-//    self.expenseTime.text = _expenseInfoModel.time;
-//}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)setDetailInfo:(NSDictionary *)detailInfo{
-    _detailInfo = detailInfo;
+    
+    // data
     
     double amount = [_detailInfo[@"amount"] doubleValue];
     NSString * status = _detailInfo[@"status"];
-    NSString * withwardId = _detailInfo[@"withwardId"];
+    _withwardId = [_detailInfo[@"withwardId"] integerValue];
     NSString * relationNo = _detailInfo[@"relationNo"];
     NSString * recordType = _detailInfo[@"recordType"];
     NSString * operateTime = _detailInfo[@"operateTime"];
@@ -134,9 +101,7 @@
     
     self.expenseStatus.text = status;
     self.expenseAmount.text = [NSString stringWithFormat:@"%.2f",amount];
-    
-    self.expenseOperationName.text = nil;
-    
+    self.expenseOperationName.text = [NSString stringWithFormat:@"%@:%@",noDesc,relationNo];
     //1
     self.expenseDetail.text = recordType;
     //2
@@ -148,12 +113,37 @@
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(EdTapAction:)];
         self.expenseOperationName.userInteractionEnabled = YES;
         [self.expenseOperationName addGestureRecognizer:tap];
+    }else if (0 == isOrder){
+        self.rightIndicatorImg.hidden = YES;
     }
 
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
 - (void)EdTapAction:(UITapGestureRecognizer *)sender{
-    
+    NSLog(@"%ld",_withwardId);
+    NSDictionary *requestData = @{@"OrderId"    : [NSNumber numberWithInteger:_withwardId],
+                                  @"BusinessId" : [UserInfo getUserId],
+                                  @"version"    : @"1.0"};
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    [FHQNetWorkingAPI getOrderDetail:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        
+        NSDictionary * dic = (NSDictionary *)result;
+        SupermanOrderModel * order = [[SupermanOrderModel alloc] initWithDic:dic];
+        OrderDetailViewController *vc = [[OrderDetailViewController alloc] init];
+        vc.orderModel = order;
+        [self.navigationController pushViewController:vc animated:YES];
+        [Tools hiddenProgress:HUD];
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        [Tools hiddenProgress:HUD];
+    }];
+
 }
 
 @end

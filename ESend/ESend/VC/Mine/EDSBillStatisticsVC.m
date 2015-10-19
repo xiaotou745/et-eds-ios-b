@@ -166,14 +166,27 @@
     
     // table view fresh
     [self.BS_TableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(bs_tableViewHeaderRefreshAction)];
+    // table view footer fresh
+    [self.BS_TableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(bs_tableViewFooterRefresh)];
+}
+
+- (void)bs_tableViewFooterRefresh{
+    
+    if (_style == EDSBillStatisticsVCStyleDay) {
+        [self getbilllistDayb:[_currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub pullDown:NO];
+    }else if (_style == EDSBillStatisticsVCStyleMonth){
+        [self getbilllistMonthbWithMonth:[_currentDate dateToStringWithFormat:KMCalendarMonthPrintFormat] pullDown:NO];
+    }
 }
 
 - (void)bs_tableViewHeaderRefreshAction{
     
+    _currentPage = 0;
+    
     if (_style == EDSBillStatisticsVCStyleDay) {
-        [self getbilllistDayb:[_currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub];
+        [self getbilllistDayb:[_currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub pullDown:YES];
     }else if (_style == EDSBillStatisticsVCStyleMonth){
-        [self getbilllistMonthbWithMonth:[_currentDate dateToStringWithFormat:KMCalendarMonthPrintFormat]];
+        [self getbilllistMonthbWithMonth:[_currentDate dateToStringWithFormat:KMCalendarMonthPrintFormat] pullDown:YES];
     }
     
 }
@@ -376,9 +389,9 @@
     } completion:^(BOOL finished) {
         // API 接口
         if (EDSBillStatisticsVCStyleDay == self.style) { // day
-            [self getbilllistDayb:[self.currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub];
+            [self getbilllistDayb:[self.currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub pullDown:YES];
         }else if (EDSBillStatisticsVCStyleMonth == self.style) { // month
-            [self getbilllistMonthbWithMonth:[self.currentDate dateToStringWithFormat:KMCalendarMonthPrintFormat]];
+            [self getbilllistMonthbWithMonth:[self.currentDate dateToStringWithFormat:KMCalendarMonthPrintFormat] pullDown:YES];
         }
     }];
 }
@@ -396,8 +409,11 @@
         self.style = EDSBillStatisticsVCStyleDay;
         [_calendarView setMonthDayStyle:EDSBillStatisticsVCStyleDay date:_currentDate];
         
+        [self.BS_TableView removeFooter];
+        [self.BS_TableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(bs_tableViewFooterRefresh)];
+
         // 调接口
-        [self getbilllistDayb:[_currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub];
+        [self getbilllistDayb:[_currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub pullDown:YES];
         
     }else{  // 切换到月
         [sender setTitle:BS_BillTypeSwitchTitleMonth forState:UIControlStateNormal];
@@ -405,6 +421,8 @@
         self.style = EDSBillStatisticsVCStyleMonth;
         [_calendarView setMonthDayStyle:EDSBillStatisticsVCStyleMonth date:_currentDate];
         
+        [self.BS_TableView removeFooter];
+
         [self allBillTypeAction:_BS_allBillBtn];        // 重置type,typeSub；并调用接口请求
     }
 }
@@ -464,8 +482,9 @@
     return operation;
 }
 
-/// 1.1.2商户获取月账单(java必须大小写符合) // getbilllistb
-- (AFHTTPRequestOperation *)getbilllistMonthbWithMonth:(NSString *)monthString{
+/// 1.1.2商户获取月账单(java必须大小写符合) pullDown是否下拉 // getbilllistb
+- (AFHTTPRequestOperation *)getbilllistMonthbWithMonth:(NSString *)monthString pullDown:(BOOL)down{
+    // 月账单接口无上拉，pulldown参数暂时闲置
     MBProgressHUD * waitingProcess = [Tools showProgressWithTitle:@""];
 
     NSString * urlstring = [NSString stringWithFormat:@"%@accountbill/getbilllistb",Java_API_SERVER];
@@ -486,6 +505,10 @@
     AFHTTPRequestOperation * operation = [[self _manager] POST:urlstring parameters:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:waitingProcess];
         
+        if (self.BS_TableView.header.state == MJRefreshHeaderStateRefreshing) {
+            [self.BS_TableView.header endRefreshing];
+        }
+
         NSInteger status = [responseObject[@"status"] integerValue];
         NSString * message = responseObject[@"message"];
         NSDictionary * result = responseObject[@"result"];
@@ -516,6 +539,10 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:waitingProcess];
         
+        if (self.BS_TableView.header.state == MJRefreshHeaderStateRefreshing) {
+            [self.BS_TableView.header endRefreshing];
+        }
+
 
     }];
     return operation;
@@ -525,7 +552,12 @@
 - (AFHTTPRequestOperation *)getbilllistDayb:(NSString *)dayString
                                    billType:(NSInteger)billType
                                  recordType:(NSInteger)recordType
+                                   pullDown:(BOOL)down
 {
+    if (!down) {
+        _currentPage ++;
+    }
+    
     MBProgressHUD * waitingProcess = [Tools showProgressWithTitle:@""];
     NSString * urlstring = [NSString stringWithFormat:@"%@accountbill/getbilllistdayb",Java_API_SERVER];
     NSDictionary * paraDict = @{
@@ -547,6 +579,13 @@
     
     AFHTTPRequestOperation * operation = [[self _manager] POST:urlstring parameters:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:waitingProcess];
+        if (self.BS_TableView.header.state == MJRefreshHeaderStateRefreshing) {
+            [self.BS_TableView.header endRefreshing];
+        }
+        if (self.BS_TableView.footer.state == MJRefreshFooterStateRefreshing) {
+            [self.BS_TableView.footer endRefreshing];
+        }
+
         NSInteger status = [responseObject[@"status"] integerValue];
         NSString * message = responseObject[@"message"];
         NSDictionary * result = responseObject[@"result"];
@@ -557,24 +596,39 @@
             NSArray * listRecordS = result[@"listRecordS"];
             
             [self _removeBSEmptyBillView];
-            if (listRecordS.count == 0) {
+            if (down && listRecordS.count == 0) {
                 [self _showBSEmptyBillView];
             }
             
             [_calendarView setOutBillAmount:_outMoney inAmount:_inMoney];
-            [_bills removeAllObjects];
+            if (down) {
+                [_bills removeAllObjects];
+            }
             for (NSDictionary * aRecords in listRecordS) {
                 DayBillDetailInfo * dayInfo = [[DayBillDetailInfo alloc] initWithDic:aRecords];
                 [_bills addObject:dayInfo];
             }
             [self.BS_TableView reloadData];
             
+            if ([listRecordS count] == 0 && !down) {
+                //_currentPage--;
+                [Tools showHUD:@"没有更多了"];
+            }
+            
         }else{
             [_calendarView setOutBillAmount:0 inAmount:0];
             [Tools showHUD:message];
         }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:waitingProcess];
+        
+        if (self.BS_TableView.header.state == MJRefreshHeaderStateRefreshing) {
+            [self.BS_TableView.header endRefreshing];
+        }
+        if (self.BS_TableView.footer.state == MJRefreshFooterStateRefreshing) {
+            [self.BS_TableView.footer endRefreshing];
+        }
 
     }];
     return operation;
@@ -667,7 +721,7 @@
     //_currentType = selectedType.type;
     _currentTypeSub = selectedType.code;
     //
-    [self getbilllistDayb:[self.currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub];
+    [self getbilllistDayb:[self.currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub pullDown:YES];
     
     [self bsRightNavAction:self.rightBtn];
 
@@ -679,9 +733,9 @@
 - (void)calendarView:(KMMonthDateCalendarView *)calendarView didStopChangeDate:(NSDate *)date dateString:(NSString *)dateString{
     _currentDate = date;
     if (EDSBillStatisticsVCStyleDay == calendarView.style) {
-        [self getbilllistDayb:dateString billType:_currentType recordType:_currentTypeSub];
+        [self getbilllistDayb:dateString billType:_currentType recordType:_currentTypeSub pullDown:YES];
     }else if (EDSBillStatisticsVCStyleMonth == calendarView.style){
-        [self getbilllistMonthbWithMonth:dateString];
+        [self getbilllistMonthbWithMonth:dateString pullDown:YES];
     }
 }
 
