@@ -22,7 +22,7 @@
                             <constraint firstAttribute="height" constant="0.5" id="KcV-g6-LqV"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Orj-2q-Wrj" userLabel="rightImg">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar_indicator_right_normal.png" translatesAutoresizingMaskIntoConstraints="NO" id="Orj-2q-Wrj" userLabel="rightImg">
                         <rect key="frame" x="294" y="17" width="16" height="16"/>
                         <animations/>
                         <constraints>
@@ -73,4 +73,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="calendar_indicator_right_normal.png" width="15" height="15"/>
+    </resources>
 </document>

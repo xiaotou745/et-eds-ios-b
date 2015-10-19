@@ -20,6 +20,7 @@
 #import "NSDate+KMdate.h"
 #import "ExpensesDetailVC.h"
 #import "MJRefresh.h"
+#import "NSString+KM_String.h"
 
 #define BS_RightNavTitleChoose @"筛选"
 #define BS_RightNavTitleDismiss @"收起"
@@ -345,9 +346,28 @@
     }else if (EDSBillStatisticsVCStyleMonth == self.style){
         DayBillInfo * dayInfo = [_bills objectAtIndex:indexPath.row];
         if (1 == dayInfo.hasDatas) {
-           // NSString * dayString = dayInfo.dayInfo;
-            // [self monthDaySwitchAction:self.BS_billTypeSwither];
+            
+            NSString * dayString = dayInfo.dayInfo;
+            // yyyy-MM-dd hh:mm:ss
+            NSString * dayStringFormat = [NSString stringWithFormat:@"%@ 00:00:00",dayString];
+            // 重置type, typeSub,timeInfo
+            _currentType = BS_RecordTypeAll;
+            _currentTypeSub = 0;
+            _currentDate = [dayStringFormat km_toDate];
+            
+            // 切换到日
+            [self.BS_billTypeSwither setTitle:BS_BillTypeSwitchTitleDay forState:UIControlStateNormal];
+            self.rightBtn.hidden = _BS_outBillBtn.hidden = _BS_inBillBtn.hidden = NO;
+            self.style = EDSBillStatisticsVCStyleDay;
+            [_calendarView setMonthDayStyle:EDSBillStatisticsVCStyleDay date:_currentDate];
+            
+            [self.BS_TableView removeFooter];
+            [self.BS_TableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(bs_tableViewFooterRefresh)];
+            
+            // 调接口
+            [self getbilllistDayb:[_currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub pullDown:YES];
         }
+ 
     }
 }
 
