@@ -20,4 +20,4 @@ NSString *const MJRefreshHeaderStateRefreshingText = @"正在刷新数据中..."
 NSString *const MJRefreshFooterStateRefreshingText = @"正在加载...";
 NSString *const MJRefreshFooterStateIdleText = @"";
 //NSString *const MJRefreshFooterStateRefreshingText = @"";
-NSString *const MJRefreshFooterStateNoMoreDataText = @"已经全部加载完毕";
+NSString *const MJRefreshFooterStateNoMoreDataText = @"没有更多了";

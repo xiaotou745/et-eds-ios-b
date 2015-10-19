@@ -167,8 +167,7 @@
     
     // table view fresh
     [self.BS_TableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(bs_tableViewHeaderRefreshAction)];
-    // table view footer fresh
-    [self.BS_TableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(bs_tableViewFooterRefresh)];
+
 }
 
 - (void)bs_tableViewFooterRefresh{
@@ -182,7 +181,7 @@
 
 - (void)bs_tableViewHeaderRefreshAction{
     
-    _currentPage = 0;
+    _currentPage = 1;
     
     if (_style == EDSBillStatisticsVCStyleDay) {
         [self getbilllistDayb:[_currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub pullDown:YES];
@@ -353,6 +352,7 @@
             // 重置type, typeSub,timeInfo
             _currentType = BS_RecordTypeAll;
             _currentTypeSub = 0;
+            _currentPage = 1;
             _currentDate = [dayStringFormat km_toDate];
             
             // 切换到日
@@ -377,18 +377,21 @@
 - (IBAction)allBillTypeAction:(UIButton *)sender {
     _currentType = BS_RecordTypeAll;
     _currentTypeSub = 0;
+    _currentPage = 1;
     [self _BS_buttonEventWithSender:sender];
 }
 
 - (IBAction)outBillTypeAction:(UIButton *)sender {
     _currentType = BS_RecordTypeOut;
     _currentTypeSub = 0;
+    _currentPage = 1;
     [self _BS_buttonEventWithSender:sender];
 }
 
 - (IBAction)inBillTypeAction:(UIButton *)sender {
     _currentType = BS_RecordTypeIn;
     _currentTypeSub = 0;
+    _currentPage = 1;
     [self _BS_buttonEventWithSender:sender];
 }
 
@@ -422,6 +425,7 @@
     _currentType = BS_RecordTypeAll;
     _currentTypeSub = 0;
     _currentDate = [NSDate new];
+    _currentPage = 1;
     
     if ([sender.currentTitle isEqualToString:BS_BillTypeSwitchTitleMonth]) {    // 切换到日
         [sender setTitle:BS_BillTypeSwitchTitleDay forState:UIControlStateNormal];
@@ -618,6 +622,16 @@
             [self _removeBSEmptyBillView];
             if (down && listRecordS.count == 0) {
                 [self _showBSEmptyBillView];
+                [self.BS_TableView removeFooter]; // 无上拉加载
+            }
+            
+            if (down && listRecordS.count > 0) {
+                // table view footer fresh
+                if (self.BS_TableView.footer) {
+                    [self.BS_TableView removeFooter];
+                }
+                [self.BS_TableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(bs_tableViewFooterRefresh)];
+                self.BS_TableView.footer.state = MJRefreshFooterStateIdle;
             }
             
             [_calendarView setOutBillAmount:_outMoney inAmount:_inMoney];
@@ -632,7 +646,9 @@
             
             if ([listRecordS count] == 0 && !down) {
                 //_currentPage--;
-                [Tools showHUD:@"没有更多了"];
+                // [Tools showHUD:@"没有更多了"];
+                self.BS_TableView.footer.state = MJRefreshFooterStateNoMoreData;
+
             }
             
         }else{
@@ -751,6 +767,7 @@
 
 #pragma mark - KMMonthDateCalendarViewDelegate calendar
 - (void)calendarView:(KMMonthDateCalendarView *)calendarView didStopChangeDate:(NSDate *)date dateString:(NSString *)dateString{
+    _currentPage = 1;
     _currentDate = date;
     if (EDSBillStatisticsVCStyleDay == calendarView.style) {
         [self getbilllistDayb:dateString billType:_currentType recordType:_currentTypeSub pullDown:YES];

@@ -57,7 +57,7 @@
     
     self.RMBFlag.font = [UIFont boldSystemFontOfSize:27.5];
     self.expenseAmount.textColor =
-    self.RMBFlag.textColor = DeepGrey;
+    self.RMBFlag.textColor = RedDefault;
     
     self.expenseAmount.font = [UIFont boldSystemFontOfSize:37.5];
     
@@ -101,7 +101,7 @@
     
     self.expenseStatus.text = status;
     self.expenseAmount.text = [NSString stringWithFormat:@"%.2f",amount];
-    self.expenseOperationName.text = [NSString stringWithFormat:@"%@:%@",noDesc,relationNo];
+    self.expenseOperationName.text = [NSString stringWithFormat:@"%@: %@",noDesc,relationNo];
     //1
     self.expenseDetail.text = recordType;
     //2
@@ -127,7 +127,6 @@
 
 
 - (void)EdTapAction:(UITapGestureRecognizer *)sender{
-    NSLog(@"%ld",_withwardId);
     NSDictionary *requestData = @{@"OrderId"    : [NSNumber numberWithInteger:_withwardId],
                                   @"BusinessId" : [UserInfo getUserId],
                                   @"version"    : @"1.0"};
