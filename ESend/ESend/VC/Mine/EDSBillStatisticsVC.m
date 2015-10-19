@@ -19,6 +19,7 @@
 #import "BS_Header.h"
 #import "NSDate+KMdate.h"
 #import "ExpensesDetailVC.h"
+#import "MJRefresh.h"
 
 #define BS_RightNavTitleChoose @"筛选"
 #define BS_RightNavTitleDismiss @"收起"
@@ -59,6 +60,9 @@
     // 订单为空的情况
     UIImageView * _emptyBillImg;
     UILabel * _emptyBillTextLbl;
+    
+    // viewDidAppear 次数， 第一次（==0）时，接口请求
+    NSInteger _viewDidAppearTimes;
 }
 @property (strong, nonatomic) IBOutlet UIView *BS_OptionHeaderView;
 @property (strong, nonatomic) IBOutlet UIView *BS_MidTitleBg;
@@ -83,7 +87,7 @@
 /// 0,1,2 default 0
 @property (nonatomic, assign) BS_RecordType currentType;        // 0,1,2 default 0
 @property (nonatomic, assign) NSInteger currentTypeSub;         // default 0
-@property (nonatomic, copy) NSString * currentTimeInfo;         // 接口时间串
+@property (nonatomic, strong) NSDate * currentDate;             // 接口时间串
 
 @end
 
@@ -107,8 +111,19 @@
     //
     [self getrecordtypeb];
     
-    // 日账单
-    [self getbilllistDayb:[[NSDate new] dateToStringWithFormat:@"yyyy-MM-dd"] billType:0 recordType:0];
+    self.currentDate = [NSDate new];
+
+    [self allBillTypeAction:self.BS_allBillBtn];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if (0 == _viewDidAppearTimes) {
+        // 日账单
+        //[self allBillTypeAction:self.BS_allBillBtn];
+    }
+    _viewDidAppearTimes++;
 }
 
 /// build views
@@ -148,6 +163,19 @@
     self.BS_MidTextV.backgroundColor = [UIColor clearColor];
     self.BS_MidTextV.font = [UIFont systemFontOfSize:BigFontSize];
     [self.view addSubview:self.calendarView];
+    
+    // table view fresh
+    [self.BS_TableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(bs_tableViewHeaderRefreshAction)];
+}
+
+- (void)bs_tableViewHeaderRefreshAction{
+    
+    if (_style == EDSBillStatisticsVCStyleDay) {
+        [self getbilllistDayb:[_currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub];
+    }else if (_style == EDSBillStatisticsVCStyleMonth){
+        [self getbilllistMonthbWithMonth:[_currentDate dateToStringWithFormat:KMCalendarMonthPrintFormat]];
+    }
+    
 }
 
 - (KMMonthDateCalendarView *)calendarView{
@@ -177,7 +205,6 @@
         [_maskView addGestureRecognizer:maskTap];
         _maskView.alpha = 0.0;
         [self.view addSubview:_maskView];
-
 
         if (!_callOutBillTypeView) {
             _callOutBillTypeView = [[UIView alloc] initWithFrame:CGRectMake(0, -200, ScreenWidth, 200)];
@@ -305,8 +332,8 @@
     }else if (EDSBillStatisticsVCStyleMonth == self.style){
         DayBillInfo * dayInfo = [_bills objectAtIndex:indexPath.row];
         if (1 == dayInfo.hasDatas) {
-            NSString * dayString = dayInfo.dayInfo;
-             [self monthDaySwitchAction:self.BS_billTypeSwither];
+           // NSString * dayString = dayInfo.dayInfo;
+            // [self monthDaySwitchAction:self.BS_billTypeSwither];
         }
     }
 }
@@ -317,26 +344,19 @@
 - (IBAction)allBillTypeAction:(UIButton *)sender {
     _currentType = BS_RecordTypeAll;
     _currentTypeSub = 0;
-
-    
     [self _BS_buttonEventWithSender:sender];
 }
 
 - (IBAction)outBillTypeAction:(UIButton *)sender {
     _currentType = BS_RecordTypeOut;
     _currentTypeSub = 0;
-
     [self _BS_buttonEventWithSender:sender];
-
 }
 
 - (IBAction)inBillTypeAction:(UIButton *)sender {
     _currentType = BS_RecordTypeIn;
     _currentTypeSub = 0;
-
-
     [self _BS_buttonEventWithSender:sender];
-
 }
 
 - (void)_enableAllOptionBtns{
@@ -348,39 +368,45 @@
 - (void)_BS_buttonEventWithSender:(UIButton *)sender{
     [self _enableAllOptionBtns];
     sender.enabled = NO;
-//    [self.Hp_ListMainScroller setContentOffset:CGPointMake(CGRectGetWidth([[UIScreen mainScreen] bounds])*(sender.tag - 1 - HeadButtonTagTrans), 0) animated:YES];
+
     CGFloat movCenterY = self.BS_billTypeIndicator.center.y;
     CGFloat newCenterX = sender.center.x;
     [UIView animateWithDuration:0.3 animations:^{
-        
         self.BS_billTypeIndicator.center = CGPointMake(newCenterX, movCenterY);
-
     } completion:^(BOOL finished) {
-        // 
+        // API 接口
+        if (EDSBillStatisticsVCStyleDay == self.style) { // day
+            [self getbilllistDayb:[self.currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub];
+        }else if (EDSBillStatisticsVCStyleMonth == self.style) { // month
+            [self getbilllistMonthbWithMonth:[self.currentDate dateToStringWithFormat:KMCalendarMonthPrintFormat]];
+        }
     }];
 }
 
+/// 日月切换
 - (IBAction)monthDaySwitchAction:(UIButton *)sender {
+    // 重置type, typeSub,timeInfo
+    _currentType = BS_RecordTypeAll;
+    _currentTypeSub = 0;
+    _currentDate = [NSDate new];
+    
     if ([sender.currentTitle isEqualToString:BS_BillTypeSwitchTitleMonth]) {    // 切换到日
         [sender setTitle:BS_BillTypeSwitchTitleDay forState:UIControlStateNormal];
-        _BS_outBillBtn.hidden = _BS_inBillBtn.hidden = NO;
+        self.rightBtn.hidden = _BS_outBillBtn.hidden = _BS_inBillBtn.hidden = NO;
         self.style = EDSBillStatisticsVCStyleDay;
+        [_calendarView setMonthDayStyle:EDSBillStatisticsVCStyleDay date:_currentDate];
         
-        _calendarView.style = KMMonthDateCalendarViewStyleDate;
-
+        // 调接口
+        [self getbilllistDayb:[_currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub];
+        
     }else{  // 切换到月
         [sender setTitle:BS_BillTypeSwitchTitleMonth forState:UIControlStateNormal];
-        _BS_outBillBtn.hidden = _BS_inBillBtn.hidden = YES;
-        _currentType = BS_RecordTypeAll;
-        _currentTypeSub= 0;
+        self.rightBtn.hidden = _BS_outBillBtn.hidden = _BS_inBillBtn.hidden = YES;
         self.style = EDSBillStatisticsVCStyleMonth;
-        [self allBillTypeAction:_BS_allBillBtn];
+        [_calendarView setMonthDayStyle:EDSBillStatisticsVCStyleMonth date:_currentDate];
         
-        _calendarView.style = KMMonthDateCalendarViewStyleMonth;
-
+        [self allBillTypeAction:_BS_allBillBtn];        // 重置type,typeSub；并调用接口请求
     }
-    
-
 }
 
 
@@ -505,7 +531,7 @@
     NSDictionary * paraDict = @{
                                 @"dayInfo":dayString,
                                 
-                                @"businessId":@"2007",//[UserInfo getUserId],
+                                @"businessId":[UserInfo getUserId],//@"2007"
                                 @"billType":[NSNumber numberWithInteger:billType],
                                 @"recordType":[NSNumber numberWithInteger:recordType],
                                 @"currentPage":[NSNumber numberWithInteger:_currentPage],
@@ -604,7 +630,7 @@
         allTp.code = 0;
         allTp.desc = @"全部";
         allTp.type = type;
-        allTp.selected = (BS_RecordTypeAll == _currentTypeSub)?YES:NO;
+        allTp.selected = (0 == _currentTypeSub)?YES:NO;
         [array addObject:allTp];
         for (RecordTypeModel * atype in _allBillTypes) {
             atype.selected = (atype.code == _currentTypeSub)?YES:NO;
@@ -628,124 +654,43 @@
 }
 
 
-//#pragma mark - KMNavigationTitleViewDelegate title回调
-//- (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldHideContentView:(BS_RecordType)optionType typeId:(NSInteger)typeId{
-//    //
-//    if (_callOutBillTypeView) {
-//
-//        [UIView animateWithDuration:0.5 animations:^{
-//            CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
-//            CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
-//            _callOutBillTypeView.frame = CGRectMake(0, -height, width, height);
-//            _maskView.alpha = 0.0;
-//        } completion:^(BOOL finished) {
-//            for (UIView * subview in _callOutBillTypeView.subviews) {
-//                [subview removeFromSuperview];
-//            }
-//            [_maskView removeFromSuperview];
-//            _maskView = nil;
-//        }];
-//    }
-//}
-//
-
-//
-//- (void)KMNavigationTitleView:(KMNavigationTitleView *)view shouldShowContentView:(BS_RecordType)ot typeId:(NSInteger)tid{
-//    // show
-//    if (!_maskView) {
-//        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-//        _maskView.backgroundColor = BlackColor;
-//    }
-//    UITapGestureRecognizer * maskTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(masktapAction:)];
-//    [_maskView addGestureRecognizer:maskTap];
-//    _maskView.alpha = 0.0;
-//    [self.view addSubview:_maskView];
-//
-//
-//    if (!_callOutBillTypeView) {
-//        _callOutBillTypeView = [[UIView alloc] initWithFrame:CGRectMake(0, -200, ScreenWidth, 200)];
-//        _callOutBillTypeView.backgroundColor = [UIColor whiteColor];
-//        [self.view addSubview:_callOutBillTypeView];
-//    }
-//    [self.view bringSubviewToFront:_callOutBillTypeView];
-//    [self.view bringSubviewToFront:self.navBar];
-//
-//    
-//    CGFloat buttonWidth = (ScreenWidth - (BS_calloutContentCountPerRow + 1) * BS_calloutMargin)/ BS_calloutContentCountPerRow;
-//    CGFloat billTypeViewHeight = 0;
-//    
-//    [_currentBillTypes removeAllObjects];
-//    [_currentBillTypes addObjectsFromArray:[self _BS_getBillTypesWithType:(BS_RecordType)ot]];
-//    for (int i = 0; i < _currentBillTypes.count; i++) {
-//        int row=i/BS_calloutContentCountPerRow;//行号
-//        int loc=i%BS_calloutContentCountPerRow;//列号
-//        CGFloat buttonX = BS_calloutMargin + loc*(BS_calloutMargin + buttonWidth);
-//        CGFloat buttonY = BS_calloutTopPadding + row*(BS_calloutMargin + BS_calloutContentHeight);
-//        
-//        RecordTypeModel * typeModel = [_currentBillTypes objectAtIndex:i];
-//        
-//        UIButton * typeButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonWidth, BS_calloutContentHeight)];
-//        [typeButton setBackgroundImage:[UIImage KM_createImageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-//        [typeButton setBackgroundImage:[UIImage KM_createImageWithColor:BlueColor] forState:UIControlStateSelected];
-//        typeButton.layer.masksToBounds = YES;
-//        typeButton.layer.borderColor = [SeparatorLineColor CGColor];
-//        typeButton.layer.borderWidth = 0.5f;
-//        [typeButton setTitle:typeModel.desc forState:UIControlStateNormal];
-//        [typeButton setTitleColor:DeepGrey forState:UIControlStateNormal];
-//        [typeButton setSelected:typeModel.selected];
-//        typeButton.tag = i;
-//        [typeButton addTarget:self action:@selector(typeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-//        [_callOutBillTypeView addSubview:typeButton];
-//        
-//        billTypeViewHeight = CGRectGetMaxY(typeButton.frame);
-//    }
-//    billTypeViewHeight += BS_calloutBottomPadding;
-//    [_callOutBillTypeView setFrame:CGRectMake(0, -billTypeViewHeight, ScreenWidth, billTypeViewHeight)];
-//    
-//    [UIView animateWithDuration:0.5 animations:^{
-//        CGFloat height = CGRectGetHeight(_callOutBillTypeView.bounds);
-//        CGFloat width = CGRectGetWidth(_callOutBillTypeView.bounds);
-//        _callOutBillTypeView.frame = CGRectMake(0, 64, width, height);
-//        _maskView.alpha = 0.8f;
-//    } completion:^(BOOL finished) {
-////        view.imgIsUp
-//    }];
-//}
+#pragma mark - 筛选日账单搜索类型
 
 - (void)typeButtonAction:(UIButton *)typeButton{
-    // _titleView.optionType
+    //  必然是日账单了
     for (UIButton * subBtn in _callOutBillTypeView.subviews) {
         [subBtn setSelected:NO];
     }
     [typeButton setSelected:YES];
     NSInteger idx = typeButton.tag;
     RecordTypeModel * selectedType = [_currentBillTypes objectAtIndex:idx];
-    _currentType = selectedType.type;
+    //_currentType = selectedType.type;
     _currentTypeSub = selectedType.code;
     //
+    [self getbilllistDayb:[self.currentDate dateToStringWithFormat:KMCalendarDatePrintFormat] billType:_currentType recordType:_currentTypeSub];
+    
+    [self bsRightNavAction:self.rightBtn];
+
 }
 
 
 
 #pragma mark - KMMonthDateCalendarViewDelegate calendar
 - (void)calendarView:(KMMonthDateCalendarView *)calendarView didStopChangeDate:(NSDate *)date dateString:(NSString *)dateString{
-    if (KMMonthDateCalendarViewStyleDate == calendarView.style) {
+    _currentDate = date;
+    if (EDSBillStatisticsVCStyleDay == calendarView.style) {
         [self getbilllistDayb:dateString billType:_currentType recordType:_currentTypeSub];
-    }else if (KMMonthDateCalendarViewStyleMonth == calendarView.style){
+    }else if (EDSBillStatisticsVCStyleMonth == calendarView.style){
         [self getbilllistMonthbWithMonth:dateString];
     }
 }
 
-- (void)calendarView:(KMMonthDateCalendarView *)calendarView SwitchToType:(KMMonthDateCalendarViewStyle)style dateString:(NSString *)dateString{
-    if (KMMonthDateCalendarViewStyleDate == style) {
-        [self getbilllistDayb:dateString billType:_currentType recordType:_currentTypeSub];
-    }else if (KMMonthDateCalendarViewStyleMonth == style){
-        [self getbilllistMonthbWithMonth:dateString];
-    }
+- (void)calendarView:(KMMonthDateCalendarView *)calendarView SwitchToType:(EDSBillStatisticsVCStyle)style dateString:(NSString *)dateString{
+    
 }
 
 - (void)calendarViewDidStartChangeDate:(KMMonthDateCalendarView *)calendarView{
-    // non
+    
 }
 
 

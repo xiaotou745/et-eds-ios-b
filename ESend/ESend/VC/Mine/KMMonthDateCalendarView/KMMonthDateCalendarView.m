@@ -11,8 +11,7 @@
 #import "UIColor+KMhexColor.h"
 #import "NSDate+KMdate.h"
 
-static NSString* const KMCalendarMonthPrintFormat = @"yyyy-MM";
-static NSString* const KMCalendarDatePrintFormat = @"yyyy-MM-dd";
+
 
 static NSString* const KMCalendarHexColorDark = @"333333";
 static NSString* const KMCalendarHexColorGray = @"666666";
@@ -46,7 +45,7 @@ static NSInteger const KMCalendarNormalFontSize = 14;
         self.userInteractionEnabled = YES;
         self.dateStyleLastDate = [NSDate new];
         self.monthStyleLastDate = [NSDate new];
-        self.style = KMMonthDateCalendarViewStyleDate; // 默认是 天
+        _style = EDSBillStatisticsVCStyleDay; // 默认是 天
         [self addSubview:self.backgroundImageView];
     }
     return self;
@@ -105,9 +104,9 @@ static NSInteger const KMCalendarNormalFontSize = 14;
         _dateTimeLabel.font = [UIFont boldSystemFontOfSize:KMCalendarBigFontSize];
         
         //
-        if (_style == KMMonthDateCalendarViewStyleDate) {
+        if (_style == EDSBillStatisticsVCStyleDay) {
             _dateTimeLabel.text = [[NSDate date] dateToStringWithFormat:KMCalendarDatePrintFormat];
-        }else if (_style == KMMonthDateCalendarViewStyleMonth) {
+        }else if (_style == EDSBillStatisticsVCStyleMonth) {
             _dateTimeLabel.text = [[NSDate date] dateToStringWithFormat:KMCalendarMonthPrintFormat];
         }
     }
@@ -134,9 +133,9 @@ static NSInteger const KMCalendarNormalFontSize = 14;
         _rightIndicatorImg.highlightedImage = [UIImage imageNamed:@"calendar_indicator_right_disable"];
         _rightIndicatorImg.image = [UIImage imageNamed:@"calendar_indicator_right_normal"];
     }
-    if (_style == KMMonthDateCalendarViewStyleDate) {
+    if (_style == EDSBillStatisticsVCStyleDay) {
         _rightIndicatorImg.highlighted = [self.dateStyleLastDate isToday];
-    }else if (_style == KMMonthDateCalendarViewStyleMonth){
+    }else if (_style == EDSBillStatisticsVCStyleMonth){
         _rightIndicatorImg.highlighted = [self.monthStyleLastDate isTheCurrentMonth];
     }
     return _rightIndicatorImg;
@@ -154,26 +153,24 @@ static NSInteger const KMCalendarNormalFontSize = 14;
     return _OrderOverviewLabel;
 }
 
-- (void)setStyle:(KMMonthDateCalendarViewStyle)style{
+- (void)setStyle:(EDSBillStatisticsVCStyle)style{
     _style = style;
-    // render
+}
+
+/// 更改日月的样式
+- (void)setMonthDayStyle:(EDSBillStatisticsVCStyle)style date:(NSDate *)aDate{
+    _style = style;
     if (_dateTimeLabel) {
-        if (_style == KMMonthDateCalendarViewStyleDate) {
-            self.dateStyleLastDate = [NSDate new];
+        if (_style == EDSBillStatisticsVCStyleDay) {
+            self.dateStyleLastDate = aDate;
             _dateTimeLabel.text = [self.dateStyleLastDate dateToStringWithFormat:KMCalendarDatePrintFormat];
             _rightIndicatorImg.highlighted = [self.dateStyleLastDate isToday];
-
-        }else if (_style == KMMonthDateCalendarViewStyleMonth) {
-            self.monthStyleLastDate = [NSDate new];
+        }else if (_style == EDSBillStatisticsVCStyleMonth){
+            self.monthStyleLastDate = aDate;
             _dateTimeLabel.text = [self.monthStyleLastDate dateToStringWithFormat:KMCalendarMonthPrintFormat];
             _rightIndicatorImg.highlighted = [self.monthStyleLastDate isTheCurrentMonth];
-
-        }
-        if ([self.delegate respondsToSelector:@selector(calendarView:SwitchToType:dateString:)]) {
-            [self.delegate calendarView:self SwitchToType:_style dateString:_dateTimeLabel.text];
         }
     }
-
 }
 
 #pragma mark - gestures action
@@ -190,15 +187,15 @@ static NSInteger const KMCalendarNormalFontSize = 14;
 - (void)swipeAnimationRight:(BOOL)swipeRight
 {
     if (!swipeRight) {
-        if (_style == KMMonthDateCalendarViewStyleDate && [self.dateStyleLastDate isToday]) {
+        if (_style == EDSBillStatisticsVCStyleDay && [self.dateStyleLastDate isToday]) {
             return;
-        }else if (_style == KMMonthDateCalendarViewStyleMonth && [self.monthStyleLastDate isTheCurrentMonth]){
+        }else if (_style == EDSBillStatisticsVCStyleMonth && [self.monthStyleLastDate isTheCurrentMonth]){
             return;
         }
     }else{
-        if (_style == KMMonthDateCalendarViewStyleDate && [self.dateStyleLastDate is20140101Day]) {
+        if (_style == EDSBillStatisticsVCStyleDay && [self.dateStyleLastDate is20140101Day]) {
             return;
-        }else if (_style == KMMonthDateCalendarViewStyleMonth && [self.monthStyleLastDate is201401Month]){
+        }else if (_style == EDSBillStatisticsVCStyleMonth && [self.monthStyleLastDate is201401Month]){
             return;
         }
     }
@@ -219,12 +216,12 @@ static NSInteger const KMCalendarNormalFontSize = 14;
 - (void)renderSwipeData:(NSNumber *)swipeData{
     BOOL swipeDirectionRight = [swipeData boolValue];
     NSString * resultDateString = nil;
-    if (_style == KMMonthDateCalendarViewStyleDate) {
+    if (_style == EDSBillStatisticsVCStyleDay) {
         self.dateStyleLastDate = [self.dateStyleLastDate addDays:swipeDirectionRight?-1:1];
         resultDateString = [self.dateStyleLastDate dateToStringWithFormat:KMCalendarDatePrintFormat];
         _rightIndicatorImg.highlighted = [self.dateStyleLastDate isToday];
         _leftIndicatorImg.highlighted = [self.dateStyleLastDate is20140101Day];
-    }else if (_style == KMMonthDateCalendarViewStyleMonth){
+    }else if (_style == EDSBillStatisticsVCStyleMonth){
         self.monthStyleLastDate = [self.monthStyleLastDate addMonths:swipeDirectionRight?-1:1];
         resultDateString = [self.monthStyleLastDate dateToStringWithFormat:KMCalendarMonthPrintFormat];
         _rightIndicatorImg.highlighted = [self.monthStyleLastDate isTheCurrentMonth];
@@ -241,14 +238,11 @@ static NSInteger const KMCalendarNormalFontSize = 14;
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
-    // NSLog(@"%@    \n%@",anim,flag?@"yes":@"no");
-    
-    //
     
     if ([self.delegate respondsToSelector:@selector(calendarView:didStopChangeDate:dateString:)]) {
-        if (_style == KMMonthDateCalendarViewStyleDate) {
+        if (_style == EDSBillStatisticsVCStyleDay) {
             [self.delegate calendarView:self didStopChangeDate:self.dateStyleLastDate dateString:[self.dateStyleLastDate dateToStringWithFormat:KMCalendarDatePrintFormat]];
-        }else if (_style == KMMonthDateCalendarViewStyleMonth){
+        }else if (_style == EDSBillStatisticsVCStyleMonth){
             [self.delegate calendarView:self didStopChangeDate:self.monthStyleLastDate dateString:[self.monthStyleLastDate dateToStringWithFormat:KMCalendarMonthPrintFormat]];
         }
     }
