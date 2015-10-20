@@ -29,7 +29,7 @@
 #define BS_OptionTypeBtnTitleOut @"出账"
 #define BS_OptionTypeBtnTitleIn @"入账"
 
-#define BS_BillTypeSwitchTitleMonth @"切换到日"
+#define BS_BillTypeSwitchTitleMonth @"切换到天"
 #define BS_BillTypeSwitchTitleDay @"切换到月"
 
 #define BS_ColorGray @"666666"

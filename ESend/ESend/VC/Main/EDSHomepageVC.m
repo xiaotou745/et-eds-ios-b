@@ -881,7 +881,27 @@
 }
 
 - (void)userLogout{
-    [self userStatusChanged];
+   // [self userStatusChanged];
+    [_Hp_ContentLists1st removeAllObjects];
+    [_Hp_ContentLists2nd removeAllObjects];
+    [_Hp_ContentLists3rd removeAllObjects];
+    [self.Hp_ContentList1st reloadData];
+    [self.Hp_ContentList2nd reloadData];
+    [self.Hp_ContentList3rd reloadData];
+    
+    _logoImgViewS3.image =
+    _logoImgViewS2.image =
+    _logoImgViewS1.image = nil;
+    _markedWordsLabelS3.text =
+    _markedWordsLabelS2.text =
+    _markedWordsLabelS1.text = @"";
+    
+    [self setOptionButton:self.Hp_OptionBtn1st count:0];
+    [self setOptionButton:self.Hp_OptionBtn2nd count:0];
+    [self setOptionButton:self.Hp_Option3rd count:0];
+    
+    _timesScrollToMiddle = 0;
+    _timesScrollToRight = 0;
 }
 
 - (void)releseOrderSuccessfully:(NSNotification *)notify{

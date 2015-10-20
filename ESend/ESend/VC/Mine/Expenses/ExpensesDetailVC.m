@@ -99,6 +99,13 @@
     NSString * noDesc = _detailInfo[@"noDesc"];
     NSInteger isOrder = [_detailInfo[@"isOrder"] integerValue];
     
+    if (!isCanUseString(relationNo)) {
+        relationNo = @"--";
+    }
+    if ([relationNo isEqualToString:@"<null>"]) {
+        relationNo = @"--";
+    }
+    
     self.expenseStatus.text = status;
     self.expenseAmount.text = [NSString stringWithFormat:@"%.2f",amount];
     self.expenseOperationName.text = [NSString stringWithFormat:@"%@: %@",noDesc,relationNo];

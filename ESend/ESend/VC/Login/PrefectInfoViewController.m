@@ -155,7 +155,7 @@ typedef NS_ENUM(NSInteger, PhotoType) {
     _zipCodeTF = [self createTextField:@"区号"];
     _zipCodeTF.frame = CGRectMake(0, CGRectGetMaxY(line3.frame), 110, 55);
     _zipCodeTF.textAlignment = NSTextAlignmentCenter;
-    _zipCodeTF.enabled = NO;
+    // _zipCodeTF.enabled = NO;
     [_scrollView addSubview:_zipCodeTF];
     
     _phoneTF = [self createTextField:@"座机号码"];
