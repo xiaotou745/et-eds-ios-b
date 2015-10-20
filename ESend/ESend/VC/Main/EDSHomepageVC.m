@@ -850,26 +850,18 @@
     }
 }
 
-//- (void)userLogout {
-//    [_ordersList removeAllObjects];
-//    [self.tableView reloadData];
-//}
+
 
 - (void)userStatusChanged {
     
     [_Hp_ContentLists1st removeAllObjects];
     [_Hp_ContentLists2nd removeAllObjects];
     [_Hp_ContentLists3rd removeAllObjects];
+    [self.Hp_ContentList1st reloadData];
+    [self.Hp_ContentList2nd reloadData];
+    [self.Hp_ContentList3rd reloadData];
     
-    if ([UserInfo getStatus] != UserStatusComplete) {
-        _logoImgViewS3.image =
-        _logoImgViewS2.image =
-        _logoImgViewS1.image = [UIImage imageNamed:@"checkLogo"];
-        _markedWordsLabelS3.text =
-        _markedWordsLabelS2.text =
-        _markedWordsLabelS1.text = HPUserStatusInReviewMsg;
-        
-    }else if ([UserInfo isLogin]) {
+    if ([UserInfo isLogin]) {
         _logoImgViewS3.image =
         _logoImgViewS2.image =
         _logoImgViewS1.image = nil;
@@ -877,6 +869,13 @@
         _markedWordsLabelS2.text =
         _markedWordsLabelS1.text = @"";
         
+    }else if ([UserInfo getStatus] != UserStatusComplete){
+        _logoImgViewS3.image =
+        _logoImgViewS2.image =
+        _logoImgViewS1.image = [UIImage imageNamed:@"checkLogo"];
+        _markedWordsLabelS3.text =
+        _markedWordsLabelS2.text =
+        _markedWordsLabelS1.text = HPUserStatusInReviewMsg;
     }
     
 }

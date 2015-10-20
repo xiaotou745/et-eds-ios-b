@@ -27,10 +27,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjd-kj-aUf" userLabel="amount">
-                        <rect key="frame" x="29" y="5" width="80" height="23"/>
+                        <rect key="frame" x="29" y="5" width="120" height="23"/>
                         <animations/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="80" id="1TK-ke-XD4"/>
+                            <constraint firstAttribute="width" constant="120" id="1TK-ke-XD4"/>
                             <constraint firstAttribute="height" constant="23" id="by8-De-XzU"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -38,11 +38,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giw-OO-yaL" userLabel="remark">
-                        <rect key="frame" x="15" y="28" width="60" height="18"/>
+                        <rect key="frame" x="15" y="28" width="120" height="18"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="0cl-yJ-xP6"/>
-                            <constraint firstAttribute="width" constant="60" id="wbo-hK-aRz"/>
+                            <constraint firstAttribute="width" constant="120" id="wbo-hK-aRz"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -56,7 +56,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rt-pa-zw7" userLabel="time">
-                        <rect key="frame" x="109" y="14" width="201" height="21"/>
+                        <rect key="frame" x="149" y="14" width="161" height="21"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="MWE-4L-v3b"/>
