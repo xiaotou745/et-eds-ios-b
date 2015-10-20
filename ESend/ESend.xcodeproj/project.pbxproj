@@ -71,6 +71,8 @@
 		6811E0D01BCA5C5300F81F03 /* DayBillInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0CE1BCA5C5300F81F03 /* DayBillInfo.m */; settings = {ASSET_TAGS = (); }; };
 		6811E0D31BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */; settings = {ASSET_TAGS = (); }; };
 		6811E0D41BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */; settings = {ASSET_TAGS = (); }; };
+		684A39AC1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; settings = {ASSET_TAGS = (); }; };
+		684A39AD1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; settings = {ASSET_TAGS = (); }; };
 		68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C891BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C8A1BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */; };
@@ -638,6 +640,8 @@
 		6811E0CE1BCA5C5300F81F03 /* DayBillInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayBillInfo.m; sourceTree = "<group>"; };
 		6811E0D11BCA5D2000F81F03 /* DayBillDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayBillDetailInfo.h; sourceTree = "<group>"; };
 		6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayBillDetailInfo.m; sourceTree = "<group>"; };
+		684A39AA1BD644E60076CE8D /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
+		684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		68580C851BA7BB7E0082C18C /* EDSOrderStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSOrderStatisticsVC.h; path = ../EDSOrderStatisticsVC.h; sourceTree = "<group>"; };
 		68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDSOrderStatisticsVC.m; path = ../EDSOrderStatisticsVC.m; sourceTree = "<group>"; };
 		68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EDSOrderStatisticsVC.xib; path = ../EDSOrderStatisticsVC.xib; sourceTree = "<group>"; };
@@ -1377,6 +1381,15 @@
 			name = dataModel;
 			sourceTree = "<group>";
 		};
+		684A39A91BD644E60076CE8D /* CustomAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				684A39AA1BD644E60076CE8D /* CustomIOSAlertView.h */,
+				684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */,
+			);
+			path = CustomAlertView;
+			sourceTree = "<group>";
+		};
 		68580C8C1BA7BB950082C18C /* OrderStatistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1941,6 +1954,7 @@
 		F6C6AC591B12F3620007A980 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				684A39A91BD644E60076CE8D /* CustomAlertView */,
 				CF22B0161BAB4A61000F19D9 /* MJRefresh */,
 				2E5781911BA2773400A04B9D /* wechat */,
 				F6F703161B68D8740094E7A8 /* JKAlertDialog */,
@@ -2524,6 +2538,7 @@
 				68063DEA1BAD510300CEB155 /* EDSStatisticsInfoModel.m in Sources */,
 				6801E3BB1BC8B1BD00CE13ED /* NSDate+KMdate.m in Sources */,
 				F67D35341B5664A600083DA4 /* BaseTableViewCell.m in Sources */,
+				684A39AD1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */,
 				CF22B0131BAB2BC7000F19D9 /* EDSHomepageVC.m in Sources */,
 				CF22B0461BAB4A61000F19D9 /* UIView+MJExtension.m in Sources */,
 				6811E0D41BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */,
@@ -2744,6 +2759,7 @@
 				68063DE91BAD510300CEB155 /* EDSStatisticsInfoModel.m in Sources */,
 				6801E3BA1BC8B1BD00CE13ED /* NSDate+KMdate.m in Sources */,
 				F6C6AC9B1B12F3EB0007A980 /* BaseTableViewCell.m in Sources */,
+				684A39AC1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */,
 				CF22B0121BAB2BC7000F19D9 /* EDSHomepageVC.m in Sources */,
 				CF22B0451BAB4A61000F19D9 /* UIView+MJExtension.m in Sources */,
 				6811E0D31BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */,
