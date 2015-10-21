@@ -228,7 +228,7 @@ CGFloat buttonSpacerHeight = 0;
     dialogContainer.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:dialogContainer.bounds cornerRadius:dialogContainer.layer.cornerRadius].CGPath;
 
     // There is a line above the button
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, dialogContainer.bounds.size.height - buttonHeight - buttonSpacerHeight, dialogContainer.bounds.size.width, buttonSpacerHeight)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, dialogContainer.bounds.size.height - buttonHeight - buttonSpacerHeight, dialogContainer.bounds.size.width, 0.5f)];
     lineView.backgroundColor = [UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f];
     [dialogContainer addSubview:lineView];
     // ^^^
@@ -262,11 +262,23 @@ CGFloat buttonSpacerHeight = 0;
 //        [closeButton setTitleColor:[UIColor colorWithRed:0.0f green:0.5f blue:1.0f alpha:1.0f] forState:UIControlStateNormal];
 //        [closeButton setTitleColor:[UIColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f] forState:UIControlStateHighlighted];
         [closeButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [closeButton.titleLabel setFont:[UIFont boldSystemFontOfSize:14.0f]];
+        [closeButton.titleLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
         //[closeButton.layer setCornerRadius:kCustomIOSAlertViewCornerRadius];
-
+//        closeButton.layer.borderWidth = 0.5f;
+//        closeButton.layer.borderColor = [[UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f] CGColor];
+        
         [container addSubview:closeButton];
+        
+        // line
+        if (i < [buttonTitles count] - 1) {
+            UIImageView * line = [[UIImageView alloc] initWithFrame:CGRectMake((i + 1) * buttonWidth, container.bounds.size.height - buttonHeight, 0.5f, buttonHeight)];
+            line.backgroundColor = [UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f];
+            [container addSubview:line];
+        }
+        
     }
+    
+    
 }
 
 // Helper function: count and return the dialog's size

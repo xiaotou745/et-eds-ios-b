@@ -20,6 +20,8 @@
 #import "ConsigneeInfoCell.h"
 #import "DataArchive.h"
 
+#import "CustomIOSAlertView.h"
+
 #define LocalConsigneeId @"-1"
 
 typedef NS_ENUM(NSInteger, PayStatus) {
@@ -27,7 +29,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     PayStatusUnpaid
 };
 
-@interface ReleseOrderViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, AddOrderTableViewCellDelegate, UIAlertViewDelegate,ConsigneeInfoCellDelegate>
+@interface ReleseOrderViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, AddOrderTableViewCellDelegate, UIAlertViewDelegate,ConsigneeInfoCellDelegate,CustomIOSAlertViewDelegate>
 {
     UITableView *_tableView;
     
@@ -622,24 +624,51 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     [FHQNetWorkingAPI getDistribSubsidy:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
         
-        CGFloat distrib = [result getFloatWithKey:@"DistribSubsidy"];
+        double distrib = [result getDoubleWithKey:@"DistribSubsidy"];
+        
         NSString *str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld\n配送费:%.2f元",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count,distrib * _priceTFList.count];
         if (distrib == 0) {
             str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count];
         }
-        if (_JKalert) {
-            [_JKalert removeFromSuperview];
-            _JKalert = nil;
-        }
-        _JKalert = [[JKAlertDialog alloc] initWithTitle:@"确定要发布订单吗？" message:str];
-        [_JKalert addButton:Button_CANCEL withTitle:@"取消" handler:^(JKAlertDialogItem *item) {
-            
-        }];
+//        
+//        if (_JKalert) {
+//            [_JKalert removeFromSuperview];
+//            _JKalert = nil;
+//        }
+//        _JKalert = [[JKAlertDialog alloc] initWithTitle:@"确定要发布订单吗？" message:str];
+//        [_JKalert addButton:Button_CANCEL withTitle:@"取消" handler:^(JKAlertDialogItem *item) {
+//            
+//        }];
+//        __block ReleseOrderViewController * blockSelf = self;
+//        [_JKalert addButton:Button_OK withTitle:@"确定" handler:^(JKAlertDialogItem *item) {
+//            [blockSelf releseInfo];
+//        }];
+//        [_JKalert show];
+        
+        // Here we need to pass a full frame
+        CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
+        NSString * alertTitle = @"确定要发布订单吗?";
+        // Add some custom content to the alert view
+        [alertView setContainerView:[self createAlertView:alertTitle content:str]];
+        
+        // Modify the parameters
+        [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"取消", @"确定", nil]];
+        // You may use a Block, rather than a delegate.
+        
         __block ReleseOrderViewController * blockSelf = self;
-        [_JKalert addButton:Button_OK withTitle:@"确定" handler:^(JKAlertDialogItem *item) {
-            [blockSelf releseInfo];
+        [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+            // NSLog(@"Block: Button at position %d is clicked on alertView %d.", buttonIndex, (int)[alertView tag]);
+            if (1 == buttonIndex) {
+                [blockSelf releseInfo];
+            }
+            [alertView close];
         }];
-        [_JKalert show];
+        
+        [alertView setUseMotionEffects:true];
+        
+        // And launch the dialog
+        [alertView show];
+        
         [Tools hiddenProgress:HUD];
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
         [Tools hiddenProgress:HUD];
@@ -652,6 +681,39 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 //    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定要发布订单吗" message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
 //    [alertView show];
 }
+
+
+
+- (UIView *)createAlertView:(NSString *)title content:(NSString *)content
+{
+    UIView *demoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(demoView.frame), 30)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont boldSystemFontOfSize:16];
+    titleLabel.text = title;
+    [demoView addSubview:titleLabel];
+    
+    CGFloat contentSize = 15;
+    CGFloat contentWidth = CGRectGetWidth(demoView.frame) - 20;
+    CGFloat contentHeight = [Tools stringHeight:content fontSize:contentSize width:contentWidth].height;
+    contentHeight += 5;
+    
+    UILabel * contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLabel.frame) + 5, contentWidth, contentHeight)];
+    contentLabel.backgroundColor = [UIColor clearColor];
+    contentLabel.textAlignment = NSTextAlignmentLeft;
+    contentLabel.font = [UIFont systemFontOfSize:15];
+    contentLabel.text = content;
+    contentLabel.numberOfLines = 0;
+    [demoView addSubview:contentLabel];
+    
+    [demoView setFrame:CGRectMake(0, 0, 290, 30 + contentHeight + 8)];
+    
+    return demoView;
+}
+
+
 
 - (void)releseInfo {
     NSMutableArray *childList = [NSMutableArray array];
