@@ -212,7 +212,60 @@
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
     [FHQNetWorkingAPI getOrderDetail:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         
-        [order loadData:result];
+        // [order loadData:result];
+        //
+        order.remark = [[result getStringWithKey:@"Remark"] isEqual:@""] ? @"无" : [result getStringWithKey:@"Remark"] ;
+        //order.remark = [result getStringWithKey:@"Remark"];
+        order.isPay = [[result objectForKey:@"IsPay"] boolValue];
+        order.Landline = [result getStringWithKey:@"Landline"];
+        order.totalAmount = [result getDoubleWithKey:@"TotalAmount"];
+        order.pubDate = [result getStringWithKey:@"PubDate"];
+        order.orderFrom = [result getIntegerWithKey:@"OrderFrom"];
+        order.receviceCity = [result getStringWithKey:@"receviceCity"];
+        order.orderCount = [result getIntegerWithKey:@"OrderCount"];
+        // NeedUploadCount 无用
+        // order.mealsSettleMode 无用
+        // 经纬度 无用
+        order.businessId = [result getIntegerWithKey:@"businessId"];
+        // distance_OrderBy 无用
+        order.receiveAddress = [result getStringWithKey:@"ReceviceAddress"];
+        // OneKeyPubOrder 一键发单 - 没有用到
+        // order.originalOrderNo 第三方订单号
+        order.businessName = [result getStringWithKey:@"businessName"];
+        // Payment 无用
+        order.IsComplain = [result getIntegerWithKey:@"IsComplain"];
+        // order.distance
+        order.ClienterId = [result getIntegerWithKey:@"ClienterId"];
+        order.orderStatus = [result getIntegerWithKey:@"Status"];
+        // IsExistsUnFinish
+        order.bussinessPhone = [result getStringWithKey:@"businessPhone"];
+        // ClienterPhoneNo
+        order.bussinessPhone2 = [result getStringWithKey:@"businessPhone2"];
+        order.orderNumber = [result getStringWithKey:@"OrderNo"];
+        // GrabTime
+        order.receivePhone = [result getStringWithKey:@"RecevicePhoneNo"];
+        // GroupId
+        // OrderCommission
+        // Invoice
+        // pickUpCity
+        //
+        order.pickupAddress = [result getStringWithKey:@"PickUpAddress"];
+        order.totalDeliverPrce = [result getDoubleWithKey:@"TotalDistribSubsidy"];
+        // ClienterName
+        [order.childOrderList removeAllObjects];
+        for (NSDictionary *subDic in [result getArrayWithKey:@"listOrderChild"]) {
+            ChildOrderModel *childOrder = [[ChildOrderModel alloc] initWithDic:subDic];
+            [order.childOrderList addObject:childOrder];
+        }
+        // IsAllowCashPay
+        // IsModifyTicket
+        // distanceB2R
+        // BusinessAddress
+        order.amount = [result getDoubleWithKey:@"Amount"];
+        order.orderId = [NSString stringWithFormat:@"%ld",[result getIntegerWithKey:@"Id"]];
+        // PickupCode
+        // HadUploadCount
+        order.receiveName = [result getStringWithKey:@"ReceviceName"];
         
         OrderDetailViewController *vc = [[OrderDetailViewController alloc] init];
         vc.orderModel = order;
