@@ -785,10 +785,21 @@
 #pragma mark - Scroller
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat delta = ScreenWidth/6;
+    
     if (scrollView == self.Hp_ListMainScroller) {
+        
+        CGFloat aX = scrollView.contentOffset.x;
+        CGFloat aY = scrollView.contentOffset.y;
+        
         CGFloat movCenterY = self.Hp_OptionIndicator.center.y;
         CGFloat newCenterX = scrollView.contentOffset.x/3 + delta;
+        
+        
+        NSLog(@"offX:%f,offY:%f，movCY:%f, nCX:%f",aX,aY,movCenterY,newCenterX);
         self.Hp_OptionIndicator.center = CGPointMake(newCenterX, movCenterY);
+
+        NSLog(@"frame:%@",NSStringFromCGRect(self.Hp_OptionIndicator.frame));
+
         if (scrollView.contentOffset.x == 0) {// 待接单
             self.Hp_OptionBtn1st.enabled = NO;
             self.Hp_OptionBtn2nd.enabled = YES;
@@ -839,6 +850,24 @@
     }
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    CGFloat delta = ScreenWidth/6;
+    
+    if (scrollView == self.Hp_ListMainScroller) {
+        
+        CGFloat aX = scrollView.contentOffset.x;
+        CGFloat aY = scrollView.contentOffset.y;
+        
+        CGFloat movCenterY = self.Hp_OptionIndicator.center.y;
+        CGFloat newCenterX = scrollView.contentOffset.x/3 + delta;
+        
+        NSLog(@"-------- offX:%f,offY:%f，movCY:%f, nCX:%f",aX,aY,movCenterY,newCenterX);
+        
+        
+        self.Hp_OptionIndicator.center = CGPointMake(newCenterX, movCenterY);
+    }
+}
+
 
 #pragma mark - API
 
@@ -866,7 +895,6 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            self.Hp_MainBg_top.constant = 64 + kSCMessageView_Vheight + 5;
             
             /// 先释放
             if (_scMsgView) {
@@ -890,6 +918,8 @@
                 
             }];
             
+            self.Hp_MainBg_top.constant = 64 + kSCMessageView_Vheight + 5;
+
         });
 
         

@@ -62,9 +62,10 @@
 //                // 去年及以前
 //                [_monthsInYear addObject:fullMonthInYear];
 //            }
-            [_monthsInYear addObjectsFromArray:fullMonthInYear];
 
         }
+        [_monthsInYear addObjectsFromArray:fullMonthInYear];
+
         // _dataSource = [[NSArray alloc] initWithObjects:_years,_monthsInYear, nil];
         
         self.datePicker.dataSource = self;

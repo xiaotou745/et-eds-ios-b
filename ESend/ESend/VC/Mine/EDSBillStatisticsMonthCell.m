@@ -50,7 +50,7 @@
     }else{
         self.rightImg.hidden = YES;
     }
-    self.contentLbl.text = [NSString stringWithFormat:@"出账 %.2f元 入账 %.2f元",_daybillInfo.outMoney,_daybillInfo.inMoney];
+    self.contentLbl.text = [NSString stringWithFormat:@"出账 %.2f 入账 %.2f",_daybillInfo.outMoney,_daybillInfo.inMoney];
     self.timeLabel.text = _daybillInfo.dayInfo;
 }
 
