@@ -126,7 +126,7 @@
     
     // notifications
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:LoginNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:UserStatusChangeToReviewNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLoginSuccess) name:UserStatusChangeToReviewNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userLogout) name:LogoutNotifaction object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(releseOrderSuccessfully:) name:ReleseOrderNotification object:nil];
@@ -234,6 +234,9 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    _timesScrollToMiddle = 0;
+    _timesScrollToRight = 0;
     //
     if (_orderListStatus == OrderStatusNewOrder) {
         [self.Hp_ContentList1st.header beginRefreshing];
@@ -241,6 +244,15 @@
         [self.Hp_ContentList2nd.header beginRefreshing];
     }else if (_orderListStatus == OrderStatusReceive){
         [self.Hp_ContentList3rd.header beginRefreshing];
+    }
+    
+    if ([UserInfo getStatus] != UserStatusComplete) {
+        [self.Hp_BottomBtn setTitle:HPBottomButtonTilteInReview forState:UIControlStateNormal];
+        self.Hp_BottomBtn.enabled = NO;
+
+    }else{
+        [self.Hp_BottomBtn setTitle:HPBottomButtonTitleRelease forState:UIControlStateNormal];
+        self.Hp_BottomBtn.enabled = YES;
     }
 }
 
@@ -1011,7 +1023,8 @@
         _markedWordsLabelS2.text =
         _markedWordsLabelS1.text = @"";
         
-    }else if ([UserInfo getStatus] != UserStatusComplete){
+    }
+    if ([UserInfo getStatus] != UserStatusComplete){
         _logoImgViewS3.image =
         _logoImgViewS2.image =
         _logoImgViewS1.image = [UIImage imageNamed:@"checkLogo"];
