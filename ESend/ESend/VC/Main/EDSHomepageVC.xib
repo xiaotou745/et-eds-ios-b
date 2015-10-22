@@ -18,9 +18,9 @@
                 <outlet property="Hp_MainBg_top" destination="3q6-Bx-1i7" id="CnP-tR-5Wc"/>
                 <outlet property="Hp_Option3rd" destination="S9W-6m-sPO" id="xbt-u3-7ki"/>
                 <outlet property="Hp_OptionBgHeight" destination="Cbz-gv-pE5" id="ddk-Na-AbU"/>
+                <outlet property="Hp_OptionBgView" destination="h4F-Td-dtv" id="NTF-MG-R5f"/>
                 <outlet property="Hp_OptionBtn1st" destination="86b-7g-URK" id="ocy-8h-mzT"/>
                 <outlet property="Hp_OptionBtn2nd" destination="Ms1-8x-oS4" id="l7q-jR-c8l"/>
-                <outlet property="Hp_OptionIndicator" destination="InH-vl-2nm" id="stk-Al-o7a"/>
                 <outlet property="Hp_OptionSeparator11" destination="bUm-9c-7el" id="4Fg-Sz-na6"/>
                 <outlet property="Hp_OptionSeparator12" destination="tUy-Jk-vgU" id="KLt-rZ-qHd"/>
                 <outlet property="Hp_OptionSeparatorHeight" destination="eht-BH-Dvi" id="wsW-32-UCb"/>
@@ -39,7 +39,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="86b-7g-URK" userLabel="待接单">
-                                    <rect key="frame" x="0.0" y="0.0" width="196" height="49"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="196" height="48"/>
                                     <animations/>
                                     <state key="normal" title="待接单(0)">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,7 +57,7 @@
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ms1-8x-oS4" userLabel="待取货">
-                                    <rect key="frame" x="201" y="0.0" width="196" height="49"/>
+                                    <rect key="frame" x="201" y="0.0" width="196" height="48"/>
                                     <animations/>
                                     <state key="normal" title="待取货(0)">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -66,16 +66,6 @@
                                         <action selector="s2ButtonAction:" destination="-1" eventType="touchUpInside" id="48f-at-CqE"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="InH-vl-2nm" userLabel="indicator">
-                                    <rect key="frame" x="0.0" y="49" width="196" height="1"/>
-                                    <animations/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="1" id="qDy-3E-3gv"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9W-6m-sPO">
                                     <rect key="frame" x="402" y="0.0" width="196" height="48"/>
                                     <animations/>
@@ -95,14 +85,12 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="tUy-Jk-vgU" firstAttribute="height" secondItem="bUm-9c-7el" secondAttribute="height" id="1DF-eU-lfq"/>
-                                <constraint firstItem="InH-vl-2nm" firstAttribute="width" secondItem="86b-7g-URK" secondAttribute="width" id="3sh-u1-iVb"/>
-                                <constraint firstItem="InH-vl-2nm" firstAttribute="top" secondItem="86b-7g-URK" secondAttribute="bottom" id="9Ox-p5-pth"/>
+                                <constraint firstAttribute="bottom" secondItem="86b-7g-URK" secondAttribute="bottom" constant="2" id="3rb-H1-4Id"/>
                                 <constraint firstItem="S9W-6m-sPO" firstAttribute="leading" secondItem="tUy-Jk-vgU" secondAttribute="trailing" constant="2" id="CGm-oe-Zc6"/>
                                 <constraint firstAttribute="height" constant="50" id="Cbz-gv-pE5"/>
                                 <constraint firstItem="bUm-9c-7el" firstAttribute="leading" secondItem="86b-7g-URK" secondAttribute="trailing" constant="2" id="Dzc-2N-iXQ"/>
-                                <constraint firstItem="InH-vl-2nm" firstAttribute="leading" secondItem="h4F-Td-dtv" secondAttribute="leading" id="Her-pP-g57"/>
+                                <constraint firstAttribute="bottom" secondItem="Ms1-8x-oS4" secondAttribute="bottom" constant="2" id="Efy-AO-w0W"/>
                                 <constraint firstItem="bUm-9c-7el" firstAttribute="centerY" secondItem="h4F-Td-dtv" secondAttribute="centerY" id="Hil-m3-TOo"/>
-                                <constraint firstItem="InH-vl-2nm" firstAttribute="top" secondItem="Ms1-8x-oS4" secondAttribute="bottom" id="KMF-Sd-LK6"/>
                                 <constraint firstAttribute="trailing" secondItem="S9W-6m-sPO" secondAttribute="trailing" constant="2" id="Llu-FN-0P7"/>
                                 <constraint firstItem="tUy-Jk-vgU" firstAttribute="leading" secondItem="Ms1-8x-oS4" secondAttribute="trailing" constant="2" id="M4U-N9-xwK"/>
                                 <constraint firstItem="86b-7g-URK" firstAttribute="leading" secondItem="h4F-Td-dtv" secondAttribute="leading" id="OFM-2M-NOT"/>
@@ -112,7 +100,6 @@
                                 <constraint firstItem="tUy-Jk-vgU" firstAttribute="width" secondItem="bUm-9c-7el" secondAttribute="width" id="cKM-jf-Fuv"/>
                                 <constraint firstItem="tUy-Jk-vgU" firstAttribute="centerY" secondItem="h4F-Td-dtv" secondAttribute="centerY" id="cgD-WU-J9j"/>
                                 <constraint firstItem="Ms1-8x-oS4" firstAttribute="leading" secondItem="bUm-9c-7el" secondAttribute="trailing" constant="2" id="g74-qe-LC9"/>
-                                <constraint firstAttribute="bottom" secondItem="InH-vl-2nm" secondAttribute="bottom" id="gDI-ac-nwD"/>
                                 <constraint firstAttribute="bottom" secondItem="S9W-6m-sPO" secondAttribute="bottom" constant="2" id="kjO-qV-IzP"/>
                                 <constraint firstItem="Ms1-8x-oS4" firstAttribute="top" secondItem="h4F-Td-dtv" secondAttribute="top" id="nvr-ZG-FfI"/>
                                 <constraint firstItem="S9W-6m-sPO" firstAttribute="top" secondItem="h4F-Td-dtv" secondAttribute="top" id="sEE-gg-cV2"/>

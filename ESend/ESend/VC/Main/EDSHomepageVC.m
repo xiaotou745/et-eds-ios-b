@@ -70,6 +70,7 @@
 
 // option area
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Hp_OptionBgHeight;// default 50
+@property (strong, nonatomic) IBOutlet UIView *Hp_OptionBgView;
 
 @property (strong, nonatomic) IBOutlet UIButton *Hp_OptionBtn1st;           // 待接单 button
 @property (strong, nonatomic) IBOutlet UIButton *Hp_OptionBtn2nd;           // 待取货 button
@@ -158,7 +159,11 @@
     [self setOptionButton:self.Hp_OptionBtn2nd count:0];
     [self setOptionButton:self.Hp_Option3rd count:0];
     
+    // indicator
+    CGFloat indicatorWidth = ScreenWidth/3;
+    self.Hp_OptionIndicator = [[UILabel alloc] initWithFrame:CGRectMake(0, 49, indicatorWidth, 1)];
     self.Hp_OptionIndicator.backgroundColor = BlueColor;
+    [self.Hp_OptionBgView  addSubview: self.Hp_OptionIndicator];
     
     self.Hp_Option3rd.titleLabel.font =
     self.Hp_OptionBtn2nd.titleLabel.font =
