@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *expenseOperationName;
 @property (strong, nonatomic) IBOutlet UIImageView *rightIndicatorImg;
 
+@property (strong, nonatomic) IBOutlet UIView *expenseBgView;
 
 @property (strong, nonatomic) IBOutlet UIView *SecondBlock;
 @property (strong, nonatomic) IBOutlet UIImageView *secondBlockSeperator;
@@ -119,7 +120,13 @@
     if (1 == isOrder) {
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(EdTapAction:)];
         self.expenseOperationName.userInteractionEnabled = YES;
-        [self.expenseOperationName addGestureRecognizer:tap];
+        //[self.expenseOperationName addGestureRecognizer:tap];
+        self.rightIndicatorImg.userInteractionEnabled = YES;
+        //[self.rightIndicatorImg addGestureRecognizer:tap];
+        self.expenseBgView.userInteractionEnabled = YES;
+        
+        [self.expenseBgView addGestureRecognizer:tap];
+        
     }else if (0 == isOrder){
         self.rightIndicatorImg.hidden = YES;
     }

@@ -14,6 +14,7 @@
                 <outlet property="SecondBlockHeight" destination="f1f-Jv-AvZ" id="Q3H-TB-iOb"/>
                 <outlet property="detailFix" destination="LEd-HE-ZQw" id="pu7-oG-eRb"/>
                 <outlet property="expenseAmount" destination="WUg-5S-6b2" id="qjy-At-NFS"/>
+                <outlet property="expenseBgView" destination="WdV-5D-DLU" id="ahx-oU-FJI"/>
                 <outlet property="expenseDetail" destination="9N2-J2-aq1" id="3rO-Ee-VGQ"/>
                 <outlet property="expenseDetailHeight" destination="fQh-0m-oPJ" id="vSB-ga-OXa"/>
                 <outlet property="expenseOperationName" destination="RGA-He-72I" id="etd-oS-yaU"/>
@@ -81,21 +82,42 @@
                                                 <constraint firstAttribute="height" constant="0.5" id="VXf-4o-o0e"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RGA-He-72I">
-                                            <rect key="frame" x="12" y="123" width="563" height="35"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WdV-5D-DLU">
+                                            <rect key="frame" x="0.0" y="122" width="600" height="37"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RGA-He-72I">
+                                                    <rect key="frame" x="12" y="0.0" width="563" height="37"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_indicate" translatesAutoresizingMaskIntoConstraints="NO" id="YKb-gr-PnO">
+                                                    <rect key="frame" x="577" y="10" width="11" height="18"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="11" id="hLp-7G-4jd"/>
+                                                        <constraint firstAttribute="height" constant="18" id="ioQ-wf-Cbh"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
                                             <animations/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="right_indicate" translatesAutoresizingMaskIntoConstraints="NO" id="YKb-gr-PnO">
-                                            <rect key="frame" x="577" y="131" width="11" height="18"/>
-                                            <animations/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="11" id="hLp-7G-4jd"/>
-                                                <constraint firstAttribute="height" constant="18" id="ioQ-wf-Cbh"/>
+                                                <constraint firstAttribute="bottom" secondItem="YKb-gr-PnO" secondAttribute="bottom" id="K50-ps-v1L"/>
+                                                <constraint firstAttribute="trailing" secondItem="YKb-gr-PnO" secondAttribute="trailing" constant="12" id="M4k-Eg-rxC"/>
+                                                <constraint firstItem="YKb-gr-PnO" firstAttribute="leading" secondItem="RGA-He-72I" secondAttribute="trailing" constant="2" id="MDa-kc-P6M"/>
+                                                <constraint firstItem="YKb-gr-PnO" firstAttribute="top" secondItem="WdV-5D-DLU" secondAttribute="top" constant="10" id="NFm-r4-nko"/>
+                                                <constraint firstItem="RGA-He-72I" firstAttribute="leading" secondItem="WdV-5D-DLU" secondAttribute="leading" constant="12" id="kgT-Oy-yKu"/>
+                                                <constraint firstItem="RGA-He-72I" firstAttribute="top" secondItem="WdV-5D-DLU" secondAttribute="top" id="qH4-Y3-cYt"/>
+                                                <constraint firstAttribute="bottom" secondItem="RGA-He-72I" secondAttribute="bottom" id="qtP-Do-WNF"/>
                                             </constraints>
-                                        </imageView>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="K50-ps-v1L"/>
+                                                </mask>
+                                            </variation>
+                                        </view>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -103,21 +125,19 @@
                                         <constraint firstItem="gPv-N3-b46" firstAttribute="top" secondItem="WUg-5S-6b2" secondAttribute="bottom" constant="25" id="2Xu-GH-0zx"/>
                                         <constraint firstAttribute="height" constant="160" id="3vb-r6-GSe"/>
                                         <constraint firstItem="bwp-xe-xOu" firstAttribute="top" secondItem="Rkb-0j-7JK" secondAttribute="bottom" constant="25" id="6ct-UG-yvx"/>
-                                        <constraint firstItem="RGA-He-72I" firstAttribute="top" secondItem="gPv-N3-b46" secondAttribute="bottom" constant="2" id="7HU-CL-O3K"/>
                                         <constraint firstItem="gPv-N3-b46" firstAttribute="leading" secondItem="lRT-LV-W7S" secondAttribute="leading" constant="12" id="ACX-MW-SSw"/>
                                         <constraint firstItem="Rkb-0j-7JK" firstAttribute="leading" secondItem="lRT-LV-W7S" secondAttribute="leading" constant="12" id="CPV-z7-d4f"/>
                                         <constraint firstItem="bwp-xe-xOu" firstAttribute="leading" secondItem="lRT-LV-W7S" secondAttribute="leading" constant="12" id="JfS-Kc-mgp"/>
                                         <constraint firstItem="WUg-5S-6b2" firstAttribute="leading" secondItem="bwp-xe-xOu" secondAttribute="trailing" id="L6n-w1-gL8"/>
+                                        <constraint firstItem="WdV-5D-DLU" firstAttribute="top" secondItem="gPv-N3-b46" secondAttribute="bottom" constant="1" id="NIB-KD-HrI"/>
                                         <constraint firstAttribute="trailing" secondItem="Rkb-0j-7JK" secondAttribute="trailing" constant="12" id="Ozq-V4-gJj"/>
                                         <constraint firstItem="WUg-5S-6b2" firstAttribute="top" secondItem="Rkb-0j-7JK" secondAttribute="bottom" constant="15" id="ZKa-Hz-42i"/>
-                                        <constraint firstItem="YKb-gr-PnO" firstAttribute="top" secondItem="gPv-N3-b46" secondAttribute="bottom" constant="10" id="hKb-J1-PGT"/>
-                                        <constraint firstAttribute="trailing" secondItem="YKb-gr-PnO" secondAttribute="trailing" constant="12" id="qmX-Bs-CRN"/>
-                                        <constraint firstItem="RGA-He-72I" firstAttribute="leading" secondItem="lRT-LV-W7S" secondAttribute="leading" constant="12" id="swE-KD-4HP"/>
+                                        <constraint firstItem="WdV-5D-DLU" firstAttribute="leading" secondItem="lRT-LV-W7S" secondAttribute="leading" id="fH0-Hi-2sD"/>
+                                        <constraint firstAttribute="trailing" secondItem="WdV-5D-DLU" secondAttribute="trailing" id="nzH-EX-4d0"/>
                                         <constraint firstAttribute="trailing" secondItem="gPv-N3-b46" secondAttribute="trailing" id="tSA-AS-yXE"/>
                                         <constraint firstAttribute="trailing" secondItem="WUg-5S-6b2" secondAttribute="trailing" constant="12" id="uFb-mC-Pxx"/>
-                                        <constraint firstItem="YKb-gr-PnO" firstAttribute="leading" secondItem="RGA-He-72I" secondAttribute="trailing" constant="2" id="uZ5-4g-Ybh"/>
                                         <constraint firstItem="Rkb-0j-7JK" firstAttribute="top" secondItem="lRT-LV-W7S" secondAttribute="top" id="uj4-l2-KlH"/>
-                                        <constraint firstAttribute="bottom" secondItem="RGA-He-72I" secondAttribute="bottom" constant="2" id="zJY-h8-wG4"/>
+                                        <constraint firstAttribute="bottom" secondItem="WdV-5D-DLU" secondAttribute="bottom" constant="1" id="uva-k6-9rk"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3M-8D-lvL" userLabel="SecondBlock">
