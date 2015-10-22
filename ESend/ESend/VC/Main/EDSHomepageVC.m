@@ -33,7 +33,7 @@
 
 #define HeadButtonTagTrans 918
 
-
+#define Hp_Default_PageSize  15
 
 @interface EDSHomepageVC ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate,UINavigationControllerDelegate>
 {
@@ -52,7 +52,7 @@
     ///
     OrderStatus _orderListStatus;  //0,2,4
     
-    /// operation
+    /// operation 下拉
     AFHTTPRequestOperation *_operation;
     
     // 第一次滚动到右边时刷新，0次，2次以及多次不自动刷新
@@ -64,6 +64,16 @@
     NSString *_newMessageTEXT;
     NSString *_newMessageID;
     SCMessageView * _scMsgView;
+    
+    /// 分页
+    NSInteger _currentPage1st;  //  待接单 分页页码
+    NSInteger _currentPage2nd;  //  待取货 分页页码
+    NSInteger _currentPage3rd;  //  配送中 分页页码
+    
+    // operation 上拉
+    AFHTTPRequestOperation * _operationUntakeOrder1st;
+    AFHTTPRequestOperation * _operationTaking2nd;
+    AFHTTPRequestOperation * _operationDelieving3st;
 }
 @property (strong, nonatomic) IBOutlet UIView *Hp_MainBg;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Hp_MainBg_top;   // default 64
@@ -126,6 +136,11 @@
     _Hp_ContentLists1st = [[NSMutableArray alloc] initWithCapacity:0];
     _Hp_ContentLists2nd = [[NSMutableArray alloc] initWithCapacity:0];
     _Hp_ContentLists3rd = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    //  默认页码
+    _currentPage1st = 1;
+    _currentPage2nd = 1;
+    _currentPage3rd = 1;
     
     _orderListStatus = OrderStatusNewOrder;
     
@@ -275,6 +290,7 @@
 
 - (void)_refreshOptionAreaAction{
     
+    
     if ([UserInfo isLogin]) {
         // 商家端是否有新公告消息
         [self newMessagesB];
@@ -302,11 +318,23 @@
             [self.Hp_ContentList3rd.header endRefreshing];
         }
     }
+    // 重置上拉加载的页码
+    if (_orderListStatus == OrderStatusNewOrder) {
+        _currentPage1st = 1;
+    }else if (_orderListStatus == OrderStatusAccepted) {
+        _currentPage2nd = 1;
+    }else if (_orderListStatus == OrderStatusReceive) {
+        _currentPage3rd = 1;
+    }
     
+    
+    // 分页 pageSize 15
+    NSInteger currentPage = 1;
     
     NSDictionary * paraData = @{
                                 @"businessId":[UserInfo getUserId],
                                 @"status":[NSString stringWithFormat:@"%ld",(long)_orderListStatus],
+                                @"currentPage":[NSNumber numberWithInteger:currentPage],
                                 };
     if (AES_Security) {
         NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
@@ -341,6 +369,12 @@
         if (_orderListStatus == OrderStatusNewOrder) {
             [self.Hp_ContentList1st.header endRefreshing];
             
+            // 配置上拉
+            if (orders.count >= Hp_Default_PageSize) {
+                [self.Hp_ContentList1st addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(loadMoreUntakenOrder1st)];
+
+            }
+            
             [_Hp_ContentLists1st removeAllObjects];
             for (NSDictionary *dic in orders) {
                 //SupermanOrderModel *order = [[SupermanOrderModel alloc] initWithDic:dic];
@@ -363,6 +397,12 @@
         }else if (_orderListStatus == OrderStatusAccepted) {
             [self.Hp_ContentList2nd.header endRefreshing];
             
+            // 配置上拉
+            if (orders.count >= Hp_Default_PageSize) {
+                [self.Hp_ContentList2nd addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(loadMoreTaking2nd)];
+                
+            }
+            
             [_Hp_ContentLists2nd removeAllObjects];
             for (NSDictionary *dic in orders) {
                 //SupermanOrderModel *order = [[SupermanOrderModel alloc] initWithDic:dic];
@@ -384,6 +424,12 @@
             
         }else if (_orderListStatus == OrderStatusReceive) {
             [self.Hp_ContentList3rd.header endRefreshing];
+            
+            // 配置上拉
+            if (orders.count >= Hp_Default_PageSize) {
+                [self.Hp_ContentList3rd addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(loadMore3rd)];
+                
+            }
             
             [_Hp_ContentLists3rd removeAllObjects];
             for (NSDictionary *dic in orders) {
@@ -1024,6 +1070,336 @@
         [_Hp_ContentList3rd reloadData];
     }
 }
+
+
+
+#pragma mark - 配置上拉刷新
+- (void)loadMore3rd{
+    
+    _currentPage3rd++;
+    // 分页 pageSize 15
+    NSDictionary * paraData = @{
+                                @"businessId":[UserInfo getUserId],
+                                @"status":[NSString stringWithFormat:@"%ld",(long)_orderListStatus],
+                                @"currentPage":[NSNumber numberWithInteger:_currentPage3rd],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraData = @{
+                     @"data":aesString,
+                     //@"Version":[Tools getApplicationVersion],
+                     };
+    }
+    
+    _operationDelieving3st = [FHQNetWorkingAPI queryorderb:paraData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        NSLog(@" result %@",result);
+        
+        [self.Hp_ContentList3rd.footer endRefreshing];
+        
+        if ([UserInfo getStatus] != UserStatusComplete) {
+            [UserInfo saveStatus:UserStatusComplete];
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
+        }
+        
+        //java
+        long newCount = [[result objectForKey:@"newCount"] longValue];
+        long takingCount = [[result objectForKey:@"takingCount"] longValue];     // 配送中
+        long deliveryCount = [[result objectForKey:@"deliveryCount"] longValue]; // 待取货
+        
+        [self setOptionButton:self.Hp_OptionBtn1st count:newCount];
+        [self setOptionButton:self.Hp_OptionBtn2nd count:deliveryCount];
+        [self setOptionButton:self.Hp_Option3rd count:takingCount];
+        
+        NSArray * orders = [result objectForKey:@"orders"];
+        
+        if (orders.count == 0) {
+            [Tools showHUD:@"没有更多了"];
+            _currentPage3rd--;
+        }else{
+            for (NSDictionary *dic in orders) {
+                SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
+                order.orderStatus = [[dic objectForKey:@"status"] integerValue];
+                order.receivePhone = [dic getStringWithKey:@"recevicePhoneNo"];
+                order.orderId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderId"]];
+                order.orderNumber = [dic objectForKey:@"orderNo"];
+                order.amount = [[dic objectForKey:@"amount"] floatValue];
+                order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
+                order.receiveAddress = [dic getStringWithKey:@"receviceAddress"];
+                order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
+                order.pubDate = [dic objectForKey:@"pubDate"];
+                order.orderFrom = [dic getIntegerWithKey:@"orderFrom"];
+                
+                [_Hp_ContentLists3rd addObject:order];
+            }
+            
+            [_Hp_ContentList3rd reloadData];
+        }
+        //
+        
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        // NSLog(@"222222 error %@",error.userInfo);
+        
+        _currentPage3rd--;
+        [self.Hp_ContentList3rd.footer endRefreshing];
+        
+        if (error.code == -500) {
+            // NSLog(@"用户状态不对");
+            
+            [UserInfo saveStatus:UserStatusReviewing];
+            [_Hp_ContentLists1st removeAllObjects];
+            [self.Hp_ContentList1st reloadData];
+            
+            [_Hp_ContentLists2nd removeAllObjects];
+            [self.Hp_ContentList2nd reloadData];
+            
+            [_Hp_ContentLists3rd removeAllObjects];
+            [self.Hp_ContentList3rd reloadData];
+            
+            [self setOptionButton:self.Hp_OptionBtn1st count:0];
+            [self setOptionButton:self.Hp_OptionBtn2nd count:0];
+            [self setOptionButton:self.Hp_Option3rd count:0];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
+            
+        } else {
+            NSString *errorMessage = [error.userInfo getStringWithKey:@"Message"];
+            if (isCanUseString(errorMessage)) {
+                [Tools showHUD:errorMessage];
+            } else {
+                if ([AFNetworkReachabilityManager sharedManager].reachable) {
+                    [Tools showHUD:@"请求失败"];
+                }else{
+                    
+                }
+            }
+            
+        }
+        
+    }];
+    
+}
+
+
+
+
+- (void)loadMoreTaking2nd{
+    _currentPage2nd ++;
+    
+    // 分页 pageSize 15
+    NSDictionary * paraData = @{
+                                @"businessId":[UserInfo getUserId],
+                                @"status":[NSString stringWithFormat:@"%ld",(long)_orderListStatus],
+                                @"currentPage":[NSNumber numberWithInteger:_currentPage2nd],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraData = @{
+                     @"data":aesString,
+                     //@"Version":[Tools getApplicationVersion],
+                     };
+    }
+    
+    _operationTaking2nd = [FHQNetWorkingAPI queryorderb:paraData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        NSLog(@" result %@",result);
+        
+        [self.Hp_ContentList2nd.footer endRefreshing];
+        
+        if ([UserInfo getStatus] != UserStatusComplete) {
+            [UserInfo saveStatus:UserStatusComplete];
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
+        }
+        
+        //java
+        long newCount = [[result objectForKey:@"newCount"] longValue];
+        long takingCount = [[result objectForKey:@"takingCount"] longValue];     // 配送中
+        long deliveryCount = [[result objectForKey:@"deliveryCount"] longValue]; // 待取货
+        
+        [self setOptionButton:self.Hp_OptionBtn1st count:newCount];
+        [self setOptionButton:self.Hp_OptionBtn2nd count:deliveryCount];
+        [self setOptionButton:self.Hp_Option3rd count:takingCount];
+        
+        NSArray * orders = [result objectForKey:@"orders"];
+        
+        if (orders.count == 0) {
+            [Tools showHUD:@"没有更多了"];
+            _currentPage2nd--;
+        }else{
+            for (NSDictionary *dic in orders) {
+                SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
+                order.orderStatus = [[dic objectForKey:@"status"] integerValue];
+                order.receivePhone = [dic getStringWithKey:@"recevicePhoneNo"];
+                order.orderId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderId"]];
+                order.orderNumber = [dic objectForKey:@"orderNo"];
+                order.amount = [[dic objectForKey:@"amount"] floatValue];
+                order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
+                order.receiveAddress = [dic getStringWithKey:@"receviceAddress"];
+                order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
+                order.pubDate = [dic objectForKey:@"pubDate"];
+                order.orderFrom = [dic getIntegerWithKey:@"orderFrom"];
+                
+                [_Hp_ContentLists2nd addObject:order];
+            }
+            
+            [_Hp_ContentList2nd reloadData];
+        }
+        //
+        
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        // NSLog(@"222222 error %@",error.userInfo);
+        
+        _currentPage2nd--;
+        [self.Hp_ContentList2nd.footer endRefreshing];
+        
+        if (error.code == -500) {
+            // NSLog(@"用户状态不对");
+            
+            [UserInfo saveStatus:UserStatusReviewing];
+            [_Hp_ContentLists1st removeAllObjects];
+            [self.Hp_ContentList1st reloadData];
+            
+            [_Hp_ContentLists2nd removeAllObjects];
+            [self.Hp_ContentList2nd reloadData];
+            
+            [_Hp_ContentLists3rd removeAllObjects];
+            [self.Hp_ContentList3rd reloadData];
+            
+            [self setOptionButton:self.Hp_OptionBtn1st count:0];
+            [self setOptionButton:self.Hp_OptionBtn2nd count:0];
+            [self setOptionButton:self.Hp_Option3rd count:0];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
+            
+        } else {
+            NSString *errorMessage = [error.userInfo getStringWithKey:@"Message"];
+            if (isCanUseString(errorMessage)) {
+                [Tools showHUD:errorMessage];
+            } else {
+                if ([AFNetworkReachabilityManager sharedManager].reachable) {
+                    [Tools showHUD:@"请求失败"];
+                }else{
+                    
+                }
+            }
+            
+        }
+        
+    }];
+    
+    
+}
+/// 加载更多待接单的
+- (void)loadMoreUntakenOrder1st{
+    _currentPage1st ++;
+    
+    // 分页 pageSize 15
+    NSDictionary * paraData = @{
+                                @"businessId":[UserInfo getUserId],
+                                @"status":[NSString stringWithFormat:@"%ld",(long)_orderListStatus],
+                                @"currentPage":[NSNumber numberWithInteger:_currentPage1st],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraData = @{
+                     @"data":aesString,
+                     //@"Version":[Tools getApplicationVersion],
+                     };
+    }
+    
+    _operationUntakeOrder1st = [FHQNetWorkingAPI queryorderb:paraData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        NSLog(@" result %@",result);
+        
+        [self.Hp_ContentList1st.footer endRefreshing];
+
+        if ([UserInfo getStatus] != UserStatusComplete) {
+            [UserInfo saveStatus:UserStatusComplete];
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
+        }
+        
+        //java
+        long newCount = [[result objectForKey:@"newCount"] longValue];
+        long takingCount = [[result objectForKey:@"takingCount"] longValue];     // 配送中
+        long deliveryCount = [[result objectForKey:@"deliveryCount"] longValue]; // 待取货
+        
+        [self setOptionButton:self.Hp_OptionBtn1st count:newCount];
+        [self setOptionButton:self.Hp_OptionBtn2nd count:deliveryCount];
+        [self setOptionButton:self.Hp_Option3rd count:takingCount];
+        
+        NSArray * orders = [result objectForKey:@"orders"];
+        
+        if (orders.count == 0) {
+            [Tools showHUD:@"没有更多了"];
+            _currentPage1st--;
+        }else{
+            for (NSDictionary *dic in orders) {
+                SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
+                order.orderStatus = [[dic objectForKey:@"status"] integerValue];
+                order.receivePhone = [dic getStringWithKey:@"recevicePhoneNo"];
+                order.orderId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderId"]];
+                order.orderNumber = [dic objectForKey:@"orderNo"];
+                order.amount = [[dic objectForKey:@"amount"] floatValue];
+                order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
+                order.receiveAddress = [dic getStringWithKey:@"receviceAddress"];
+                order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
+                order.pubDate = [dic objectForKey:@"pubDate"];
+                order.orderFrom = [dic getIntegerWithKey:@"orderFrom"];
+                
+                [_Hp_ContentLists1st addObject:order];
+            }
+            
+            [_Hp_ContentList1st reloadData];
+        }
+        //
+
+        
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        // NSLog(@"222222 error %@",error.userInfo);
+        
+        _currentPage1st--;
+        [self.Hp_ContentList1st.footer endRefreshing];
+        
+        if (error.code == -500) {
+            // NSLog(@"用户状态不对");
+            
+            [UserInfo saveStatus:UserStatusReviewing];
+            [_Hp_ContentLists1st removeAllObjects];
+            [self.Hp_ContentList1st reloadData];
+            
+            [_Hp_ContentLists2nd removeAllObjects];
+            [self.Hp_ContentList2nd reloadData];
+            
+            [_Hp_ContentLists3rd removeAllObjects];
+            [self.Hp_ContentList3rd reloadData];
+            
+            [self setOptionButton:self.Hp_OptionBtn1st count:0];
+            [self setOptionButton:self.Hp_OptionBtn2nd count:0];
+            [self setOptionButton:self.Hp_Option3rd count:0];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
+            
+        } else {
+            NSString *errorMessage = [error.userInfo getStringWithKey:@"Message"];
+            if (isCanUseString(errorMessage)) {
+                [Tools showHUD:errorMessage];
+            } else {
+                if ([AFNetworkReachabilityManager sharedManager].reachable) {
+                    [Tools showHUD:@"请求失败"];
+                }else{
+                    
+                }
+            }
+            
+        }
+        
+    }];
+
+
+}
+
 
 
 @end
