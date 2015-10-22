@@ -21,14 +21,13 @@
     UIView * _mask;
     NSMutableArray * _years;
     NSMutableArray * _monthsInYear;
-    NSArray * _dataSource;
     
     NSString * _currentYearString;
     NSString * _currentMonthString;
     
-    // 记录年月下标
-    NSInteger _currentYearIdx;
-    NSInteger _currentMonthIdx;
+//    // 记录年月下标
+//    NSInteger _currentYearIdx;
+//    NSInteger _currentMonthIdx;
 }
 
 - (id)initWithDelegate:(id <MNDatePicerDelegate>)delegate year:(NSString *)year month:(NSString *)month{
@@ -52,25 +51,25 @@
         
         for (int i = 2014; i <= _currentYearString.integerValue; i++) {
             [_years addObject:[NSString stringWithFormat:@"%d",i]];
-            if (i == _currentYearString.integerValue) {
-                // 今年
-                NSMutableArray * monthOfThisYear = [NSMutableArray array];
-                for (int j = 1; j <= _currentMonthString.integerValue; j ++) {
-                    [monthOfThisYear addObject:[NSString stringWithFormat:@"%02d",j]];
-                }
-                [_monthsInYear addObject:monthOfThisYear];
-            }else{
-                // 去年及以前
-                [_monthsInYear addObject:fullMonthInYear];
-            }
+//            if (i == _currentYearString.integerValue) {
+//                // 今年
+//                NSMutableArray * monthOfThisYear = [NSMutableArray array];
+//                for (int j = 1; j <= _currentMonthString.integerValue; j ++) {
+//                    [monthOfThisYear addObject:[NSString stringWithFormat:@"%02d",j]];
+//                }
+//                [_monthsInYear addObject:monthOfThisYear];
+//            }else{
+//                // 去年及以前
+//                [_monthsInYear addObject:fullMonthInYear];
+//            }
+            [_monthsInYear addObjectsFromArray:fullMonthInYear];
+
         }
-        _dataSource = [[NSArray alloc] initWithObjects:_years,_monthsInYear, nil];
+        // _dataSource = [[NSArray alloc] initWithObjects:_years,_monthsInYear, nil];
         
         self.datePicker.dataSource = self;
         self.datePicker.delegate = self;
         
-        _currentYearIdx = [_years indexOfObject:year];
-        _currentMonthIdx = [fullMonthInYear indexOfObject:month];
     }
     
     return self;
@@ -127,7 +126,7 @@
         NSInteger yearIdx = [self.datePicker selectedRowInComponent:0];
         NSInteger monthIdx = [self.datePicker selectedRowInComponent:1];
         NSString * yearString = [_years objectAtIndex:yearIdx];
-        NSString * monthString = [[_monthsInYear objectAtIndex:yearIdx] objectAtIndex:monthIdx];
+        NSString * monthString = [_monthsInYear objectAtIndex:monthIdx];
         NSString * ymString = [NSString stringWithFormat:@"%@-%@",yearString,monthString];
         [self.delegate MNDatePickerDidSelected:self YearMonthString:ymString year:yearString month:monthString];
     }
@@ -165,9 +164,9 @@
     if (0 == component) {
         return _years.count;
     }else if (1 == component){
-        NSInteger selectedFirstComponent = [pickerView selectedRowInComponent:0];
-        return [[_monthsInYear objectAtIndex:selectedFirstComponent] count];
-
+//        NSInteger selectedFirstComponent = [pickerView selectedRowInComponent:0];
+//        return [[_monthsInYear objectAtIndex:selectedFirstComponent] count];
+        return _monthsInYear.count;
     }else{
         return 0;
     }
@@ -184,10 +183,11 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (0 == component) {
-        return [_years objectAtIndex:row];
+        return [NSString stringWithFormat:@"%@年",[_years objectAtIndex:row]];
     }else if (1 == component) {
-        NSInteger selectedFirstComponent = [pickerView selectedRowInComponent:0];
-        return [[_monthsInYear objectAtIndex:selectedFirstComponent] objectAtIndex:row];
+//        NSInteger selectedFirstComponent = [pickerView selectedRowInComponent:0];
+//        return [[_monthsInYear objectAtIndex:selectedFirstComponent] objectAtIndex:row];
+        return [NSString stringWithFormat:@"%@月",[_monthsInYear objectAtIndex:row]];
     }else{
         return nil;
     }
@@ -195,9 +195,9 @@
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if (0 == component) {
-        [pickerView reloadComponent:1];
-    }
+//    if (0 == component) {
+//        [pickerView reloadComponent:1];
+//    }
 }
 
 @end
