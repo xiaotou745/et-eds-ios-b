@@ -15,7 +15,7 @@
 #define KMDateTimeHeight 26.0f
 
 #define KMIndicatorMargin 10.0f
-#define KMIndicatorWidthHeight 15.5f
+#define KMIndicatorWidthHeight 44.0f//15.5
 
 #define KMOrderOverviewHeight 21.0f
 #define KMOrderOverviewTextDefault @"出账 00.00元  入账 00.00元"
