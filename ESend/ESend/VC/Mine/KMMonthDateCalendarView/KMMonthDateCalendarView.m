@@ -27,8 +27,8 @@ static NSInteger const KMCalendarNormalFontSize = 14;
 @property (nonatomic, strong) UIView * dateInfoSubViewContainer;
 
 @property (nonatomic, strong) UILabel * dateTimeLabel;          // date label
-@property (nonatomic, strong) UIImageView * leftIndicatorImg;   // left swipe indicator
-@property (nonatomic, strong) UIImageView * rightIndicatorImg;  // right swipe indicator
+@property (nonatomic, strong) UIButton * leftIndicatorImg;   // left swipe indicator
+@property (nonatomic, strong) UIButton * rightIndicatorImg;  // right swipe indicator
 
 @property (nonatomic, strong) UILabel * OrderOverviewLabel;     // order overview
 
@@ -113,30 +113,31 @@ static NSInteger const KMCalendarNormalFontSize = 14;
     return _dateTimeLabel;
 }
 
-- (UIImageView *)leftIndicatorImg
+- (UIButton *)leftIndicatorImg
 {
     if (!_leftIndicatorImg) {
-        _leftIndicatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(KMIndicatorMargin, (KMMonthDateCalenderViewHeight-KMIndicatorWidthHeight)/2, KMIndicatorWidthHeight, KMIndicatorWidthHeight)];
+        _leftIndicatorImg = [[UIButton alloc] initWithFrame:CGRectMake(KMIndicatorMargin, (KMMonthDateCalenderViewHeight-KMIndicatorWidthHeight)/2, KMIndicatorWidthHeight, KMIndicatorWidthHeight)];
         _leftIndicatorImg.backgroundColor = [UIColor clearColor];
-        _leftIndicatorImg.userInteractionEnabled = YES;
-        _leftIndicatorImg.highlightedImage = [UIImage imageNamed:@"calendar_indicator_left_disable"];
-        _leftIndicatorImg.image = [UIImage imageNamed:@"calendar_indicator_left_normal"];
+        //_leftIndicatorImg.userInteractionEnabled = YES;
+        [_leftIndicatorImg setImage:[UIImage imageNamed:@"calendar_indicator_left_disable"] forState:UIControlStateDisabled];
+        [_leftIndicatorImg setImage:[UIImage imageNamed:@"calendar_indicator_left_normal"] forState:UIControlStateNormal];
+        [_leftIndicatorImg addTarget:self action:@selector(swipeRight:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftIndicatorImg;
 }
 
-- (UIImageView *)rightIndicatorImg{
+- (UIButton *)rightIndicatorImg{
     if (!_rightIndicatorImg) {
-        _rightIndicatorImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.bounds.size.width - KMIndicatorWidthHeight - KMIndicatorMargin, (KMMonthDateCalenderViewHeight-KMIndicatorWidthHeight)/2, KMIndicatorWidthHeight, KMIndicatorWidthHeight)];
+        _rightIndicatorImg = [[UIButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - KMIndicatorWidthHeight - KMIndicatorMargin, (KMMonthDateCalenderViewHeight-KMIndicatorWidthHeight)/2, KMIndicatorWidthHeight, KMIndicatorWidthHeight)];
         _rightIndicatorImg.backgroundColor = [UIColor clearColor];
-        _rightIndicatorImg.userInteractionEnabled = YES;
-        _rightIndicatorImg.highlightedImage = [UIImage imageNamed:@"calendar_indicator_right_disable"];
-        _rightIndicatorImg.image = [UIImage imageNamed:@"calendar_indicator_right_normal"];
+        [_rightIndicatorImg setImage:[UIImage imageNamed:@"calendar_indicator_right_disable"] forState:UIControlStateDisabled];
+        [_rightIndicatorImg setImage:[UIImage imageNamed:@"calendar_indicator_right_normal"] forState:UIControlStateNormal];
+        [_rightIndicatorImg addTarget:self action:@selector(swipeLeft:) forControlEvents:UIControlEventTouchUpInside];
     }
     if (_style == EDSBillStatisticsVCStyleDay) {
-        _rightIndicatorImg.highlighted = [self.dateStyleLastDate isToday];
+        _rightIndicatorImg.enabled = ![self.dateStyleLastDate isToday];
     }else if (_style == EDSBillStatisticsVCStyleMonth){
-        _rightIndicatorImg.highlighted = [self.monthStyleLastDate isTheCurrentMonth];
+        _rightIndicatorImg.enabled = ![self.monthStyleLastDate isTheCurrentMonth];
     }
     return _rightIndicatorImg;
 }
@@ -164,11 +165,11 @@ static NSInteger const KMCalendarNormalFontSize = 14;
         if (_style == EDSBillStatisticsVCStyleDay) {
             self.dateStyleLastDate = aDate;
             _dateTimeLabel.text = [self.dateStyleLastDate dateToStringWithFormat:KMCalendarDatePrintFormat];
-            _rightIndicatorImg.highlighted = [self.dateStyleLastDate isToday];
+            _rightIndicatorImg.enabled = ![self.dateStyleLastDate isToday];
         }else if (_style == EDSBillStatisticsVCStyleMonth){
             self.monthStyleLastDate = aDate;
             _dateTimeLabel.text = [self.monthStyleLastDate dateToStringWithFormat:KMCalendarMonthPrintFormat];
-            _rightIndicatorImg.highlighted = [self.monthStyleLastDate isTheCurrentMonth];
+            _rightIndicatorImg.enabled = ![self.monthStyleLastDate isTheCurrentMonth];
         }
     }
 }
@@ -219,13 +220,13 @@ static NSInteger const KMCalendarNormalFontSize = 14;
     if (_style == EDSBillStatisticsVCStyleDay) {
         self.dateStyleLastDate = [self.dateStyleLastDate addDays:swipeDirectionRight?-1:1];
         resultDateString = [self.dateStyleLastDate dateToStringWithFormat:KMCalendarDatePrintFormat];
-        _rightIndicatorImg.highlighted = [self.dateStyleLastDate isToday];
-        _leftIndicatorImg.highlighted = [self.dateStyleLastDate is20140101Day];
+        _rightIndicatorImg.enabled = ![self.dateStyleLastDate isToday];
+        _leftIndicatorImg.enabled = ![self.dateStyleLastDate is20140101Day];
     }else if (_style == EDSBillStatisticsVCStyleMonth){
         self.monthStyleLastDate = [self.monthStyleLastDate addMonths:swipeDirectionRight?-1:1];
         resultDateString = [self.monthStyleLastDate dateToStringWithFormat:KMCalendarMonthPrintFormat];
-        _rightIndicatorImg.highlighted = [self.monthStyleLastDate isTheCurrentMonth];
-        _leftIndicatorImg.highlighted = [self.monthStyleLastDate is201401Month];
+        _rightIndicatorImg.enabled = ![self.monthStyleLastDate isTheCurrentMonth];
+        _leftIndicatorImg.enabled = ![self.monthStyleLastDate is201401Month];
     }
     _dateTimeLabel.text = resultDateString;
 }
