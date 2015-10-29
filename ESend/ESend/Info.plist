@@ -33,7 +33,7 @@
 			<string>alipay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>Esendaipay</string>
+				<string>Esend9cellAipay</string>
 			</array>
 		</dict>
 		<dict>

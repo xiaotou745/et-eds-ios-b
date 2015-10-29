@@ -8,6 +8,10 @@
 
 #import "BaseViewController.h"
 
+/*
+ v121之后废弃
+ */
+
 @interface EDSHomepageVC : BaseViewController
 
 @end

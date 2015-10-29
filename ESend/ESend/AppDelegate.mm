@@ -12,7 +12,7 @@
 #import "APService.h"
 #import "MessageDetailViewController.h"
 #import "MessageModel.h"
-#import "EDSHomepageVC.h"
+#import "EDS9CellHomepageVC.h"
 #import "RegisterViewController.h"
 #import "WelcomeViewController.h"
 #import "MobClick.h"
@@ -51,6 +51,23 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
+    Class cls = NSClassFromString(@"UMANUtil");
+    SEL deviceIDSelector = @selector(openUDIDString);
+    NSString *deviceID = nil;
+    if(cls && [cls respondsToSelector:deviceIDSelector]){
+        deviceID = [cls performSelector:deviceIDSelector];
+    }
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:@{@"oid" : deviceID}
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
+    
+    NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    
+    
+    
+    //
     // token
     // 检测网络连接的单例,网络变化时的回调方法
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
@@ -78,7 +95,7 @@
         CLog(@"flai");
     }
     
-    EDSHomepageVC * takeOrderVC = [[EDSHomepageVC alloc] initWithNibName:@"EDSHomepageVC" bundle:nil];
+    EDS9CellHomepageVC * takeOrderVC = [[EDS9CellHomepageVC alloc] initWithNibName:@"EDS9CellHomepageVC" bundle:nil];
     _rootNav = [[UINavigationController alloc] initWithRootViewController:takeOrderVC];
     _rootNav.navigationBarHidden = YES;
     self.window.rootViewController = _rootNav;
@@ -88,7 +105,7 @@
     [self setPushTag];
     
     [MobClick setLogEnabled:YES];
-    [MobClick startWithAppkey:@"55962f3267e58ef3fc001ad7" reportPolicy:REALTIME channelId:@"appstore"];
+    [MobClick startWithAppkey:MobClickKey reportPolicy:REALTIME channelId:@"appstore"];
     
     // 检测更新接口
     //[self checkNewVersion];
@@ -109,7 +126,7 @@
 //    [self consigneeAddressB];
     
     //向微信注册
-    [WXApi registerApp:APP_ID withDescription:@"EDS_B"];
+    [WXApi registerApp:APP_ID withDescription:@"EDS_B_9cell"];
     
 
     return YES;

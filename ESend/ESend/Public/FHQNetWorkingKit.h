@@ -64,4 +64,8 @@ typedef void (^failureBlock) (NSError *error, AFHTTPRequestOperation *operation)
                               failAlertString:(NSString*)failAlertString
                                          host:(NSString*)host;
 
+
+///getHTTPSessionManagerWithHost:(NSString*)host
++ (AFHTTPRequestOperationManager*)getHTTPSessionManagerWithHost:(NSString*)host;
+
 @end

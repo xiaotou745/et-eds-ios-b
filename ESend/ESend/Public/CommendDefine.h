@@ -276,6 +276,9 @@ fprintf(stderr, "-------\n");                                               \
 #endif
 
 //
+
+#define MobClickKey @"5631d16567e58e2f190034b3"
+
 #if 0
     #define BaiduMapKey @"GX7M71BZnCnhLntRAFXg34fn"     // inhouse
     #define JpushKey @"3eefb643c42edab57671b328"        // inhouse
