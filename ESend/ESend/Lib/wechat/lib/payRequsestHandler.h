@@ -40,7 +40,7 @@
 
 // 账号帐户资料
 //更改商户把相关参数后可测试
-
+// wxbb8fb40942327ec6
 #define APP_ID          @"wxbb8fb40942327ec6"                       //APPID
 #define APP_SECRET      @"c0cb93c7fb3f7322326b0c853f0cba46"         //appsecret
 //商户号，填写商户对应参数

@@ -33,14 +33,14 @@
 			<string>alipay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>Esendaipay</string>
+				<string>Esend9cellAipay</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>wechat</string>
+			<string>wechatpay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wxbb8fb40942327ec6</string>

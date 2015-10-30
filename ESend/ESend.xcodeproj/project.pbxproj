@@ -119,6 +119,10 @@
 		6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; settings = {ASSET_TAGS = (); }; };
 		6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; settings = {ASSET_TAGS = (); }; };
 		6878F7841BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; settings = {ASSET_TAGS = (); }; };
+		688B37BF1BE308210012C60B /* Hp9ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37BD1BE308210012C60B /* Hp9ItemCell.m */; settings = {ASSET_TAGS = (); }; };
+		688B37C01BE308210012C60B /* Hp9ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37BD1BE308210012C60B /* Hp9ItemCell.m */; settings = {ASSET_TAGS = (); }; };
+		688B37C11BE308210012C60B /* Hp9ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37BE1BE308210012C60B /* Hp9ItemCell.xib */; settings = {ASSET_TAGS = (); }; };
+		688B37C21BE308210012C60B /* Hp9ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37BE1BE308210012C60B /* Hp9ItemCell.xib */; settings = {ASSET_TAGS = (); }; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; settings = {ASSET_TAGS = (); }; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; settings = {ASSET_TAGS = (); }; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; settings = {ASSET_TAGS = (); }; };
@@ -683,6 +687,9 @@
 		6878F77E1BB1559800E33ACD /* EDSBusinessShouldKnow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBusinessShouldKnow.h; sourceTree = "<group>"; };
 		6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBusinessShouldKnow.m; sourceTree = "<group>"; };
 		6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBusinessShouldKnow.xib; sourceTree = "<group>"; };
+		688B37BC1BE308210012C60B /* Hp9ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hp9ItemCell.h; sourceTree = "<group>"; };
+		688B37BD1BE308210012C60B /* Hp9ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hp9ItemCell.m; sourceTree = "<group>"; };
+		688B37BE1BE308210012C60B /* Hp9ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Hp9ItemCell.xib; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -1491,6 +1498,16 @@
 			name = BusinessNote;
 			sourceTree = "<group>";
 		};
+		688B37BB1BE305F70012C60B /* 9CellViews */ = {
+			isa = PBXGroup;
+			children = (
+				688B37BC1BE308210012C60B /* Hp9ItemCell.h */,
+				688B37BD1BE308210012C60B /* Hp9ItemCell.m */,
+				688B37BE1BE308210012C60B /* Hp9ItemCell.xib */,
+			);
+			path = 9CellViews;
+			sourceTree = "<group>";
+		};
 		68AE2BD11BC8E88D00E8149C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1794,6 +1811,7 @@
 		F66CA1291B1E9965006BDDB8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				688B37BB1BE305F70012C60B /* 9CellViews */,
 				F66062561B3AC70000F9AF0A /* ThirdOrder */,
 				F66CA12A1B1E9982006BDDB8 /* TakeOrderListViewController.h */,
 				F66CA12B1B1E9982006BDDB8 /* TakeOrderListViewController.m */,
@@ -2448,6 +2466,7 @@
 				6878F7841BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */,
 				F67D35FA1B5664A600083DA4 /* Images 19-52-49-033.xcassets in Resources */,
 				F67D35FB1B5664A600083DA4 /* map_icon@2x.png in Resources */,
+				688B37C21BE308210012C60B /* Hp9ItemCell.xib in Resources */,
 				68580CAA1BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */,
 				F67D35FC1B5664A600083DA4 /* wechat_icon@2x.png in Resources */,
 				F67D35FD1B5664A600083DA4 /* Protocol.txt in Resources */,
@@ -2507,6 +2526,7 @@
 				686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68580C931BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
+				688B37C11BE308210012C60B /* Hp9ItemCell.xib in Resources */,
 				6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */,
 				F65E8D1F1B39807600053141 /* Images 19-52-49-033.xcassets in Resources */,
 				F6188A841B219CB20033E58B /* map_icon@2x.png in Resources */,
@@ -2630,6 +2650,7 @@
 				6867454C1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m in Sources */,
 				F67D356F1B5664A600083DA4 /* InfoInTheReviewViewController.m in Sources */,
 				F67D35701B5664A600083DA4 /* MessageDetailViewController.m in Sources */,
+				688B37C01BE308210012C60B /* Hp9ItemCell.m in Sources */,
 				F67D35711B5664A600083DA4 /* NSDataEx.m in Sources */,
 				F67D35721B5664A600083DA4 /* AppDelegate.mm in Sources */,
 				F67D35731B5664A600083DA4 /* OBGradientView.m in Sources */,
@@ -2852,6 +2873,7 @@
 				6867454B1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.m in Sources */,
 				F62E8D151B30188F006F3862 /* MessageDetailViewController.m in Sources */,
 				F6441B521B3D470100EA3C9D /* NSDataEx.m in Sources */,
+				688B37BF1BE308210012C60B /* Hp9ItemCell.m in Sources */,
 				F6C6AC381B12F2640007A980 /* AppDelegate.mm in Sources */,
 				F6C6AD9F1B12F42F0007A980 /* OBGradientView.m in Sources */,
 				E46C49351B3C4A2D00CE0033 /* MDSenderDetailCell.m in Sources */,
