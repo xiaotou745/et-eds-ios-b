@@ -12,6 +12,7 @@
 #import "UserInfo.h"
 #import "Hp9ItemCell.h"
 #import "EDSTodaysOrdersVC.h"
+#import "EDSHttpReqManager3.h"
 
 
 #define Hp9ItemCellId @"Hp9cellItemCellId"
@@ -43,6 +44,27 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
 
+    }];
+    
+    
+    
+    NSDictionary * paraDict = @{
+                                @"businessId":[NSNumber numberWithInt:260],
+                                @"status":[NSNumber numberWithInt:1],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{
+                       @"data":aesString,
+                       //@"Version":[Tools getApplicationVersion],
+                       };
+    }
+    
+    [EDSHttpReqManager3 getorderregion:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
     }];
     
 

@@ -143,6 +143,10 @@
 		688B37E41BE705D60012C60B /* EDSOrderStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37E21BE705D60012C60B /* EDSOrderStatusView.m */; settings = {ASSET_TAGS = (); }; };
 		688B37E61BE706070012C60B /* EDSOrderStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37E51BE706070012C60B /* EDSOrderStatusView.xib */; settings = {ASSET_TAGS = (); }; };
 		688B37E71BE706070012C60B /* EDSOrderStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37E51BE706070012C60B /* EDSOrderStatusView.xib */; settings = {ASSET_TAGS = (); }; };
+		688B37F11BE738660012C60B /* EDSHttpReqManager3.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F01BE738660012C60B /* EDSHttpReqManager3.m */; settings = {ASSET_TAGS = (); }; };
+		688B37F21BE738660012C60B /* EDSHttpReqManager3.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F01BE738660012C60B /* EDSHttpReqManager3.m */; settings = {ASSET_TAGS = (); }; };
+		688B37F51BE74A910012C60B /* EDS9cell2ndRegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F41BE74A910012C60B /* EDS9cell2ndRegionView.m */; settings = {ASSET_TAGS = (); }; };
+		688B37F61BE74A910012C60B /* EDS9cell2ndRegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F41BE74A910012C60B /* EDS9cell2ndRegionView.m */; settings = {ASSET_TAGS = (); }; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; settings = {ASSET_TAGS = (); }; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; settings = {ASSET_TAGS = (); }; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; settings = {ASSET_TAGS = (); }; };
@@ -725,6 +729,10 @@
 		688B37E11BE705D60012C60B /* EDSOrderStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSOrderStatusView.h; sourceTree = "<group>"; };
 		688B37E21BE705D60012C60B /* EDSOrderStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSOrderStatusView.m; sourceTree = "<group>"; };
 		688B37E51BE706070012C60B /* EDSOrderStatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSOrderStatusView.xib; sourceTree = "<group>"; };
+		688B37EF1BE738660012C60B /* EDSHttpReqManager3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSHttpReqManager3.h; sourceTree = "<group>"; };
+		688B37F01BE738660012C60B /* EDSHttpReqManager3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSHttpReqManager3.m; sourceTree = "<group>"; };
+		688B37F31BE74A910012C60B /* EDS9cell2ndRegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDS9cell2ndRegionView.h; sourceTree = "<group>"; };
+		688B37F41BE74A910012C60B /* EDS9cell2ndRegionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDS9cell2ndRegionView.m; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -1539,6 +1547,8 @@
 				688B37BC1BE308210012C60B /* Hp9ItemCell.h */,
 				688B37BD1BE308210012C60B /* Hp9ItemCell.m */,
 				688B37BE1BE308210012C60B /* Hp9ItemCell.xib */,
+				688B37F31BE74A910012C60B /* EDS9cell2ndRegionView.h */,
+				688B37F41BE74A910012C60B /* EDS9cell2ndRegionView.m */,
 			);
 			path = 9CellViews;
 			sourceTree = "<group>";
@@ -2138,6 +2148,8 @@
 				F6C6AC831B12F3EB0007A980 /* FHQNetWorkingAPI.m */,
 				F6C6AC841B12F3EB0007A980 /* FHQNetWorkingKit.h */,
 				F6C6AC851B12F3EB0007A980 /* FHQNetWorkingKit.m */,
+				688B37EF1BE738660012C60B /* EDSHttpReqManager3.h */,
+				688B37F01BE738660012C60B /* EDSHttpReqManager3.m */,
 				F6C6AC911B12F3EB0007A980 /* GradientView.h */,
 				F6C6AC861B12F3EB0007A980 /* GradientView.m */,
 				F6C6AC871B12F3EB0007A980 /* Tools.h */,
@@ -2639,6 +2651,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F67D35301B5664A600083DA4 /* MissionDetailModel.m in Sources */,
+				688B37F21BE738660012C60B /* EDSHttpReqManager3.m in Sources */,
 				F67D35311B5664A600083DA4 /* SDImageCache.m in Sources */,
 				F67D35321B5664A600083DA4 /* UIButton+WebCache.m in Sources */,
 				F67D35331B5664A600083DA4 /* TakeOrderListViewController.m in Sources */,
@@ -2658,6 +2671,7 @@
 				68580C9F1BA836E10082C18C /* MNUnderLineButton.m in Sources */,
 				F67D353B1B5664A600083DA4 /* LoginViewController.m in Sources */,
 				F67D353C1B5664A600083DA4 /* BaseViewController.m in Sources */,
+				688B37F61BE74A910012C60B /* EDS9cell2ndRegionView.m in Sources */,
 				F67D353D1B5664A600083DA4 /* UploadImageModel.m in Sources */,
 				F67D353E1B5664A600083DA4 /* MoreViewController.m in Sources */,
 				2EA0CA421B82C72700BBAA63 /* ComplaintViewController.m in Sources */,
@@ -2867,6 +2881,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E402892D1B3C331B00B80417 /* MissionDetailModel.m in Sources */,
+				688B37F11BE738660012C60B /* EDSHttpReqManager3.m in Sources */,
 				F6C6ADA71B12F42F0007A980 /* SDImageCache.m in Sources */,
 				F6C6ADAE1B12F42F0007A980 /* UIButton+WebCache.m in Sources */,
 				F66CA12C1B1E9982006BDDB8 /* TakeOrderListViewController.m in Sources */,
@@ -2886,6 +2901,7 @@
 				68580C9E1BA836E10082C18C /* MNUnderLineButton.m in Sources */,
 				F6C6AE701B171BAB0007A980 /* LoginViewController.m in Sources */,
 				F6C6AC9C1B12F3EB0007A980 /* BaseViewController.m in Sources */,
+				688B37F51BE74A910012C60B /* EDS9cell2ndRegionView.m in Sources */,
 				F65287751B3E5EDC00738E64 /* UploadImageModel.m in Sources */,
 				F64DFD6D1B26C37200A909E5 /* MoreViewController.m in Sources */,
 				2EA0CA411B82C72700BBAA63 /* ComplaintViewController.m in Sources */,
