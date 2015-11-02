@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EDSTodaysOrdersVC">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="webView" destination="Hic-X4-nsp" id="J8W-B6-FUa"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hic-X4-nsp">
+                    <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="dP7-eH-Oqw"/>
+                    </connections>
+                </webView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Hic-X4-nsp" secondAttribute="bottom" id="1bL-cV-biB"/>
+                <constraint firstItem="Hic-X4-nsp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="LQu-vc-gDH"/>
+                <constraint firstItem="Hic-X4-nsp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Npl-it-aaE"/>
+                <constraint firstAttribute="trailing" secondItem="Hic-X4-nsp" secondAttribute="trailing" id="PzF-9H-xjm"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

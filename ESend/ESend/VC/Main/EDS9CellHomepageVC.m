@@ -11,6 +11,7 @@
 #import "FHQNetWorkingAPI.h"
 #import "UserInfo.h"
 #import "Hp9ItemCell.h"
+#import "EDSTodaysOrdersVC.h"
 
 
 #define Hp9ItemCellId @"Hp9cellItemCellId"
@@ -55,16 +56,17 @@
 /// 配置导航条
 - (void)configNavTitle{
     self.titleLabel.text = @"发布任务";
-    self.leftBtn.hidden = YES;
-    
+    // left
+    [self.leftBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
+    [self.leftBtn addTarget:self action:@selector(todaysOrdersBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    // right
     [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(mineBtnAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)config9Cells{
-    NSLog(@"%@",NSStringFromClass([Hp9ItemCell class]));
     //Hp9ItemCell
-    UINib *cellNib = [UINib nibWithNibName:@"Hp9ItemCell" bundle:nil];
+    UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([Hp9ItemCell class]) bundle:nil];
     [self.Hp_9cells registerNib:cellNib forCellWithReuseIdentifier:Hp9ItemCellId];
     self.Hp_9cells.dataSource = self;
     self.Hp_9cells.delegate = self;
@@ -74,6 +76,11 @@
 - (void)mineBtnAction{
     MineViewController *vc = [[MineViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)todaysOrdersBtnAction{
+    EDSTodaysOrdersVC * tovc = [[EDSTodaysOrdersVC alloc] initWithNibName:NSStringFromClass([EDSTodaysOrdersVC class]) bundle:nil];
+    [self.navigationController pushViewController:tovc animated:YES];
 }
 
 
