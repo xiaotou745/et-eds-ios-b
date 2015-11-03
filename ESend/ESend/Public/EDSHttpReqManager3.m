@@ -65,4 +65,17 @@
     return operation;
 }
 
+/// 1.1.5 商户发单 url:/order/push POST
++ (AFHTTPRequestOperation *)pushOrderData:(NSDictionary *)data
+                                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@order/push",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
 @end

@@ -114,7 +114,12 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     Hp9ItemCell * cell = (Hp9ItemCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.orderCount ++;
+    if (cell.dataModel.twoOrderRegionList.count > 0) {
+        // secondary
+        NSLog(@"有二级区域");
+    }else{
+        cell.orderCount ++;
+    }
 }
 
 #pragma mark - API

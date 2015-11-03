@@ -17,7 +17,12 @@
 @end
 
 @interface EDS9cell2ndRegionView : UIView
+{
+    id<EDS9cell2ndRegionViewDelegate> _delegate;
+}
+@property (nonatomic, strong) NSArray * dataSource;
+@property (nonatomic, copy) NSString * regionName;
 
-- (instancetype)initWithDelegate:(id<EDS9cell2ndRegionViewDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<EDS9cell2ndRegionViewDelegate>)delegate dataSource:(NSArray *)dataSource regionName:(NSString *)regionName;
 
 @end

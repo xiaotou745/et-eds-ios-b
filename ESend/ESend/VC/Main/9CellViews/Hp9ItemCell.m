@@ -57,7 +57,7 @@
 
 - (void)setDataModel:(Hp9CellRegionModel *)dataModel{
     _dataModel = dataModel;
-    self.regionName.text = _dataModel.regionName;
+    self.regionName.text = [NSString stringWithFormat:@"%ld%@",_dataModel.regionId,_dataModel.regionName];
 }
 
 @end

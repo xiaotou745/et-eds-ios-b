@@ -37,4 +37,11 @@
                                       success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+
+/// 1.1.5 商户发单 url:/order/push POST
++ (AFHTTPRequestOperation *)pushOrderData:(NSDictionary *)data
+                                  success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                  failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
 @end
