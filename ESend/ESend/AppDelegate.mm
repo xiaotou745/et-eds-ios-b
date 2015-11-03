@@ -51,22 +51,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    
-    Class cls = NSClassFromString(@"UMANUtil");
-    SEL deviceIDSelector = @selector(openUDIDString);
-    NSString *deviceID = nil;
-    if(cls && [cls respondsToSelector:deviceIDSelector]){
-        deviceID = [cls performSelector:deviceIDSelector];
-    }
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:@{@"oid" : deviceID}
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:nil];
-    
-    NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
-    
-    
-    
     //
     // token
     // 检测网络连接的单例,网络变化时的回调方法
@@ -90,7 +74,7 @@
     [self.window makeKeyAndVisible];
     
     _mapManager = [[BMKMapManager alloc]init]; 
-    BOOL ret = [_mapManager start:@"uazMqGlv1NImlBWYoh4elkOs"  generalDelegate:nil];
+    BOOL ret = [_mapManager start:BaiduMapKeyAppStore  generalDelegate:nil];
     if (!ret) {
         CLog(@"flai");
     }
@@ -100,12 +84,13 @@
     _rootNav.navigationBarHidden = YES;
     self.window.rootViewController = _rootNav;
     
+    // 是否登录
     [self showWelcomeLoginAnimated:NO];
     [self setupJpush:launchOptions];
     [self setPushTag];
     
     [MobClick setLogEnabled:YES];
-    [MobClick startWithAppkey:MobClickKey reportPolicy:REALTIME channelId:@"appstore"];
+    [MobClick startWithAppkey:MobClickKeyAppStore reportPolicy:REALTIME channelId:@"appstore"];
     
     // 检测更新接口
     //[self checkNewVersion];

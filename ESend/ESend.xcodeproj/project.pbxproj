@@ -3207,6 +3207,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eds.enterprise.b;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s armv7";
@@ -3290,6 +3291,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eds.enterprise.b;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "94f52beb-73e4-4ca9-83ad-ae7faf2fa352";
 				VALID_ARCHS = "arm64 armv7s armv7";
@@ -3598,6 +3600,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eds.enterprise.b;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "1afa451a-1435-4d5f-8ce9-18b967a076e4";
 				VALID_ARCHS = "arm64 armv7s armv7";
@@ -3642,6 +3645,7 @@
 					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eds.enterprise.b;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7s armv7";

@@ -30,44 +30,15 @@
     [super viewDidLoad];
     [self configNavTitle];
     [self config9Cells];
-    
-    NSDictionary *requestData = @{
-                                  @"BusinessId" : [UserInfo getUserId],
-                                  @"version"    : @"1.0",
-                                  };
-    NSString * urlString = @"BusinessAPI/GetUserStatus";
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    
-    [[FHQNetWorkingKit getHTTPSessionManagerWithHost:OPEN_API_SEVER] POST:urlString parameters:requestData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [Tools hiddenProgress:HUD];
+}
 
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [Tools hiddenProgress:HUD];
-
-    }];
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    // 只有登录了才能到这个界面。
+    // 用户状态
+    [self synchronizeTheBusinessStatus];
+    // 9个格子
     
-    
-    
-    NSDictionary * paraDict = @{
-                                @"businessId":[NSNumber numberWithInt:260],
-                                @"status":[NSNumber numberWithInt:1],
-                                };
-    if (AES_Security) {
-        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-        NSString * aesString = [Security AesEncrypt:jsonString2];
-        paraDict = @{
-                       @"data":aesString,
-                       //@"Version":[Tools getApplicationVersion],
-                       };
-    }
-    
-    [EDSHttpReqManager3 getorderregion:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-    
-
 }
 
 - (void)updateViewConstraints{
@@ -111,7 +82,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - 9 cell 
+#pragma mark - 9 cell UI delegate
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
@@ -129,6 +100,48 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     Hp9ItemCell * cell = (Hp9ItemCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.orderCount ++;
+}
+
+#pragma mark - API
+/// 获取商户用户当前状态
+- (void)synchronizeTheBusinessStatus{
+    NSDictionary *requestData = @{
+                                  @"BusinessId" : [UserInfo getUserId],
+                                  @"version"    : @"1.0",
+                                  };
+    NSString * urlString = @"BusinessAPI/GetUserStatus";
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    
+    [[FHQNetWorkingKit getHTTPSessionManagerWithHost:OPEN_API_SEVER] POST:urlString parameters:requestData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+        
+    }];
+}
+
+/// 获取商户用户的9个区域信息
+- (void)synchronizeBusiness9CellRegionInfo{
+    
+    NSDictionary * paraDict = @{
+                                @"businessId":[NSNumber numberWithInt:260],
+                                @"status":[NSNumber numberWithInt:1],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{
+                     @"data":aesString,
+                     };
+    }
+    
+    [EDSHttpReqManager3 getorderregion:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    
 }
 
 @end
