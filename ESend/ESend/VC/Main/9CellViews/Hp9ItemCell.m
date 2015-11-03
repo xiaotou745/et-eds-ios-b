@@ -52,4 +52,12 @@
 
 /// minnusbutton关注 数据的订单单数
 
+
+
+
+- (void)setDataModel:(Hp9CellRegionModel *)dataModel{
+    _dataModel = dataModel;
+    self.regionName.text = _dataModel.regionName;
+}
+
 @end

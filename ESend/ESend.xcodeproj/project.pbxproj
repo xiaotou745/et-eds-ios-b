@@ -119,6 +119,10 @@
 		6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; settings = {ASSET_TAGS = (); }; };
 		6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; settings = {ASSET_TAGS = (); }; };
 		6878F7841BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; settings = {ASSET_TAGS = (); }; };
+		688B35681BE89BE3008358B2 /* Hp9CellRegionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B35671BE89BE3008358B2 /* Hp9CellRegionModel.m */; settings = {ASSET_TAGS = (); }; };
+		688B35691BE89BE3008358B2 /* Hp9CellRegionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B35671BE89BE3008358B2 /* Hp9CellRegionModel.m */; settings = {ASSET_TAGS = (); }; };
+		688B356C1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B356B1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m */; settings = {ASSET_TAGS = (); }; };
+		688B356D1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B356B1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m */; settings = {ASSET_TAGS = (); }; };
 		688B37BF1BE308210012C60B /* Hp9ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37BD1BE308210012C60B /* Hp9ItemCell.m */; settings = {ASSET_TAGS = (); }; };
 		688B37C01BE308210012C60B /* Hp9ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37BD1BE308210012C60B /* Hp9ItemCell.m */; settings = {ASSET_TAGS = (); }; };
 		688B37C11BE308210012C60B /* Hp9ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37BE1BE308210012C60B /* Hp9ItemCell.xib */; settings = {ASSET_TAGS = (); }; };
@@ -711,6 +715,10 @@
 		6878F77E1BB1559800E33ACD /* EDSBusinessShouldKnow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBusinessShouldKnow.h; sourceTree = "<group>"; };
 		6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBusinessShouldKnow.m; sourceTree = "<group>"; };
 		6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBusinessShouldKnow.xib; sourceTree = "<group>"; };
+		688B35661BE89BE3008358B2 /* Hp9CellRegionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hp9CellRegionModel.h; sourceTree = "<group>"; };
+		688B35671BE89BE3008358B2 /* Hp9CellRegionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hp9CellRegionModel.m; sourceTree = "<group>"; };
+		688B356A1BE89CAC008358B2 /* Hp9cellSecondaryRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hp9cellSecondaryRegion.h; sourceTree = "<group>"; };
+		688B356B1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hp9cellSecondaryRegion.m; sourceTree = "<group>"; };
 		688B37BC1BE308210012C60B /* Hp9ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hp9ItemCell.h; sourceTree = "<group>"; };
 		688B37BD1BE308210012C60B /* Hp9ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hp9ItemCell.m; sourceTree = "<group>"; };
 		688B37BE1BE308210012C60B /* Hp9ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Hp9ItemCell.xib; sourceTree = "<group>"; };
@@ -1549,6 +1557,10 @@
 				688B37BE1BE308210012C60B /* Hp9ItemCell.xib */,
 				688B37F31BE74A910012C60B /* EDS9cell2ndRegionView.h */,
 				688B37F41BE74A910012C60B /* EDS9cell2ndRegionView.m */,
+				688B35661BE89BE3008358B2 /* Hp9CellRegionModel.h */,
+				688B35671BE89BE3008358B2 /* Hp9CellRegionModel.m */,
+				688B356A1BE89CAC008358B2 /* Hp9cellSecondaryRegion.h */,
+				688B356B1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m */,
 			);
 			path = 9CellViews;
 			sourceTree = "<group>";
@@ -2671,6 +2683,7 @@
 				68580C9F1BA836E10082C18C /* MNUnderLineButton.m in Sources */,
 				F67D353B1B5664A600083DA4 /* LoginViewController.m in Sources */,
 				F67D353C1B5664A600083DA4 /* BaseViewController.m in Sources */,
+				688B35691BE89BE3008358B2 /* Hp9CellRegionModel.m in Sources */,
 				688B37F61BE74A910012C60B /* EDS9cell2ndRegionView.m in Sources */,
 				F67D353D1B5664A600083DA4 /* UploadImageModel.m in Sources */,
 				F67D353E1B5664A600083DA4 /* MoreViewController.m in Sources */,
@@ -2764,6 +2777,7 @@
 				2E5782321BA2872500A04B9D /* WechatPay.m in Sources */,
 				F67D357D1B5664A600083DA4 /* UIAlertView+AFNetworking.m in Sources */,
 				F66D79421B5FC6DD00A6A946 /* AddressPickerView.m in Sources */,
+				688B356D1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m in Sources */,
 				F67D357E1B5664A600083DA4 /* DataVerifier.m in Sources */,
 				F67D357F1B5664A600083DA4 /* Tools.m in Sources */,
 				F67D35801B5664A600083DA4 /* LoadingButtton.m in Sources */,
@@ -2901,6 +2915,7 @@
 				68580C9E1BA836E10082C18C /* MNUnderLineButton.m in Sources */,
 				F6C6AE701B171BAB0007A980 /* LoginViewController.m in Sources */,
 				F6C6AC9C1B12F3EB0007A980 /* BaseViewController.m in Sources */,
+				688B35681BE89BE3008358B2 /* Hp9CellRegionModel.m in Sources */,
 				688B37F51BE74A910012C60B /* EDS9cell2ndRegionView.m in Sources */,
 				F65287751B3E5EDC00738E64 /* UploadImageModel.m in Sources */,
 				F64DFD6D1B26C37200A909E5 /* MoreViewController.m in Sources */,
@@ -2994,6 +3009,7 @@
 				F6C6ADB71B12F42F0007A980 /* UIAlertView+AFNetworking.m in Sources */,
 				F66D79411B5FBFE700A6A946 /* AddressPickerView.m in Sources */,
 				F6441B501B3D470100EA3C9D /* DataVerifier.m in Sources */,
+				688B356C1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m in Sources */,
 				F6C6AC9A1B12F3EB0007A980 /* Tools.m in Sources */,
 				F6C6ACA01B12F3EB0007A980 /* LoadingButtton.m in Sources */,
 				F6188A821B2192430033E58B /* OrderDetailRemarkTableCell.m in Sources */,

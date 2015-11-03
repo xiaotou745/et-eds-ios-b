@@ -51,4 +51,18 @@
     return operation;
 }
 
+
+/// 获取用户状态接口
++ (AFHTTPRequestOperation *)getUserStatusData:(NSDictionary *)data
+                                      success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@BusinessAPI/GetUserStatus",OPEN_API_SEVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
 @end

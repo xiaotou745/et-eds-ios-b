@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Hp9CellRegionModel.h"
 
 @interface Hp9ItemCell : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UIButton *minusButton;
 @property (strong, nonatomic) IBOutlet UIView *contents;
 @property (strong, nonatomic) IBOutlet UILabel *countLabel;
+@property (strong, nonatomic) IBOutlet UILabel *regionName;
+
+@property (strong, nonatomic) Hp9CellRegionModel * dataModel;
 
 /// 此单元格的总的订单数量
 @property (assign, nonatomic) NSInteger orderCount;

@@ -86,6 +86,7 @@
                 <outlet property="contents" destination="iaP-hJ-bW2" id="Hiu-MC-t35"/>
                 <outlet property="countLabel" destination="FWM-vc-q4z" id="EJf-A6-09p"/>
                 <outlet property="minusButton" destination="gWB-Ev-ptn" id="TjX-dI-Mk7"/>
+                <outlet property="regionName" destination="5gy-ak-Uar" id="zmg-Jd-fmp"/>
             </connections>
             <point key="canvasLocation" x="351.5" y="272"/>
         </collectionViewCell>

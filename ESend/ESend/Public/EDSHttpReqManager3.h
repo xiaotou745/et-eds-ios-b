@@ -31,4 +31,10 @@
                                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+
+/// 获取用户状态接口
++ (AFHTTPRequestOperation *)getUserStatusData:(NSDictionary *)data
+                                      success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 @end

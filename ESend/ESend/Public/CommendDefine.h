@@ -246,7 +246,9 @@ fprintf(stderr, "-------\n");                                               \
     #define OPEN_API_SEVER @"http://edsapi.yitaoyun.net/"       //线上
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
 #elif 1
-    #define OPEN_API_SEVER @"http://10.8.7.251:7178/"   //本地服务器 251
+#define OPEN_API_SEVER @"http://api.edaisong.com/20151022/" //生产
+
+    //#define OPEN_API_SEVER @"http://10.8.7.251:7178/"   //本地服务器 251
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
     #define UPDATE_APP_API_SERVER  @""// 升级接口
 
