@@ -123,6 +123,8 @@
 		688B35691BE89BE3008358B2 /* Hp9CellRegionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B35671BE89BE3008358B2 /* Hp9CellRegionModel.m */; settings = {ASSET_TAGS = (); }; };
 		688B356C1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B356B1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m */; settings = {ASSET_TAGS = (); }; };
 		688B356D1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B356B1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m */; settings = {ASSET_TAGS = (); }; };
+		688B35701BEA0DEE008358B2 /* TaskInRegionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B356F1BEA0DEE008358B2 /* TaskInRegionModel.m */; settings = {ASSET_TAGS = (); }; };
+		688B35711BEA0DEE008358B2 /* TaskInRegionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B356F1BEA0DEE008358B2 /* TaskInRegionModel.m */; settings = {ASSET_TAGS = (); }; };
 		688B37BF1BE308210012C60B /* Hp9ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37BD1BE308210012C60B /* Hp9ItemCell.m */; settings = {ASSET_TAGS = (); }; };
 		688B37C01BE308210012C60B /* Hp9ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37BD1BE308210012C60B /* Hp9ItemCell.m */; settings = {ASSET_TAGS = (); }; };
 		688B37C11BE308210012C60B /* Hp9ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37BE1BE308210012C60B /* Hp9ItemCell.xib */; settings = {ASSET_TAGS = (); }; };
@@ -719,6 +721,8 @@
 		688B35671BE89BE3008358B2 /* Hp9CellRegionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hp9CellRegionModel.m; sourceTree = "<group>"; };
 		688B356A1BE89CAC008358B2 /* Hp9cellSecondaryRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hp9cellSecondaryRegion.h; sourceTree = "<group>"; };
 		688B356B1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hp9cellSecondaryRegion.m; sourceTree = "<group>"; };
+		688B356E1BEA0DEE008358B2 /* TaskInRegionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskInRegionModel.h; sourceTree = "<group>"; };
+		688B356F1BEA0DEE008358B2 /* TaskInRegionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskInRegionModel.m; sourceTree = "<group>"; };
 		688B37BC1BE308210012C60B /* Hp9ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hp9ItemCell.h; sourceTree = "<group>"; };
 		688B37BD1BE308210012C60B /* Hp9ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hp9ItemCell.m; sourceTree = "<group>"; };
 		688B37BE1BE308210012C60B /* Hp9ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Hp9ItemCell.xib; sourceTree = "<group>"; };
@@ -1577,6 +1581,8 @@
 				688B37DA1BE704D10012C60B /* EDSTaskListInRegionCell.h */,
 				688B37DB1BE704D10012C60B /* EDSTaskListInRegionCell.m */,
 				688B37DC1BE704D10012C60B /* EDSTaskListInRegionCell.xib */,
+				688B356E1BEA0DEE008358B2 /* TaskInRegionModel.h */,
+				688B356F1BEA0DEE008358B2 /* TaskInRegionModel.m */,
 			);
 			path = OrdersToday;
 			sourceTree = "<group>";
@@ -2853,6 +2859,7 @@
 				F67D35BA1B5664A600083DA4 /* DZNSegmentedControl.m in Sources */,
 				F67D35BB1B5664A600083DA4 /* ExpensesMonthDataModel.m in Sources */,
 				F67D35BC1B5664A600083DA4 /* MBProgressHUD.m in Sources */,
+				688B35711BEA0DEE008358B2 /* TaskInRegionModel.m in Sources */,
 				F67D35BD1B5664A600083DA4 /* RDVTabBarController.m in Sources */,
 				F67D35BE1B5664A600083DA4 /* UIRefreshControl+AFNetworking.m in Sources */,
 				F67D35BF1B5664A600083DA4 /* UserInfo.m in Sources */,
@@ -3085,6 +3092,7 @@
 				E482C3681B3EA1A7008471E8 /* ExpensesMonthDataModel.m in Sources */,
 				F6C6AD8B1B12F42F0007A980 /* MBProgressHUD.m in Sources */,
 				F6C6ADA31B12F42F0007A980 /* RDVTabBarController.m in Sources */,
+				688B35701BEA0DEE008358B2 /* TaskInRegionModel.m in Sources */,
 				F6C6ADBB1B12F42F0007A980 /* UIRefreshControl+AFNetworking.m in Sources */,
 				F66CA13E1B1EEC4C006BDDB8 /* UserInfo.m in Sources */,
 				F6C6AD891B12F42F0007A980 /* HYUploadImage.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "EDSTodaysOrdersVC.h"
+#import "EDSTaskListInRegionVC.h"
 
 @interface EDSTodaysOrdersVC ()<UIWebViewDelegate>
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
@@ -22,6 +23,15 @@
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.baidu.com"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60]];
 
+    [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
+    [self.rightBtn addTarget:self action:@selector(tlirvc) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)tlirvc{
+    EDSTaskListInRegionVC * tlir = [[EDSTaskListInRegionVC alloc] initWithNibName:NSStringFromClass([EDSTaskListInRegionVC class]) bundle:nil];
+    tlir.selectedIndex = 3;
+    tlir.TLIR_Title = @"2222";
+    [self.navigationController pushViewController:tlir animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,7 +58,7 @@
     NSLog(@"%@",URLString);
 
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        
+
     }
     
     
@@ -61,6 +71,8 @@
     NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     
     NSLog(@"%@\n%@",currentURL,title);
+    
+
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{

@@ -7,6 +7,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EDSTaskListInRegionVC">
             <connections>
+                <outlet property="TLIR_HorizonScroller" destination="7IN-xT-ZRF" id="GKM-Yk-jZe"/>
+                <outlet property="TLIR_OptionBgView" destination="2ae-YZ-wxi" id="PuO-qv-YHs"/>
+                <outlet property="TLIR_OptionFirstBtn" destination="uwt-Pl-hWQ" id="lzF-Ag-nYg"/>
+                <outlet property="TLIR_OptionIndicator" destination="ez8-KW-coi" id="ndG-mk-JVB"/>
+                <outlet property="TLIR_OptionSecondBtn" destination="dUD-On-tE8" id="vjF-by-eHT"/>
+                <outlet property="TLIR_OptionSeparator1" destination="ezO-2l-Vjq" id="Q3M-zM-hgg"/>
+                <outlet property="TLIR_OptionSeparator2" destination="z6F-Mj-6vd" id="I1z-q0-cCt"/>
+                <outlet property="TLIR_OptionThirdBtn" destination="by2-xx-h4q" id="IPv-7l-fIX"/>
+                <outlet property="TLIR_TableFirst" destination="wYV-j5-uMO" id="Kaw-PO-rou"/>
+                <outlet property="TLIR_TableScrollerWidth" destination="vhf-f5-G6w" id="CdX-zw-Cn5"/>
+                <outlet property="TLIR_TableSecond" destination="10i-Kt-Vlg" id="ie5-AG-Uqa"/>
+                <outlet property="TLIR_TableThird" destination="Yis-ej-WQ2" id="D04-PP-faf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,55 +30,74 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ae-YZ-wxi" userLabel="OptionBgView">
                     <rect key="frame" x="0.0" y="64" width="600" height="50"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwt-Pl-hWQ" userLabel="待接单">
-                            <rect key="frame" x="0.0" y="0.0" width="196" height="48"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwt-Pl-hWQ" userLabel="TLIROption First Btn">
+                            <rect key="frame" x="0.0" y="0.0" width="196" height="47"/>
                             <animations/>
                             <state key="normal" title="取货中(0)">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="tOx-lB-FHw"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ezO-2l-Vjq" userLabel="separator11">
-                            <rect key="frame" x="198" y="10" width="1" height="30"/>
+                            <rect key="frame" x="198" y="17" width="1" height="17"/>
                             <animations/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="LQX-cx-woU"/>
+                                <constraint firstAttribute="height" constant="17" id="LQX-cx-woU"/>
                                 <constraint firstAttribute="width" constant="0.5" id="sxs-o0-SAy"/>
                             </constraints>
                         </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUD-On-tE8" userLabel="待取货">
-                            <rect key="frame" x="201" y="0.0" width="196" height="48"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUD-On-tE8" userLabel="TLIROption Second Btn">
+                            <rect key="frame" x="201" y="0.0" width="196" height="47"/>
                             <animations/>
                             <state key="normal" title="配送中(0)">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="XY3-ON-SF9"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="by2-xx-h4q">
-                            <rect key="frame" x="402" y="0.0" width="196" height="48"/>
+                            <rect key="frame" x="402" y="0.0" width="196" height="47"/>
                             <animations/>
                             <state key="normal" title="已完成(0)">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="y8N-ci-zsc"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z6F-Mj-6vd" userLabel="separator12">
-                            <rect key="frame" x="399" y="10" width="1" height="30"/>
+                            <rect key="frame" x="399" y="17" width="1" height="17"/>
                             <animations/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ez8-KW-coi" userLabel="Indicator">
+                            <rect key="frame" x="0.0" y="48" width="196" height="2"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="2" id="Rmo-55-f5n"/>
+                            </constraints>
                         </imageView>
                     </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="by2-xx-h4q" secondAttribute="bottom" constant="2" id="00Y-LX-iBu"/>
+                        <constraint firstAttribute="bottom" secondItem="by2-xx-h4q" secondAttribute="bottom" constant="3" id="00Y-LX-iBu"/>
                         <constraint firstItem="by2-xx-h4q" firstAttribute="width" secondItem="uwt-Pl-hWQ" secondAttribute="width" id="2QC-hD-WfE"/>
-                        <constraint firstAttribute="bottom" secondItem="uwt-Pl-hWQ" secondAttribute="bottom" constant="2" id="2q2-Va-DX9"/>
+                        <constraint firstAttribute="bottom" secondItem="uwt-Pl-hWQ" secondAttribute="bottom" constant="3" id="2q2-Va-DX9"/>
                         <constraint firstItem="dUD-On-tE8" firstAttribute="width" secondItem="uwt-Pl-hWQ" secondAttribute="width" id="5ED-Ab-vZ7"/>
                         <constraint firstAttribute="trailing" secondItem="by2-xx-h4q" secondAttribute="trailing" constant="2" id="7et-bA-q8t"/>
-                        <constraint firstAttribute="bottom" secondItem="dUD-On-tE8" secondAttribute="bottom" constant="2" id="7nR-7d-IDX"/>
+                        <constraint firstAttribute="bottom" secondItem="dUD-On-tE8" secondAttribute="bottom" constant="3" id="7nR-7d-IDX"/>
                         <constraint firstItem="z6F-Mj-6vd" firstAttribute="centerY" secondItem="2ae-YZ-wxi" secondAttribute="centerY" id="84K-Zc-mf7"/>
                         <constraint firstItem="uwt-Pl-hWQ" firstAttribute="top" secondItem="2ae-YZ-wxi" secondAttribute="top" id="9A7-u4-T7q"/>
                         <constraint firstItem="ezO-2l-Vjq" firstAttribute="centerY" secondItem="2ae-YZ-wxi" secondAttribute="centerY" id="AR6-dD-4rV"/>
                         <constraint firstItem="by2-xx-h4q" firstAttribute="leading" secondItem="z6F-Mj-6vd" secondAttribute="trailing" constant="2" id="Aic-AL-kY0"/>
                         <constraint firstItem="ezO-2l-Vjq" firstAttribute="leading" secondItem="uwt-Pl-hWQ" secondAttribute="trailing" constant="2" id="G57-1i-ZEP"/>
+                        <constraint firstItem="ez8-KW-coi" firstAttribute="width" secondItem="uwt-Pl-hWQ" secondAttribute="width" id="KIJ-ce-4pu"/>
+                        <constraint firstAttribute="bottom" secondItem="ez8-KW-coi" secondAttribute="bottom" id="TWV-aD-8I4"/>
                         <constraint firstItem="z6F-Mj-6vd" firstAttribute="leading" secondItem="dUD-On-tE8" secondAttribute="trailing" constant="2" id="WBE-5a-uuN"/>
+                        <constraint firstItem="ez8-KW-coi" firstAttribute="leading" secondItem="2ae-YZ-wxi" secondAttribute="leading" id="bXh-Zb-zwD"/>
                         <constraint firstAttribute="height" constant="50" id="kZG-Sp-m50"/>
                         <constraint firstItem="by2-xx-h4q" firstAttribute="top" secondItem="2ae-YZ-wxi" secondAttribute="top" id="mC0-AS-lE9"/>
                         <constraint firstItem="uwt-Pl-hWQ" firstAttribute="leading" secondItem="2ae-YZ-wxi" secondAttribute="leading" id="pFC-8o-e6c"/>
@@ -76,26 +107,38 @@
                         <constraint firstItem="dUD-On-tE8" firstAttribute="top" secondItem="2ae-YZ-wxi" secondAttribute="top" id="yLD-aI-7al"/>
                     </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="7IN-xT-ZRF" userLabel="HorizonScroller">
-                    <rect key="frame" x="0.0" y="200" width="600" height="486"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="7IN-xT-ZRF" userLabel="HorizonScroller">
+                    <rect key="frame" x="0.0" y="114" width="600" height="486"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fD-aP-4ns" userLabel="HorizonScrollerContent">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="486"/>
                             <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wYV-j5-uMO" userLabel="table1">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wYV-j5-uMO" userLabel="table1">
                                     <rect key="frame" x="0.0" y="0.0" width="200" height="486"/>
                                     <animations/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="pCf-K9-RWa"/>
+                                        <outlet property="delegate" destination="-1" id="lDR-fz-MYg"/>
+                                    </connections>
                                 </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="10i-Kt-Vlg" userLabel="table2">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="10i-Kt-Vlg" userLabel="table2">
                                     <rect key="frame" x="200" y="0.0" width="200" height="486"/>
                                     <animations/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="O0e-mk-5Np"/>
+                                        <outlet property="delegate" destination="-1" id="Sza-HE-VjU"/>
+                                    </connections>
                                 </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Yis-ej-WQ2" userLabel="table3">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Yis-ej-WQ2" userLabel="table3">
                                     <rect key="frame" x="400" y="0.0" width="200" height="486"/>
                                     <animations/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="TZE-lR-W4k"/>
+                                        <outlet property="delegate" destination="-1" id="Kif-VF-ctJ"/>
+                                    </connections>
                                 </tableView>
                             </subviews>
                             <animations/>
@@ -126,6 +169,9 @@
                         <constraint firstAttribute="trailing" secondItem="3fD-aP-4ns" secondAttribute="trailing" id="gyu-R6-Yfx"/>
                         <constraint firstAttribute="bottom" secondItem="3fD-aP-4ns" secondAttribute="bottom" id="v2y-ju-kDn"/>
                     </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="62N-mU-G3J"/>
+                    </connections>
                 </scrollView>
             </subviews>
             <animations/>
@@ -135,8 +181,8 @@
                 <constraint firstItem="2ae-YZ-wxi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="785-A7-hxR"/>
                 <constraint firstItem="7IN-xT-ZRF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DaW-pH-W7l"/>
                 <constraint firstAttribute="trailing" secondItem="7IN-xT-ZRF" secondAttribute="trailing" id="FYw-Wj-3cX"/>
-                <constraint firstAttribute="bottom" secondItem="7IN-xT-ZRF" secondAttribute="bottom" constant="-86" id="Ocd-9S-K5H"/>
-                <constraint firstItem="7IN-xT-ZRF" firstAttribute="top" secondItem="2ae-YZ-wxi" secondAttribute="bottom" constant="86" id="Ovx-lv-vMj"/>
+                <constraint firstAttribute="bottom" secondItem="7IN-xT-ZRF" secondAttribute="bottom" id="Ocd-9S-K5H"/>
+                <constraint firstItem="7IN-xT-ZRF" firstAttribute="top" secondItem="2ae-YZ-wxi" secondAttribute="bottom" id="Ovx-lv-vMj"/>
                 <constraint firstItem="2ae-YZ-wxi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bG1-Ct-PFw"/>
             </constraints>
         </view>

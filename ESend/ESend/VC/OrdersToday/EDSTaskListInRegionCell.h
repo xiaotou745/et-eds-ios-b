@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TaskInRegionModel.h"
 
 @interface EDSTaskListInRegionCell : UITableViewCell
+
+@property (nonatomic, strong) TaskInRegionModel * dataSrouce;
 
 @end

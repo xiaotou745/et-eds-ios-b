@@ -78,4 +78,43 @@
     return operation;
 }
 
+/// 1.1.7 商戶端 我的骑士列表 url:/business/getmyserviceclienters POST
++ (AFHTTPRequestOperation *)getmyserviceclienters:(NSDictionary *)data
+                                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@business/getmyserviceclienters",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
+/// 1.1.8 商戶端 我的骑士 申请中 同意/拒绝功能 url:/business/optbindclienter POST
++ (AFHTTPRequestOperation *)optbindclienter:(NSDictionary *)data
+                                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@business/optbindclienter",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
+/// 1.1.9 商戶端 解除绑定骑士 url:/business/removerelation POST
++ (AFHTTPRequestOperation *)removerelation:(NSDictionary *)data
+                                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@business/removerelation",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
 @end

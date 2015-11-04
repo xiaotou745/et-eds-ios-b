@@ -52,8 +52,13 @@
     [super viewDidAppear:animated];
     // 只有登录了才能到这个界面。
     // 用户状态
-     [self synchronizeTheBusinessStatus];
+//     [self synchronizeTheBusinessStatus];
+//     [self getmyserviceclienters];
+    //[self synchronizeBusiness9CellRegionInfo];
+    // [self tstRemoveClienter:117];
 }
+
+
 
 - (void)updateViewConstraints{
     [super updateViewConstraints];
@@ -203,6 +208,158 @@
 
     }];
     
+}
+
+/// test是否需要输入金额
+- (void)getAllowInputMoney{
+    /// 是否需要输入金额
+    NSDictionary * paraDict = @{
+                                @"businessId":[NSNumber numberWithInt:260],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{
+                     @"data":aesString,
+                     };
+    }
+    
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    
+    [EDSHttpReqManager3 getisallowinputmoney:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSString * message = [responseObject objectForKey:@"message"];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
+            NSLog(@"%ld",result);
+            // 0 需要 1 不需要
+        }else{
+            NSLog(@"%@",message);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+        
+    }];
+}
+
+
+- (void)tstPushOrder{
+    
+    NSDictionary * aregionsss = @{@"orderCount":[NSNumber numberWithInteger:5],@"orderRegionTwoId":[NSNumber numberWithInteger:4],@"orderRegionOneId":[NSNumber numberWithInteger:1],};
+    NSDictionary * aregionssb = @{@"orderCount":[NSNumber numberWithInteger:5],@"orderRegionTwoId":[NSNumber numberWithInteger:5],@"orderRegionOneId":[NSNumber numberWithInteger:2],};
+    
+    NSArray * arraya = [NSArray arrayWithObjects:aregionsss,aregionssb, nil];
+    NSString * aassdfsdf = [Security JsonStringWithDictionary:arraya];
+    NSLog(@"%@",aassdfsdf);
+    
+    NSString * listOrderRegionStr = @"[{\"orderCount\":5,\"orderRegionTwoId\":4,\"orderRegionOneId\":1},{\"orderCount\":5,\"orderRegionTwoId\":5,\"orderRegionOneId\":2}]";
+    if ([listOrderRegionStr compare:aassdfsdf] == NSOrderedSame) {
+        NSLog(@"same--");
+    }else{
+        NSLog(@"not same ");
+    }
+    
+    NSDictionary * paraDict = @{
+                                @"businessid":[NSNumber numberWithInt:260],
+                                @"ordercount":[NSNumber numberWithInteger:10],
+                                @"amount":[NSNumber numberWithInteger:100],
+                                @"orderfrom":[NSNumber numberWithInteger:0],
+                                @"ispay":@"true",
+                                @"listOrderRegionStr":aassdfsdf,
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{
+                     @"data":aesString,
+                     };
+    }
+    
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    
+    [EDSHttpReqManager3 pushOrderData:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSString * message = [responseObject objectForKey:@"message"];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            //NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
+            //NSLog(@"%ld",result);
+            //1成功-7获取商户信息失败-9您已被取消发单资格-10订单已经存在
+        }else{
+            NSLog(@"%@",message);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+
+    }];
+
+}
+
+- (void)getmyserviceclienters{
+    NSDictionary * paraDict = @{
+                                @"businessId":[NSNumber numberWithInt:260],
+                                @"auditStatus":[NSNumber numberWithInteger:0],//0申请中列表，1服务中列表
+                                @"currentPage":[NSNumber numberWithInteger:1],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{
+                     @"data":aesString,
+                     };
+    }
+    
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    
+    
+    [EDSHttpReqManager3 getmyserviceclienters:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSString * message = [responseObject objectForKey:@"message"];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+//            NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
+//            NSLog(@"%ld",result);
+        }else{
+            NSLog(@"%@",message);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+        
+    }];
+}
+
+- (void)tstRemoveClienter:(NSInteger)relationId{
+    // 117
+    NSDictionary * paraDict = @{
+                                @"businessId":[NSNumber numberWithInt:260],
+                                @"clienterId":[NSNumber numberWithInteger:relationId],
+                                @"remark":@"解除绑定原因必须在5-100字符之间",
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{
+                     @"data":aesString,
+                     };
+    }
+    
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    
+    
+    [EDSHttpReqManager3 removerelation:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSString * message = [responseObject objectForKey:@"message"];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+
+        }else{
+            NSLog(@"%@",message);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+        
+    }];
 }
 
 

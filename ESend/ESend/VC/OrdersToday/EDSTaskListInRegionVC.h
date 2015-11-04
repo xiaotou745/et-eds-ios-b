@@ -10,4 +10,7 @@
 
 @interface EDSTaskListInRegionVC : BaseViewController
 
+@property (nonatomic,copy) NSString * TLIR_Title;
+@property (nonatomic,assign) NSInteger selectedIndex;   // option view 标签
+
 @end

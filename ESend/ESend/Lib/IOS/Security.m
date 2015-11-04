@@ -211,7 +211,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 
 
 
-+(NSString *)JsonStringWithDictionary:(NSDictionary *)dict{
++(NSString *)JsonStringWithDictionary:(id)dict{
     NSError *parseError = nil;
     //NSDictionary转换为Data
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&parseError];

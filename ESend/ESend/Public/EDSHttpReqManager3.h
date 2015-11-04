@@ -44,4 +44,24 @@
                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
+/// 1.1.7 商戶端 我的骑士列表 url:/business/getmyserviceclienters POST
++ (AFHTTPRequestOperation *)getmyserviceclienters:(NSDictionary *)data
+                                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/// 1.1.6 骑士绑定商户 url:/services/business/bindclienterbusiness POST  // 骑士端接口
++ (AFHTTPRequestOperation *)bindclienterbusiness:(NSDictionary *)data
+                                         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+
+/// 1.1.8 商戶端 我的骑士 申请中 同意/拒绝功能 url:/business/optbindclienter POST
++ (AFHTTPRequestOperation *)optbindclienter:(NSDictionary *)data
+                                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/// 1.1.9 商戶端 解除绑定骑士 url:/business/removerelation POST
++ (AFHTTPRequestOperation *)removerelation:(NSDictionary *)data
+                                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

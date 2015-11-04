@@ -135,6 +135,9 @@ fprintf(stderr, "-------\n");                                               \
 #define BackgroundColor  [UIColor colorWithHexString:@"e8e8e8"]
 //
 #define SeparatorLineColor [UIColor colorWithHexString:@"dfdfdf"]
+#define TextColor9       [UIColor colorWithHexString:@"999999"]  
+
+
 
 // 1f2226
 #define BlackColor  [UIColor colorWithHexString:@"1f2226"]
