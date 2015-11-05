@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.titleLabel.text = @"任务详情";
 }
 
 - (void)didReceiveMemoryWarning {

@@ -29,7 +29,13 @@
 
 - (void)tlirvc{
     EDSTaskListInRegionVC * tlir = [[EDSTaskListInRegionVC alloc] initWithNibName:NSStringFromClass([EDSTaskListInRegionVC class]) bundle:nil];
-    tlir.selectedIndex = 3;
+    tlir.selectedStatus = OrderStatusAccepted;
+    /*
+     if (_selectedStatus == OrderStatusAccepted) {
+     }else if (_selectedStatus == OrderStatusReceive) {
+     }else if (_selectedStatus == OrderStatusComplete) {
+     }
+     */
     tlir.TLIR_Title = @"2222";
     [self.navigationController pushViewController:tlir animated:YES];
 }

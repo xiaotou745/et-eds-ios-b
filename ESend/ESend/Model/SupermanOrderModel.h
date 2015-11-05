@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, OrderStatus) {
     OrderStatusComplete = 1,                        //订单已完成
     OrderStatusAccepted = 2,                        //取货中
     OrderStatusCancel = 3,                          //订单已取消
-    OrderStatusReceive = 4,                         //已到店取餐
+    OrderStatusReceive = 4,                         //已到店取餐.配送中
     OrderStatusWaitingAccept = 30,                  //待接入订单
     OrderStatusUncomplete = 100,                    //未完成订单
 };

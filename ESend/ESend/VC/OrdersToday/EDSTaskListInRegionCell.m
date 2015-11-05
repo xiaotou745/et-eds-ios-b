@@ -7,6 +7,7 @@
 //
 
 #import "EDSTaskListInRegionCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface EDSTaskListInRegionCell ()
 @property (strong, nonatomic) IBOutlet UIView *cellBgView;
@@ -76,6 +77,18 @@
 
 - (void)setDataSrouce:(TaskInRegionModel *)dataSrouce{
     _dataSrouce = dataSrouce;
+    self.grabTime.text = [self grabTimeWithStr:_dataSrouce.grabTime];
+    self.clienterName.text = _dataSrouce.clienterName;
+    self.clienterPhone.text = _dataSrouce.clienterPhoneNo;
+    self.clienterDestination.text = [NSString stringWithFormat:@"%@ %@",_dataSrouce.orderRegionOneName,_dataSrouce.orderRegionTwoName];
+    self.clienterOrderCount.text = [NSString stringWithFormat:@"%ld单",_dataSrouce.orderCount];
+    [self.clienterImg sd_setImageWithURL:[NSURL URLWithString:_dataSrouce.clienterHeadPhoto] placeholderImage:[UIImage imageNamed:@"clienter_default_portrait"]];
+}
+
+- (NSString *)grabTimeWithStr:(NSString *)str{
+    NSAssert(nil != str, @"str is nil");
+    NSArray * components = [str componentsSeparatedByString:@":"];
+    return [NSString stringWithFormat:@"抢单 %@:%@",[components firstObject],[components objectAtIndex:1]];
 }
 
 @end

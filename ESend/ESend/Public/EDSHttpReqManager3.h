@@ -64,4 +64,14 @@
 + (AFHTTPRequestOperation *)removerelation:(NSDictionary *)data
                                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/// 1.1.3 获取任务(取货中、配送中、已完成) url:/business/getmyorderb POST
++ (AFHTTPRequestOperation *)businessGetmyorderb:(NSDictionary *)data
+                                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/// 1.1.4 获取(取货中、配送中、已完成)任务详情 url:/business/getmyorderdetailb POST
++ (AFHTTPRequestOperation *)businessGetmyorderdetailb:(NSDictionary *)data
+                                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

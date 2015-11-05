@@ -145,10 +145,6 @@
 		688B37DE1BE704D10012C60B /* EDSTaskListInRegionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37DB1BE704D10012C60B /* EDSTaskListInRegionCell.m */; settings = {ASSET_TAGS = (); }; };
 		688B37DF1BE704D10012C60B /* EDSTaskListInRegionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37DC1BE704D10012C60B /* EDSTaskListInRegionCell.xib */; settings = {ASSET_TAGS = (); }; };
 		688B37E01BE704D10012C60B /* EDSTaskListInRegionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37DC1BE704D10012C60B /* EDSTaskListInRegionCell.xib */; settings = {ASSET_TAGS = (); }; };
-		688B37E31BE705D60012C60B /* EDSOrderStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37E21BE705D60012C60B /* EDSOrderStatusView.m */; settings = {ASSET_TAGS = (); }; };
-		688B37E41BE705D60012C60B /* EDSOrderStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37E21BE705D60012C60B /* EDSOrderStatusView.m */; settings = {ASSET_TAGS = (); }; };
-		688B37E61BE706070012C60B /* EDSOrderStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37E51BE706070012C60B /* EDSOrderStatusView.xib */; settings = {ASSET_TAGS = (); }; };
-		688B37E71BE706070012C60B /* EDSOrderStatusView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688B37E51BE706070012C60B /* EDSOrderStatusView.xib */; settings = {ASSET_TAGS = (); }; };
 		688B37F11BE738660012C60B /* EDSHttpReqManager3.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F01BE738660012C60B /* EDSHttpReqManager3.m */; settings = {ASSET_TAGS = (); }; };
 		688B37F21BE738660012C60B /* EDSHttpReqManager3.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F01BE738660012C60B /* EDSHttpReqManager3.m */; settings = {ASSET_TAGS = (); }; };
 		688B37F51BE74A910012C60B /* EDS9cell2ndRegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F41BE74A910012C60B /* EDS9cell2ndRegionView.m */; settings = {ASSET_TAGS = (); }; };
@@ -738,9 +734,6 @@
 		688B37DA1BE704D10012C60B /* EDSTaskListInRegionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSTaskListInRegionCell.h; sourceTree = "<group>"; };
 		688B37DB1BE704D10012C60B /* EDSTaskListInRegionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSTaskListInRegionCell.m; sourceTree = "<group>"; };
 		688B37DC1BE704D10012C60B /* EDSTaskListInRegionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSTaskListInRegionCell.xib; sourceTree = "<group>"; };
-		688B37E11BE705D60012C60B /* EDSOrderStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSOrderStatusView.h; sourceTree = "<group>"; };
-		688B37E21BE705D60012C60B /* EDSOrderStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSOrderStatusView.m; sourceTree = "<group>"; };
-		688B37E51BE706070012C60B /* EDSOrderStatusView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSOrderStatusView.xib; sourceTree = "<group>"; };
 		688B37EF1BE738660012C60B /* EDSHttpReqManager3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSHttpReqManager3.h; sourceTree = "<group>"; };
 		688B37F01BE738660012C60B /* EDSHttpReqManager3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSHttpReqManager3.m; sourceTree = "<group>"; };
 		688B37F31BE74A910012C60B /* EDS9cell2ndRegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDS9cell2ndRegionView.h; sourceTree = "<group>"; };
@@ -1593,9 +1586,6 @@
 				688B37D31BE704A00012C60B /* EDSOrderDetailFor9CellsVC.h */,
 				688B37D41BE704A00012C60B /* EDSOrderDetailFor9CellsVC.m */,
 				688B37D51BE704A00012C60B /* EDSOrderDetailFor9CellsVC.xib */,
-				688B37E11BE705D60012C60B /* EDSOrderStatusView.h */,
-				688B37E21BE705D60012C60B /* EDSOrderStatusView.m */,
-				688B37E51BE706070012C60B /* EDSOrderStatusView.xib */,
 			);
 			path = OrderDetailNew;
 			sourceTree = "<group>";
@@ -2568,7 +2558,6 @@
 				688B37C21BE308210012C60B /* Hp9ItemCell.xib in Resources */,
 				68580CAA1BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */,
 				F67D35FC1B5664A600083DA4 /* wechat_icon@2x.png in Resources */,
-				688B37E71BE706070012C60B /* EDSOrderStatusView.xib in Resources */,
 				F67D35FD1B5664A600083DA4 /* Protocol.txt in Resources */,
 				F62A73E51B5CCA84001632B5 /* 1@1x.png in Resources */,
 				F67D35FE1B5664A600083DA4 /* AlipaySDK.bundle in Resources */,
@@ -2611,7 +2600,6 @@
 				686745591BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */,
 				F6549F7F1B1C331300FAACEE /* back_nor@2x.png in Resources */,
 				F62A73E61B5CCA84001632B5 /* 1@2x.png in Resources */,
-				688B37E61BE706070012C60B /* EDSOrderStatusView.xib in Resources */,
 				F62A73EC1B5CCA84001632B5 /* 2@2x.png in Resources */,
 				685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
 				68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */,
@@ -2722,7 +2710,6 @@
 				F67D35501B5664A600083DA4 /* PrefectInfoViewController.m in Sources */,
 				F67D35511B5664A600083DA4 /* MineViewController.m in Sources */,
 				2E5D878E1B8C3D250040D478 /* ExpensesDetailVC.m in Sources */,
-				688B37E41BE705D60012C60B /* EDSOrderStatusView.m in Sources */,
 				F67D35521B5664A600083DA4 /* MessagesTableViewCell.m in Sources */,
 				F67D35531B5664A600083DA4 /* ExpensesInfoModel.m in Sources */,
 				F67D35541B5664A600083DA4 /* AFNetworkReachabilityManager.m in Sources */,
@@ -2955,7 +2942,6 @@
 				F690B2721B25A8DD0044310C /* MineViewController.m in Sources */,
 				F62E8D121B300D54006F3862 /* MessagesTableViewCell.m in Sources */,
 				2E5D878D1B8C3D250040D478 /* ExpensesDetailVC.m in Sources */,
-				688B37E31BE705D60012C60B /* EDSOrderStatusView.m in Sources */,
 				E482C3651B3E9D2D008471E8 /* ExpensesInfoModel.m in Sources */,
 				F6C6AD741B12F42F0007A980 /* AFNetworkReachabilityManager.m in Sources */,
 				F6441B551B3D470100EA3C9D /* RSADataVerifier.m in Sources */,

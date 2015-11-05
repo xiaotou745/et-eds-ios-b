@@ -7,10 +7,11 @@
 //
 
 #import "BaseViewController.h"
+#import "SupermanOrderModel.h"
 
 @interface EDSTaskListInRegionVC : BaseViewController
 
 @property (nonatomic,copy) NSString * TLIR_Title;
-@property (nonatomic,assign) NSInteger selectedIndex;   // option view 标签
+@property (nonatomic,assign) OrderStatus selectedStatus;   // option view 标签
 
 @end
