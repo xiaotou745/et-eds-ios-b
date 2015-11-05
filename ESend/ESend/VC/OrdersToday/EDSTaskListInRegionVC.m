@@ -17,9 +17,22 @@
 #define TLIR_Table_2nd_cellId @"TLIR_Table_2nd_cellId"
 #define TLIR_Table_3rd_cellId @"TLIR_Table_3rd_cellId"
 
+#define TLIR_NoDataS1 @"您目前没有待取货的订单!"
+#define TLIR_NoDataS2 @"您目前没有配送中的订单!"
+#define TLIR_NoDataS3 @"您目前没有已完成的订单!"
+
 @interface EDSTaskListInRegionVC ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     AFHTTPRequestOperation *_operation;
+    // 订单为空的=1
+    UIImageView * _logoImgEmpty1;
+    UIImageView * _logoImgEmpty2;
+    UIImageView * _logoImgEmpty3;
+    // 订单为空label s
+    UILabel * _markedWordsLbl1;
+    UILabel * _markedWordsLbl2;
+    UILabel * _markedWordsLbl3;
+
     /// 分页
     NSInteger _currentPage1st;  //  取货 分页页码
     NSInteger _currentPage2nd;  //  配送 分页页码
@@ -440,11 +453,39 @@
                     TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
                     [_TLIR_DataSourceFirst addObject:regioinModel];
                 }
+                if (_TLIR_DataSourceFirst.count == 0) {
+                    [self _showTableEmpty:_TLIR_TableFirst];
+                }else{
+                    [self _hideTableEmpty:_TLIR_TableFirst];
+                }
                 [_TLIR_TableFirst reloadData];
+
             }else if (_selectedStatus == OrderStatusReceive){
                 [_TLIR_DataSourceSecond removeAllObjects];
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
+                    [_TLIR_DataSourceSecond addObject:regioinModel];
+                }
+                if (_TLIR_DataSourceSecond.count == 0) {
+                    [self _showTableEmpty:_TLIR_TableSecond];
+                }else{
+                    [self _hideTableEmpty:_TLIR_TableSecond];
+                }
+                [_TLIR_TableSecond reloadData];
+
             }else if (_selectedStatus == OrderStatusComplete){
                 [_TLIR_DataSourceThird removeAllObjects];
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
+                    [_TLIR_DataSourceThird addObject:regioinModel];
+                }
+                if (_TLIR_DataSourceThird.count == 0) {
+                    [self _showTableEmpty:_TLIR_TableThird];
+                }else{
+                    [self _hideTableEmpty:_TLIR_TableThird];
+                }
+                [_TLIR_TableThird reloadData];
+
             }
             
         }else{
@@ -459,6 +500,89 @@
             [self.TLIR_TableThird.header endRefreshing];
         }
     }];
+}
+
+
+
+#pragma mark - 订单为空的情况
+- (void)_showTableEmpty:(UITableView *)tableV{
+    if (tableV == self.TLIR_TableFirst) {
+        if (!_logoImgEmpty1) {
+            _logoImgEmpty1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+            _logoImgEmpty1.backgroundColor = [UIColor clearColor];
+        }
+        _logoImgEmpty1.image = [UIImage imageNamed:@"checkLogo"];
+        _logoImgEmpty1.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
+        [tableV addSubview:_logoImgEmpty1];
+        if (!_markedWordsLbl1) {
+            _markedWordsLbl1 = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmpty1) +Space_Big, ScreenWidth, 30)];
+            _markedWordsLbl1.backgroundColor = [UIColor clearColor];
+            _markedWordsLbl1.textAlignment = NSTextAlignmentCenter;
+            _markedWordsLbl1.textColor     = DeepGrey;
+            _markedWordsLbl1.font          = FONT_SIZE(BigFontSize);
+        }
+        _markedWordsLbl1.text = TLIR_NoDataS1;
+        [tableV addSubview:_markedWordsLbl1];
+    }else if (tableV == self.TLIR_TableSecond){
+        if (!_logoImgEmpty2) {
+            _logoImgEmpty2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+            _logoImgEmpty2.backgroundColor = [UIColor clearColor];
+        }
+        _logoImgEmpty2.image = [UIImage imageNamed:@"checkLogo"];
+        _logoImgEmpty2.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
+        [tableV addSubview:_logoImgEmpty2];
+        if (!_markedWordsLbl2) {
+            _markedWordsLbl2 = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmpty2) +Space_Big, ScreenWidth, 30)];
+            _markedWordsLbl2.backgroundColor = [UIColor clearColor];
+            _markedWordsLbl2.textAlignment = NSTextAlignmentCenter;
+            _markedWordsLbl2.textColor     = DeepGrey;
+            _markedWordsLbl2.font          = FONT_SIZE(BigFontSize);
+        }
+        _markedWordsLbl2.text = TLIR_NoDataS2;
+        [tableV addSubview:_markedWordsLbl2];
+    }else if (tableV == self.TLIR_TableThird){
+        if (!_logoImgEmpty3) {
+            _logoImgEmpty3 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+            _logoImgEmpty3.backgroundColor = [UIColor clearColor];
+        }
+        _logoImgEmpty3.image = [UIImage imageNamed:@"checkLogo"];
+        _logoImgEmpty3.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
+        [tableV addSubview:_logoImgEmpty3];
+        if (!_markedWordsLbl3) {
+            _markedWordsLbl3 = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmpty3) +Space_Big, ScreenWidth, 30)];
+            _markedWordsLbl3.backgroundColor = [UIColor clearColor];
+            _markedWordsLbl3.textAlignment = NSTextAlignmentCenter;
+            _markedWordsLbl3.textColor     = DeepGrey;
+            _markedWordsLbl3.font          = FONT_SIZE(BigFontSize);
+        }
+        _markedWordsLbl3.text = TLIR_NoDataS3;
+        [tableV addSubview:_markedWordsLbl3];
+    }
+}
+
+- (void)_hideTableEmpty:(UITableView *)tableV{
+    if (tableV == self.TLIR_TableFirst) {
+        if (_logoImgEmpty1) {
+            [_logoImgEmpty1 removeFromSuperview];
+        }
+        if (_markedWordsLbl1) {
+            [_markedWordsLbl1 removeFromSuperview];
+        }
+    }else if (tableV == self.TLIR_TableSecond){
+        if (_logoImgEmpty2) {
+            [_logoImgEmpty2 removeFromSuperview];
+        }
+        if (_markedWordsLbl2) {
+            [_markedWordsLbl2 removeFromSuperview];
+        }
+    }else if (tableV == self.TLIR_TableThird){
+        if (_logoImgEmpty3) {
+            [_logoImgEmpty3 removeFromSuperview];
+        }
+        if (_markedWordsLbl3) {
+            [_markedWordsLbl3 removeFromSuperview];
+        }
+    }
 }
 
 
