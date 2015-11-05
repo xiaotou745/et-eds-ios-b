@@ -11,6 +11,14 @@
 
 @implementation Tools
 
++ (void)call:(NSString *)phoneNumber atView:(UIView *)aView{
+    UIWebView*callWebview =[[UIWebView alloc] init];
+    NSString *telUrl = [NSString stringWithFormat:@"tel:%@",phoneNumber];
+    NSURL *telURL =[NSURL URLWithString:telUrl];// 貌似tel:// 或者 tel: 都行
+    [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
+    [aView addSubview:callWebview];
+}
+
 
 + (CGRect)changeOrgByFrame:(CGRect)frame newX:(CGFloat)x newY:(CGFloat)y
 {

@@ -11,6 +11,7 @@
 #import "EDSHttpReqManager3.h"
 #import "MJRefresh.h"
 #import "UserInfo.h"
+#import "EDSOrderDetailFor9CellsVC.h"
 
 #define TLIR_HeadButtonTagTrans 1104
 #define TLIR_Table_1st_cellId @"TLIR_Table_1st_cellId"
@@ -20,6 +21,8 @@
 #define TLIR_NoDataS1 @"您目前没有待取货的订单!"
 #define TLIR_NoDataS2 @"您目前没有配送中的订单!"
 #define TLIR_NoDataS3 @"您目前没有已完成的订单!"
+
+#define TLIR_Default_PageSize  1
 
 @interface EDSTaskListInRegionVC ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {
@@ -82,70 +85,14 @@
     _TLIR_DataSourceFirst = [[NSMutableArray alloc] initWithCapacity:0];
     _TLIR_DataSourceSecond = [[NSMutableArray alloc] initWithCapacity:0];
     _TLIR_DataSourceThird = [[NSMutableArray alloc] initWithCapacity:0];
+    _currentPage1st = 1;  //  取货 分页页码
+    _currentPage2nd = 1;  //  配送 分页页码
+    _currentPage3rd = 1;  //  已完成 分页页码
     
     [self configOptionView];
     [self _configOptionPullRefresh:self.TLIR_TableFirst];
     [self _configOptionPullRefresh:self.TLIR_TableSecond];
     [self _configOptionPullRefresh:self.TLIR_TableThird];
-
-    // tst
-//    NSDictionary * paraDict = @{
-//                                @"businessId":[NSNumber numberWithInt:260],
-//                                @"status":[NSNumber numberWithInteger:2],
-//                                @"currentPage":[NSNumber numberWithInteger:1],
-//                                };
-//    if (AES_Security) {
-//        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-//        NSString * aesString = [Security AesEncrypt:jsonString2];
-//        paraDict = @{
-//                     @"data":aesString,
-//                     };
-//    }
-//    
-//    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-//
-//    [EDSHttpReqManager3 businessGetmyorderb:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [Tools hiddenProgress:HUD];
-//        NSString * message = [responseObject objectForKey:@"message"];
-//        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-//        if (1 == status) {
-//            
-//        }else{
-//            NSLog(@"%@",message);
-//        }
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [Tools hiddenProgress:HUD];
-//
-//    }];
-    
-    
-//    // test  2
-//    NSDictionary * paraDict = @{
-//                                @"grabOrderId":[NSNumber numberWithInt:2],
-//                                };
-//    if (AES_Security) {
-//        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-//        NSString * aesString = [Security AesEncrypt:jsonString2];
-//        paraDict = @{
-//                     @"data":aesString,
-//                     };
-//    }
-//
-//    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-//
-//    [EDSHttpReqManager3 businessGetmyorderdetailb:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [Tools hiddenProgress:HUD];
-//        NSString * message = [responseObject objectForKey:@"message"];
-//        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-//        if (1 == status) {
-//
-//        }else{
-//            NSLog(@"%@",message);
-//        }
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [Tools hiddenProgress:HUD];
-//
-//    }];
 }
 
 #pragma mark - Config Refresh Setting
@@ -189,19 +136,7 @@
     [super viewDidAppear:animated];
     
     UIButton * abtn = (UIButton *)[self.view viewWithTag:[self selectedIndexWithOrderStatus:self.selectedStatus] + TLIR_HeadButtonTagTrans];
-    NSLog(@"%@",abtn.currentAttributedTitle);
     [self optionButtonAction:abtn];
-    
-    /*
-     case OrderStatusAccepted:
-     return 1;
-     break;
-     case OrderStatusReceive:
-     return 2;
-     break;
-     case OrderStatusComplete:
-     return 3;
-     */
     
     if (self.selectedStatus == OrderStatusAccepted) {
         [self.TLIR_TableFirst.header beginRefreshing];
@@ -393,11 +328,21 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    EDSOrderDetailFor9CellsVC * odf9c = [[EDSOrderDetailFor9CellsVC alloc] initWithNibName:NSStringFromClass([EDSOrderDetailFor9CellsVC class]) bundle:nil];
+    TaskInRegionModel * regionModel = nil;
+    if (_selectedStatus == OrderStatusAccepted) {
+        regionModel = [_TLIR_DataSourceFirst objectAtIndex:indexPath.row];
+    }else if (_selectedStatus == OrderStatusReceive) {
+        regionModel = [_TLIR_DataSourceSecond objectAtIndex:indexPath.row];
+    }else if (_selectedStatus == OrderStatusComplete) {
+        regionModel = [_TLIR_DataSourceThird objectAtIndex:indexPath.row];
+    }
+    odf9c.grabOrderId = regionModel.grabOrderId;
+    [self.navigationController pushViewController:odf9c animated:YES];
 }
 
 
-#pragma mark - API
-
+#pragma mark - API - 下拉
 - (void)_refreshOptionAction{
     if (_operation) {
         [_operation cancel];
@@ -453,12 +398,21 @@
                     TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
                     [_TLIR_DataSourceFirst addObject:regioinModel];
                 }
+                // empty
                 if (_TLIR_DataSourceFirst.count == 0) {
                     [self _showTableEmpty:_TLIR_TableFirst];
                 }else{
                     [self _hideTableEmpty:_TLIR_TableFirst];
                 }
                 [_TLIR_TableFirst reloadData];
+                // footer refresh
+                if (_TLIR_DataSourceFirst.count >= TLIR_Default_PageSize) {
+                    if (self.TLIR_TableFirst.footer) {
+                        [self.TLIR_TableFirst removeFooter];
+                    }
+                    [self.TLIR_TableFirst addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
+                    self.TLIR_TableFirst.footer.state = MJRefreshFooterStateIdle;
+                }
 
             }else if (_selectedStatus == OrderStatusReceive){
                 [_TLIR_DataSourceSecond removeAllObjects];
@@ -472,7 +426,13 @@
                     [self _hideTableEmpty:_TLIR_TableSecond];
                 }
                 [_TLIR_TableSecond reloadData];
-
+                if (_TLIR_DataSourceSecond.count >= TLIR_Default_PageSize) {
+                    if (self.TLIR_TableSecond.footer) {
+                        [self.TLIR_TableSecond removeFooter];
+                    }
+                    [self.TLIR_TableSecond addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
+                    self.TLIR_TableSecond.footer.state = MJRefreshFooterStateIdle;
+                }
             }else if (_selectedStatus == OrderStatusComplete){
                 [_TLIR_DataSourceThird removeAllObjects];
                 for (NSDictionary * aRespModel in orderRespModel) {
@@ -485,7 +445,13 @@
                     [self _hideTableEmpty:_TLIR_TableThird];
                 }
                 [_TLIR_TableThird reloadData];
-
+                if (_TLIR_DataSourceThird.count >= TLIR_Default_PageSize) {
+                    if (self.TLIR_TableThird.footer) {
+                        [self.TLIR_TableThird removeFooter];
+                    }
+                    [self.TLIR_TableThird addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
+                    self.TLIR_TableThird.footer.state = MJRefreshFooterStateIdle;
+                }
             }
             
         }else{
@@ -585,5 +551,90 @@
     }
 }
 
+#pragma mark - API - 上拉
+- (void)tlir_tableViewFooterRefresh{
+    NSInteger currentPage = 1;
+    if (_selectedStatus == OrderStatusAccepted) {
+        currentPage = ++_currentPage1st;
+    }else if (_selectedStatus == OrderStatusReceive) {
+        currentPage = ++_currentPage2nd;
+    }else if (_selectedStatus == OrderStatusComplete) {
+        currentPage = ++_currentPage3rd;
+    }
+    NSDictionary * paraData = @{
+                                @"businessId":[NSNumber numberWithInt:260],//[UserInfo getUserId],
+                                @"status":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
+                                @"currentPage":[NSNumber numberWithInteger:currentPage],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraData = @{@"data":aesString,};
+    }
+    
+    [EDSHttpReqManager3 businessGetmyorderb:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (_selectedStatus == OrderStatusAccepted) {
+            [self.TLIR_TableFirst.footer endRefreshing];
+        }else if (_selectedStatus == OrderStatusReceive) {
+            [self.TLIR_TableSecond.footer endRefreshing];
+        }else if (_selectedStatus == OrderStatusComplete) {
+            [self.TLIR_TableThird.footer endRefreshing];
+        }
+        
+        NSString * message = [responseObject objectForKey:@"message"];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            NSDictionary * result = [responseObject objectForKey:@"result"];
+            long quHuoOrderCountTotal = [[result objectForKey:@"quHuoOrderCountTotal"] longValue];
+            long peiSongOrderCountTotal = [[result objectForKey:@"peiSongOrderCountTotal"] longValue];
+            long yiWanChenOrderCountTotal = [[result objectForKey:@"yiWanChenOrderCountTotal"] longValue];
+            [self setOptionButton:self.TLIR_OptionFirstBtn count:quHuoOrderCountTotal];
+            [self setOptionButton:self.TLIR_OptionSecondBtn count:peiSongOrderCountTotal];
+            [self setOptionButton:self.TLIR_OptionThirdBtn count:yiWanChenOrderCountTotal];
+            NSArray * orderRespModel = [result objectForKey:@"orderRespModel"];
+            
+            if (_selectedStatus == OrderStatusAccepted) {
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
+                    [_TLIR_DataSourceFirst addObject:regioinModel];
+                }
+                [_TLIR_TableFirst reloadData];
+                if ([orderRespModel count] == 0){
+                    _TLIR_TableFirst.footer.state = MJRefreshFooterStateNoMoreData;
+                }
+            }else if (_selectedStatus == OrderStatusReceive){
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
+                    [_TLIR_DataSourceSecond addObject:regioinModel];
+                }
+                [_TLIR_TableSecond reloadData];
+                if ([orderRespModel count] == 0){
+                    _TLIR_TableSecond.footer.state = MJRefreshFooterStateNoMoreData;
+                }
+            }else if (_selectedStatus == OrderStatusComplete){
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
+                    [_TLIR_DataSourceThird addObject:regioinModel];
+                }
+                [_TLIR_TableThird reloadData];
+                if ([orderRespModel count] == 0){
+                    _TLIR_TableThird.footer.state = MJRefreshFooterStateNoMoreData;
+                }
+            }
+            
+        }else{
+            [Tools showHUD:message];
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (_selectedStatus == OrderStatusAccepted) {
+            [self.TLIR_TableFirst.footer endRefreshing];
+        }else if (_selectedStatus == OrderStatusReceive) {
+            [self.TLIR_TableSecond.footer endRefreshing];
+        }else if (_selectedStatus == OrderStatusComplete) {
+            [self.TLIR_TableThird.footer endRefreshing];
+        }
+    }];
+}
 
 @end

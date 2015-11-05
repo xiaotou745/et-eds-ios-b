@@ -11,6 +11,8 @@
 
 @interface Tools : NSObject
 
++ (void)call:(NSString *)phoneNumber atView:(UIView *)aView;
+
 + (CGRect)changeOrgByFrame:(CGRect)frame newX:(CGFloat)x newY:(CGFloat)y;
 
 + (CGRect)frameMoveDown:(CGRect)frame downLong:(CGFloat)y;

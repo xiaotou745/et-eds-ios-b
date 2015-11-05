@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface EDSOrderDetailFor9CellsVC : BaseViewController
-
+@property (nonatomic,assign) NSInteger grabOrderId;
 @end

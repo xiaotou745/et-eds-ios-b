@@ -29,7 +29,7 @@
 
 - (void)tlirvc{
     EDSTaskListInRegionVC * tlir = [[EDSTaskListInRegionVC alloc] initWithNibName:NSStringFromClass([EDSTaskListInRegionVC class]) bundle:nil];
-    tlir.selectedStatus = OrderStatusComplete;
+    tlir.selectedStatus = OrderStatusAccepted;
     /*
      if (_selectedStatus == OrderStatusAccepted) {
      }else if (_selectedStatus == OrderStatusReceive) {
