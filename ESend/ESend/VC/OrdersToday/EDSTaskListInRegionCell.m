@@ -82,7 +82,7 @@
     self.clienterPhone.text = _dataSrouce.clienterPhoneNo;
     self.clienterDestination.text = [NSString stringWithFormat:@"%@ %@",_dataSrouce.orderRegionOneName,_dataSrouce.orderRegionTwoName];
     self.clienterOrderCount.text = [NSString stringWithFormat:@"%ld单",_dataSrouce.orderCount];
-    [self.clienterImg sd_setImageWithURL:[NSURL URLWithString:_dataSrouce.clienterHeadPhoto] placeholderImage:[UIImage imageNamed:@"clienter_default_portrait"]];
+    [self.clienterImg sd_setImageWithURL:[NSURL URLWithString:_dataSrouce.clienterHeadPhoto] placeholderImage:[UIImage imageNamed:@"default_clienter_img"]];
 }
 
 - (NSString *)grabTimeWithStr:(NSString *)str{

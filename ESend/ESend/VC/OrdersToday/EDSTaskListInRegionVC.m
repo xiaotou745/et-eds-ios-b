@@ -192,11 +192,11 @@
     self.TLIR_OptionIndicator.backgroundColor = BlueColor;
 }
 
-- (void)configTableViews{
-    [self.TLIR_TableFirst registerClass:[EDSTaskListInRegionCell class] forCellReuseIdentifier:TLIR_Table_1st_cellId];
-    [self.TLIR_TableSecond registerClass:[EDSTaskListInRegionCell class] forCellReuseIdentifier:TLIR_Table_2nd_cellId];
-    [self.TLIR_TableThird registerClass:[EDSTaskListInRegionCell class] forCellReuseIdentifier:TLIR_Table_3rd_cellId];
-}
+//- (void)configTableViews{
+//    [self.TLIR_TableFirst registerClass:[EDSTaskListInRegionCell class] forCellReuseIdentifier:TLIR_Table_1st_cellId];
+//    [self.TLIR_TableSecond registerClass:[EDSTaskListInRegionCell class] forCellReuseIdentifier:TLIR_Table_2nd_cellId];
+//    [self.TLIR_TableThird registerClass:[EDSTaskListInRegionCell class] forCellReuseIdentifier:TLIR_Table_3rd_cellId];
+//}
 
 - (void)setOptionButton:(UIButton *)btn count:(long)count{
     NSString * tCount = (count>99)?[NSString stringWithFormat:@"99+"]:[NSString stringWithFormat:@"%ld",count];

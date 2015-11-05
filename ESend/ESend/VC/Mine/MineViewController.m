@@ -23,6 +23,8 @@
 #import "EDSBusinessShouldKnow.h"
 #import "EDSBillStatisticsVC.h"
 
+#import "EDSMyClientersVC.h"
+
 
 #define BusinessInfoMsg @"商铺信息管理"
 
@@ -265,15 +267,15 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _newMessageIcon.hidden = YES;
     
     
-    NSArray *titles = @[@"账单",  @"订单统计", @"消息中心",@"商家须知"];
-    NSArray *icons = @[@"detail",  @"order_detail", @"message_icon",@"business_note"];
+    NSArray *titles = @[@"账单",@"订单统计",@"我的骑士",@"消息中心",@"商家须知"];
+    NSArray *icons = @[@"detail",@"order_detail",@"message_icon",@"message_icon",@"business_note"];
     
     for (NSInteger i = 0; i < titles.count; i++) {
         NSString *contectStr = @"";
         
         MineCell *view = [[MineCell alloc] initWithTitle:titles[i] imageName:icons[i] content:contectStr];
         
-        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45 + ((i>=2)?20:0) + ((i==3)?20:0), MainWidth - 20, 45);
+        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45 + ((i>=3)?20:0) + ((i==4)?20:0), MainWidth - 20, 45);
         [self.view addSubview:view];
         view.tag = 1000+i;
         
@@ -291,13 +293,17 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
 - (void)tapView:(UITapGestureRecognizer*)tap {
     
-    if (tap.view.tag == 1002) {
+    if (tap.view.tag == 1003) { // 消息中心
         MessagesViewController *vc = [[MessagesViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;
     }
     
-
+    if (tap.view.tag == 1002) { // 我的骑士
+        EDSMyClientersVC * vc = [[EDSMyClientersVC alloc] initWithNibName:NSStringFromClass([EDSMyClientersVC class]) bundle:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
     
     if (tap.view.tag == 1001) { // 订单统计
         if ([UserInfo getStatus] != UserStatusComplete) {
@@ -322,7 +328,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
         
     }
     
-    if (tap.view.tag == 1003) {
+    if (tap.view.tag == 1004) { // 商家须知
         //NSLog(@"1003");
         // http://m.edaisong.com/htmls/rule.html
         EDSBusinessShouldKnow * bskVC = [[EDSBusinessShouldKnow alloc] initWithNibName:@"EDSBusinessShouldKnow" bundle:nil];

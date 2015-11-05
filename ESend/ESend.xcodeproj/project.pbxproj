@@ -115,6 +115,10 @@
 		686745621BA9205C005F59D4 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745601BA9205C005F59D4 /* UIView+Common.m */; };
 		686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
 		686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
+		686ED24E1BEB5305004D905F /* EDSMyClientersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 686ED24C1BEB5305004D905F /* EDSMyClientersVC.m */; settings = {ASSET_TAGS = (); }; };
+		686ED24F1BEB5305004D905F /* EDSMyClientersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 686ED24C1BEB5305004D905F /* EDSMyClientersVC.m */; settings = {ASSET_TAGS = (); }; };
+		686ED2501BEB5305004D905F /* EDSMyClientersVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686ED24D1BEB5305004D905F /* EDSMyClientersVC.xib */; settings = {ASSET_TAGS = (); }; };
+		686ED2511BEB5305004D905F /* EDSMyClientersVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686ED24D1BEB5305004D905F /* EDSMyClientersVC.xib */; settings = {ASSET_TAGS = (); }; };
 		6878F7811BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; settings = {ASSET_TAGS = (); }; };
 		6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; settings = {ASSET_TAGS = (); }; };
 		6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; settings = {ASSET_TAGS = (); }; };
@@ -710,6 +714,9 @@
 		686745601BA9205C005F59D4 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
 		686745631BA96CF1005F59D4 /* UIImage+tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+tools.h"; sourceTree = "<group>"; };
 		686745641BA96CF1005F59D4 /* UIImage+tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+tools.m"; sourceTree = "<group>"; };
+		686ED24B1BEB5305004D905F /* EDSMyClientersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSMyClientersVC.h; sourceTree = "<group>"; };
+		686ED24C1BEB5305004D905F /* EDSMyClientersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSMyClientersVC.m; sourceTree = "<group>"; };
+		686ED24D1BEB5305004D905F /* EDSMyClientersVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSMyClientersVC.xib; sourceTree = "<group>"; };
 		6878F77E1BB1559800E33ACD /* EDSBusinessShouldKnow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBusinessShouldKnow.h; sourceTree = "<group>"; };
 		6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBusinessShouldKnow.m; sourceTree = "<group>"; };
 		6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBusinessShouldKnow.xib; sourceTree = "<group>"; };
@@ -1536,6 +1543,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		686ED24A1BEB52B1004D905F /* MyClienters */ = {
+			isa = PBXGroup;
+			children = (
+				686ED24B1BEB5305004D905F /* EDSMyClientersVC.h */,
+				686ED24C1BEB5305004D905F /* EDSMyClientersVC.m */,
+				686ED24D1BEB5305004D905F /* EDSMyClientersVC.xib */,
+			);
+			path = MyClienters;
+			sourceTree = "<group>";
+		};
 		6878F77D1BB1555800E33ACD /* BusinessNote */ = {
 			isa = PBXGroup;
 			children = (
@@ -1955,6 +1972,7 @@
 		F690B26F1B25A8D60044310C /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				686ED24A1BEB52B1004D905F /* MyClienters */,
 				685E53AC1BBB86FC00BE429C /* BillStatistics */,
 				6878F77D1BB1555800E33ACD /* BusinessNote */,
 				6867454F1BA9197C005F59D4 /* Feedback */,
@@ -2561,6 +2579,7 @@
 				F67D35FD1B5664A600083DA4 /* Protocol.txt in Resources */,
 				F62A73E51B5CCA84001632B5 /* 1@1x.png in Resources */,
 				F67D35FE1B5664A600083DA4 /* AlipaySDK.bundle in Resources */,
+				686ED2511BEB5305004D905F /* EDSMyClientersVC.xib in Resources */,
 				F67D35FF1B5664A600083DA4 /* mapapi.bundle in Resources */,
 				68090EA71BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */,
 				2EA0CA441B82C72700BBAA63 /* ComplaintViewController.xib in Resources */,
@@ -2591,6 +2610,7 @@
 				F62A73E41B5CCA84001632B5 /* 1@1x.png in Resources */,
 				688B37D01BE7042A0012C60B /* EDSTaskListInRegionVC.xib in Resources */,
 				F67D36141B56658800083DA4 /* Property List.plist in Resources */,
+				686ED2501BEB5305004D905F /* EDSMyClientersVC.xib in Resources */,
 				F6549F831B1C378900FAACEE /* gray_border_btn_nor@2x.png in Resources */,
 				F62A73E81B5CCA84001632B5 /* 1@3x.png in Resources */,
 				68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
@@ -2825,6 +2845,7 @@
 				F67D35AB1B5664A600083DA4 /* RegisterViewController.m in Sources */,
 				CF22B0421BAB4A61000F19D9 /* UIScrollView+MJExtension.m in Sources */,
 				CF22B0401BAB4A61000F19D9 /* MJRefreshLegendHeader.m in Sources */,
+				686ED24F1BEB5305004D905F /* EDSMyClientersVC.m in Sources */,
 				68D88B7D1BE1FF8A0086AC91 /* EDS9CellHomepageVC.m in Sources */,
 				2EA0CA7D1B848F6C00BBAA63 /* ConsigneeInfoCell.m in Sources */,
 				F67D35AD1B5664A600083DA4 /* CWStarRateView.m in Sources */,
@@ -3057,6 +3078,7 @@
 				F6C6AD821B12F42F0007A980 /* CWStarRateView.m in Sources */,
 				CF22B0411BAB4A61000F19D9 /* UIScrollView+MJExtension.m in Sources */,
 				CF22B03F1BAB4A61000F19D9 /* MJRefreshLegendHeader.m in Sources */,
+				686ED24E1BEB5305004D905F /* EDSMyClientersVC.m in Sources */,
 				68D88B7C1BE1FF8A0086AC91 /* EDS9CellHomepageVC.m in Sources */,
 				2EA0CA7C1B848F6C00BBAA63 /* ConsigneeInfoCell.m in Sources */,
 				F6C6ADB11B12F42F0007A980 /* UIImage+WebP.m in Sources */,
