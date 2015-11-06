@@ -33,6 +33,9 @@
                             <state key="normal" title="取货中(0)">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="2Ov-Go-G3O"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0si-C1-y37" userLabel="separator11">
                             <rect key="frame" x="300" y="17" width="1" height="17"/>
@@ -48,6 +51,9 @@
                             <state key="normal" title="配送中(0)">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="VuO-4k-lRA"/>
+                            </connections>
                         </button>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iED-vP-IGP" userLabel="Indicator">
                             <rect key="frame" x="0.0" y="48" width="298" height="2"/>
@@ -82,15 +88,23 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hfk-98-6kn" userLabel="HorizonScrollerContent">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="486"/>
                             <subviews>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MHl-QV-eTP" userLabel="table1">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MHl-QV-eTP" userLabel="table1">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="486"/>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="Xy3-WV-mbm"/>
+                                        <outlet property="delegate" destination="-1" id="VwY-ed-HEe"/>
+                                    </connections>
                                 </tableView>
-                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yDk-kH-iab" userLabel="table2">
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yDk-kH-iab" userLabel="table2">
                                     <rect key="frame" x="300" y="0.0" width="300" height="486"/>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="ZDS-T3-q6d"/>
+                                        <outlet property="delegate" destination="-1" id="u75-2W-CYQ"/>
+                                    </connections>
                                 </tableView>
                             </subviews>
                             <animations/>

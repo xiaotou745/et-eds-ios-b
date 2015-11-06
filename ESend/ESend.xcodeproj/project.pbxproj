@@ -115,6 +115,12 @@
 		686745621BA9205C005F59D4 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745601BA9205C005F59D4 /* UIView+Common.m */; };
 		686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
 		686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
+		686879301BEC4CE900C49FB0 /* EDSMyClienterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6868792E1BEC4CE900C49FB0 /* EDSMyClienterCell.m */; settings = {ASSET_TAGS = (); }; };
+		686879311BEC4CE900C49FB0 /* EDSMyClienterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6868792E1BEC4CE900C49FB0 /* EDSMyClienterCell.m */; settings = {ASSET_TAGS = (); }; };
+		686879321BEC4CE900C49FB0 /* EDSMyClienterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6868792F1BEC4CE900C49FB0 /* EDSMyClienterCell.xib */; settings = {ASSET_TAGS = (); }; };
+		686879331BEC4CE900C49FB0 /* EDSMyClienterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6868792F1BEC4CE900C49FB0 /* EDSMyClienterCell.xib */; settings = {ASSET_TAGS = (); }; };
+		686879361BECA0A600C49FB0 /* EDSMyClienter.m in Sources */ = {isa = PBXBuildFile; fileRef = 686879351BECA0A600C49FB0 /* EDSMyClienter.m */; settings = {ASSET_TAGS = (); }; };
+		686879371BECA0A600C49FB0 /* EDSMyClienter.m in Sources */ = {isa = PBXBuildFile; fileRef = 686879351BECA0A600C49FB0 /* EDSMyClienter.m */; settings = {ASSET_TAGS = (); }; };
 		686ED24E1BEB5305004D905F /* EDSMyClientersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 686ED24C1BEB5305004D905F /* EDSMyClientersVC.m */; settings = {ASSET_TAGS = (); }; };
 		686ED24F1BEB5305004D905F /* EDSMyClientersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 686ED24C1BEB5305004D905F /* EDSMyClientersVC.m */; settings = {ASSET_TAGS = (); }; };
 		686ED2501BEB5305004D905F /* EDSMyClientersVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686ED24D1BEB5305004D905F /* EDSMyClientersVC.xib */; settings = {ASSET_TAGS = (); }; };
@@ -714,6 +720,11 @@
 		686745601BA9205C005F59D4 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
 		686745631BA96CF1005F59D4 /* UIImage+tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+tools.h"; sourceTree = "<group>"; };
 		686745641BA96CF1005F59D4 /* UIImage+tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+tools.m"; sourceTree = "<group>"; };
+		6868792D1BEC4CE900C49FB0 /* EDSMyClienterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSMyClienterCell.h; sourceTree = "<group>"; };
+		6868792E1BEC4CE900C49FB0 /* EDSMyClienterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSMyClienterCell.m; sourceTree = "<group>"; };
+		6868792F1BEC4CE900C49FB0 /* EDSMyClienterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSMyClienterCell.xib; sourceTree = "<group>"; };
+		686879341BECA0A600C49FB0 /* EDSMyClienter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSMyClienter.h; sourceTree = "<group>"; };
+		686879351BECA0A600C49FB0 /* EDSMyClienter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSMyClienter.m; sourceTree = "<group>"; };
 		686ED24B1BEB5305004D905F /* EDSMyClientersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSMyClientersVC.h; sourceTree = "<group>"; };
 		686ED24C1BEB5305004D905F /* EDSMyClientersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSMyClientersVC.m; sourceTree = "<group>"; };
 		686ED24D1BEB5305004D905F /* EDSMyClientersVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSMyClientersVC.xib; sourceTree = "<group>"; };
@@ -1549,6 +1560,11 @@
 				686ED24B1BEB5305004D905F /* EDSMyClientersVC.h */,
 				686ED24C1BEB5305004D905F /* EDSMyClientersVC.m */,
 				686ED24D1BEB5305004D905F /* EDSMyClientersVC.xib */,
+				6868792D1BEC4CE900C49FB0 /* EDSMyClienterCell.h */,
+				6868792E1BEC4CE900C49FB0 /* EDSMyClienterCell.m */,
+				6868792F1BEC4CE900C49FB0 /* EDSMyClienterCell.xib */,
+				686879341BECA0A600C49FB0 /* EDSMyClienter.h */,
+				686879351BECA0A600C49FB0 /* EDSMyClienter.m */,
 			);
 			path = MyClienters;
 			sourceTree = "<group>";
@@ -2599,6 +2615,7 @@
 				F67D36081B5664A600083DA4 /* photo_default@2x.png in Resources */,
 				F67D36091B5664A600083DA4 /* Address.sqlite in Resources */,
 				68D88B7F1BE1FF8A0086AC91 /* EDS9CellHomepageVC.xib in Resources */,
+				686879331BEC4CE900C49FB0 /* EDSMyClienterCell.xib in Resources */,
 				688B37D11BE7042A0012C60B /* EDSTaskListInRegionVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2617,6 +2634,7 @@
 				F62E8D031B2E80F1006F3862 /* demo_card@3x.png in Resources */,
 				2EA0CA431B82C72700BBAA63 /* ComplaintViewController.xib in Resources */,
 				F6C6AE7D1B1845750007A980 /* blue_btn_nor@2x.png in Resources */,
+				686879321BEC4CE900C49FB0 /* EDSMyClienterCell.xib in Resources */,
 				686745591BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */,
 				F6549F7F1B1C331300FAACEE /* back_nor@2x.png in Resources */,
 				F62A73E61B5CCA84001632B5 /* 1@2x.png in Resources */,
@@ -2759,6 +2777,7 @@
 				F67D35681B5664A600083DA4 /* OriginModel.m in Sources */,
 				F66D7BBB1B661DC800A6A946 /* EmptyAlterView.m in Sources */,
 				F67D35691B5664A600083DA4 /* DataSigner.m in Sources */,
+				686879311BEC4CE900C49FB0 /* EDSMyClienterCell.m in Sources */,
 				F67D356A1B5664A600083DA4 /* base64.m in Sources */,
 				2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				6801E3B91BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */,
@@ -2841,6 +2860,7 @@
 				CF07AEE21BAEB30D005A93EB /* MNDatePicker.m in Sources */,
 				6811E0CC1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */,
 				F67D35AA1B5664A600083DA4 /* ThirdOrderTableViewCell.m in Sources */,
+				686879371BECA0A600C49FB0 /* EDSMyClienter.m in Sources */,
 				68580C891BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */,
 				F67D35AB1B5664A600083DA4 /* RegisterViewController.m in Sources */,
 				CF22B0421BAB4A61000F19D9 /* UIScrollView+MJExtension.m in Sources */,
@@ -2992,6 +3012,7 @@
 				F66D7BBA1B661A2800A6A946 /* EmptyAlterView.m in Sources */,
 				F6441B4F1B3D470100EA3C9D /* DataSigner.m in Sources */,
 				F6441B4E1B3D470100EA3C9D /* base64.m in Sources */,
+				686879301BEC4CE900C49FB0 /* EDSMyClienterCell.m in Sources */,
 				E48ECF9B1B3FC5C700F09660 /* OrderDetailReciverTableCell.m in Sources */,
 				2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				6801E3B81BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */,
@@ -3074,6 +3095,7 @@
 				CF07AEE11BAEB30D005A93EB /* MNDatePicker.m in Sources */,
 				6811E0CB1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */,
 				F6C6AE801B185F630007A980 /* RegisterViewController.m in Sources */,
+				686879361BECA0A600C49FB0 /* EDSMyClienter.m in Sources */,
 				68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */,
 				F6C6AD821B12F42F0007A980 /* CWStarRateView.m in Sources */,
 				CF22B0411BAB4A61000F19D9 /* UIScrollView+MJExtension.m in Sources */,
