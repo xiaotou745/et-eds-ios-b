@@ -43,6 +43,10 @@ NSString *const EDSMyClienterApplyingReject = @"拒绝";
     self.ClienterImg.layer.cornerRadius = CGRectGetWidth(self.ClienterImg.frame)/2;
     self.ClienterImg.layer.borderWidth = 2.0f;
     self.ClienterImg.layer.borderColor = [SeparatorLineColor CGColor];
+    
+    [self.ClienterButton setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:@"blue_btn_noSelect"];
+    [self.ClienterButton2 setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:@"blue_btn_noSelect"];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

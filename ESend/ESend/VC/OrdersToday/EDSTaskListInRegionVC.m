@@ -22,7 +22,7 @@
 #define TLIR_NoDataS2 @"您目前没有配送中的订单!"
 #define TLIR_NoDataS3 @"您目前没有已完成的订单!"
 
-#define TLIR_Default_PageSize  1
+#define TLIR_Default_PageSize  15
 
 @interface EDSTaskListInRegionVC ()<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>
 {

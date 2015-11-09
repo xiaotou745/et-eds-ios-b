@@ -268,7 +268,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
     
     NSArray *titles = @[@"账单",@"订单统计",@"我的骑士",@"消息中心",@"商家须知"];
-    NSArray *icons = @[@"detail",@"order_detail",@"message_icon",@"message_icon",@"business_note"];
+    NSArray *icons = @[@"detail",@"order_detail",@"my_clienters",@"message_icon",@"business_note"];
     
     for (NSInteger i = 0; i < titles.count; i++) {
         NSString *contectStr = @"";

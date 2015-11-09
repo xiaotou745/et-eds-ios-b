@@ -10,6 +10,8 @@
 #import "EDSMyClienterCell.h"
 #import "MJRefresh.h"
 #import "EDSHttpReqManager3.h"
+#import "UIAlertView+Blocks.h"
+#import "EDSBusinessQRVC.h"
 
 #define MC_HeadButtonTagTrans 1105
 
@@ -18,6 +20,14 @@
 
 #define MC_NoDataS1 @"您目前没有服务中的骑士!"
 #define MC_NoDataS2 @"您目前没有申请中的骑士!"
+
+#define MC_AddClienterTitle @"是否添加该骑士?"
+#define MC_RejectClienterTitle @"是否拒绝添加该骑士?"
+
+#define MC_CancelButtonTitle @"取消"
+#define MC_ConfirmButtonTitle @"确定"
+
+#define MC_Default_PageSize  15
 
 @interface EDSMyClientersVC ()<UITableViewDataSource,UITableViewDelegate,EDSMyClienterCellDelegate>
 {
@@ -64,9 +74,21 @@
     _currentPage1st = 1;
     _currentPage2nd = 1;
     
+    [self _configNavButtons];
     [self mc_configOptionView];
     [self _configOptionPullRefresh:self.MC_Table1];
     [self _configOptionPullRefresh:self.MC_Table2];
+}
+
+- (void)_configNavButtons{
+    // right
+    [self.rightBtn setImage:[UIImage imageNamed:@"QR_CodeImg_Normal"] forState:UIControlStateNormal];
+    [self.rightBtn addTarget:self action:@selector(myQRCodeBtnAction) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)myQRCodeBtnAction{
+    EDSBusinessQRVC * bqr = [[EDSBusinessQRVC alloc] initWithNibName:NSStringFromClass([EDSBusinessQRVC class]) bundle:nil];
+    [self.navigationController pushViewController:bqr animated:YES];
 }
 
 #pragma mark - Config Refresh Setting
@@ -234,8 +256,8 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([EDSMyClienterCell class]) owner:self options:nil] lastObject];
         }
         cell.datasource = [_MC_TableDatasource2 objectAtIndex:indexPath.row];
-        cell.buttonTitle = EDSMyClienterApplyingAdd;
-        cell.buttonTitle2 = EDSMyClienterApplyingReject;
+        cell.buttonTitle = EDSMyClienterApplyingReject;
+        cell.buttonTitle2 = EDSMyClienterApplyingAdd;
         cell.delegate = self;
         return cell;
     }else{
@@ -308,13 +330,13 @@
                 }
                 [_MC_Table1 reloadData];
                 // footer refresh
-//                if (_TLIR_DataSourceFirst.count >= TLIR_Default_PageSize) {
-//                    if (self.TLIR_TableFirst.footer) {
-//                        [self.TLIR_TableFirst removeFooter];
-//                    }
-//                    [self.TLIR_TableFirst addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
-//                    self.TLIR_TableFirst.footer.state = MJRefreshFooterStateIdle;
-//                }
+                if (_MC_TableDatasource1.count >= MC_Default_PageSize) {
+                    if (self.MC_Table1.footer) {
+                        [self.MC_Table1 removeFooter];
+                    }
+                    [self.MC_Table1 addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(mc_tableViewFooterRefresh)];
+                    self.MC_Table1.footer.state = MJRefreshFooterStateIdle;
+                }
                 
             }else if (_selectedStatus == MyClienterStatusApplying){
                 [_MC_TableDatasource2 removeAllObjects];
@@ -328,13 +350,13 @@
                     [self _hideTableEmpty:_MC_Table2];
                 }
                 [_MC_Table2 reloadData];
-//                if (_TLIR_DataSourceSecond.count >= TLIR_Default_PageSize) {
-//                    if (self.TLIR_TableSecond.footer) {
-//                        [self.TLIR_TableSecond removeFooter];
-//                    }
-//                    [self.TLIR_TableSecond addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
-//                    self.TLIR_TableSecond.footer.state = MJRefreshFooterStateIdle;
-//                }
+                if (_MC_TableDatasource2.count >= MC_Default_PageSize) {
+                    if (self.MC_Table2.footer) {
+                        [self.MC_Table2 removeFooter];
+                    }
+                    [self.MC_Table2 addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(mc_tableViewFooterRefresh)];
+                    self.MC_Table2.footer.state = MJRefreshFooterStateIdle;
+                }
             }
         }else{
             [Tools showHUD:message];
@@ -347,6 +369,104 @@
         }
     }];
 }
+
+
+/// 添加骑士，拒绝骑士 auditStatus 1审核通过，2审核拒绝
+- (void)optBindClienterWithRelationId:(NSInteger)relationId businessId:(NSInteger)businessId auditStatus:(NSInteger)auditStatus{
+    NSDictionary * paraDict = @{
+                                @"relationId":[NSNumber numberWithInteger:relationId],
+                                @"businessId":[NSNumber numberWithInteger:businessId],
+                                @"auditStatus":[NSNumber numberWithInteger:auditStatus],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{
+                     @"data":aesString,
+                     };
+    }
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    [EDSHttpReqManager3 optbindclienter:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSString * message = [responseObject objectForKey:@"message"];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            [Tools showHUD:(auditStatus == 1)?@"添加成功":@"拒绝成功"];
+            [self.MC_Table2.header beginRefreshing];
+        }else{
+            NSLog(@"%@",message);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+    }];
+}
+
+/// 上拉刷新
+- (void)mc_tableViewFooterRefresh{
+    NSInteger currentPage = 1;
+    if (_selectedStatus == MyClienterStatusInService) {
+        currentPage = ++_currentPage1st;
+    }else if (_selectedStatus == MyClienterStatusApplying) {
+        currentPage = ++_currentPage2nd;
+    }
+    NSDictionary * paraData = @{
+                                @"businessId":[NSNumber numberWithInt:260],//[UserInfo getUserId],
+                                @"auditStatus":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
+                                @"currentPage":[NSNumber numberWithInteger:1],
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraData = @{@"data":aesString,};
+    }
+    
+    [EDSHttpReqManager3 getmyserviceclienters:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (_selectedStatus == MyClienterStatusInService) {
+            [self.MC_Table1.footer endRefreshing];
+        }else if (_selectedStatus == MyClienterStatusApplying) {
+            [self.MC_Table2.footer endRefreshing];
+        }
+        NSString * message = [responseObject objectForKey:@"message"];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            NSDictionary * result = [responseObject objectForKey:@"result"];
+            long serviceCount = [[result objectForKey:@"serviceCount"] longValue];
+            long waitAduitCount = [[result objectForKey:@"waitAduitCount"] longValue];
+            [self setOptionButton:self.MC_OptionBtn1 count:serviceCount];
+            [self setOptionButton:self.MC_OptionBtn2 count:waitAduitCount];
+            NSArray * orderRespModel = [result objectForKey:@"list"];
+            
+            if (_selectedStatus == MyClienterStatusInService) {
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    EDSMyClienter * regioinModel = [[EDSMyClienter alloc] initWithDic:aRespModel];
+                    [_MC_TableDatasource1 addObject:regioinModel];
+                }
+                [_MC_Table1 reloadData];
+                if ([orderRespModel count] == 0){
+                    _MC_Table1.footer.state = MJRefreshFooterStateNoMoreData;
+                }
+            }else if (_selectedStatus == MyClienterStatusApplying){
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    EDSMyClienter * regioinModel = [[EDSMyClienter alloc] initWithDic:aRespModel];
+                    [_MC_TableDatasource2 addObject:regioinModel];
+                }
+                [_MC_Table2 reloadData];
+                if ([orderRespModel count] == 0){
+                    _MC_Table2.footer.state = MJRefreshFooterStateNoMoreData;
+                }
+            }
+        }else{
+            [Tools showHUD:message];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (_selectedStatus == MyClienterStatusInService) {
+            [self.MC_Table1.header endRefreshing];
+        }else if (_selectedStatus == MyClienterStatusApplying) {
+            [self.MC_Table2.header endRefreshing];
+        }
+    }];
+}
+
 
 #pragma mark - 订单为空的情况
 - (void)_showTableEmpty:(UITableView *)tableV{
@@ -411,9 +531,19 @@
     if ([title compare:EDSMyClienterInService] == NSOrderedSame) { // 解绑
         
     }else if ([title compare:EDSMyClienterApplyingAdd] == NSOrderedSame){ // 添加
-        
+        [UIAlertView showAlertViewWithTitle:MC_AddClienterTitle message:nil cancelButtonTitle:MC_CancelButtonTitle otherButtonTitles:@[MC_ConfirmButtonTitle] onDismiss:^(NSInteger buttonIndex) {
+            [self optBindClienterWithRelationId:userInfo.relationId businessId:260 auditStatus:1];
+        } onCancel:^{
+            
+        }];
     }else if ([title compare:EDSMyClienterApplyingReject] == NSOrderedSame){ // 拒绝
-        
+        [UIAlertView showAlertViewWithTitle:MC_RejectClienterTitle message:nil cancelButtonTitle:MC_CancelButtonTitle otherButtonTitles:@[MC_ConfirmButtonTitle] onDismiss:^(NSInteger buttonIndex) {
+            [self optBindClienterWithRelationId:userInfo.relationId businessId:260 auditStatus:2];
+        } onCancel:^{
+            
+        }];
     }
 }
+
+
 @end
