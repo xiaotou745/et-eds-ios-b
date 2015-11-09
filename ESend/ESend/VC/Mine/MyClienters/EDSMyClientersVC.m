@@ -12,6 +12,8 @@
 #import "EDSHttpReqManager3.h"
 #import "UIAlertView+Blocks.h"
 #import "EDSBusinessQRVC.h"
+#import "CustomIOSAlertView.h"
+#import "UserInfo.h"
 
 #define MC_HeadButtonTagTrans 1105
 
@@ -29,7 +31,9 @@
 
 #define MC_Default_PageSize  15
 
-@interface EDSMyClientersVC ()<UITableViewDataSource,UITableViewDelegate,EDSMyClienterCellDelegate>
+#define MC_ReasonAlertMsg @"请输入5-100个字符"
+
+@interface EDSMyClientersVC ()<UITableViewDataSource,UITableViewDelegate,EDSMyClienterCellDelegate,UITextViewDelegate>
 {
     MyClienterStatus _selectedStatus;
     
@@ -44,6 +48,10 @@
     /// 分页
     NSInteger _currentPage1st;  //  服务中 分页页码
     NSInteger _currentPage2nd;  //  申请中 分页页码
+    
+    // textView
+    UITextView * _remarkTextView;  // 解除绑定骑士输入框
+    UILabel * _remarkPlaceholder;  // 解除原因placeholder
 }
 // optionView
 @property (strong, nonatomic) IBOutlet UIView *MC_OptionBg;
@@ -291,7 +299,7 @@
         [self.MC_Table1.header endRefreshing];
     }
     NSDictionary * paraData = @{
-                                @"businessId":[NSNumber numberWithInt:260],//[UserInfo getUserId],
+                                @"businessId":[UserInfo getUserId],
                                 @"auditStatus":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
                                 @"currentPage":[NSNumber numberWithInteger:1],
                                 };
@@ -370,6 +378,33 @@
     }];
 }
 
+/// 解除绑定骑士接口removerelation
+- (void)removeClienterRelation:(NSInteger)clienterId remark:(NSString *)remark{
+    NSDictionary * paraDict = @{
+                                @"businessId":[UserInfo getUserId],
+                                @"clienterId":[NSNumber numberWithInteger:clienterId],
+                                @"remark":remark,
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{@"data":aesString,};
+    }
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    [EDSHttpReqManager3 removerelation:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSString * message = [responseObject objectForKey:@"message"];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            [Tools showHUD:@"解除成功"];
+            [self.MC_Table1.header beginRefreshing];
+        }else{
+            NSLog(@"%@",message);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+    }];
+}
 
 /// 添加骑士，拒绝骑士 auditStatus 1审核通过，2审核拒绝
 - (void)optBindClienterWithRelationId:(NSInteger)relationId businessId:(NSInteger)businessId auditStatus:(NSInteger)auditStatus{
@@ -410,7 +445,7 @@
         currentPage = ++_currentPage2nd;
     }
     NSDictionary * paraData = @{
-                                @"businessId":[NSNumber numberWithInt:260],//[UserInfo getUserId],
+                                @"businessId":[UserInfo getUserId],
                                 @"auditStatus":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
                                 @"currentPage":[NSNumber numberWithInteger:1],
                                 };
@@ -529,21 +564,137 @@
 #pragma mark - EDSMyClienterCellDelegate
 - (void)clienterCell:(EDSMyClienterCell *)cell didClickTitle:(NSString *)title cellInfo:(EDSMyClienter *)userInfo{
     if ([title compare:EDSMyClienterInService] == NSOrderedSame) { // 解绑
-        
+        CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
+        NSString * alertTitle = @"解除绑定骑士";
+        [alertView setContainerView:[self mc_createAlertView:alertTitle content:userInfo]];
+        [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"取消", @"确定", nil]];
+        __block EDSMyClientersVC * blockSelf = self;
+        [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+            if (1 == buttonIndex) {
+                if (_remarkTextView.text.length >= 5 && _remarkTextView.text.length <= 100) {
+                    [alertView close];
+                    [blockSelf removeClienterRelation:userInfo.clienterId remark:_remarkTextView.text];
+                }else{
+                    [Tools showHUD:MC_ReasonAlertMsg];
+                }
+            }else{
+                [alertView close];
+            }
+        }];
+        [alertView setUseMotionEffects:true];
+        [alertView show];
     }else if ([title compare:EDSMyClienterApplyingAdd] == NSOrderedSame){ // 添加
         [UIAlertView showAlertViewWithTitle:MC_AddClienterTitle message:nil cancelButtonTitle:MC_CancelButtonTitle otherButtonTitles:@[MC_ConfirmButtonTitle] onDismiss:^(NSInteger buttonIndex) {
-            [self optBindClienterWithRelationId:userInfo.relationId businessId:260 auditStatus:1];
+            [self optBindClienterWithRelationId:userInfo.relationId businessId:[[UserInfo getUserId] integerValue] auditStatus:1];
         } onCancel:^{
             
         }];
     }else if ([title compare:EDSMyClienterApplyingReject] == NSOrderedSame){ // 拒绝
         [UIAlertView showAlertViewWithTitle:MC_RejectClienterTitle message:nil cancelButtonTitle:MC_CancelButtonTitle otherButtonTitles:@[MC_ConfirmButtonTitle] onDismiss:^(NSInteger buttonIndex) {
-            [self optBindClienterWithRelationId:userInfo.relationId businessId:260 auditStatus:2];
+            [self optBindClienterWithRelationId:userInfo.relationId businessId:[[UserInfo getUserId] integerValue] auditStatus:2];
         } onCancel:^{
             
         }];
     }
 }
 
+- (UIView *)mc_createAlertView:(NSString *)alertTitle content:(EDSMyClienter *)cInfo{
+    UIView *demoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(demoView.frame), 50)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = DeepGrey;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:15];
+    titleLabel.text = alertTitle;
+    [demoView addSubview:titleLabel];
+    
+    UIImageView * line = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleLabel.frame) + 1, CGRectGetWidth(demoView.frame), 0.5f)];
+    line.backgroundColor = [UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f];
+    [demoView addSubview:line];
+    
+    CGFloat labelLeftMargin = 20;
+    CGFloat labelWidth = 60;
+    CGFloat labelHeight = 22;
+    CGFloat padding = 5;
+    UILabel * nameFix = [[UILabel alloc] initWithFrame:CGRectMake(labelLeftMargin, CGRectGetMaxY(line.frame)+padding, labelWidth, labelHeight)];
+    [self _alertViewLabel:nameFix];
+    nameFix.text = @"骑士姓名:";
+    [demoView addSubview:nameFix];
+    UILabel * phoneFix = [[UILabel alloc] initWithFrame:CGRectMake(labelLeftMargin, CGRectGetMaxY(nameFix.frame) + padding, labelWidth, labelHeight)];
+    [self _alertViewLabel:phoneFix];
+    phoneFix.text = @"骑士电话:";
+    [demoView addSubview:phoneFix];
+    UILabel * remarkFix = [[UILabel alloc] initWithFrame:CGRectMake(labelLeftMargin, CGRectGetMaxY(phoneFix.frame) + padding * 2, labelWidth, labelHeight)];
+    [self _alertViewLabel:remarkFix];
+    remarkFix.text = @"解除原因:";
+    [demoView addSubview:remarkFix];
+    
+    UILabel * name = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(nameFix.frame), nameFix.frame.origin.y, CGRectGetWidth(demoView.frame) - CGRectGetWidth(nameFix.frame), labelHeight)];
+    [self _alertViewLabel:name];
+    name.text = cInfo.trueName;
+    [demoView addSubview:name];
+    
+    UILabel * phone = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(phoneFix.frame), phoneFix.frame.origin.y, CGRectGetWidth(demoView.frame) - CGRectGetWidth(phoneFix.frame), labelHeight)];
+    [self _alertViewLabel:phone];
+    phone.text = cInfo.phoneNo;
+    [demoView addSubview:phone];
+    
+    if (!_remarkPlaceholder) {
+        _remarkPlaceholder = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(remarkFix.frame) + padding, remarkFix.frame.origin.y, CGRectGetWidth(demoView.frame) - CGRectGetWidth(remarkFix.frame) - labelLeftMargin*2, labelHeight)];
+        _remarkPlaceholder.font = [UIFont systemFontOfSize:13];
+        _remarkPlaceholder.textAlignment = NSTextAlignmentLeft;
+        _remarkPlaceholder.textColor = TextColor9;
+    }
+    _remarkPlaceholder.text = MC_ReasonAlertMsg;
+    [demoView addSubview:_remarkPlaceholder];
+    
+    if (!_remarkTextView) {
+        _remarkTextView = [[UITextView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(remarkFix.frame), remarkFix.frame.origin.y - padding, CGRectGetWidth(demoView.frame) - CGRectGetWidth(remarkFix.frame) - labelLeftMargin*2, 60)];
+        _remarkTextView.font = [UIFont systemFontOfSize:13];
+        _remarkTextView.textColor = TextColor6;
+        _remarkTextView.layer.borderColor = [[UIColor colorWithRed:198.0/255.0 green:198.0/255.0 blue:198.0/255.0 alpha:1.0f] CGColor];
+        _remarkTextView.layer.borderWidth = 0.5f;
+        _remarkTextView.layer.cornerRadius = 2.0f;
+        _remarkTextView.delegate = self;
+        _remarkTextView.backgroundColor = [UIColor clearColor];
+    }
+//    _remarkTextView.text = @"请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十";
+    [demoView addSubview:_remarkTextView];
+    
+    [demoView setFrame:CGRectMake(0, 0, 290, CGRectGetMaxY(_remarkTextView.frame) + padding)];
+    
+    return demoView;
+}
+- (void)_alertViewLabel:(UILabel *)label{
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = NSTextAlignmentLeft;
+    label.font = [UIFont systemFontOfSize:13];
+    label.textColor = TextColor6;
+}
+
+#pragma mark - UITextViewDelegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    if ([text isEqualToString:@"\n"])
+    {
+        return YES;
+    }
+    NSString * toBeString = [textView.text stringByReplacingCharactersInRange:range withString:text];
+    if (_remarkTextView == textView) {
+        if ([toBeString length] > 100 ) {
+            textView.text = [toBeString substringToIndex:100];
+            [Tools showHUD:MC_ReasonAlertMsg];
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    if (textView.text.length == 0) {
+        _remarkPlaceholder.text = MC_ReasonAlertMsg;
+    }else{
+        _remarkPlaceholder.text = @"";
+    }
+}
 
 @end

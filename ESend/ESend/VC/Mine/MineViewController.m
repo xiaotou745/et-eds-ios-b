@@ -282,7 +282,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapView:)];
         [view addGestureRecognizer:tap];
         
-        if (i == 2) {
+        if (i == 3) {
             [view addSubview:_newMessageIcon];
 
         }

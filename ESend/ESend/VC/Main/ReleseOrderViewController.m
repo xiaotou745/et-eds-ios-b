@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     PayStatusUnpaid
 };
 
-@interface ReleseOrderViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, AddOrderTableViewCellDelegate, UIAlertViewDelegate,ConsigneeInfoCellDelegate,CustomIOSAlertViewDelegate>
+@interface ReleseOrderViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, AddOrderTableViewCellDelegate, UIAlertViewDelegate,ConsigneeInfoCellDelegate>
 {
     UITableView *_tableView;
     

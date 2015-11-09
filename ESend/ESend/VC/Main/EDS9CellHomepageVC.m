@@ -18,7 +18,7 @@
 
 #define Hp9ItemCellId @"Hp9cellItemCellId"
 
-@interface EDS9CellHomepageVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate>
+@interface EDS9CellHomepageVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,UINavigationControllerDelegate>
 {
     // 其他情况的
     UIView * _otherSituationView;
@@ -41,11 +41,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.navigationController.delegate = self;
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     _Hp_RegionArray = [[NSMutableArray alloc] initWithCapacity:0];
     
     [self configNavTitle];
-    [self config9Cells];
+//    [self config9Cells];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -71,6 +72,7 @@
     // left
     [self.leftBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.leftBtn addTarget:self action:@selector(todaysOrdersBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.leftBtn.hidden = YES;
     // right
     [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(mineBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -296,38 +298,6 @@
 
 }
 
-- (void)getmyserviceclienters{
-    NSDictionary * paraDict = @{
-                                @"businessId":[NSNumber numberWithInt:260],
-                                @"auditStatus":[NSNumber numberWithInteger:0],//0申请中列表，1服务中列表
-                                @"currentPage":[NSNumber numberWithInteger:1],
-                                };
-    if (AES_Security) {
-        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-        NSString * aesString = [Security AesEncrypt:jsonString2];
-        paraDict = @{
-                     @"data":aesString,
-                     };
-    }
-    
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    
-    
-    [EDSHttpReqManager3 getmyserviceclienters:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [Tools hiddenProgress:HUD];
-        NSString * message = [responseObject objectForKey:@"message"];
-        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-        if (1 == status) {
-//            NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
-//            NSLog(@"%ld",result);
-        }else{
-            NSLog(@"%@",message);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [Tools hiddenProgress:HUD];
-        
-    }];
-}
 
 - (void)tstRemoveClienter:(NSInteger)relationId{
     // 117
@@ -433,6 +403,15 @@
     [_otherSituationView addSubview:_otherSituation9CellShortageContent];
     [self.view addSubview:_otherSituationView];
 
+}
+
+#pragma mark - UINavigationControllerDelegate
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (navigationController.viewControllers.count == 1) {
+        navigationController.interactivePopGestureRecognizer.enabled = NO;
+    } else {
+        navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
 }
 
 @end
