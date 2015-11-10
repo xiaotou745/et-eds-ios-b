@@ -5525,7 +5525,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.business.ninecell;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "fa0f5cbd-77c9-4d33-80aa-c20224376cc2";
+				PROVISIONING_PROFILE = "afc055c8-1cb5-46f5-ae66-3def7632c544";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;

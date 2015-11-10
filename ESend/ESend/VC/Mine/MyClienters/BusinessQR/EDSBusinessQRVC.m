@@ -10,6 +10,7 @@
 #import "ZXingObjC.h"
 #import "UserInfo.h"
 #import "UIColor+KMhexColor.h"
+#import "Security.h"
 
 @interface EDSBusinessQRVC ()
 @property (strong, nonatomic) IBOutlet UIView *QR_BgView;
@@ -41,17 +42,19 @@
     
      NSError *error = nil;
      ZXMultiFormatWriter *writer = [ZXMultiFormatWriter writer];
-     ZXBitMatrix* result = [writer encode:[NSString stringWithFormat:@"%@-%@",uid,uname] format:kBarcodeFormatQRCode width:500 height:500 error:&error];
+//     NSString * strC = [[NSString stringWithFormat:@"%@-%@",uid,uname] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSString* strAfterDecodeByUTF8AndURI = [strC stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    NSLog(@"%@  \n  %@",strC,strAfterDecodeByUTF8AndURI);
+    NSString * strC = [Security AesEncrypt:[NSString stringWithFormat:@"%@-%@",uid,uname]];
+
+     ZXBitMatrix* result = [writer encode:strC format:kBarcodeFormatQRCode width:500 height:500 error:&error];
      if (result) {
-     CGImageRef image = [[ZXImage imageWithMatrix:result] cgimage];
-     self.QR_img.image = [UIImage imageWithCGImage:image];
-     
-     // This CGImageRef image can be placed in a UIImage, NSImage, or written to a file.
+         CGImageRef image = [[ZXImage imageWithMatrix:result] cgimage];
+         self.QR_img.image = [UIImage imageWithCGImage:image];
+         // This CGImageRef image can be placed in a UIImage, NSImage, or written to a file.
      } else {
-     NSString *errorMessage = [error localizedDescription];
-     
-     NSLog(@"%@",errorMessage);
-     
+         NSString *errorMessage = [error localizedDescription];
+         NSLog(@"%@",errorMessage);
      }
 
 }

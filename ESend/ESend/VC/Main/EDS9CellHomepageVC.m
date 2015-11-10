@@ -69,13 +69,13 @@
 /// 配置导航条
 - (void)configNavTitle{
     self.titleLabel.text = @"发布任务";
-    // left
+    // left mineBtnAction
     [self.leftBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
-    [self.leftBtn addTarget:self action:@selector(todaysOrdersBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    self.leftBtn.hidden = YES;
+    [self.leftBtn addTarget:self action:@selector(mineBtnAction) forControlEvents:UIControlEventTouchUpInside];
     // right
-    [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
-    [self.rightBtn addTarget:self action:@selector(mineBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.rightBtn setImage:[UIImage imageNamed:@"9cell_order"] forState:UIControlStateNormal];
+    [self.rightBtn addTarget:self action:@selector(todaysOrdersBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.rightBtn.hidden = YES;
 }
 
 - (void)config9Cells{
