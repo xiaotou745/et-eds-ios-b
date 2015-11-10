@@ -16,5 +16,7 @@
 @property (nonatomic, copy) NSString * regionName;
 @property (nonatomic, strong) NSArray * twoOrderRegionList;
 
+// 订单数量
+@property (assign, nonatomic) NSInteger orderCount;
 
 @end

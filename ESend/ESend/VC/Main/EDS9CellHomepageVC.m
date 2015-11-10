@@ -15,6 +15,9 @@
 #import "EDSHttpReqManager3.h"
 #import "Hp9CellRegionModel.h"
 
+#define HpMaxMoney 15000
+
+#define HpBeyondMaxMoneyErrString @"最大金额15000"
 
 #define Hp9ItemCellId @"Hp9cellItemCellId"
 
@@ -28,10 +31,30 @@
     UILabel * _otherSituation9CellShortageTitle;    // 9 cell shortage title
     UILabel * _otherSituation9CellShortageContent;  // 9 cell shortage content
     
+    // 是否配置过 config9Cells
+    BOOL _9cellsHasConfiged;
+    // 是否需要输入金额 getAllowInputMoney
+    NSInteger _allowInputMoney;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *Hp_Scroller;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Hp_ScrollerHeight;
 @property (strong, nonatomic) IBOutlet UICollectionView *Hp_9cells;
+
+// 通知提醒栏
+@property (strong, nonatomic) IBOutlet UIView *Hp_View1;
+@property (strong, nonatomic) IBOutlet UILabel *Hp_View1_note;
+
+// 任务金额，任务数量栏
+@property (strong, nonatomic) IBOutlet UIView *Hp_view2;
+@property (strong, nonatomic) IBOutlet UIImageView *Hp_view2_seperator;
+@property (strong, nonatomic) IBOutlet UILabel *Hp_view2_totalFix;
+@property (strong, nonatomic) IBOutlet UILabel *Hp_view2_total_count;
+@property (strong, nonatomic) IBOutlet UITextField *Hp_view2_textfield;
+@property (strong, nonatomic) IBOutlet UIImageView *Hp_view2_xiahua;
+@property (strong, nonatomic) IBOutlet UILabel *Hp_view2_yuan;
+
+// 发布任务按钮
+@property (strong, nonatomic) IBOutlet UIButton *releaseButton;
 
 @property (strong, nonatomic) NSMutableArray * Hp_RegionArray;
 
@@ -43,27 +66,32 @@
     [super viewDidLoad];
     self.navigationController.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    
     _Hp_RegionArray = [[NSMutableArray alloc] initWithCapacity:0];
+    _9cellsHasConfiged = NO;    // 默认未配置colletionView
+    _allowInputMoney = 0;       // 默认需要输入金额
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     [self configNavTitle];
-//    [self config9Cells];
+    [self _configNibViews];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     // 只有登录了才能到这个界面。
     // 用户状态
-//     [self synchronizeTheBusinessStatus];
-//     [self getmyserviceclienters];
+     [self synchronizeTheBusinessStatus];
     //[self synchronizeBusiness9CellRegionInfo];
-    // [self tstRemoveClienter:117];
 }
 
 
 
 - (void)updateViewConstraints{
     [super updateViewConstraints];
-    self.Hp_ScrollerHeight.constant = ScreenHeight -63 - 44 - 15;
+    //self.Hp_ScrollerHeight.constant = 244 + 30 + 80;
+    self.Hp_ScrollerHeight.constant = ScreenHeight - (10 + 40 + 15 + 64) + 1;
 }
 
 /// 配置导航条
@@ -75,16 +103,37 @@
     // right
     [self.rightBtn setImage:[UIImage imageNamed:@"9cell_order"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(todaysOrdersBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    self.rightBtn.hidden = YES;
+    // self.rightBtn.hidden = YES;
+}
+
+- (void)_configNibViews{
+    self.Hp_9cells.layer.borderColor = [SeparatorColorC CGColor];
+    self.Hp_9cells.layer.borderWidth = 0.5f;
+    self.Hp_View1_note.textColor = TextColor9;
+    
+    self.Hp_view2.layer.borderColor = [SeparatorColorC CGColor];
+    self.Hp_view2.layer.borderWidth = 0.5f;
+    self.Hp_view2_seperator.backgroundColor = SeparatorColorC;
+    self.Hp_view2_totalFix.textColor =
+    self.Hp_view2_yuan.textColor =
+    self.Hp_view2_textfield.textColor =
+    self.Hp_view2_total_count.textColor = DeepGrey;
+    self.Hp_view2_xiahua.backgroundColor = DeepGrey;
+    
+    [self.releaseButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.releaseButton setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:@"blue_btn_noSelect"];
 }
 
 - (void)config9Cells{
+    if (_9cellsHasConfiged) {
+        return;
+    }
     //Hp9ItemCell
     UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([Hp9ItemCell class]) bundle:nil];
     [self.Hp_9cells registerNib:cellNib forCellWithReuseIdentifier:Hp9ItemCellId];
     self.Hp_9cells.dataSource = self;
     self.Hp_9cells.delegate = self;
-    //self.Hp_9cells.
+    _9cellsHasConfiged = YES;
 }
 
 - (void)mineBtnAction{
@@ -153,7 +202,7 @@
                 [self _showOtherSituationViewWithStatus:userStatus];
             }
         }else{
-            [Tools showProgressWithTitle:Message];
+            [Tools showHUD:Message];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -164,46 +213,37 @@
 
 /// 获取商户用户的9个区域信息
 - (void)synchronizeBusiness9CellRegionInfo{
-    
     NSDictionary * paraDict = @{
-                                @"businessId":[NSNumber numberWithInt:260],
+                                @"businessId":[NSNumber numberWithInteger:260],//[UserInfo getUserId],
                                 @"status":[NSNumber numberWithInt:1],
                                 };
     if (AES_Security) {
         NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
         NSString * aesString = [Security AesEncrypt:jsonString2];
-        paraDict = @{
-                     @"data":aesString,
-                     };
+        paraDict = @{@"data":aesString,};
     }
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-
     [EDSHttpReqManager3 getorderregion:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:HUD];
-        
-        
         NSString * message = [responseObject objectForKey:@"message"];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
             NSArray * regionArray = [responseObject objectForKey:@"result"];
             [_Hp_RegionArray removeAllObjects];
-
             for (NSDictionary * aregionDict in regionArray) {
                 Hp9CellRegionModel * aRegion = [[Hp9CellRegionModel alloc] initWithDic:aregionDict];
                 [_Hp_RegionArray addObject:aRegion];
             }
-            
-            
+            [self config9Cells];
             [_Hp_9cells reloadData];
+            [self getAllowInputMoney];
 //            if (9 == regionArray.count) {   // 九宫格
 //                [self _removeOtherSituationViews];
-//
 //            }else{
 //                [self _showOtherSituationView9CellShortage];
 //            }
-            
         }else{
-            [Tools showProgressWithTitle:message];
+            [Tools showHUD:message];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
@@ -212,7 +252,7 @@
     
 }
 
-/// test是否需要输入金额
+/// 是否需要输入金额
 - (void)getAllowInputMoney{
     /// 是否需要输入金额
     NSDictionary * paraDict = @{
@@ -225,27 +265,25 @@
                      @"data":aesString,
                      };
     }
-    
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    
     [EDSHttpReqManager3 getisallowinputmoney:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:HUD];
         NSString * message = [responseObject objectForKey:@"message"];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
             NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
-            NSLog(@"%ld",result);
+            // NSLog(@"%ld",result);
             // 0 需要 1 不需要
+            _allowInputMoney = result;
         }else{
-            NSLog(@"%@",message);
+            NSLog(@"getAllowInputMoney %@",message);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
-        
     }];
 }
 
-
+/// 发布订单接口
 - (void)tstPushOrder{
     
     NSDictionary * aregionsss = @{@"orderCount":[NSNumber numberWithInteger:5],@"orderRegionTwoId":[NSNumber numberWithInteger:4],@"orderRegionOneId":[NSNumber numberWithInteger:1],};
@@ -277,7 +315,6 @@
                      @"data":aesString,
                      };
     }
-    
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
     
     [EDSHttpReqManager3 pushOrderData:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -297,41 +334,6 @@
     }];
 
 }
-
-
-- (void)tstRemoveClienter:(NSInteger)relationId{
-    // 117
-    NSDictionary * paraDict = @{
-                                @"businessId":[NSNumber numberWithInt:260],
-                                @"clienterId":[NSNumber numberWithInteger:relationId],
-                                @"remark":@"解除绑定原因必须在5-100字符之间",
-                                };
-    if (AES_Security) {
-        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-        NSString * aesString = [Security AesEncrypt:jsonString2];
-        paraDict = @{
-                     @"data":aesString,
-                     };
-    }
-    
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    
-    
-    [EDSHttpReqManager3 removerelation:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [Tools hiddenProgress:HUD];
-        NSString * message = [responseObject objectForKey:@"message"];
-        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-        if (1 == status) {
-
-        }else{
-            NSLog(@"%@",message);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [Tools hiddenProgress:HUD];
-        
-    }];
-}
-
 
 #pragma mark - 审核未通过的其他情况
 /// 审核未通过的其他情况
@@ -403,6 +405,55 @@
     [_otherSituationView addSubview:_otherSituation9CellShortageContent];
     [self.view addSubview:_otherSituationView];
 
+}
+
+#pragma mark - 发布任务Action:
+- (IBAction)hpReleaseBtnAction:(UIButton *)sender {
+    NSLog(@"%s",__func__);
+}
+
+#pragma mark 键盘相关处理
+- (void)keyboardWillShow:(NSNotification*)notification {
+    
+    NSDictionary *userInfo = [notification userInfo];
+    CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    [UIView animateWithDuration:[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                     animations:^{
+                         [_Hp_Scroller changeFrameHeight:ScreenHeight - keyboardRect.size.height - 64];
+                         UIView *firstResponder = [Tools findFirstResponderFromView:_Hp_Scroller];
+                         [_Hp_Scroller scrollRectToVisible:CGRectInset(firstResponder.frame, 0, -20) animated:YES];
+                     }];
+}
+
+- (void)keyboardWillHide:(NSNotification*)notification {
+    
+    NSDictionary *userInfo = [notification userInfo];
+    [UIView animateWithDuration:[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                     animations:^{
+                         [_Hp_Scroller changeFrameHeight:ScreenHeight - 64 ];
+                     }];
+}
+
+// HpMaxMoney
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([string isEqualToString:@"\n"])
+    {
+        return YES;
+    }
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (_Hp_view2_textfield == textField) {
+        if ([toBeString integerValue] > HpMaxMoney ) {
+            textField.text = [NSString stringWithFormat:@"%d",HpMaxMoney];
+            [Tools showHUD:HpBeyondMaxMoneyErrString];
+            return NO;
+        }
+        if ([toBeString length] > 5) {
+            textField.text = [toBeString substringToIndex:5];
+            [Tools showHUD:@"最大5位"];
+            return NO;
+        }
+    }
+    return YES;
 }
 
 #pragma mark - UINavigationControllerDelegate

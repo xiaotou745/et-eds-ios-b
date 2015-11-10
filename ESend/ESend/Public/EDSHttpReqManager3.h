@@ -49,10 +49,10 @@
                                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
-/// 1.1.6 骑士绑定商户 url:/services/business/bindclienterbusiness POST  // 骑士端接口
-+ (AFHTTPRequestOperation *)bindclienterbusiness:(NSDictionary *)data
-                                         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+///// 1.1.6 骑士绑定商户 url:/services/business/bindclienterbusiness POST  // 骑士端接口
+//+ (AFHTTPRequestOperation *)bindclienterbusiness:(NSDictionary *)data
+//                                         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+//                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 
 /// 1.1.8 商戶端 我的骑士 申请中 同意/拒绝功能 url:/business/optbindclienter POST

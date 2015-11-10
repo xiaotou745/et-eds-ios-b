@@ -9,32 +9,31 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="gTV-IL-0wX" customClass="Hp9ItemCell">
-            <rect key="frame" x="0.0" y="0.0" width="107" height="94"/>
+            <rect key="frame" x="0.0" y="0.0" width="86" height="68"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="107" height="94"/>
+                <rect key="frame" x="0.0" y="0.0" width="86" height="68"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iaP-hJ-bW2" userLabel="contentview">
-                        <rect key="frame" x="15" y="15" width="92" height="79"/>
+                        <rect key="frame" x="15" y="15" width="71" height="53"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="on7-f1-IcZ" userLabel="placeholder">
-                                <rect key="frame" x="0.0" y="0.0" width="92" height="26"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gy-ak-Uar" userLabel="name">
-                                <rect key="frame" x="0.0" y="26" width="92" height="27"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FWM-vc-q4z" userLabel="count">
-                                <rect key="frame" x="0.0" y="53" width="92" height="26"/>
+                                <rect key="frame" x="0.0" y="35" width="71" height="18"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="ZC1-Ll-QKE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gy-ak-Uar" userLabel="name">
+                                <rect key="frame" x="0.0" y="8" width="71" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="cdN-3T-QJA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -42,18 +41,12 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="5gy-ak-Uar" firstAttribute="top" secondItem="on7-f1-IcZ" secondAttribute="bottom" id="03o-Xa-7yg"/>
-                            <constraint firstItem="FWM-vc-q4z" firstAttribute="width" secondItem="on7-f1-IcZ" secondAttribute="width" id="6aw-Tp-Aa0"/>
-                            <constraint firstItem="on7-f1-IcZ" firstAttribute="leading" secondItem="iaP-hJ-bW2" secondAttribute="leading" id="CXK-8y-vA4"/>
-                            <constraint firstAttribute="trailing" secondItem="FWM-vc-q4z" secondAttribute="trailing" id="cG0-aP-Raz"/>
-                            <constraint firstItem="5gy-ak-Uar" firstAttribute="height" secondItem="on7-f1-IcZ" secondAttribute="height" id="dvZ-aN-0H4"/>
-                            <constraint firstItem="FWM-vc-q4z" firstAttribute="height" secondItem="on7-f1-IcZ" secondAttribute="height" id="fKG-1o-kVZ"/>
-                            <constraint firstAttribute="trailing" secondItem="5gy-ak-Uar" secondAttribute="trailing" id="glc-xU-KBs"/>
-                            <constraint firstItem="on7-f1-IcZ" firstAttribute="top" secondItem="iaP-hJ-bW2" secondAttribute="top" id="k7N-5b-p2S"/>
-                            <constraint firstAttribute="trailing" secondItem="on7-f1-IcZ" secondAttribute="trailing" id="llz-gV-nzc"/>
-                            <constraint firstAttribute="bottom" secondItem="FWM-vc-q4z" secondAttribute="bottom" id="moc-Lx-uex"/>
-                            <constraint firstItem="5gy-ak-Uar" firstAttribute="width" secondItem="on7-f1-IcZ" secondAttribute="width" id="qkk-Gc-y5Y"/>
-                            <constraint firstItem="FWM-vc-q4z" firstAttribute="top" secondItem="5gy-ak-Uar" secondAttribute="bottom" id="umx-Ry-OeG"/>
+                            <constraint firstAttribute="trailing" secondItem="5gy-ak-Uar" secondAttribute="trailing" id="6m0-4X-1FV"/>
+                            <constraint firstItem="FWM-vc-q4z" firstAttribute="leading" secondItem="iaP-hJ-bW2" secondAttribute="leading" id="Epd-T8-zcq"/>
+                            <constraint firstAttribute="trailing" secondItem="FWM-vc-q4z" secondAttribute="trailing" id="Xse-uP-vug"/>
+                            <constraint firstItem="FWM-vc-q4z" firstAttribute="top" secondItem="5gy-ak-Uar" secondAttribute="bottom" id="Y5b-Gh-dky"/>
+                            <constraint firstItem="5gy-ak-Uar" firstAttribute="leading" secondItem="iaP-hJ-bW2" secondAttribute="leading" id="Z42-29-lRi"/>
+                            <constraint firstAttribute="bottom" secondItem="FWM-vc-q4z" secondAttribute="bottom" id="gB7-I3-e0z"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWB-Ev-ptn" userLabel="--">
@@ -64,7 +57,7 @@
                             <constraint firstAttribute="width" secondItem="gWB-Ev-ptn" secondAttribute="height" multiplier="1:1" id="kEp-bP-vgf"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <state key="normal" title="--">
+                        <state key="normal" image="9cell_minus">
                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -91,4 +84,7 @@
             <point key="canvasLocation" x="351.5" y="272"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="9cell_minus" width="30" height="30"/>
+    </resources>
 </document>

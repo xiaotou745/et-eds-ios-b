@@ -15,6 +15,9 @@
     if (self = [super init]) {
         self.regionId = [[dic objectForKey:@"id"] integerValue];
         self.regionName = [dic objectForKey:@"regionName"];
+        
+        //
+        self.orderCount = 0;
     }
     return self;
 }

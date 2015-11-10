@@ -7,24 +7,31 @@
 //
 
 #import "Hp9ItemCell.h"
+#import "UIColor+KMhexColor.h"
 
 @implementation Hp9ItemCell
 
 - (void)awakeFromNib {
     // Initialization code
     self.contents.layer.borderWidth = 0.5f;
-    self.contents.layer.borderColor = [[UIColor blackColor] CGColor];
+    self.contents.layer.borderColor = [SeparatorColorC CGColor];
+    self.contents.layer.cornerRadius = 4;
+    self.contents.layer.masksToBounds = YES;
+    self.contents.backgroundColor = [UIColor km_colorWithHexString:@"FAFAFA"];
     
-    self.minusButton.layer.borderColor = [[UIColor redColor] CGColor];
-    self.minusButton.layer.borderWidth = 0.5f;
-    self.minusButton.layer.cornerRadius = 5.0f;
+    self.regionName.textColor = DeepGrey;
+    self.countLabel.textColor = [UIColor km_colorWithHexString:@"f7585d"];
+    
+//    self.minusButton.layer.borderColor = [[UIColor redColor] CGColor];
+//    self.minusButton.layer.borderWidth = 0.5f;
+//    self.minusButton.layer.cornerRadius = 5.0f;
     
     [self.minusButton addTarget:self action:@selector(minusButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     // 监听
     [self addObserver:self forKeyPath:@"orderCount" options:NSKeyValueObservingOptionNew context:NULL];
     
     
-    self.orderCount = 0;
+    //self.orderCount = 0;
 }
 
 - (void)minusButtonAction:(id)sender{
@@ -45,9 +52,16 @@
 }
 
 - (void)updateItemUIForKeypath:(NSString *)keypath{
+    if (self.orderCount > 0) {
+        self.contents.backgroundColor = [UIColor km_colorWithHexString:@"E2E2E2"];
+        self.countLabel.backgroundColor = [UIColor km_colorWithHexString:@"D3D3D3"];
+    }else{
+        self.contents.backgroundColor = [UIColor km_colorWithHexString:@"FAFAFA"];
+        self.countLabel.backgroundColor = [UIColor km_colorWithHexString:@"FAFAFA"];
+    }
     // 隐藏 按钮； 刷新  订单数量
     self.minusButton.hidden = !(self.orderCount > 0);
-    self.countLabel.text = (self.orderCount>0)?[NSString stringWithFormat:@"%ld",self.orderCount]:@"" ;
+    self.countLabel.text = (self.orderCount>0)?[NSString stringWithFormat:@"%ld单",self.orderCount]:@"" ;
 }
 
 /// minnusbutton关注 数据的订单单数
@@ -57,7 +71,8 @@
 
 - (void)setDataModel:(Hp9CellRegionModel *)dataModel{
     _dataModel = dataModel;
-    self.regionName.text = [NSString stringWithFormat:@"%ld%@",_dataModel.regionId,_dataModel.regionName];
+    self.orderCount = 0;
+    self.regionName.text = [NSString stringWithFormat:@"%@",_dataModel.regionName];
 }
 
 @end

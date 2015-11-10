@@ -11,4 +11,8 @@
 @interface Hp9cellSecondaryRegion : BaseModel
 @property (assign, nonatomic) NSInteger regionId;
 @property (nonatomic, copy) NSString * regionName;
+
+// 加入订单数量
+@property (assign, nonatomic) NSInteger orderCount;
+
 @end
