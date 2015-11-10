@@ -541,6 +541,8 @@
 		685E53B11BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */; settings = {ASSET_TAGS = (); }; };
 		685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; settings = {ASSET_TAGS = (); }; };
 		685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; settings = {ASSET_TAGS = (); }; };
+		6864214C1BF1F5F30046565D /* HpSecondaryRegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6864214B1BF1F5F30046565D /* HpSecondaryRegionView.m */; settings = {ASSET_TAGS = (); }; };
+		6864214D1BF1F5F30046565D /* HpSecondaryRegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6864214B1BF1F5F30046565D /* HpSecondaryRegionView.m */; settings = {ASSET_TAGS = (); }; };
 		686745441BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
 		686745451BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
 		686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */; };
@@ -1611,6 +1613,8 @@
 		685E53AD1BBB878E00BE429C /* EDSBillStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsVC.h; sourceTree = "<group>"; };
 		685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsVC.m; sourceTree = "<group>"; };
 		685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsVC.xib; sourceTree = "<group>"; };
+		6864214A1BF1F5F30046565D /* HpSecondaryRegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HpSecondaryRegionView.h; sourceTree = "<group>"; };
+		6864214B1BF1F5F30046565D /* HpSecondaryRegionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HpSecondaryRegionView.m; sourceTree = "<group>"; };
 		686745411BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDeliveryInfoCell.h; sourceTree = "<group>"; };
 		686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDeliveryInfoCell.m; sourceTree = "<group>"; };
 		686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryInfoCell.xib; sourceTree = "<group>"; };
@@ -3230,6 +3234,8 @@
 				688B35671BE89BE3008358B2 /* Hp9CellRegionModel.m */,
 				688B356A1BE89CAC008358B2 /* Hp9cellSecondaryRegion.h */,
 				688B356B1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m */,
+				6864214A1BF1F5F30046565D /* HpSecondaryRegionView.h */,
+				6864214B1BF1F5F30046565D /* HpSecondaryRegionView.m */,
 			);
 			path = 9CellViews;
 			sourceTree = "<group>";
@@ -4741,6 +4747,7 @@
 				685C0F511BF06AC300AAD77C /* ZXDataMatrixReader.m in Sources */,
 				F67D35C81B5664A600083DA4 /* SelectBankPicker.m in Sources */,
 				685C0EF91BF06AC300AAD77C /* ZXBitSource.m in Sources */,
+				6864214D1BF1F5F30046565D /* HpSecondaryRegionView.m in Sources */,
 				68AE2BDD1BC8E95600E8149C /* EDSBillStatisticsDayCell.m in Sources */,
 				685C10331BF06AC400AAD77C /* ZXQRCodeWriter.m in Sources */,
 				685C10071BF06AC400AAD77C /* ZXQRCodeDecodedBitStreamParser.m in Sources */,
@@ -5198,6 +5205,7 @@
 				685C0F501BF06AC300AAD77C /* ZXDataMatrixReader.m in Sources */,
 				E48ECF901B3F8DE200F09660 /* LMJPageControl.m in Sources */,
 				685C0EF81BF06AC300AAD77C /* ZXBitSource.m in Sources */,
+				6864214C1BF1F5F30046565D /* HpSecondaryRegionView.m in Sources */,
 				68AE2BDC1BC8E95600E8149C /* EDSBillStatisticsDayCell.m in Sources */,
 				685C10321BF06AC400AAD77C /* ZXQRCodeWriter.m in Sources */,
 				685C10061BF06AC400AAD77C /* ZXQRCodeDecodedBitStreamParser.m in Sources */,
