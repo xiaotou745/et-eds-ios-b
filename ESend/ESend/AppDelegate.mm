@@ -128,7 +128,7 @@
     [FHQNetWorkingAPI getCityList:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        NSLog(@"%@",operation.responseObject);
+        // NSLog(@"%@",operation.responseObject);
         NSDictionary *result = operation.responseObject;
         if ([result getIntegerWithKey:@"Status"] == 0) {
             if ([[[result getDictionaryWithKey:@"Result"] getArrayWithKey:@"AreaModels"] count] == 0) {
@@ -479,7 +479,7 @@
                 [UserInfo saveMaxDate:MaxDate];
             }
             if (ConsigneeAdressBDM.count > 0) {
-                NSLog(@"arr:%@",ConsigneeAdressBDM);
+                // NSLog(@"arr:%@",ConsigneeAdressBDM);
                 // 存本地
                 [self storeConsignees:ConsigneeAdressBDM];
             }else{

@@ -20,6 +20,9 @@
             [secondaryRegionList addObject:secondaryRegion];
         }
         self.twoOrderRegionList = [[NSArray alloc] initWithArray:secondaryRegionList];
+        
+        //
+        self.orderCount = 0;
     }
     return self;
 }

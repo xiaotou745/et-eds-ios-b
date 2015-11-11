@@ -73,6 +73,8 @@
 		6811E0D41BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */; settings = {ASSET_TAGS = (); }; };
 		684A39AC1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; settings = {ASSET_TAGS = (); }; };
 		684A39AD1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; settings = {ASSET_TAGS = (); }; };
+		6855C2801BF2DE9600772385 /* Hp9ItemSecondaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6855C27E1BF2DE9600772385 /* Hp9ItemSecondaryCell.m */; settings = {ASSET_TAGS = (); }; };
+		6855C2811BF2DE9600772385 /* Hp9ItemSecondaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6855C27E1BF2DE9600772385 /* Hp9ItemSecondaryCell.m */; settings = {ASSET_TAGS = (); }; };
 		68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C891BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C8A1BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */; };
@@ -1134,6 +1136,8 @@
 		6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayBillDetailInfo.m; sourceTree = "<group>"; };
 		684A39AA1BD644E60076CE8D /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		6855C27D1BF2DE9600772385 /* Hp9ItemSecondaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hp9ItemSecondaryCell.h; sourceTree = "<group>"; };
+		6855C27E1BF2DE9600772385 /* Hp9ItemSecondaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hp9ItemSecondaryCell.m; sourceTree = "<group>"; };
 		68580C851BA7BB7E0082C18C /* EDSOrderStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSOrderStatisticsVC.h; path = ../EDSOrderStatisticsVC.h; sourceTree = "<group>"; };
 		68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDSOrderStatisticsVC.m; path = ../EDSOrderStatisticsVC.m; sourceTree = "<group>"; };
 		68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EDSOrderStatisticsVC.xib; path = ../EDSOrderStatisticsVC.xib; sourceTree = "<group>"; };
@@ -3236,6 +3240,8 @@
 				688B356B1BE89CAC008358B2 /* Hp9cellSecondaryRegion.m */,
 				6864214A1BF1F5F30046565D /* HpSecondaryRegionView.h */,
 				6864214B1BF1F5F30046565D /* HpSecondaryRegionView.m */,
+				6855C27D1BF2DE9600772385 /* Hp9ItemSecondaryCell.h */,
+				6855C27E1BF2DE9600772385 /* Hp9ItemSecondaryCell.m */,
 			);
 			path = 9CellViews;
 			sourceTree = "<group>";
@@ -4525,6 +4531,7 @@
 				F67D356F1B5664A600083DA4 /* InfoInTheReviewViewController.m in Sources */,
 				F67D35701B5664A600083DA4 /* MessageDetailViewController.m in Sources */,
 				685C0F551BF06AC300AAD77C /* ZXMaxiCodeBitMatrixParser.m in Sources */,
+				6855C2811BF2DE9600772385 /* Hp9ItemSecondaryCell.m in Sources */,
 				688B37C01BE308210012C60B /* Hp9ItemCell.m in Sources */,
 				685C10291BF06AC400AAD77C /* ZXQRCodeMatrixUtil.m in Sources */,
 				F67D35711B5664A600083DA4 /* NSDataEx.m in Sources */,
@@ -4983,6 +4990,7 @@
 				F62E8D151B30188F006F3862 /* MessageDetailViewController.m in Sources */,
 				F6441B521B3D470100EA3C9D /* NSDataEx.m in Sources */,
 				685C0F541BF06AC300AAD77C /* ZXMaxiCodeBitMatrixParser.m in Sources */,
+				6855C2801BF2DE9600772385 /* Hp9ItemSecondaryCell.m in Sources */,
 				688B37BF1BE308210012C60B /* Hp9ItemCell.m in Sources */,
 				685C10281BF06AC400AAD77C /* ZXQRCodeMatrixUtil.m in Sources */,
 				F6C6AC381B12F2640007A980 /* AppDelegate.mm in Sources */,

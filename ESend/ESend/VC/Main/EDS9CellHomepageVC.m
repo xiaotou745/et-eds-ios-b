@@ -174,7 +174,7 @@
         // secondary
         NSLog(@"有二级区域");
     }else{
-        cell.orderCount ++;
+        cell.dataModel.orderCount ++;
     }
 }
 
@@ -410,6 +410,7 @@
 #pragma mark - 发布任务Action:
 - (IBAction)hpReleaseBtnAction:(UIButton *)sender {
     NSLog(@"%s",__func__);
+    NSLog(@"%@",_Hp_RegionArray);
 }
 
 #pragma mark 键盘相关处理

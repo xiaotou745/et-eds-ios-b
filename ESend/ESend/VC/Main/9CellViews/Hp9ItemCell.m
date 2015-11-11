@@ -28,18 +28,18 @@
     
     [self.minusButton addTarget:self action:@selector(minusButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     // 监听
-    [self addObserver:self forKeyPath:@"orderCount" options:NSKeyValueObservingOptionNew context:NULL];
+    [self addObserver:self forKeyPath:@"dataModel.orderCount" options:NSKeyValueObservingOptionNew context:NULL];
     
     
     //self.orderCount = 0;
 }
 
 - (void)minusButtonAction:(id)sender{
-    self.orderCount -- ;
+    self.dataModel.orderCount -- ;
 }
 
 - (void)dealloc{
-    [self removeObserver:self forKeyPath:@"orderCount"];
+    [self removeObserver:self forKeyPath:@"dataModel.orderCount"];
 }
 
 
@@ -52,7 +52,7 @@
 }
 
 - (void)updateItemUIForKeypath:(NSString *)keypath{
-    if (self.orderCount > 0) {
+    if (self.dataModel.orderCount > 0) {
         self.contents.backgroundColor = [UIColor km_colorWithHexString:@"E2E2E2"];
         self.countLabel.backgroundColor = [UIColor km_colorWithHexString:@"D3D3D3"];
     }else{
@@ -60,8 +60,8 @@
         self.countLabel.backgroundColor = [UIColor km_colorWithHexString:@"FAFAFA"];
     }
     // 隐藏 按钮； 刷新  订单数量
-    self.minusButton.hidden = !(self.orderCount > 0);
-    self.countLabel.text = (self.orderCount>0)?[NSString stringWithFormat:@"%ld单",self.orderCount]:@"" ;
+    self.minusButton.hidden = !(self.dataModel.orderCount > 0);
+    self.countLabel.text = (self.dataModel.orderCount>0)?[NSString stringWithFormat:@"%ld单",self.dataModel.orderCount]:@"" ;
 }
 
 /// minnusbutton关注 数据的订单单数
@@ -71,7 +71,6 @@
 
 - (void)setDataModel:(Hp9CellRegionModel *)dataModel{
     _dataModel = dataModel;
-    self.orderCount = 0;
     self.regionName.text = [NSString stringWithFormat:@"%@",_dataModel.regionName];
 }
 
