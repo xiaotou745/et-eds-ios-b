@@ -32,16 +32,17 @@
 
 - (void)configUIViews{
     
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = BackgroundColor;
+    
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, 30)];
-        _titleLabel.backgroundColor = [UIColor blackColor];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, ScreenWidth, 44)];
+        _titleLabel.backgroundColor = BackgroundColor;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.textColor     = [UIColor blackColor];
+        _titleLabel.textColor     = DeepGrey;
         _titleLabel.font          = FONT_SIZE(BigFontSize);
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
+        UITapGestureRecognizer * tapTitle = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
         _titleLabel.userInteractionEnabled = YES;
-        [_titleLabel addGestureRecognizer:tap];
+        [_titleLabel addGestureRecognizer:tapTitle];
     }
     _titleLabel.text = self.regionName;
     [self addSubview:_titleLabel];
@@ -50,13 +51,17 @@
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
         [flowLayout setItemSize:CGSizeMake(86, 68)];//设置cell的尺寸
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
-        flowLayout.sectionInset = UIEdgeInsetsMake(5, 5, 5, 5);//设置其边界
-        //其布局很有意思，当你的cell设置大小后，一行多少个cell，由cell的宽度决定
+        flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);//设置其边界
+        flowLayout.minimumLineSpacing = 10;
+        flowLayout.minimumInteritemSpacing = 10;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 94, ScreenWidth, ScreenHeight - 100) collectionViewLayout:flowLayout];
-        _collectionView.backgroundColor = [UIColor yellowColor];
-
-
+        NSInteger rows = (self.dataSource.count%3 == 0)?self.dataSource.count/3:self.dataSource.count/3 + 1;
+        CGFloat collectionHeight = flowLayout.minimumLineSpacing * (rows - 1) + flowLayout.sectionInset.top + flowLayout.sectionInset.bottom + flowLayout.itemSize.height * rows;
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_titleLabel.frame), ScreenWidth, collectionHeight) collectionViewLayout:flowLayout];
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.layer.borderColor = [SeparatorColorC CGColor];
+        _collectionView.layer.borderWidth = 0.5f;
+        
     }
     UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([Hp9ItemSecondaryCell class]) bundle:nil];
     [_collectionView registerNib:cellNib forCellWithReuseIdentifier:EDS9cell2ndRegionViewCellId];
@@ -64,47 +69,26 @@
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
     [self addSubview:_collectionView];
-
+    
+    UIView * maskView = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_collectionView.frame), ScreenWidth, ScreenHeight - CGRectGetHeight(_collectionView.frame) - 64)];
+    maskView.backgroundColor = BackgroundColor;
+    maskView.userInteractionEnabled = YES;
+    UITapGestureRecognizer * tapMask = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
+    [maskView addGestureRecognizer:tapMask];
+    [self addSubview:maskView];
 }
 
 #pragma mark - show & hide
 
 - (void)show{
     [[[[UIApplication sharedApplication] windows] firstObject] addSubview:self];
-    self.layer.transform = CATransform3DMakeScale(1.3f, 0.9f, 1.0);
-    
-    [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         self.backgroundColor = [UIColor whiteColor];
-                         self.layer.opacity = 1.0f;
-                         self.layer.transform = CATransform3DMakeScale(1, 1, 1);
-                     }
-                     completion:^(BOOL finished) {
-//                         if (![NSThread isMainThread]) {
-//                             [_collectionView reloadData];
-//                         } else {
-//                             [_collectionView reloadData];
-//                         }
-                     }
-     ];
 }
 
 - (void)close{
-    CATransform3D currentTransform = self.layer.transform;
-    self.layer.opacity = 1.0f;
-    [UIView animateWithDuration:0.2f delay:0.0 options:UIViewAnimationOptionTransitionNone
-                     animations:^{
-                         self.backgroundColor = [UIColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.0f];
-                         self.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeScale(0.6f, 0.6f, 1.0));
-                         self.layer.opacity = 0.0f;
-                     }
-                     completion:^(BOOL finished) {
-                         for (UIView *v in [self subviews]) {
-                             [v removeFromSuperview];
-                         }
-                         [self removeFromSuperview];
-                     }
-     ];
+    for (UIView *v in [self subviews]) {
+        [v removeFromSuperview];
+    }
+    [self removeFromSuperview];
 }
 
 

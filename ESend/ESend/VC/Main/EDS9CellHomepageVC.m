@@ -25,12 +25,18 @@
 @interface EDS9CellHomepageVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,UINavigationControllerDelegate,Hp9ItemCellDelegate>
 {
     // 其他情况的
-    UIView * _otherSituationView;
+    UIView * _otherSituationView;           // bg
     UIImageView * _otherSituationImgView;   // img
     UILabel * _otherSituationTextLabel;     // label
+    /// 正在显示状态不对的情况
+    BOOL _otherSituationShowing;            // flag
     
+    UIView * _otherSituation9CellView;              // 9 cell shortage bg
+    UIImageView * _otherSituationImg;               // 9 cell shortage img
     UILabel * _otherSituation9CellShortageTitle;    // 9 cell shortage title
     UILabel * _otherSituation9CellShortageContent;  // 9 cell shortage content
+    /// 正在显示不足九宫格的情况
+    BOOL _otherSitua9CellShortageShowing;           // flag
     
     // 是否配置过 config9Cells
     BOOL _9cellsHasConfiged;
@@ -56,7 +62,6 @@
 
 // 发布任务按钮
 @property (strong, nonatomic) IBOutlet UIButton *releaseButton;
-
 @property (strong, nonatomic) NSMutableArray * Hp_RegionArray;
 
 @end
@@ -78,6 +83,9 @@
     
     [self configNavTitle];
     [self _configNibViews];
+    
+    self.Hp_Scroller.hidden = YES;
+    self.releaseButton.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -85,7 +93,6 @@
     // 只有登录了才能到这个界面。
     // 用户状态
      [self synchronizeTheBusinessStatus];
-    //[self synchronizeBusiness9CellRegionInfo];
 }
 
 
@@ -105,7 +112,7 @@
     // right
     [self.rightBtn setImage:[UIImage imageNamed:@"9cell_order"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(todaysOrdersBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    // self.rightBtn.hidden = YES;
+     self.rightBtn.hidden = YES;
 }
 
 - (void)_configNibViews{
@@ -202,9 +209,14 @@
             NSInteger userStatus = [[[responseObject objectForKey:@"Result"] objectForKey:@"status"] integerValue];
             //
             if (1 == userStatus) { // 审核通过
+                if (_otherSituationShowing) {
+                    [self _removeOtherSituationViews];
+                }
                 [self synchronizeBusiness9CellRegionInfo];
             }else{
-                [self _showOtherSituationViewWithStatus:userStatus];
+                if (!_otherSituationShowing) {
+                    [self _showOtherSituationViewWithStatus:userStatus];
+                }
             }
         }else{
             [Tools showHUD:Message];
@@ -219,7 +231,7 @@
 /// 获取商户用户的9个区域信息
 - (void)synchronizeBusiness9CellRegionInfo{
     NSDictionary * paraDict = @{
-                                @"businessId":[NSNumber numberWithInteger:260],//[UserInfo getUserId],
+                                @"businessId":[UserInfo getUserId],//[UserInfo getUserId],
                                 @"status":[NSNumber numberWithInt:1],
                                 };
     if (AES_Security) {
@@ -242,11 +254,19 @@
             [self config9Cells];
             [_Hp_9cells reloadData];
             [self getAllowInputMoney];
-//            if (9 == regionArray.count) {   // 九宫格
-//                [self _removeOtherSituationViews];
-//            }else{
-//                [self _showOtherSituationView9CellShortage];
-//            }
+            if (9 == regionArray.count) {   // 九宫格
+                if (_otherSitua9CellShortageShowing) {  // 显示不足九个，则去除
+                    [self _removeOtherSituation9cellViews];
+                }
+                //
+                self.Hp_Scroller.hidden = NO;
+                self.releaseButton.hidden = NO;
+
+            }else{ // 显示不足九个的情况
+                if (!_otherSitua9CellShortageShowing) { // 没显示才显示
+                    [self _showOtherSituationView9CellShortage];
+                }
+            }
         }else{
             [Tools showHUD:message];
         }
@@ -261,7 +281,7 @@
 - (void)getAllowInputMoney{
     /// 是否需要输入金额
     NSDictionary * paraDict = @{
-                                @"businessId":[NSNumber numberWithInt:260],
+                                @"businessId":[UserInfo getUserId],
                                 };
     if (AES_Security) {
         NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
@@ -278,7 +298,7 @@
         if (1 == status) {
             NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
             // NSLog(@"%ld",result);
-            // 0 需要 1 不需要
+            // 0 普通模式 需要;    1 （快单模式）不需要
             _allowInputMoney = result;
         }else{
             NSLog(@"getAllowInputMoney %@",message);
@@ -306,7 +326,7 @@
     }
     
     NSDictionary * paraDict = @{
-                                @"businessid":[NSNumber numberWithInt:260],
+                                @"businessid":[UserInfo getUserId],
                                 @"ordercount":[NSNumber numberWithInteger:10],
                                 @"amount":[NSNumber numberWithInteger:100],
                                 @"orderfrom":[NSNumber numberWithInteger:0],
@@ -343,8 +363,9 @@
 #pragma mark - 审核未通过的其他情况
 /// 审核未通过的其他情况
 - (void)_showOtherSituationViewWithStatus:(NSInteger)statusCode{
-    [self _removeOtherSituationViews];
-    
+    if (_otherSituationShowing) {
+        return;
+    }
     if (!_otherSituationView) {
         _otherSituationView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
         _otherSituationView.backgroundColor = [UIColor whiteColor];
@@ -368,9 +389,11 @@
     _otherSituationTextLabel.text = (0 == statusCode)?@"您目前没有提交审核资料，无法发单!":@"您提交的资料正在审核中，无法发单!";
     [_otherSituationView addSubview:_otherSituationTextLabel];
     [self.view addSubview:_otherSituationView];
+    
+    _otherSituationShowing = YES;
 }
 
-/// 清空otherSituationView
+/// 清空-- 状态不对的
 - (void)_removeOtherSituationViews{
     if (_otherSituationView) {
         for (UIView * aview in _otherSituationView.subviews) {
@@ -378,26 +401,48 @@
         }
         [_otherSituationView removeFromSuperview];
     }
+    _otherSituationShowing = NO;
+}
+
+/// 清空不足九宫格的情况
+- (void)_removeOtherSituation9cellViews{
+    if (_otherSitua9CellShortageShowing) {
+        for (UIView * aview in _otherSituation9CellView.subviews) {
+            [aview removeFromSuperview];
+        }
+        [_otherSituation9CellView removeFromSuperview];
+    }
+    self.titleLabel.text = @"发布任务";
+    _otherSitua9CellShortageShowing = NO;
 }
 
 /// 九宫格不满九个格子的情况
 - (void)_showOtherSituationView9CellShortage{
-    [self _removeOtherSituationViews];
     
-    if (!_otherSituationView) {
-        _otherSituationView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
-        _otherSituationView.backgroundColor = [UIColor whiteColor];
+    if (_otherSitua9CellShortageShowing) {
+        return;
     }
+    if (!_otherSituation9CellView) {
+        _otherSituation9CellView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight - 64)];
+        _otherSituation9CellView.backgroundColor = BackgroundColor;
+    }
+    if (!_otherSituationImg) {
+        _otherSituationImg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 75, 100)];
+        _otherSituationImg.backgroundColor = [UIColor clearColor];
+    }
+    _otherSituationImg.image = [UIImage imageNamed:@"9cell_shortage_img"];
+    _otherSituationImg.center = CGPointMake(ScreenWidth/2, (ScreenHeight-64)/3);
+    [_otherSituation9CellView addSubview:_otherSituationImg];
+    
     if (!_otherSituation9CellShortageTitle) {
-        _otherSituation9CellShortageTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 30)];
+        _otherSituation9CellShortageTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_otherSituationImg) + Space_Normal, ScreenWidth, 30)];
         _otherSituation9CellShortageTitle.text = @"请在电脑版商户中心设置配送区域！";
         _otherSituation9CellShortageTitle.backgroundColor = [UIColor clearColor];
         _otherSituation9CellShortageTitle.textAlignment = NSTextAlignmentCenter;
         _otherSituation9CellShortageTitle.textColor = DeepGrey;
         _otherSituation9CellShortageTitle.font = FONT_SIZE(BigFontSize);
     }
-    _otherSituation9CellShortageTitle.center = CGPointMake(ScreenWidth/2, (ScreenHeight-64)/3);
-    [_otherSituationView addSubview:_otherSituation9CellShortageTitle];
+    [_otherSituation9CellView addSubview:_otherSituation9CellShortageTitle];
     
     if (!_otherSituation9CellShortageContent) {
         _otherSituation9CellShortageContent = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_otherSituation9CellShortageTitle) +Space_Normal, ScreenWidth, 20)];
@@ -407,15 +452,18 @@
         _otherSituation9CellShortageContent.textColor = DeepGrey;
         _otherSituation9CellShortageContent.font = FONT_SIZE(NormalFontSize);
     }
-    [_otherSituationView addSubview:_otherSituation9CellShortageContent];
-    [self.view addSubview:_otherSituationView];
-
+    [_otherSituation9CellView addSubview:_otherSituation9CellShortageContent];
+    [self.view addSubview:_otherSituation9CellView];
+    
+    self.titleLabel.text = @"E代送商户";
+    _otherSitua9CellShortageShowing = YES;
 }
 
 #pragma mark - 发布任务Action:
 - (IBAction)hpReleaseBtnAction:(UIButton *)sender {
     NSLog(@"%s",__func__);
     NSLog(@"%@",_Hp_RegionArray);
+    
 }
 
 #pragma mark 键盘相关处理

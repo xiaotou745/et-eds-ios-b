@@ -255,7 +255,7 @@ fprintf(stderr, "-------\n");                                               \
     #define UPLOAD_IMAGE_API_SERVER @"" //上传图片地址
     #define UPDATE_APP_API_SERVER  @""// 升级接口
 
-    #if 1
+    #if 0
         #define Java_API_SERVER @"http://10.8.7.42:8094/api-http/services/" // java服务器-不加密
     #elif 1
         #define Java_API_SERVER @"http://10.8.7.253:7178/api-http/services/" // java服务器-加密

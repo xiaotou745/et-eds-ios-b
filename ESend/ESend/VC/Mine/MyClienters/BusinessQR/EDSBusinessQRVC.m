@@ -13,6 +13,7 @@
 #import "Security.h"
 
 @interface EDSBusinessQRVC ()
+@property (strong, nonatomic) IBOutlet UIView *QR_bigBg;
 @property (strong, nonatomic) IBOutlet UIView *QR_BgView;
 @property (strong, nonatomic) IBOutlet UILabel *QR_Name;
 @property (strong, nonatomic) IBOutlet UILabel *QR_Phone;
@@ -26,7 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.titleLabel.text = @"我的二维码";
-    self.view.backgroundColor = [UIColor km_colorWithHexString:@"363A3E"];
+    self.line.hidden = YES;
+    self.QR_bigBg.backgroundColor = [UIColor km_colorWithHexString:@"363A3E"];
+    
     self.QR_BgView.layer.cornerRadius = 2.0f;
     self.QR_BgView.layer.masksToBounds = YES;
     self.QR_Name.textColor =

@@ -42,7 +42,7 @@
 }
 
 + (AFHTTPRequestOperation *)getisallowinputmoney:(NSDictionary *)dict success:(void (^)(AFHTTPRequestOperation *, id))success failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure{
-    NSString * URLString = [NSString stringWithFormat:@"%@business/getisallowinputmoney",Java_API_SERVER];
+    NSString * URLString = [NSString stringWithFormat:@"%@business/getpushordertype",Java_API_SERVER];
     AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
