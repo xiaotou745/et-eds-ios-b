@@ -81,7 +81,7 @@
                 <outlet property="minusButton" destination="gWB-Ev-ptn" id="TjX-dI-Mk7"/>
                 <outlet property="regionName" destination="5gy-ak-Uar" id="zmg-Jd-fmp"/>
             </connections>
-            <point key="canvasLocation" x="351.5" y="272"/>
+            <point key="canvasLocation" x="351" y="272"/>
         </collectionViewCell>
     </objects>
     <resources>

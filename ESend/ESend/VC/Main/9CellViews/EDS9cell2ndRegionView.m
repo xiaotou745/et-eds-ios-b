@@ -7,7 +7,7 @@
 //
 
 #import "EDS9cell2ndRegionView.h"
-#import "Hp9ItemCell.h"
+#import "Hp9ItemSecondaryCell.h"
 
 #define EDS9cell2ndRegionViewCellId @"EDS9cell2ndRegionViewCellId"
 
@@ -49,7 +49,7 @@
     if (!_collectionView) {
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 100, ScreenWidth, 300)];
         
-        UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([Hp9ItemCell class]) bundle:nil];
+        UINib *cellNib = [UINib nibWithNibName:NSStringFromClass([Hp9ItemSecondaryCell class]) bundle:nil];
         [_collectionView registerNib:cellNib forCellWithReuseIdentifier:EDS9cell2ndRegionViewCellId];
 
     }
@@ -68,8 +68,8 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    Hp9ItemCell * cell = (Hp9ItemCell *)[collectionView dequeueReusableCellWithReuseIdentifier:EDS9cell2ndRegionViewCellId forIndexPath:indexPath];
-    cell.secondaryDataModel = [self.dataSource objectAtIndex:indexPath.row];
+    Hp9ItemSecondaryCell * cell = (Hp9ItemSecondaryCell *)[collectionView dequeueReusableCellWithReuseIdentifier:EDS9cell2ndRegionViewCellId forIndexPath:indexPath];
+    cell.dataModel = [self.dataSource objectAtIndex:indexPath.row];
     return cell;
 }
 

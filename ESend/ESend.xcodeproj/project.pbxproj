@@ -75,6 +75,8 @@
 		684A39AD1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; settings = {ASSET_TAGS = (); }; };
 		6855C2801BF2DE9600772385 /* Hp9ItemSecondaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6855C27E1BF2DE9600772385 /* Hp9ItemSecondaryCell.m */; settings = {ASSET_TAGS = (); }; };
 		6855C2811BF2DE9600772385 /* Hp9ItemSecondaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6855C27E1BF2DE9600772385 /* Hp9ItemSecondaryCell.m */; settings = {ASSET_TAGS = (); }; };
+		6855C2891BF2E53300772385 /* Hp9ItemSecondaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6855C2881BF2E53300772385 /* Hp9ItemSecondaryCell.xib */; settings = {ASSET_TAGS = (); }; };
+		6855C28A1BF2E53300772385 /* Hp9ItemSecondaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6855C2881BF2E53300772385 /* Hp9ItemSecondaryCell.xib */; settings = {ASSET_TAGS = (); }; };
 		68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C891BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C8A1BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */; };
@@ -1138,6 +1140,7 @@
 		684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		6855C27D1BF2DE9600772385 /* Hp9ItemSecondaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hp9ItemSecondaryCell.h; sourceTree = "<group>"; };
 		6855C27E1BF2DE9600772385 /* Hp9ItemSecondaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hp9ItemSecondaryCell.m; sourceTree = "<group>"; };
+		6855C2881BF2E53300772385 /* Hp9ItemSecondaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Hp9ItemSecondaryCell.xib; sourceTree = "<group>"; };
 		68580C851BA7BB7E0082C18C /* EDSOrderStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSOrderStatisticsVC.h; path = ../EDSOrderStatisticsVC.h; sourceTree = "<group>"; };
 		68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDSOrderStatisticsVC.m; path = ../EDSOrderStatisticsVC.m; sourceTree = "<group>"; };
 		68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EDSOrderStatisticsVC.xib; path = ../EDSOrderStatisticsVC.xib; sourceTree = "<group>"; };
@@ -3242,6 +3245,7 @@
 				6864214B1BF1F5F30046565D /* HpSecondaryRegionView.m */,
 				6855C27D1BF2DE9600772385 /* Hp9ItemSecondaryCell.h */,
 				6855C27E1BF2DE9600772385 /* Hp9ItemSecondaryCell.m */,
+				6855C2881BF2E53300772385 /* Hp9ItemSecondaryCell.xib */,
 			);
 			path = 9CellViews;
 			sourceTree = "<group>";
@@ -4228,6 +4232,7 @@
 				688B37D91BE704A00012C60B /* EDSOrderDetailFor9CellsVC.xib in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				CF22B0301BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
+				6855C28A1BF2E53300772385 /* Hp9ItemSecondaryCell.xib in Resources */,
 				685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
 				68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */,
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
@@ -4318,6 +4323,7 @@
 				68D88B7E1BE1FF8A0086AC91 /* EDS9CellHomepageVC.xib in Resources */,
 				F678A7E01B29787E0026DA37 /* wechat_icon@2x.png in Resources */,
 				F637CF0F1B40F3D100410C24 /* Protocol.txt in Resources */,
+				6855C2891BF2E53300772385 /* Hp9ItemSecondaryCell.xib in Resources */,
 				68580C8A1BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib in Resources */,
 				F6441B3A1B3D457300EA3C9D /* AlipaySDK.bundle in Resources */,
 				688B37DF1BE704D10012C60B /* EDSTaskListInRegionCell.xib in Resources */,
