@@ -15,9 +15,12 @@
 #import "EDSHttpReqManager3.h"
 #import "Hp9CellRegionModel.h"
 #import "EDS9cell2ndRegionView.h"
+#import "CustomIOSAlertView.h"
 
 #define HpMaxMoney 15000
 
+#define HpTaskMoneyWithin @"任务金额需在5-15000之间"
+#define HpOrderCountErrorMsg @"订单数量不能为0"
 #define HpBeyondMaxMoneyErrString @"最大金额15000"
 
 #define Hp9ItemCellId @"Hp9cellItemCellId"
@@ -42,6 +45,9 @@
     BOOL _9cellsHasConfiged;
     // 是否需要输入金额 getAllowInputMoney
     NSInteger _allowInputMoney;
+    
+    /// 订单总数量
+    NSInteger _totalCount;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *Hp_Scroller;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *Hp_ScrollerHeight;
@@ -80,6 +86,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderCountsWithNotification:) name:Hp9CellSecondaryRegionOrderCountChangedNotification object:nil];
+    
+    // 九宫格订单数量变动之后的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderTotalCount) name:Hp9cellOrderCountChangedNotification object:nil];
     
     [self configNavTitle];
     [self _configNibViews];
@@ -195,7 +204,7 @@
 - (void)synchronizeTheBusinessStatus{
     // 8436
     NSDictionary *requestData = @{
-                                  @"userId" : [UserInfo getUserId],
+                                  @"userId" :[UserInfo getUserId],
                                   @"version":APIVersion,
                                   };
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
@@ -308,30 +317,38 @@
     }];
 }
 
+- (NSDictionary *)dictWithorderRegionOneId:(NSInteger)orderRegionOneId orderRegionTwoId:(NSInteger)orderRegionTwoId orderCount:(NSInteger)orderCount{
+    return  @{
+              @"orderCount":[NSNumber numberWithInteger:orderCount],
+              @"orderRegionTwoId":[NSNumber numberWithInteger:orderRegionTwoId],
+              @"orderRegionOneId":[NSNumber numberWithInteger:orderRegionOneId],
+              };
+}
+
 /// 发布订单接口
-- (void)tstPushOrder{
-    
-    NSDictionary * aregionsss = @{@"orderCount":[NSNumber numberWithInteger:5],@"orderRegionTwoId":[NSNumber numberWithInteger:4],@"orderRegionOneId":[NSNumber numberWithInteger:1],};
-    NSDictionary * aregionssb = @{@"orderCount":[NSNumber numberWithInteger:5],@"orderRegionTwoId":[NSNumber numberWithInteger:5],@"orderRegionOneId":[NSNumber numberWithInteger:2],};
-    
-    NSArray * arraya = [NSArray arrayWithObjects:aregionsss,aregionssb, nil];
-    NSString * aassdfsdf = [Security JsonStringWithDictionary:arraya];
-    NSLog(@"%@",aassdfsdf);
-    
-    NSString * listOrderRegionStr = @"[{\"orderCount\":5,\"orderRegionTwoId\":4,\"orderRegionOneId\":1},{\"orderCount\":5,\"orderRegionTwoId\":5,\"orderRegionOneId\":2}]";
-    if ([listOrderRegionStr compare:aassdfsdf] == NSOrderedSame) {
-        NSLog(@"same--");
-    }else{
-        NSLog(@"not same ");
+- (void)pushOrder{
+    NSMutableArray * apiOrderList = [[NSMutableArray alloc] initWithCapacity:0];
+    for (Hp9CellRegionModel * firstRegion in _Hp_RegionArray) {
+        if (firstRegion.orderCount > 0) { // 二级区域，一级区域无
+            for (Hp9cellSecondaryRegion * secondRegion in firstRegion.twoOrderRegionList) {
+                if (secondRegion.orderCount > 0) {
+                    NSDictionary * adict = [self dictWithorderRegionOneId:firstRegion.regionId orderRegionTwoId:secondRegion.regionId orderCount:secondRegion.orderCount];
+                    [apiOrderList addObject:adict];
+                }
+            }
+        }else{ // 无二级区域
+            NSDictionary * adict = [self dictWithorderRegionOneId:firstRegion.regionId orderRegionTwoId:0 orderCount:firstRegion.orderCount];
+            [apiOrderList addObject:adict];
+        }
     }
-    
+    NSString * apiOrderListString = [Security JsonStringWithDictionary:apiOrderList];
     NSDictionary * paraDict = @{
                                 @"businessid":[UserInfo getUserId],
-                                @"ordercount":[NSNumber numberWithInteger:10],
-                                @"amount":[NSNumber numberWithInteger:100],
+                                @"ordercount":[NSNumber numberWithInteger:_totalCount],
+                                @"amount":[NSNumber numberWithInteger:[self.Hp_view2_textfield.text integerValue]],
                                 @"orderfrom":[NSNumber numberWithInteger:0],
                                 @"ispay":@"true",
-                                @"listOrderRegionStr":aassdfsdf,
+                                @"listOrderRegionStr":apiOrderListString,
                                 };
     if (AES_Security) {
         NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
@@ -341,23 +358,62 @@
                      };
     }
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    
     [EDSHttpReqManager3 pushOrderData:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:HUD];
         NSString * message = [responseObject objectForKey:@"message"];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
-            //NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
-            //NSLog(@"%ld",result);
             //1成功-7获取商户信息失败-9您已被取消发单资格-10订单已经存在
+            [Tools showHUD:@"发布成功"];
+            //
+            [_Hp_RegionArray removeAllObjects];
+            _Hp_view2_textfield.text = @"";
+            _Hp_view2_total_count.text = @"订单数量: 0单";
+            
         }else{
-            NSLog(@"%@",message);
+            [Tools showHUD:message];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
 
     }];
 
+}
+
+/// 请求送餐费
+- (void)reqForDistribSubsidyTask {
+    [Tools hiddenKeyboard];
+    NSDictionary *requsetData = @{@"BussinessId" : [UserInfo getUserId],
+                                  @"Version" : APIVersion,
+                                  @"Amount" : [NSNumber numberWithInteger:[self.Hp_view2_textfield.text integerValue]],
+                                  @"OrderCount" : [NSNumber numberWithInteger:_totalCount]};
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    [FHQNetWorkingAPI getDistribSubsidy:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+        NSLog(@"%@",result);
+        double DistribSubsidy = [result getDoubleWithKey:@"DistribSubsidy"];//外送费
+        double RemainBalance = [result getDoubleWithKey:@"RemainBalance"]; // 剩余余额(商家余额 –当前任务结算金额)
+        //double GroupBusinessAmount = [result getDoubleWithKey:@"GroupBusinessAmount"];
+        double OrderBalance = [result getDoubleWithKey:@"OrderBalance"]; // 当前任务结算金额(每个商家设定的结算比例)
+        
+        // Here we need to pass a full frame
+        CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
+        NSString * alertTitle = @"确定要发布订单吗?";
+        [alertView setContainerView:[self createHpReleaseAlertView:alertTitle orderAmout:[self.Hp_view2_textfield.text doubleValue] orderCount:_totalCount DistribSubsidy:DistribSubsidy OrderBalance:OrderBalance RemainBalance:RemainBalance]];
+        [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"取消", @"确定", nil]];
+        __block EDS9CellHomepageVC * blockSelf = self;
+        [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+            if (1 == buttonIndex) {
+                [blockSelf pushOrder];
+            }
+            [alertView close];
+        }];
+        [alertView setUseMotionEffects:true];
+        [alertView show];
+        
+        [Tools hiddenProgress:HUD];
+    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+        [Tools hiddenProgress:HUD];
+    }];
 }
 
 #pragma mark - 审核未通过的其他情况
@@ -462,8 +518,93 @@
 #pragma mark - 发布任务Action:
 - (IBAction)hpReleaseBtnAction:(UIButton *)sender {
     NSLog(@"%s",__func__);
-    NSLog(@"%@",_Hp_RegionArray);
+    NSLog(@"列表:%@",_Hp_RegionArray);
     
+    NSLog(@"%ld:%@",self.Hp_view2_textfield.text.length , self.Hp_view2_textfield.text);
+    
+    // 0 普通模式 需要;    1 （快单模式）不需要
+    if (_allowInputMoney == 0) {
+        if (self.Hp_view2_textfield.text.length == 0 || [self.Hp_view2_textfield.text integerValue] < 5) {
+            [Tools showHUD:HpTaskMoneyWithin];
+            return;
+        }
+    }
+    
+    if (_totalCount <= 0) {
+        [Tools showHUD:HpOrderCountErrorMsg];
+        return;
+    }
+    
+    [self reqForDistribSubsidyTask];
+}
+
+/// alert
+- (UIView *)createHpReleaseAlertView:(NSString *)title
+                          orderAmout:(double)orderAmout
+                          orderCount:(NSInteger)orderCount
+                      DistribSubsidy:(double)DistribSubsidy
+                        OrderBalance:(double)OrderBalance
+                       RemainBalance:(double)RemainBalance
+{
+    UIView *demoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(demoView.frame), 40)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = DeepGrey;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:16];
+    titleLabel.text = title;
+    [demoView addSubview:titleLabel];
+    
+    UIImageView * aLine = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleLabel.frame), CGRectGetWidth(demoView.frame), 0.5f)];
+    aLine.backgroundColor = SeparatorColorC;
+    [demoView addSubview:aLine];
+    
+    // 订单总金额
+    CGFloat leftMargin = 15;
+    CGFloat lblHeight = 22;
+    UILabel * orderAmoutLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, CGRectGetMaxY(aLine.frame) + 10, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
+    orderAmoutLbl.font = [UIFont systemFontOfSize:15];
+    orderAmoutLbl.textColor = TextColor6;
+    orderAmoutLbl.backgroundColor = [UIColor clearColor];
+    orderAmoutLbl.textAlignment = NSTextAlignmentLeft;
+    orderAmoutLbl.text = [NSString stringWithFormat:@"订单总金额: %.2f元",orderAmout];
+    [demoView addSubview:orderAmoutLbl];
+    // 订单数量
+    UILabel * orderCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, CGRectGetMaxY(orderAmoutLbl.frame), CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
+    orderCountLbl.font = [UIFont systemFontOfSize:15];
+    orderCountLbl.textColor = TextColor6;
+    orderCountLbl.backgroundColor = [UIColor clearColor];
+    orderCountLbl.textAlignment = NSTextAlignmentLeft;
+    orderCountLbl.text = [NSString stringWithFormat:@"订单数量: %ld单",orderCount];
+    [demoView addSubview:orderCountLbl];
+    
+    CGFloat y = CGRectGetMaxY(orderCountLbl.frame);
+    // 配送费用
+    if (DistribSubsidy > 0) { // 有配送费用
+        UILabel * orderDistribSubsidyLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, y, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
+        orderDistribSubsidyLbl.font = [UIFont systemFontOfSize:15];
+        orderDistribSubsidyLbl.textColor = TextColor6;
+        orderDistribSubsidyLbl.backgroundColor = [UIColor clearColor];
+        orderDistribSubsidyLbl.textAlignment = NSTextAlignmentLeft;
+        orderDistribSubsidyLbl.text = [NSString stringWithFormat:@"配送费用: %.2f元",DistribSubsidy * orderCount];
+        [demoView addSubview:orderDistribSubsidyLbl];
+        
+        y += lblHeight;
+    }
+    
+    // 当前结算 ，剩余
+    UILabel * orderBalanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, y, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight * 2)];
+    orderBalanceLbl.font = [UIFont systemFontOfSize:15];
+    orderBalanceLbl.textColor = TextColor6;
+    orderBalanceLbl.backgroundColor = [UIColor clearColor];
+    orderBalanceLbl.textAlignment = NSTextAlignmentLeft;
+    orderBalanceLbl.numberOfLines = 0;
+    orderBalanceLbl.text = [NSString stringWithFormat:@"当前任务结算: %.2f元,剩余余额%.2f元",OrderBalance,RemainBalance];
+    [demoView addSubview:orderBalanceLbl];
+    
+    [demoView setFrame:CGRectMake(0, 0, 290, CGRectGetMaxY(orderBalanceLbl.frame) + 10)];
+    
+    return demoView;
 }
 
 #pragma mark 键盘相关处理
@@ -539,7 +680,22 @@
             break;
         }
     }
+    
+    [self updateOrderTotalCount];
+    
 }
+
+/// 修改订单总量
+- (void)updateOrderTotalCount{
+    NSInteger allCount = 0;
+    for (Hp9CellRegionModel * aFisrtRegion in _Hp_RegionArray) {
+        allCount += aFisrtRegion.orderCount;
+    }
+    _totalCount = allCount;
+    self.Hp_view2_total_count.text = [NSString stringWithFormat:@"订单数量: %ld单",_totalCount];
+}
+
+
 
 #pragma mark - Hp9ItemCellDelegate 有二级区域，点击减号，唤起二级区域
 - (void)hp9ItemShouldCallOutSecondaryRegionView:(Hp9ItemCell *)cell{

@@ -68,6 +68,9 @@
     // 隐藏 按钮； 刷新  订单数量
     self.minusButton.hidden = !(self.dataModel.orderCount > 0);
     self.countLabel.text = (self.dataModel.orderCount>0)?[NSString stringWithFormat:@"%ld单",self.dataModel.orderCount]:@"" ;
+    
+    // 通知首页修改订单数量
+    [[NSNotificationCenter defaultCenter] postNotificationName:Hp9cellOrderCountChangedNotification object:nil];
 }
 
 /// minnusbutton关注 数据的订单单数

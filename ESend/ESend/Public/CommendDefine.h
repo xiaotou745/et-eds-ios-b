@@ -224,6 +224,9 @@ fprintf(stderr, "-------\n");                                               \
 // 修改密码，成功之后的通知
 #define UserModifiedPasswordNotification @"UserModifiedPasswordNotification"
 
+/// 九宫格订单数量变动的通知- 智能调度
+#define Hp9cellOrderCountChangedNotification @"Hp9cellOrderCountChangedNotification"
+
 //获取验证码倒计时时间
 #define CodeWaitTime 120
 
