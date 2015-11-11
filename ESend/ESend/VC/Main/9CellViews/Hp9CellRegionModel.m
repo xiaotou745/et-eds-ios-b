@@ -17,6 +17,7 @@
         NSMutableArray * secondaryRegionList = [[NSMutableArray alloc] initWithCapacity:0];
         for (NSDictionary * adict in [dic objectForKey:@"twoOrderRegionList"]) {
             Hp9cellSecondaryRegion * secondaryRegion = [[Hp9cellSecondaryRegion alloc] initWithDic:adict];
+            secondaryRegion.regionFirstLevelId = self.regionId;
             [secondaryRegionList addObject:secondaryRegion];
         }
         self.twoOrderRegionList = [[NSArray alloc] initWithArray:secondaryRegionList];

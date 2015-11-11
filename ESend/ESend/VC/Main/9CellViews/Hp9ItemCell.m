@@ -35,7 +35,13 @@
 }
 
 - (void)minusButtonAction:(id)sender{
-    self.dataModel.orderCount -- ;
+    if (self.dataModel.twoOrderRegionList.count > 0) { // 有二级区域，唤起二级区域
+        if ([self.delegate respondsToSelector:@selector(hp9ItemShouldCallOutSecondaryRegionView:)]) {
+            [self.delegate hp9ItemShouldCallOutSecondaryRegionView:self];
+        }
+    }else{
+        self.dataModel.orderCount -- ;
+    }
 }
 
 - (void)dealloc{

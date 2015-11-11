@@ -57,6 +57,10 @@
         self.contents.backgroundColor = [UIColor km_colorWithHexString:@"FAFAFA"];
         self.countLabel.backgroundColor = [UIColor km_colorWithHexString:@"FAFAFA"];
     }
+    
+    NSNotification * notification = [[NSNotification alloc] initWithName:Hp9CellSecondaryRegionOrderCountChangedNotification object:self.dataModel userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    
     // 隐藏 按钮； 刷新  订单数量
     self.minusButton.hidden = !(self.dataModel.orderCount > 0);
     self.countLabel.text = (self.dataModel.orderCount>0)?[NSString stringWithFormat:@"%ld单",self.dataModel.orderCount]:@"" ;

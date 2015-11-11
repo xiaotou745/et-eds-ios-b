@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Hp9cellSecondaryRegion.h"
 
+#define Hp9CellSecondaryRegionOrderCountChangedNotification @"Hp9CellSecondaryRegionOrderCountChangedNotification"
+
 @interface Hp9ItemSecondaryCell : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UIButton *minusButton;

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Hp9CellRegionModel.h"
+#import "Hp9ItemSecondaryCell.h"
 
 @class EDS9cell2ndRegionView;
 
@@ -23,6 +25,7 @@
 @property (nonatomic, strong) NSArray * dataSource;
 @property (nonatomic, copy) NSString * regionName;
 
-- (instancetype)initWithDelegate:(id<EDS9cell2ndRegionViewDelegate>)delegate dataSource:(NSArray *)dataSource regionName:(NSString *)regionName;
+- (instancetype)initWithDelegate:(id<EDS9cell2ndRegionViewDelegate>)delegate dataSource:(NSArray *)dataSource regionName:(NSString *)regionNamen;
+- (void)show;
 
 @end

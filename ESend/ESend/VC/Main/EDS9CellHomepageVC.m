@@ -14,6 +14,7 @@
 #import "EDSTodaysOrdersVC.h"
 #import "EDSHttpReqManager3.h"
 #import "Hp9CellRegionModel.h"
+#import "EDS9cell2ndRegionView.h"
 
 #define HpMaxMoney 15000
 
@@ -21,7 +22,7 @@
 
 #define Hp9ItemCellId @"Hp9cellItemCellId"
 
-@interface EDS9CellHomepageVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,UINavigationControllerDelegate>
+@interface EDS9CellHomepageVC ()<UIScrollViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITextFieldDelegate,UINavigationControllerDelegate,Hp9ItemCellDelegate>
 {
     // 其他情况的
     UIView * _otherSituationView;
@@ -73,6 +74,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderCountsWithNotification:) name:Hp9CellSecondaryRegionOrderCountChangedNotification object:nil];
     
     [self configNavTitle];
     [self _configNibViews];
@@ -165,6 +167,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     Hp9ItemCell * cell = (Hp9ItemCell *)[collectionView dequeueReusableCellWithReuseIdentifier:Hp9ItemCellId forIndexPath:indexPath];
     cell.dataModel = [_Hp_RegionArray objectAtIndex:indexPath.row];
+    cell.delegate = self;
     return cell;
 }
 
@@ -173,6 +176,8 @@
     if (cell.dataModel.twoOrderRegionList.count > 0) {
         // secondary
         NSLog(@"有二级区域");
+        EDS9cell2ndRegionView * ndRegionView = [[EDS9cell2ndRegionView alloc] initWithDelegate:nil dataSource:cell.dataModel.twoOrderRegionList regionName:cell.dataModel.regionName];
+        [ndRegionView show];
     }else{
         cell.dataModel.orderCount ++;
     }
@@ -466,4 +471,30 @@
     }
 }
 
+
+#pragma mark - 处理订单数量变化的通知
+- (void)updateOrderCountsWithNotification:(NSNotification *)notify{
+    // NSLog(@"%@",notify.object);
+    NSInteger regionFristLevelId = ((Hp9cellSecondaryRegion *)notify.object).regionFirstLevelId;
+    [self updateRegionModelCountWithId:regionFristLevelId];
+    
+}
+
+- (void)updateRegionModelCountWithId:(NSInteger)firstLevelId{
+    for (Hp9CellRegionModel * aFisrtRegion in _Hp_RegionArray) {
+        if (aFisrtRegion.regionId == firstLevelId) {
+            NSInteger totalCount = 0;
+            for (Hp9cellSecondaryRegion * a2ndRegion in aFisrtRegion.twoOrderRegionList) {
+                totalCount += a2ndRegion.orderCount;
+            }
+            aFisrtRegion.orderCount = totalCount;
+            break;
+        }
+    }
+}
+
+#pragma mark - Hp9ItemCellDelegate 有二级区域，点击减号，唤起二级区域
+- (void)hp9ItemShouldCallOutSecondaryRegionView:(Hp9ItemCell *)cell{
+    [self collectionView:_Hp_9cells didSelectItemAtIndexPath:[_Hp_9cells indexPathForCell:cell]];
+}
 @end

@@ -14,5 +14,6 @@
 
 // 加入订单数量
 @property (assign, nonatomic) NSInteger orderCount;
-
+// 加入一级regionId
+@property (assign, nonatomic) NSInteger regionFirstLevelId;
 @end

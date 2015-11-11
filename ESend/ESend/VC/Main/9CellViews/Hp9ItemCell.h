@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Hp9CellRegionModel.h"
 
+@class Hp9ItemCell;
+
+@protocol Hp9ItemCellDelegate <NSObject>
+@optional
+- (void)hp9ItemShouldCallOutSecondaryRegionView:(Hp9ItemCell *)cell;
+
+@end
+
 @interface Hp9ItemCell : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UIButton *minusButton;
@@ -17,5 +25,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *regionName;
 
 @property (strong, nonatomic) Hp9CellRegionModel * dataModel;
+
+@property (weak, nonatomic) id<Hp9ItemCellDelegate>delegate;
 
 @end
