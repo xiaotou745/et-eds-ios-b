@@ -16,6 +16,8 @@
 @property (strong, nonatomic) IBOutlet UIView *QR_bigBg;
 @property (strong, nonatomic) IBOutlet UIView *QR_BgView;
 @property (strong, nonatomic) IBOutlet UILabel *QR_Name;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *QR_Name_Height;
+
 @property (strong, nonatomic) IBOutlet UILabel *QR_Phone;
 @property (strong, nonatomic) IBOutlet UIImageView *QR_img;
 @property (strong, nonatomic) IBOutlet UILabel *QR_Note;
@@ -37,10 +39,17 @@
     self.QR_Phone.textColor = DeepGrey;
     
     NSString * uid = [UserInfo getUserId];
-    NSString * uname = [UserInfo getBussinessName];
+    NSString * uname = @"测试武剑波测试长度最大值的显示效果";//[UserInfo getBussinessName];
     NSString * uphone = [UserInfo getbussinessPhone];
     
     self.QR_Name.text = uname;
+    self.QR_Name.numberOfLines = 0;
+    CGFloat qr_name_width = ScreenWidth - 80;
+    CGFloat contentSize = 16;
+    CGFloat contentHeight = [Tools stringHeight:uname fontSize:contentSize width:qr_name_width].height;
+    contentHeight += 5;
+    self.QR_Name_Height.constant = contentHeight;
+    
     self.QR_Phone.text = uphone;
     
      NSError *error = nil;

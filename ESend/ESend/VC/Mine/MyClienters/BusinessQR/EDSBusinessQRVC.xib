@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="QR_BgView" destination="nq9-v8-fiw" id="BX3-7n-Spw"/>
                 <outlet property="QR_Name" destination="kgQ-9J-i9s" id="ddY-kV-dsS"/>
+                <outlet property="QR_Name_Height" destination="dvn-o1-as1" id="E7J-Tm-IwJ"/>
                 <outlet property="QR_Note" destination="qIY-pe-PF4" id="imi-Xa-q2h"/>
                 <outlet property="QR_Phone" destination="CgG-qQ-F10" id="Kb4-gn-vJg"/>
                 <outlet property="QR_bigBg" destination="HoV-Tu-eO3" id="Uuz-OA-NG9"/>
@@ -26,7 +27,7 @@
                     <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nq9-v8-fiw">
-                            <rect key="frame" x="30" y="30" width="540" height="350"/>
+                            <rect key="frame" x="30" y="30" width="540" height="365"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgQ-9J-i9s">
                                     <rect key="frame" x="10" y="10" width="520" height="22"/>
@@ -78,7 +79,7 @@
                                 <constraint firstItem="GLG-do-7d2" firstAttribute="centerX" secondItem="nq9-v8-fiw" secondAttribute="centerX" id="Lkh-9q-ZwZ"/>
                                 <constraint firstItem="GLG-do-7d2" firstAttribute="top" secondItem="CgG-qQ-F10" secondAttribute="bottom" constant="10" id="MOg-8S-Qed"/>
                                 <constraint firstItem="CgG-qQ-F10" firstAttribute="leading" secondItem="nq9-v8-fiw" secondAttribute="leading" constant="10" id="OgY-cC-LfU"/>
-                                <constraint firstAttribute="height" constant="350" id="a7e-Zn-P5C"/>
+                                <constraint firstAttribute="height" constant="365" id="a7e-Zn-P5C"/>
                                 <constraint firstAttribute="trailing" secondItem="CgG-qQ-F10" secondAttribute="trailing" constant="10" id="ojc-hq-Vqn"/>
                                 <constraint firstItem="kgQ-9J-i9s" firstAttribute="top" secondItem="nq9-v8-fiw" secondAttribute="top" constant="10" id="olE-sb-a7V"/>
                                 <constraint firstItem="qIY-pe-PF4" firstAttribute="leading" secondItem="nq9-v8-fiw" secondAttribute="leading" constant="10" id="ztv-VM-IuE"/>
