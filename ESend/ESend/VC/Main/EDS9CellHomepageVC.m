@@ -121,6 +121,7 @@
     // right
     [self.rightBtn setImage:[UIImage imageNamed:@"9cell_order"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(todaysOrdersBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.rightBtn.hidden = YES;
 }
 
 - (void)_configNibViews{
@@ -328,18 +329,22 @@
 - (void)pushOrder{
     NSMutableArray * apiOrderList = [[NSMutableArray alloc] initWithCapacity:0];
     for (Hp9CellRegionModel * firstRegion in _Hp_RegionArray) {
-        if (firstRegion.orderCount > 0) { // 二级区域，一级区域无
-            for (Hp9cellSecondaryRegion * secondRegion in firstRegion.twoOrderRegionList) {
-                if (secondRegion.orderCount > 0) {
-                    NSDictionary * adict = [self dictWithorderRegionOneId:firstRegion.regionId orderRegionTwoId:secondRegion.regionId orderCount:secondRegion.orderCount];
-                    [apiOrderList addObject:adict];
+        if (firstRegion.orderCount > 0) { // 该一级区域有订单
+            if (firstRegion.twoOrderRegionList.count > 0) { // 有二级区域
+                for (Hp9cellSecondaryRegion * secondRegion in firstRegion.twoOrderRegionList) {
+                    if (secondRegion.orderCount > 0) {
+                        NSDictionary * adict = [self dictWithorderRegionOneId:firstRegion.regionId orderRegionTwoId:secondRegion.regionId orderCount:secondRegion.orderCount];
+                        [apiOrderList addObject:adict];
+                    }
                 }
+            }else{  // 无二级区域
+                NSDictionary * adict = [self dictWithorderRegionOneId:firstRegion.regionId orderRegionTwoId:0 orderCount:firstRegion.orderCount];
+                [apiOrderList addObject:adict];
             }
-        }else{ // 无二级区域
-            NSDictionary * adict = [self dictWithorderRegionOneId:firstRegion.regionId orderRegionTwoId:0 orderCount:firstRegion.orderCount];
-            [apiOrderList addObject:adict];
+
         }
     }
+    
     NSString * apiOrderListString = [Security JsonStringWithDictionary:apiOrderList];
     NSDictionary * paraDict = @{
                                 @"businessid":[UserInfo getUserId],
@@ -365,7 +370,10 @@
             //1成功-7获取商户信息失败-9您已被取消发单资格-10订单已经存在
             [Tools showHUD:@"发布成功"];
             //
-            [_Hp_RegionArray removeAllObjects];
+            //[_Hp_RegionArray removeAllObjects];
+            /// 清空所有的ordercount
+            [self clearAllRegionArrayOrderCount];
+            //
             _Hp_view2_textfield.text = @"";
             _Hp_view2_total_count.text = @"订单数量: 0单";
             
@@ -377,6 +385,19 @@
 
     }];
 
+}
+
+- (void)clearAllRegionArrayOrderCount{
+    // _Hp_RegionArray
+    for (Hp9CellRegionModel * firstRegion in _Hp_RegionArray) {
+        firstRegion.orderCount = 0;
+        if (firstRegion.twoOrderRegionList.count > 0) {
+            for (Hp9cellSecondaryRegion * secondRegion in firstRegion.twoOrderRegionList) {
+                secondRegion.orderCount = 0;
+            }
+        }
+    }
+    
 }
 
 /// 请求送餐费
