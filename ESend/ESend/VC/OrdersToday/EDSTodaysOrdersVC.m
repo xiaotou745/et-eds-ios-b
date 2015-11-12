@@ -14,6 +14,8 @@
 
 @end
 
+static const NSString * todayOrderURL = @"http://localhost:8080/business/orderregion/todayone?businessid=260";
+
 @implementation EDSTodaysOrdersVC
 
 - (void)viewDidLoad {

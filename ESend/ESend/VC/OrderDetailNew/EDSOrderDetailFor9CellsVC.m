@@ -137,7 +137,7 @@
 - (void)armedViewsWithDataSource:(TaskInRegionModel *)datasource{
     self.OrderStatus.text = [self orderStatusStrWithStatus:datasource.status];
     self.OrderCount.text = [NSString stringWithFormat:@"%ld份",datasource.orderCount];
-    self.OrderGrabTime.text = [self grabTimeWithStr:datasource.grabTime];
+    self.OrderGrabTime.text = [self getTimeWithData:datasource];
     self.ClienterName.text = datasource.clienterName;
     self.ClienterPhoneNo.text = datasource.clienterPhoneNo;
     self.ClienterDestination.text = [NSString stringWithFormat:@"%@ %@",datasource.orderRegionOneName,datasource.orderRegionTwoName];
@@ -179,19 +179,55 @@
     return [NSString stringWithFormat:@"%@:%@",[components firstObject],[components objectAtIndex:1]];
 }
 
+- (NSString *)getTimeWithData:(TaskInRegionModel *)dataSrouce{
+    NSString * timeStr = nil;
+    switch (dataSrouce.status) {
+        case 2:
+            timeStr = dataSrouce.grabTime;
+            self.OrderGrabTimeFix.text = @"抢单时间:";
+            break;
+        case 4:
+            timeStr = dataSrouce.pickUpTime;
+            self.OrderGrabTimeFix.text = @"取货时间:";
+            break;
+        case 1:
+            timeStr = dataSrouce.actualDoneDate;
+            self.OrderGrabTimeFix.text = @"完成时间:";
+            break;
+        default:
+            break;
+    }
+    if (timeStr == nil) {
+        return nil;
+    }
+    if (timeStr.length < 16) {
+        return [NSString stringWithFormat:@"%@",timeStr];
+    }
+    NSArray * components = [timeStr componentsSeparatedByString:@":"];
+    return [NSString stringWithFormat:@"%@:%@",[components firstObject],[components objectAtIndex:1]];
+}
+
 - (void)statusLinesWithStatusCode:(OrderStatus)status{
     if (status == OrderStatusAccepted) { // 抢了
         self.statusQiang.backgroundColor = BlueColor;
+        self.statusQiangTime.hidden = NO;
     }else if (status == OrderStatusReceive){ // 取了
         self.statusQiang.backgroundColor =
         self.statusLine1.backgroundColor =
         self.statusQu.backgroundColor = BlueColor;
+        
+        self.statusQiangTime.hidden = NO;
+        self.statusQuTime.hidden = NO;
     }else if (status == OrderStatusComplete){ // 达了
         self.statusQiang.backgroundColor =
         self.statusLine1.backgroundColor =
         self.statusQu.backgroundColor =
         self.statusLine2.backgroundColor =
         self.statusDa.backgroundColor = BlueColor;
+        
+        self.statusQiangTime.hidden = NO;
+        self.statusQuTime.hidden = NO;
+        self.statusDaTime.hidden = NO;
     }
 }
 

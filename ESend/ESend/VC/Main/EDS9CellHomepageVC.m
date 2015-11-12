@@ -121,7 +121,6 @@
     // right
     [self.rightBtn setImage:[UIImage imageNamed:@"9cell_order"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(todaysOrdersBtnAction) forControlEvents:UIControlEventTouchUpInside];
-     self.rightBtn.hidden = YES;
 }
 
 - (void)_configNibViews{

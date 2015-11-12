@@ -77,7 +77,7 @@
 
 - (void)setDataSrouce:(TaskInRegionModel *)dataSrouce{
     _dataSrouce = dataSrouce;
-    self.grabTime.text = [self grabTimeWithStr:_dataSrouce.grabTime];
+    self.grabTime.text = [self getTimeWithData:_dataSrouce];
     self.clienterName.text = _dataSrouce.clienterName;
     self.clienterPhone.text = _dataSrouce.clienterPhoneNo;
     self.clienterDestination.text = [NSString stringWithFormat:@"%@ %@",_dataSrouce.orderRegionOneName,_dataSrouce.orderRegionTwoName];
@@ -85,10 +85,33 @@
     [self.clienterImg sd_setImageWithURL:[NSURL URLWithString:_dataSrouce.clienterHeadPhoto] placeholderImage:[UIImage imageNamed:@"default_clienter_img"]];
 }
 
-- (NSString *)grabTimeWithStr:(NSString *)str{
-    NSAssert(nil != str, @"str is nil");
-    NSArray * components = [str componentsSeparatedByString:@":"];
-    return [NSString stringWithFormat:@"抢单 %@:%@",[components firstObject],[components objectAtIndex:1]];
+- (NSString *)getTimeWithData:(TaskInRegionModel *)dataSrouce{
+    NSString * timeStr = nil;
+    NSString * headStr = nil;
+    switch (dataSrouce.status) {
+        case 2:
+            timeStr = dataSrouce.grabTime;
+            headStr = @"抢单";
+            break;
+        case 4:
+            timeStr = dataSrouce.pickUpTime;
+            headStr = @"取货";
+            break;
+        case 1:
+            timeStr = dataSrouce.actualDoneDate;
+            headStr = @"完成";
+            break;
+        default:
+            break;
+    }
+    if (timeStr == nil || headStr == nil) {
+        return nil;
+    }
+    if (timeStr.length < 16) {
+        return [NSString stringWithFormat:@"%@ %@",headStr,timeStr];
+    }
+    NSArray * components = [timeStr componentsSeparatedByString:@":"];
+    return [NSString stringWithFormat:@"%@ %@:%@",headStr,[components firstObject],[components objectAtIndex:1]];
 }
 
 @end

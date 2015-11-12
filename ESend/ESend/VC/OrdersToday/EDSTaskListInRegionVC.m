@@ -307,14 +307,14 @@
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([EDSTaskListInRegionCell class]) owner:self options:nil] lastObject];
         }
-        //[cell loadData:_Hp_ContentLists2nd[indexPath.section]];
+        cell.dataSrouce = [_TLIR_DataSourceSecond objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.TLIR_TableThird) {  // 配送中
         EDSTaskListInRegionCell *cell = [tableView dequeueReusableCellWithIdentifier:TLIR_Table_3rd_cellId];
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([EDSTaskListInRegionCell class]) owner:self options:nil] lastObject];
         }
-        //[cell loadData:_Hp_ContentLists2nd[indexPath.section]];
+        cell.dataSrouce = [_TLIR_DataSourceThird objectAtIndex:indexPath.row];
         return cell;
     }else{
         return nil;
@@ -363,8 +363,10 @@
         [self.TLIR_TableSecond.header endRefreshing];
     }
     NSDictionary * paraData = @{
-                                @"businessId":[NSNumber numberWithInt:260],//[UserInfo getUserId],
+                                @"businessId":[NSNumber numberWithInt:2125],//[UserInfo getUserId],
                                 @"status":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
+                                @"orderRegionOneId":[NSNumber numberWithInteger:1],
+                                @"orderRegionTwoId":[NSNumber numberWithInteger:0],
                                 @"currentPage":[NSNumber numberWithInteger:1],
                                 };
     if (AES_Security) {
@@ -562,8 +564,10 @@
         currentPage = ++_currentPage3rd;
     }
     NSDictionary * paraData = @{
-                                @"businessId":[NSNumber numberWithInt:260],//[UserInfo getUserId],
+                                @"businessId":[NSNumber numberWithInt:2125],//[UserInfo getUserId],
                                 @"status":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
+                                @"orderRegionOneId":[NSNumber numberWithInteger:1],
+                                @"orderRegionTwoId":[NSNumber numberWithInteger:0],
                                 @"currentPage":[NSNumber numberWithInteger:currentPage],
                                 };
     if (AES_Security) {
