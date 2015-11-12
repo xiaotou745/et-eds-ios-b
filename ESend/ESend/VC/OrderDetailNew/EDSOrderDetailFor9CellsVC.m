@@ -137,7 +137,7 @@
 - (void)armedViewsWithDataSource:(TaskInRegionModel *)datasource{
     self.OrderStatus.text = [self orderStatusStrWithStatus:datasource.status];
     self.OrderCount.text = [NSString stringWithFormat:@"%ld份",datasource.orderCount];
-    self.OrderGrabTime.text = [self getTimeWithData:datasource];
+    self.OrderGrabTime.text = [self grabTimeWithStr:datasource.grabTime];
     self.ClienterName.text = datasource.clienterName;
     self.ClienterPhoneNo.text = datasource.clienterPhoneNo;
     self.ClienterDestination.text = [NSString stringWithFormat:@"%@ %@",datasource.orderRegionOneName,datasource.orderRegionTwoName];

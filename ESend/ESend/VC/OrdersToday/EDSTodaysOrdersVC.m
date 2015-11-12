@@ -14,7 +14,7 @@
 
 @end
 
-static const NSString * todayOrderURL = @"http://localhost:8080/business/orderregion/todayone?businessid=260";
+static  NSString  * todayOrderURL = @"http://bj.eds.com/orderregion/todayone?businessid=2125";
 
 @implementation EDSTodaysOrdersVC
 
@@ -23,7 +23,7 @@ static const NSString * todayOrderURL = @"http://localhost:8080/business/orderre
     // Do any additional setup after loading the view from its nib.
     self.titleLabel.text = @"今日订单";
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.baidu.com"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:todayOrderURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60]];
 
     [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(tlirvc) forControlEvents:UIControlEventTouchUpInside];
