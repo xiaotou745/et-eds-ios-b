@@ -363,10 +363,9 @@
         [self.TLIR_TableSecond.header endRefreshing];
     }
     NSDictionary * paraData = @{
-                                @"businessId":[NSNumber numberWithInt:2125],//[UserInfo getUserId],
+                                @"businessId":[NSNumber numberWithInteger:self.businessid],//[NSNumber numberWithInt:2125],//[UserInfo getUserId],
                                 @"status":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
-                                @"orderRegionOneId":[NSNumber numberWithInteger:1],
-                                @"orderRegionTwoId":[NSNumber numberWithInteger:0],
+                                @"regionId":[NSNumber numberWithInteger:self.regionid],//[NSNumber numberWithInteger:1],
                                 @"currentPage":[NSNumber numberWithInteger:1],
                                 };
     if (AES_Security) {
@@ -564,10 +563,9 @@
         currentPage = ++_currentPage3rd;
     }
     NSDictionary * paraData = @{
-                                @"businessId":[NSNumber numberWithInt:2125],//[UserInfo getUserId],
+                                @"businessId":[NSNumber numberWithInteger:self.businessid],//[NSNumber numberWithInt:2125],//[UserInfo getUserId],
                                 @"status":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
-                                @"orderRegionOneId":[NSNumber numberWithInteger:1],
-                                @"orderRegionTwoId":[NSNumber numberWithInteger:0],
+                                @"regionId":[NSNumber numberWithInteger:self.regionid],//[NSNumber numberWithInteger:1],
                                 @"currentPage":[NSNumber numberWithInteger:currentPage],
                                 };
     if (AES_Security) {

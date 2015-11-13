@@ -14,4 +14,7 @@
 @property (nonatomic,copy) NSString * TLIR_Title;
 @property (nonatomic,assign) OrderStatus selectedStatus;   // option view 标签
 
+@property (nonatomic,assign) NSInteger businessid;
+@property (nonatomic,assign) NSInteger regionid;
+
 @end

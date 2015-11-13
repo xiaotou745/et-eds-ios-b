@@ -33,8 +33,8 @@ static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregio
     
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:todayOrderURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60]];
 
-    [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
-    [self.rightBtn addTarget:self action:@selector(tlirvc) forControlEvents:UIControlEventTouchUpInside];
+//    [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
+//    [self.rightBtn addTarget:self action:@selector(tlirvc) forControlEvents:UIControlEventTouchUpInside];
     
     
     JSContext *context=[self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
@@ -44,24 +44,25 @@ static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregio
     
     context[@"orderList"] = ^() {
         NSArray *args = [JSContext currentArguments];
-        for (id obj in args) {
-            NSLog(@"%@",obj);
-        }
+        EDSTaskListInRegionVC * tlir = [[EDSTaskListInRegionVC alloc] initWithNibName:NSStringFromClass([EDSTaskListInRegionVC class]) bundle:nil];
+        tlir.businessid = [[NSString stringWithFormat:@"%@",[args objectAtIndex:0]] integerValue];
+        tlir.regionid = [[NSString stringWithFormat:@"%@",[args objectAtIndex:1]] integerValue];
+        tlir.selectedStatus = [[NSString stringWithFormat:@"%@",[args objectAtIndex:2]] integerValue];
+        tlir.TLIR_Title = [NSString stringWithFormat:@"%@",[args objectAtIndex:3]];
+        [self.navigationController pushViewController:tlir animated:YES];
     };
     
 }
 
 - (void)tlirvc{
-    EDSTaskListInRegionVC * tlir = [[EDSTaskListInRegionVC alloc] initWithNibName:NSStringFromClass([EDSTaskListInRegionVC class]) bundle:nil];
-    tlir.selectedStatus = OrderStatusAccepted;
+
     /*
      if (_selectedStatus == OrderStatusAccepted) {
      }else if (_selectedStatus == OrderStatusReceive) {
      }else if (_selectedStatus == OrderStatusComplete) {
      }
      */
-    tlir.TLIR_Title = @"2222";
-    [self.navigationController pushViewController:tlir animated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {
