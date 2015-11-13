@@ -39,7 +39,7 @@
     self.QR_Phone.textColor = DeepGrey;
     
     NSString * uid = [UserInfo getUserId];
-    NSString * uname = @"测试武剑波测试长度最大值的显示效果";//[UserInfo getBussinessName];
+    NSString * uname = [UserInfo getBussinessName];
     NSString * uphone = [UserInfo getbussinessPhone];
     
     self.QR_Name.text = uname;
