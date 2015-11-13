@@ -86,6 +86,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderCountsWithNotification:) name:Hp9CellSecondaryRegionOrderCountChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hpUserLogout) name:LogoutNotifaction object:nil];
+
     
     // 九宫格订单数量变动之后的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrderTotalCount) name:Hp9cellOrderCountChangedNotification object:nil];
@@ -100,8 +102,11 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     // 只有登录了才能到这个界面。
-    // 用户状态
-     [self synchronizeTheBusinessStatus];
+    if ([UserInfo isLogin]) {
+        // 用户状态
+        [self synchronizeTheBusinessStatus];
+    }
+
 }
 
 
@@ -720,5 +725,18 @@
 #pragma mark - Hp9ItemCellDelegate 有二级区域，点击减号，唤起二级区域
 - (void)hp9ItemShouldCallOutSecondaryRegionView:(Hp9ItemCell *)cell{
     [self collectionView:_Hp_9cells didSelectItemAtIndexPath:[_Hp_9cells indexPathForCell:cell]];
+}
+
+
+
+#pragma mark - 用户推出登录
+- (void)hpUserLogout{
+    
+    [_Hp_RegionArray removeAllObjects];
+    [_Hp_9cells reloadData];
+    
+    _Hp_view2_textfield.text = @"";
+    _Hp_view2_total_count.text = @"订单数量: 0单";
+    
 }
 @end
