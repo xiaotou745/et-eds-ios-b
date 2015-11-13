@@ -611,6 +611,17 @@
 		688B37F21BE738660012C60B /* EDSHttpReqManager3.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F01BE738660012C60B /* EDSHttpReqManager3.m */; };
 		688B37F51BE74A910012C60B /* EDS9cell2ndRegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F41BE74A910012C60B /* EDS9cell2ndRegionView.m */; };
 		688B37F61BE74A910012C60B /* EDS9cell2ndRegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688B37F41BE74A910012C60B /* EDS9cell2ndRegionView.m */; };
+		689313191BF5B1580038A023 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 689313181BF5B1580038A023 /* JavaScriptCore.framework */; };
+		6893131C1BF5B3740038A023 /* TestJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6893131B1BF5B3740038A023 /* TestJSObject.m */; };
+		6893131D1BF5B3740038A023 /* TestJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6893131B1BF5B3740038A023 /* TestJSObject.m */; };
+		689313261BF5BE050038A023 /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 689313201BF5BE050038A023 /* WebViewJavascriptBridge.js.txt */; };
+		689313271BF5BE050038A023 /* WebViewJavascriptBridge.js.txt in Resources */ = {isa = PBXBuildFile; fileRef = 689313201BF5BE050038A023 /* WebViewJavascriptBridge.js.txt */; };
+		689313281BF5BE050038A023 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 689313211BF5BE050038A023 /* WebViewJavascriptBridge.m */; };
+		689313291BF5BE050038A023 /* WebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 689313211BF5BE050038A023 /* WebViewJavascriptBridge.m */; };
+		6893132A1BF5BE050038A023 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 689313231BF5BE050038A023 /* WebViewJavascriptBridgeBase.m */; };
+		6893132B1BF5BE050038A023 /* WebViewJavascriptBridgeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 689313231BF5BE050038A023 /* WebViewJavascriptBridgeBase.m */; };
+		6893132C1BF5BE050038A023 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 689313251BF5BE050038A023 /* WKWebViewJavascriptBridge.m */; };
+		6893132D1BF5BE050038A023 /* WKWebViewJavascriptBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 689313251BF5BE050038A023 /* WKWebViewJavascriptBridge.m */; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; };
@@ -1675,6 +1686,16 @@
 		688B37F01BE738660012C60B /* EDSHttpReqManager3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSHttpReqManager3.m; sourceTree = "<group>"; };
 		688B37F31BE74A910012C60B /* EDS9cell2ndRegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDS9cell2ndRegionView.h; sourceTree = "<group>"; };
 		688B37F41BE74A910012C60B /* EDS9cell2ndRegionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDS9cell2ndRegionView.m; sourceTree = "<group>"; };
+		689313181BF5B1580038A023 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		6893131A1BF5B3740038A023 /* TestJSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestJSObject.h; sourceTree = "<group>"; };
+		6893131B1BF5B3740038A023 /* TestJSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestJSObject.m; sourceTree = "<group>"; };
+		6893131F1BF5BE050038A023 /* WebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		689313201BF5BE050038A023 /* WebViewJavascriptBridge.js.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WebViewJavascriptBridge.js.txt; sourceTree = "<group>"; };
+		689313211BF5BE050038A023 /* WebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridge.m; sourceTree = "<group>"; };
+		689313221BF5BE050038A023 /* WebViewJavascriptBridgeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewJavascriptBridgeBase.h; sourceTree = "<group>"; };
+		689313231BF5BE050038A023 /* WebViewJavascriptBridgeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewJavascriptBridgeBase.m; sourceTree = "<group>"; };
+		689313241BF5BE050038A023 /* WKWebViewJavascriptBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewJavascriptBridge.h; sourceTree = "<group>"; };
+		689313251BF5BE050038A023 /* WKWebViewJavascriptBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewJavascriptBridge.m; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -2185,6 +2206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				689313191BF5B1580038A023 /* JavaScriptCore.framework in Frameworks */,
 				F67D35DD1B5664A600083DA4 /* CoreTelephony.framework in Frameworks */,
 				F67D35DE1B5664A600083DA4 /* CFNetwork.framework in Frameworks */,
 				F67D35DF1B5664A600083DA4 /* libz.1.dylib in Frameworks */,
@@ -3185,6 +3207,7 @@
 		686745671BA98ED4005F59D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				689313181BF5B1580038A023 /* JavaScriptCore.framework */,
 				F637CF4E1B437F1D00410C24 /* CoreTelephony.framework */,
 				F637CF4C1B437D2200410C24 /* CFNetwork.framework */,
 				F6441BAC1B3D490000EA3C9D /* libz.1.dylib */,
@@ -3253,6 +3276,7 @@
 		688B37C31BE369170012C60B /* OrdersToday */ = {
 			isa = PBXGroup;
 			children = (
+				6893131E1BF5BE050038A023 /* WebViewJavascriptBridge */,
 				688B37C41BE3696E0012C60B /* EDSTodaysOrdersVC.h */,
 				688B37C51BE3696E0012C60B /* EDSTodaysOrdersVC.m */,
 				688B37C61BE3696E0012C60B /* EDSTodaysOrdersVC.xib */,
@@ -3264,6 +3288,8 @@
 				688B37DC1BE704D10012C60B /* EDSTaskListInRegionCell.xib */,
 				688B356E1BEA0DEE008358B2 /* TaskInRegionModel.h */,
 				688B356F1BEA0DEE008358B2 /* TaskInRegionModel.m */,
+				6893131A1BF5B3740038A023 /* TestJSObject.h */,
+				6893131B1BF5B3740038A023 /* TestJSObject.m */,
 			);
 			path = OrdersToday;
 			sourceTree = "<group>";
@@ -3276,6 +3302,20 @@
 				688B37D51BE704A00012C60B /* EDSOrderDetailFor9CellsVC.xib */,
 			);
 			path = OrderDetailNew;
+			sourceTree = "<group>";
+		};
+		6893131E1BF5BE050038A023 /* WebViewJavascriptBridge */ = {
+			isa = PBXGroup;
+			children = (
+				6893131F1BF5BE050038A023 /* WebViewJavascriptBridge.h */,
+				689313201BF5BE050038A023 /* WebViewJavascriptBridge.js.txt */,
+				689313211BF5BE050038A023 /* WebViewJavascriptBridge.m */,
+				689313221BF5BE050038A023 /* WebViewJavascriptBridgeBase.h */,
+				689313231BF5BE050038A023 /* WebViewJavascriptBridgeBase.m */,
+				689313241BF5BE050038A023 /* WKWebViewJavascriptBridge.h */,
+				689313251BF5BE050038A023 /* WKWebViewJavascriptBridge.m */,
+			);
+			path = WebViewJavascriptBridge;
 			sourceTree = "<group>";
 		};
 		68AE2BD11BC8E88D00E8149C /* Cells */ = {
@@ -4230,6 +4270,7 @@
 				68AE2BDF1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
 				6801E3C11BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */,
 				688B37D91BE704A00012C60B /* EDSOrderDetailFor9CellsVC.xib in Resources */,
+				689313271BF5BE050038A023 /* WebViewJavascriptBridge.js.txt in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				CF22B0301BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
 				6855C28A1BF2E53300772385 /* Hp9ItemSecondaryCell.xib in Resources */,
@@ -4316,6 +4357,7 @@
 				686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68580C931BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
+				689313261BF5BE050038A023 /* WebViewJavascriptBridge.js.txt in Resources */,
 				688B37C11BE308210012C60B /* Hp9ItemCell.xib in Resources */,
 				6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */,
 				F65E8D1F1B39807600053141 /* Images 19-52-49-033.xcassets in Resources */,
@@ -4500,6 +4542,7 @@
 				688B37DE1BE704D10012C60B /* EDSTaskListInRegionCell.m in Sources */,
 				685C0F7D1BF06AC400AAD77C /* ZXRSSExpandedDecodedInformation.m in Sources */,
 				685C0FCD1BF06AC400AAD77C /* ZXUPCEReader.m in Sources */,
+				6893132B1BF5BE050038A023 /* WebViewJavascriptBridgeBase.m in Sources */,
 				685C0EA91BF06AC300AAD77C /* ZXEmailAddressResultParser.m in Sources */,
 				F67D35611B5664A600083DA4 /* MKAnnotationView+WebCache.m in Sources */,
 				F67D35631B5664A600083DA4 /* FMDatabase.m in Sources */,
@@ -4552,6 +4595,7 @@
 				685C0EC51BF06AC300AAD77C /* ZXSMSTOMMSTOResultParser.m in Sources */,
 				685C0E811BF06AC300AAD77C /* ZXAztecDecoder.m in Sources */,
 				685C10091BF06AC400AAD77C /* ZXQRCodeDecoder.m in Sources */,
+				6893132D1BF5BE050038A023 /* WKWebViewJavascriptBridge.m in Sources */,
 				6811E0D01BCA5C5300F81F03 /* DayBillInfo.m in Sources */,
 				2EA0CA6B1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F67D35741B5664A600083DA4 /* MDSenderDetailCell.m in Sources */,
@@ -4641,6 +4685,7 @@
 				F67D35981B5664A600083DA4 /* OrderModel.m in Sources */,
 				F67D35991B5664A600083DA4 /* MessagesViewController.m in Sources */,
 				F67D359A1B5664A600083DA4 /* RSADataSigner.m in Sources */,
+				689313291BF5BE050038A023 /* WebViewJavascriptBridge.m in Sources */,
 				F67D359B1B5664A600083DA4 /* UIImageView+MJWebCache.m in Sources */,
 				686745621BA9205C005F59D4 /* UIView+Common.m in Sources */,
 				685C0EE11BF06AC300AAD77C /* ZXCapture.m in Sources */,
@@ -4796,6 +4841,7 @@
 				685C0F5D1BF06AC400AAD77C /* ZXByQuadrantReader.m in Sources */,
 				F67D35D61B5664A600083DA4 /* PlaceholderTextView.m in Sources */,
 				685C0E891BF06AC300AAD77C /* ZXAztecEncoder.m in Sources */,
+				6893131D1BF5B3740038A023 /* TestJSObject.m in Sources */,
 				685E53B11BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */,
 				F67D35D81B5664A600083DA4 /* ChildOrderModel.m in Sources */,
 				F67D35D91B5664A600083DA4 /* OrdersListTableViewController.m in Sources */,
@@ -4959,6 +5005,7 @@
 				688B37DD1BE704D10012C60B /* EDSTaskListInRegionCell.m in Sources */,
 				685C0F7C1BF06AC400AAD77C /* ZXRSSExpandedDecodedInformation.m in Sources */,
 				685C0FCC1BF06AC400AAD77C /* ZXUPCEReader.m in Sources */,
+				6893132A1BF5BE050038A023 /* WebViewJavascriptBridgeBase.m in Sources */,
 				685C0EA81BF06AC300AAD77C /* ZXEmailAddressResultParser.m in Sources */,
 				F66CA1551B1EEF9C006BDDB8 /* FMDatabase.m in Sources */,
 				E40289311B3C357C00B80417 /* MissionDetailViewController.m in Sources */,
@@ -5011,6 +5058,7 @@
 				685C0EC41BF06AC300AAD77C /* ZXSMSTOMMSTOResultParser.m in Sources */,
 				685C0E801BF06AC300AAD77C /* ZXAztecDecoder.m in Sources */,
 				685C10081BF06AC400AAD77C /* ZXQRCodeDecoder.m in Sources */,
+				6893132C1BF5BE050038A023 /* WKWebViewJavascriptBridge.m in Sources */,
 				6811E0CF1BCA5C5300F81F03 /* DayBillInfo.m in Sources */,
 				2EA0CA6A1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F6C6ADB41B12F42F0007A980 /* UIView+WebCacheOperation.m in Sources */,
@@ -5100,6 +5148,7 @@
 				F62E8D0C1B3007DB006F3862 /* MessagesViewController.m in Sources */,
 				F6441B541B3D470100EA3C9D /* RSADataSigner.m in Sources */,
 				F6C6AD941B12F42F0007A980 /* UIImageView+MJWebCache.m in Sources */,
+				689313281BF5BE050038A023 /* WebViewJavascriptBridge.m in Sources */,
 				F61C76241B467B50009051B9 /* AboutViewController.m in Sources */,
 				686745611BA9205C005F59D4 /* UIView+Common.m in Sources */,
 				685C0EE01BF06AC300AAD77C /* ZXCapture.m in Sources */,
@@ -5255,6 +5304,7 @@
 				685C0F5C1BF06AC400AAD77C /* ZXByQuadrantReader.m in Sources */,
 				F6C6ADA01B12F42F0007A980 /* PlaceholderTextView.m in Sources */,
 				685C0E881BF06AC300AAD77C /* ZXAztecEncoder.m in Sources */,
+				6893131C1BF5B3740038A023 /* TestJSObject.m in Sources */,
 				685E53B01BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */,
 				F6441B241B3BD99C00EA3C9D /* ChildOrderModel.m in Sources */,
 				F66CA1321B1E9BF2006BDDB8 /* OrdersListTableViewController.m in Sources */,

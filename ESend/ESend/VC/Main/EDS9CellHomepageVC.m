@@ -126,7 +126,7 @@
     // right
     [self.rightBtn setImage:[UIImage imageNamed:@"9cell_order"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(todaysOrdersBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    self.rightBtn.hidden = YES;
+   // self.rightBtn.hidden = YES;
 }
 
 - (void)_configNibViews{
@@ -282,11 +282,16 @@
                 }
             }
         }else{
-            [Tools showHUD:message];
+            // [Tools showHUD:message];
+            if (!_otherSitua9CellShortageShowing) { // 没显示才显示
+                [self _showOtherSituationView9CellShortage];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
-
+        if (!_otherSitua9CellShortageShowing) { // 没显示才显示
+            [self _showOtherSituationView9CellShortage];
+        }
     }];
     
 }
@@ -731,6 +736,9 @@
 
 #pragma mark - 用户推出登录
 - (void)hpUserLogout{
+    
+    self.Hp_Scroller.hidden = YES;
+    self.releaseButton.hidden = YES;
     
     [_Hp_RegionArray removeAllObjects];
     [_Hp_9cells reloadData];

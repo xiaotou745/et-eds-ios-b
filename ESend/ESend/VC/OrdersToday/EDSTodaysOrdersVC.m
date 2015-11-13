@@ -9,12 +9,20 @@
 #import "EDSTodaysOrdersVC.h"
 #import "EDSTaskListInRegionVC.h"
 
+#import "TestJSObject.h"
+#import "WebViewJavascriptBridge.h"
+
+
 @interface EDSTodaysOrdersVC ()<UIWebViewDelegate>
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 
+
+@property WebViewJavascriptBridge* bridge;
+
+
 @end
 
-static  NSString  * todayOrderURL = @"http://bj.eds.com/orderregion/todayone?businessid=2125";
+static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregion/todayone?businessid=2125#";
 
 @implementation EDSTodaysOrdersVC
 
@@ -27,6 +35,20 @@ static  NSString  * todayOrderURL = @"http://bj.eds.com/orderregion/todayone?bus
 
     [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(tlirvc) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    JSContext *context=[self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+    
+    //    TestJSObject *todayOrder=[TestJSObject new];
+    //    context[@"orderList"]=todayOrder;
+    
+    context[@"orderList"] = ^() {
+        NSArray *args = [JSContext currentArguments];
+        for (id obj in args) {
+            NSLog(@"%@",obj);
+        }
+    };
+    
 }
 
 - (void)tlirvc{
@@ -53,34 +75,27 @@ static  NSString  * todayOrderURL = @"http://bj.eds.com/orderregion/todayone?bus
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    /*
-     UIWebViewNavigationTypeLinkClicked,
-     UIWebViewNavigationTypeFormSubmitted,
-     UIWebViewNavigationTypeBackForward,
-     UIWebViewNavigationTypeReload,
-     UIWebViewNavigationTypeFormResubmitted,
-     UIWebViewNavigationTypeOther
-     */
-    NSLog(@"UIWebViewNavigationType:%ld",navigationType);
-    NSString * URLString = request.URL.absoluteString;
-    NSLog(@"%@",URLString);
 
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-
-    }
-    
-    
-    return YES;
+    return TRUE;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
     
-    NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    //iOS调用js
     
-    NSLog(@"%@\n%@",currentURL,title);
-    
+    //首先创建JSContext 对象（此处通过当前webView的键获取到jscontext）
 
+    
+    
+//    [WebViewJavascriptBridge enableLogging];
+//
+//    
+//    _bridge = [WebViewJavascriptBridge bridgeForWebView:webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+//        NSLog(@"ObjC received message from JS: %@", data);
+//        responseCallback(@"Response for message from ObjC");
+//    }];
+//    
+    
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{

@@ -94,7 +94,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
 //            mineCell.contentLabel.text = [NSString stringWithFormat:@"%@ ****%@",_bank.openBank,[_bank.bankCardNumber substringWithRange:NSMakeRange(_bank.bankCardNumber.length - 4, 4)]];
 //        }
         
-        _supplierNameLabel.text = [_business getStringWithKey:@"Name"];
+        _supplierNameLabel.text = [self businessNameWithStr:[_business getStringWithKey:@"Name"]];//;
         
         double amountRemain = [[result objectForKey:@"BalancePrice"] doubleValue];
         //double amountCanGet = [[result objectForKey:@"AllowWithdrawPrice"] doubleValue];
@@ -142,6 +142,16 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
 }
 
+- (NSString *)businessNameWithStr:(NSString *)str{
+    NSString * result = nil;
+    if (str.length > 10) {
+        result = [NSString stringWithFormat:@"%@...",[str substringToIndex:10]];
+    }else{
+        result = str;
+    }
+    return result;
+}
+
 - (void)bulidView {
     
     // 导航条
@@ -159,7 +169,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
     // 店铺名称
     _supplierNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, MainWidth - 30 - 110, 25)];
-    _supplierNameLabel.text = [UserInfo getBussinessName];
+    _supplierNameLabel.text = [self businessNameWithStr:[UserInfo getBussinessName]];//
     _supplierNameLabel.textColor = DeepGrey;
     _supplierNameLabel.font = [UIFont systemFontOfSize:BigFontSize];
     [_topView addSubview:_supplierNameLabel];
