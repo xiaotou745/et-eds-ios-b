@@ -12,6 +12,8 @@
 #import "TestJSObject.h"
 #import "WebViewJavascriptBridge.h"
 
+#import "UserInfo.h"
+
 
 @interface EDSTodaysOrdersVC ()<UIWebViewDelegate>
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
@@ -22,7 +24,7 @@
 
 @end
 
-static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregion/todayone?businessid=2125#";
+static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregion/todayone?businessid=";// 2125#
 
 @implementation EDSTodaysOrdersVC
 
@@ -31,16 +33,9 @@ static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregio
     // Do any additional setup after loading the view from its nib.
     self.titleLabel.text = @"今日订单";
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:todayOrderURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60]];
-
-//    [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
-//    [self.rightBtn addTarget:self action:@selector(tlirvc) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@#",todayOrderURL,[UserInfo getUserId]]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60]];
     
     JSContext *context=[self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    
-    //    TestJSObject *todayOrder=[TestJSObject new];
-    //    context[@"orderList"]=todayOrder;
     
     context[@"orderList"] = ^() {
         NSArray *args = [JSContext currentArguments];
@@ -52,17 +47,6 @@ static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregio
         [self.navigationController pushViewController:tlir animated:YES];
     };
     
-}
-
-- (void)tlirvc{
-
-    /*
-     if (_selectedStatus == OrderStatusAccepted) {
-     }else if (_selectedStatus == OrderStatusReceive) {
-     }else if (_selectedStatus == OrderStatusComplete) {
-     }
-     */
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,21 +65,6 @@ static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregio
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    
-    //iOS调用js
-    
-    //首先创建JSContext 对象（此处通过当前webView的键获取到jscontext）
-
-    
-    
-//    [WebViewJavascriptBridge enableLogging];
-//
-//    
-//    _bridge = [WebViewJavascriptBridge bridgeForWebView:webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-//        NSLog(@"ObjC received message from JS: %@", data);
-//        responseCallback(@"Response for message from ObjC");
-//    }];
-//    
     
 }
 

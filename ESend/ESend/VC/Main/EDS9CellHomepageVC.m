@@ -99,6 +99,18 @@
     self.releaseButton.hidden = YES;
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [Tools hiddenKeyboard];
+
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     // 只有登录了才能到这个界面。
@@ -234,10 +246,18 @@
             }
         }else{
             [Tools showHUD:Message];
+            
+            if (!_otherSitua9CellShortageShowing) { // 没显示
+                [self _showOtherSituationView9CellShortage];
+            }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
+        
+        if (!_otherSitua9CellShortageShowing) { // 没显示
+            [self _showOtherSituationView9CellShortage];
+        }
     }];
     
 }
@@ -277,19 +297,19 @@
                 self.releaseButton.hidden = NO;
 
             }else{ // 显示不足九个的情况
-                if (!_otherSitua9CellShortageShowing) { // 没显示才显示
+                if (!_otherSitua9CellShortageShowing) { // 没显示
                     [self _showOtherSituationView9CellShortage];
                 }
             }
         }else{
             // [Tools showHUD:message];
-            if (!_otherSitua9CellShortageShowing) { // 没显示才显示
+            if (!_otherSitua9CellShortageShowing) { // 没显示
                 [self _showOtherSituationView9CellShortage];
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
-        if (!_otherSitua9CellShortageShowing) { // 没显示才显示
+        if (!_otherSitua9CellShortageShowing) { // 没显示
             [self _showOtherSituationView9CellShortage];
         }
     }];

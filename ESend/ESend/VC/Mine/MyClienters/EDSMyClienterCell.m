@@ -23,6 +23,7 @@ NSString *const EDSMyClienterApplyingReject = @"拒绝";
 @property (strong, nonatomic) IBOutlet UILabel *ClienterPhone2;
 @property (strong, nonatomic) IBOutlet UIButton *ClienterButton;
 @property (strong, nonatomic) IBOutlet UIButton *ClienterButton2;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *ClienterButton2Width;
 
 @end
 
@@ -41,8 +42,8 @@ NSString *const EDSMyClienterApplyingReject = @"拒绝";
     self.ClienterPhone2.textColor = TextColor6;
     
     self.ClienterImg.layer.cornerRadius = CGRectGetWidth(self.ClienterImg.frame)/2;
-    self.ClienterImg.layer.borderWidth = 2.0f;
-    self.ClienterImg.layer.borderColor = [SeparatorLineColor CGColor];
+    // self.ClienterImg.layer.borderWidth = 2.0f;
+    // self.ClienterImg.layer.borderColor = [SeparatorLineColor CGColor];
     self.ClienterImg.layer.masksToBounds  = YES;
     
     [self.ClienterButton setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:@"blue_btn_noSelect"];
@@ -63,7 +64,7 @@ NSString *const EDSMyClienterApplyingReject = @"拒绝";
 
 - (void)setDatasource:(EDSMyClienter *)datasource{
     _datasource = datasource;
-    [self.ClienterImg sd_setImageWithURL:[NSURL URLWithString:_datasource.headPhoto] placeholderImage:[UIImage imageNamed:@"default_clienter_img"]];
+    [self.ClienterImg sd_setImageWithURL:[NSURL URLWithString:_datasource.headPhoto] placeholderImage:[UIImage imageNamed:@"clienter_default_portrait"]];
     self.ClienterName.text = _datasource.trueName;
     self.ClienterPhone2.text = _datasource.phoneNo;
 }
@@ -72,8 +73,10 @@ NSString *const EDSMyClienterApplyingReject = @"拒绝";
     [self.ClienterButton setTitle:buttonTitle forState:UIControlStateNormal];
     if ([buttonTitle compare:EDSMyClienterInService] == NSOrderedSame) {
         self.ClienterButton2.hidden = YES;
+        self.ClienterButton2Width.constant = 0;
     }else{
         self.ClienterButton2.hidden = NO;
+        self.ClienterButton2Width.constant = 45;
     }
 }
 - (void)setButtonTitle2:(NSString *)buttonTitle2{
