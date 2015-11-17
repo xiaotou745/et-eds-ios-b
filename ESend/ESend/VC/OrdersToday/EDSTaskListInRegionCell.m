@@ -44,8 +44,9 @@
     self.cellIndicatorLine.backgroundColor = SeparatorLineColor;
     
     self.clienterImg.layer.cornerRadius = CGRectGetWidth(self.clienterImg.frame)/2;
-    self.clienterImg.layer.borderWidth = 2.0f;
-    self.clienterImg.layer.borderColor = [SeparatorLineColor CGColor];
+//    self.clienterImg.layer.borderWidth = 2.0f;
+//    self.clienterImg.layer.borderColor = [SeparatorLineColor CGColor];
+    self.clienterImg.layer.masksToBounds = YES;
     
     self.clienterNameFix.font =
     self.clienterPhoneFix.font =
