@@ -57,7 +57,7 @@
 //     NSString * strC = [[NSString stringWithFormat:@"%@-%@",uid,uname] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //    NSString* strAfterDecodeByUTF8AndURI = [strC stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //    NSLog(@"%@  \n  %@",strC,strAfterDecodeByUTF8AndURI);
-    NSString * strC = [Security AesEncrypt:uid];
+    NSString * strC = [Security AesEncrypt:[NSString stringWithFormat:@"%@_edaisong",uid]];
 
      ZXBitMatrix* result = [writer encode:strC format:kBarcodeFormatQRCode width:500 height:500 error:&error];
      if (result) {
