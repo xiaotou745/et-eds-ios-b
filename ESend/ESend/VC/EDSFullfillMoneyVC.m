@@ -60,11 +60,11 @@
     aliPay.selected = YES;
     [_FFM_Payments addObject:aliPay];
     
-    EDSPaymentTypeModel * wechatPay = [[EDSPaymentTypeModel alloc] init];
-    wechatPay.paymentType = EDSPaymentTypeWechatPay;
-    wechatPay.paymentName = @"微信支付";
-    wechatPay.selected = NO;
-    [_FFM_Payments addObject:wechatPay];
+//    EDSPaymentTypeModel * wechatPay = [[EDSPaymentTypeModel alloc] init];
+//    wechatPay.paymentType = EDSPaymentTypeWechatPay;
+//    wechatPay.paymentName = @"微信支付";
+//    wechatPay.selected = NO;
+//    [_FFM_Payments addObject:wechatPay];
 
     // ui
     self.FFM_AmoutToRechargeFix.font =

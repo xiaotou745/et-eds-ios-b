@@ -609,18 +609,38 @@
     aLine.backgroundColor = SeparatorColorC;
     [demoView addSubview:aLine];
     
-    // 订单总金额
     CGFloat leftMargin = 15;
     CGFloat lblHeight = 22;
-    UILabel * orderAmoutLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, CGRectGetMaxY(aLine.frame) + 10, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
-    orderAmoutLbl.font = [UIFont systemFontOfSize:15];
-    orderAmoutLbl.textColor = TextColor6;
-    orderAmoutLbl.backgroundColor = [UIColor clearColor];
-    orderAmoutLbl.textAlignment = NSTextAlignmentLeft;
-    orderAmoutLbl.text = [NSString stringWithFormat:@"订单总金额: %.2f元",orderAmout];
-    [demoView addSubview:orderAmoutLbl];
+    CGFloat y = CGRectGetMaxY(aLine.frame) + 10;
+    // 订单总金额
+    double totalAmount = orderAmout + orderCount * DistribSubsidy;
+    if (totalAmount > 0) {
+        UILabel * orderAmoutLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, y, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
+        orderAmoutLbl.font = [UIFont systemFontOfSize:15];
+        orderAmoutLbl.textColor = TextColor6;
+        orderAmoutLbl.backgroundColor = [UIColor clearColor];
+        orderAmoutLbl.textAlignment = NSTextAlignmentLeft;
+        orderAmoutLbl.text = [NSString stringWithFormat:@"总金额: %.2f元",totalAmount];
+        [demoView addSubview:orderAmoutLbl];
+        
+        y = CGRectGetMaxY(orderAmoutLbl.frame);
+    }
+    
+    // 订单金额
+    if (orderAmout > 0) {
+        UILabel * amoutLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, y, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
+        amoutLbl.font = [UIFont systemFontOfSize:15];
+        amoutLbl.textColor = TextColor6;
+        amoutLbl.backgroundColor = [UIColor clearColor];
+        amoutLbl.textAlignment = NSTextAlignmentLeft;
+        amoutLbl.text = [NSString stringWithFormat:@"订单金额: %.2f元",orderAmout];
+        [demoView addSubview:amoutLbl];
+        
+        y = CGRectGetMaxY(amoutLbl.frame);
+    }
+
     // 订单数量
-    UILabel * orderCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, CGRectGetMaxY(orderAmoutLbl.frame), CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
+    UILabel * orderCountLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, y, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
     orderCountLbl.font = [UIFont systemFontOfSize:15];
     orderCountLbl.textColor = TextColor6;
     orderCountLbl.backgroundColor = [UIColor clearColor];
@@ -628,7 +648,8 @@
     orderCountLbl.text = [NSString stringWithFormat:@"订单数量: %ld单",orderCount];
     [demoView addSubview:orderCountLbl];
     
-    CGFloat y = CGRectGetMaxY(orderCountLbl.frame);
+    y = CGRectGetMaxY(orderCountLbl.frame);
+    
     // 配送费用
     if (DistribSubsidy > 0) { // 有配送费用
         UILabel * orderDistribSubsidyLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, y, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
@@ -643,14 +664,20 @@
     }
     
     // 当前结算 ，剩余
-    UILabel * orderBalanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, y, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight * 2)];
+    UILabel * orderBalanceLbl = [[UILabel alloc] initWithFrame:CGRectMake(leftMargin, y, CGRectGetWidth(demoView.frame)-leftMargin, lblHeight)];
     orderBalanceLbl.font = [UIFont systemFontOfSize:15];
     orderBalanceLbl.textColor = TextColor6;
     orderBalanceLbl.backgroundColor = [UIColor clearColor];
     orderBalanceLbl.textAlignment = NSTextAlignmentLeft;
     orderBalanceLbl.numberOfLines = 0;
-    orderBalanceLbl.text = [NSString stringWithFormat:@"当前任务结算: %.2f元,剩余余额%.2f元",OrderBalance,RemainBalance];
+    NSString * orderBalanceContent = [NSString stringWithFormat:@"当前任务结算: %.2f元,剩余余额%.2f元",OrderBalance,RemainBalance];
+    orderBalanceLbl.text = orderBalanceContent;
     [demoView addSubview:orderBalanceLbl];
+    //
+    CGFloat contentHeight = [Tools stringHeight:orderBalanceContent fontSize:15 width:CGRectGetWidth(demoView.frame)-leftMargin].height;
+    if (contentHeight > lblHeight) {
+        orderBalanceLbl.frame = CGRectMake(leftMargin, y, CGRectGetWidth(demoView.frame)-leftMargin, contentHeight);
+    }
     
     [demoView setFrame:CGRectMake(0, 0, 290, CGRectGetMaxY(orderBalanceLbl.frame) + 10)];
     

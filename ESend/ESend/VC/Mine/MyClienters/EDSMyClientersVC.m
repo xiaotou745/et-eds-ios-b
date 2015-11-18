@@ -658,6 +658,7 @@
         _remarkTextView.delegate = self;
         _remarkTextView.backgroundColor = [UIColor clearColor];
     }
+    _remarkTextView.text = @"";
 //    _remarkTextView.text = @"请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十请输入一百个字八九十";
     [demoView addSubview:_remarkTextView];
     
