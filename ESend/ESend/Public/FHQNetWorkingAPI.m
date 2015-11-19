@@ -911,13 +911,13 @@
     return operation;
 }
 
-/// java 1.1.9 B端任务统计接口
+/// java 1.1.9 B端任务统计接口   /// 9cell,修改了接口名，1.2.4 B端任务统计接口
 /// url:/order/orderstatisticsb POST
 + (AFHTTPRequestOperation *)orderstatisticsb:(NSDictionary *)data
                                 successBlock:(successBlock)successBlock
                                      failure:(failureBlock)failure{
     
-    NSString *url = @"order/orderstatisticsb";
+    NSString *url = @"order/ordergrabstatisticsb";//ordergrabstatisticsb
     AFHTTPRequestOperation * operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
             successBlock(result, operation);
