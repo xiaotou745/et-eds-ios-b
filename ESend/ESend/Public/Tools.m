@@ -71,8 +71,10 @@
                                  options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                               attributes:@{NSFontAttributeName : label.font}
                                  context:nil].size;
-        
-        return CGRectMake(FRAME_X(label), FRAME_Y(label), FRAME_WIDTH(label), contentSize.height);
+    
+        CGFloat aHeight = MAX(contentSize.height, label.frame.size.height);
+    
+        return CGRectMake(FRAME_X(label), FRAME_Y(label), FRAME_WIDTH(label), aHeight);
 
 
     

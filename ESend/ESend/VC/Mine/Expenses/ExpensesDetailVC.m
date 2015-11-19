@@ -117,19 +117,7 @@
     //3
     self.thirdLabel.text = operateTime;
     
-    if (1 == isOrder) {
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(EdTapAction:)];
-        self.expenseOperationName.userInteractionEnabled = YES;
-        //[self.expenseOperationName addGestureRecognizer:tap];
-        self.rightIndicatorImg.userInteractionEnabled = YES;
-        //[self.rightIndicatorImg addGestureRecognizer:tap];
-        self.expenseBgView.userInteractionEnabled = YES;
-        
-        [self.expenseBgView addGestureRecognizer:tap];
-        
-    }else if (0 == isOrder){
-        self.rightIndicatorImg.hidden = YES;
-    }
+    self.rightIndicatorImg.hidden = YES;
 
 }
 

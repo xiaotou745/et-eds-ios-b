@@ -932,12 +932,12 @@
 }
 
 
-/// java 1.2.0 B端已完成任务列表或者某个配送员配送列表
+/// java 1.2.0 B端已完成任务列表或者某个配送员配送列表, ...九宫格使用 getcompliteordergrabb
 //url:/order/getcompliteorderb POST
 + (AFHTTPRequestOperation *)getcompliteorderb:(NSDictionary *)data
                                  successBlock:(successBlock)successBlock
                                       failure:(failureBlock)failure{
-    NSString *url = @"order/getcompliteorderb";
+    NSString *url = @"order/getcompliteordergrabb";// getcompliteordergrabb
     AFHTTPRequestOperation * operation = [FHQNetWorkingKit httpRequestWithUrl:url methodType:@"POST" prameters:data success:^(id result, AFHTTPRequestOperation *operation) {
         if (successBlock) {
             successBlock(result, operation);

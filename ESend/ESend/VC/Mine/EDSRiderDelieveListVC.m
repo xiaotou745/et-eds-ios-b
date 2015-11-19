@@ -7,13 +7,13 @@
 //
 
 #import "EDSRiderDelieveListVC.h"
-#import "OrdersListTableVIewCell.h"
+#import "EDSRiderDeliveryCell.h"
 #import "FHQNetWorkingAPI.h"
 
 #import "UserInfo.h"
 #import "MJRefresh.h"
 
-#import "OrderDetailViewController.h"
+#import "EDSOrderDetailFor9CellsVC.h"
 
 #define Rd_Cell_Id @"Rd_Cell_Id"
 
@@ -40,7 +40,7 @@
     self.titleLabel.text = @"配送列表";
     
     _orderList = [[NSMutableArray alloc] initWithCapacity:0];
-    [self.Rd_ContentList registerClass:[OrdersListTableVIewCell class] forCellReuseIdentifier:Rd_Cell_Id];
+    [self.Rd_ContentList registerClass:[EDSRiderDeliveryCell class] forCellReuseIdentifier:Rd_Cell_Id];
     
     [self.Rd_ContentList addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(refreshPullDataList)];
     
@@ -93,14 +93,13 @@
             //SupermanOrderModel *order = [[SupermanOrderModel alloc] initWithDic:dic];
             SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
             order.orderStatus = [[dic objectForKey:@"status"] integerValue];
-            order.receivePhone = [dic getStringWithKey:@"recevicePhoneNo"];
             order.orderId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderId"]];
             order.orderNumber = [dic objectForKey:@"orderNo"];
-            order.amount = [[dic objectForKey:@"amount"] floatValue];
-            order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
             order.receiveAddress = [dic getStringWithKey:@"receviceAddress"];
             order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
-            order.pubDate = [dic objectForKey:@"pubDate"];
+            order.actualDoneDate = [dic objectForKey:@"actualDoneDate"];
+            order.supermenName = [dic objectForKey:@"superManName"];
+            order.supermenPhone = [dic objectForKey:@"superManPhone"];
             [_orderList addObject:order];
         }
         [self.Rd_ContentList reloadData];
@@ -147,14 +146,13 @@
             //SupermanOrderModel *order = [[SupermanOrderModel alloc] initWithDic:dic];
             SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
             order.orderStatus = [[dic objectForKey:@"status"] integerValue];
-            order.receivePhone = [dic getStringWithKey:@"recevicePhoneNo"];
             order.orderId = [NSString stringWithFormat:@"%@",[dic objectForKey:@"orderId"]];
             order.orderNumber = [dic objectForKey:@"orderNo"];
-            order.amount = [[dic objectForKey:@"amount"] floatValue];
-            order.totalAmount = [[dic objectForKey:@"totalAmount"] floatValue];
             order.receiveAddress = [dic getStringWithKey:@"receviceAddress"];
             order.orderCount = [[dic objectForKey:@"orderCount"] integerValue];
-            order.pubDate = [dic objectForKey:@"pubDate"];
+            order.actualDoneDate = [dic objectForKey:@"actualDoneDate"];
+            order.supermenName = [dic objectForKey:@"superManName"];
+            order.supermenPhone = [dic objectForKey:@"superManPhone"];
             [_orderList addObject:order];
         }
         [self.Rd_ContentList reloadData];
@@ -179,12 +177,12 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    OrdersListTableVIewCell *cell = [tableView dequeueReusableCellWithIdentifier:Rd_Cell_Id forIndexPath:indexPath];
+    EDSRiderDeliveryCell *cell = [tableView dequeueReusableCellWithIdentifier:Rd_Cell_Id forIndexPath:indexPath];
     [cell loadData:_orderList[indexPath.section]];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [OrdersListTableVIewCell calculateCellHeight:[_orderList objectAtIndex:indexPath.section]];
+    return [EDSRiderDeliveryCell calculateCellHeight:[_orderList objectAtIndex:indexPath.section]];
 
 }
 
@@ -209,80 +207,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    [self getOrderDetail:[_orderList objectAtIndex:indexPath.section] ];
+    EDSOrderDetailFor9CellsVC * odf9c = [[EDSOrderDetailFor9CellsVC alloc] initWithNibName:NSStringFromClass([EDSOrderDetailFor9CellsVC class]) bundle:nil];
+    SupermanOrderModel * orderInfo = [_orderList objectAtIndex:indexPath.section];
+    odf9c.grabOrderId = [orderInfo.orderId integerValue];
+    [self.navigationController pushViewController:odf9c animated:YES];
 }
 
-- (void)getOrderDetail:(SupermanOrderModel*)order  {
-    NSDictionary *requestData = @{@"OrderId"    : order.orderId,
-                                  @"BusinessId" : [UserInfo getUserId],
-                                  @"version"    : @"1.0"};
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    [FHQNetWorkingAPI getOrderDetail:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
-        
-        // [order loadData:result];
-        //
-        order.remark = [[result getStringWithKey:@"Remark"] isEqual:@""] ? @"无" : [result getStringWithKey:@"Remark"] ;
-        //order.remark = [result getStringWithKey:@"Remark"];
-        order.isPay = [[result objectForKey:@"IsPay"] boolValue];
-        order.Landline = [result getStringWithKey:@"Landline"];
-        order.totalAmount = [result getDoubleWithKey:@"TotalAmount"];
-        order.pubDate = [result getStringWithKey:@"PubDate"];
-        order.orderFrom = [result getIntegerWithKey:@"OrderFrom"];
-        order.receviceCity = [result getStringWithKey:@"receviceCity"];
-        order.orderCount = [result getIntegerWithKey:@"OrderCount"];
-        // NeedUploadCount 无用
-        // order.mealsSettleMode 无用
-        // 经纬度 无用
-        order.businessId = [result getIntegerWithKey:@"businessId"];
-        // distance_OrderBy 无用
-        order.receiveAddress = [result getStringWithKey:@"ReceviceAddress"];
-        // OneKeyPubOrder 一键发单 - 没有用到
-        // order.originalOrderNo 第三方订单号
-        order.businessName = [result getStringWithKey:@"businessName"];
-        // Payment 无用
-        order.IsComplain = [result getIntegerWithKey:@"IsComplain"];
-        // order.distance
-        order.ClienterId = [result getIntegerWithKey:@"ClienterId"];
-        order.orderStatus = [result getIntegerWithKey:@"Status"];
-        // IsExistsUnFinish
-        order.bussinessPhone = [result getStringWithKey:@"businessPhone"];
-        // ClienterPhoneNo
-        order.bussinessPhone2 = [result getStringWithKey:@"businessPhone2"];
-        order.orderNumber = [result getStringWithKey:@"OrderNo"];
-        // GrabTime
-        order.receivePhone = [result getStringWithKey:@"RecevicePhoneNo"];
-        // GroupId
-        // OrderCommission
-        // Invoice
-        // pickUpCity
-        //
-        order.pickupAddress = [result getStringWithKey:@"PickUpAddress"];
-        order.totalDeliverPrce = [result getDoubleWithKey:@"TotalDistribSubsidy"];
-        // ClienterName
-        [order.childOrderList removeAllObjects];
-        for (NSDictionary *subDic in [result getArrayWithKey:@"listOrderChild"]) {
-            ChildOrderModel *childOrder = [[ChildOrderModel alloc] initWithDic:subDic];
-            [order.childOrderList addObject:childOrder];
-        }
-        // IsAllowCashPay
-        // IsModifyTicket
-        // distanceB2R
-        // BusinessAddress
-        order.amount = [result getDoubleWithKey:@"Amount"];
-        order.orderId = [NSString stringWithFormat:@"%ld",[result getIntegerWithKey:@"Id"]];
-        // PickupCode
-        // HadUploadCount
-        order.receiveName = [result getStringWithKey:@"ReceviceName"];
-        
-        OrderDetailViewController *vc = [[OrderDetailViewController alloc] init];
-        vc.orderModel = order;
-        [self.navigationController pushViewController:vc animated:YES];
-        [Tools hiddenProgress:HUD];
-    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        [Tools hiddenProgress:HUD];
-    }];
-}
+
 
 
 @end

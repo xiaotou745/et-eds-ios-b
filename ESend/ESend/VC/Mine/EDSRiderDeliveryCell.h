@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseTableViewCell.h"
+#import "OrderModel.h"
 
 /// 配送列表的cell, 任务列表共用之
-@interface EDSRiderDeliveryCell : UITableViewCell
+@interface EDSRiderDeliveryCell : BaseTableViewCell
 
 @end
