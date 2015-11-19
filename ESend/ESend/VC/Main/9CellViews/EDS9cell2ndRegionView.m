@@ -53,7 +53,11 @@
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);//设置其边界
         flowLayout.minimumLineSpacing = 10;
-        flowLayout.minimumInteritemSpacing = 10;
+        if (iPhone6plus) {
+            flowLayout.minimumInteritemSpacing = 40;
+        }else{
+            flowLayout.minimumInteritemSpacing = 10;
+        }
         
         NSInteger rows = (self.dataSource.count%3 == 0)?self.dataSource.count/3:self.dataSource.count/3 + 1;
         CGFloat collectionHeight = flowLayout.minimumLineSpacing * (rows - 1) + flowLayout.sectionInset.top + flowLayout.sectionInset.bottom + flowLayout.itemSize.height * rows;

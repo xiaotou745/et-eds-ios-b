@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EDS9CellHomepageVC">
             <connections>
                 <outlet property="Hp_9cells" destination="QAg-Sc-zOd" id="BcU-Q4-gZs"/>
+                <outlet property="Hp_Collection_Flowlayout" destination="msi-z5-mkT" id="cio-2q-0qL"/>
                 <outlet property="Hp_Scroller" destination="Qj5-CM-NtB" id="eD8-nk-LYd"/>
                 <outlet property="Hp_ScrollerHeight" destination="0e5-VG-iye" id="TmD-cn-45r"/>
                 <outlet property="Hp_View1" destination="Bdk-Tm-qxd" id="0vV-KX-Rjj"/>
@@ -218,6 +219,7 @@
                 <constraint firstAttribute="bottom" secondItem="W8c-06-sK4" secondAttribute="bottom" constant="10" id="nlD-iL-lna"/>
                 <constraint firstItem="Qj5-CM-NtB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="r7w-7k-thU"/>
             </constraints>
+            <point key="canvasLocation" x="510" y="267"/>
         </view>
     </objects>
     <resources>

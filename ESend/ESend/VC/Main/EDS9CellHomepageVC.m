@@ -70,6 +70,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *releaseButton;
 @property (strong, nonatomic) NSMutableArray * Hp_RegionArray;
 
+@property (strong, nonatomic) IBOutlet UICollectionViewFlowLayout *Hp_Collection_Flowlayout;
 @end
 
 @implementation EDS9CellHomepageVC
@@ -215,6 +216,20 @@
         cell.dataModel.orderCount ++;
     }
 }
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return CGSizeMake(86, 68);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    if (iPhone6plus) {
+        return 40;
+    }else{
+        return 10;
+    }
+}
+
 
 #pragma mark - API
 /// 获取商户用户当前状态
