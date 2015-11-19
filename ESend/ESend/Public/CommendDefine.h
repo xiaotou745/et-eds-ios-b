@@ -238,13 +238,15 @@ fprintf(stderr, "-------\n");                                               \
 
 
 
-#if 0
+#if 1
 
-    #define OPEN_API_SEVER @"http://api.edaisong.com/20151022/" //生产
-    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20151022/" //上传图片地址
+    #define OPEN_API_SEVER @"http://api.edaisong.com/20151119/" //生产
+    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20151119/" //上传图片地址
     #define UPDATE_APP_API_SERVER @"http://api.edaisong.com/" // 升级接口
 
-    #define Java_API_SERVER @"http://japi.edaisong.com/20151022/services/" // java服务器-加密
+    #define Java_API_SERVER @"http://japi.edaisong.com/20151119/services/" // java服务器-加密
+
+    #define TodayOrder_H5_SERVER @"http://sh.edaisong.com/orderregion/todayone?businessid="
 
 #elif 0
     #define OPEN_API_SEVER @"http://10.8.10.130:8081/"   //曹赫洋
@@ -264,6 +266,7 @@ fprintf(stderr, "-------\n");                                               \
         #define Java_API_SERVER @"http://10.8.7.253:7178/api-http/services/" // java服务器-加密
     #endif
 
+    #define TodayOrder_H5_SERVER @"http://10.8.7.253:8091/business/orderregion/todayone?businessid="
 
 #elif 0
     #define  OPEN_API_SEVER @"http://10.8.7.40:7178/"   //本地服务器 40
@@ -306,7 +309,7 @@ fprintf(stderr, "-------\n");                                               \
 
 
 /// Java版新接口，是否加密
-#if 0
+#if 1
     #define AES_Security YES   // 加密
 #elif 1
     #define AES_Security NO    // 不加密

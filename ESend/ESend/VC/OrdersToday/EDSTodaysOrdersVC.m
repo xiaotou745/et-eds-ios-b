@@ -24,8 +24,6 @@
 
 @end
 
-static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregion/todayone?businessid=";// 2125#
-
 @implementation EDSTodaysOrdersVC
 
 - (void)viewDidLoad {
@@ -33,7 +31,7 @@ static  NSString  * todayOrderURL = @"http://10.8.7.253:8091/business/orderregio
     // Do any additional setup after loading the view from its nib.
     self.titleLabel.text = @"今日订单";
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@#",todayOrderURL,[UserInfo getUserId]]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",TodayOrder_H5_SERVER,[UserInfo getUserId]]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60]];
     
     JSContext *context=[self.webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     
