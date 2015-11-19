@@ -19,7 +19,7 @@
 
 #define HpMaxMoney 15000
 
-#define HpTaskMoneyWithin @"任务金额需在5-15000之间"
+#define HpTaskMoneyWithin @"任务金额需在0-15000之间"
 #define HpOrderCountErrorMsg @"订单数量不能为0"
 #define HpBeyondMaxMoneyErrString @"最大金额15000"
 
@@ -43,8 +43,8 @@
     
     // 是否配置过 config9Cells
     BOOL _9cellsHasConfiged;
-    // 是否需要输入金额 getAllowInputMoney
-    NSInteger _allowInputMoney;
+//    // 是否需要输入金额 getAllowInputMoney
+//    NSInteger _allowInputMoney;
     
     /// 订单总数量
     NSInteger _totalCount;
@@ -81,7 +81,7 @@
     
     _Hp_RegionArray = [[NSMutableArray alloc] initWithCapacity:0];
     _9cellsHasConfiged = NO;    // 默认未配置colletionView
-    _allowInputMoney = 0;       // 默认需要输入金额
+    // _allowInputMoney = 0;       // 默认需要输入金额
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -287,7 +287,7 @@
             }
             [self config9Cells];
             [_Hp_9cells reloadData];
-            [self getAllowInputMoney];
+            // [self getAllowInputMoney];
             if (9 == regionArray.count) {   // 九宫格
                 if (_otherSitua9CellShortageShowing) {  // 显示不足九个，则去除
                     [self _removeOtherSituation9cellViews];
@@ -317,35 +317,35 @@
 }
 
 /// 是否需要输入金额
-- (void)getAllowInputMoney{
-    /// 是否需要输入金额
-    NSDictionary * paraDict = @{
-                                @"businessId":[UserInfo getUserId],
-                                };
-    if (AES_Security) {
-        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-        NSString * aesString = [Security AesEncrypt:jsonString2];
-        paraDict = @{
-                     @"data":aesString,
-                     };
-    }
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    [EDSHttpReqManager3 getisallowinputmoney:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [Tools hiddenProgress:HUD];
-        NSString * message = [responseObject objectForKey:@"message"];
-        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-        if (1 == status) {
-            NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
-            // NSLog(@"%ld",result);
-            // 0 普通模式 需要;    1 （快单模式）不需要
-            _allowInputMoney = result;
-        }else{
-            NSLog(@"getAllowInputMoney %@",message);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [Tools hiddenProgress:HUD];
-    }];
-}
+//- (void)getAllowInputMoney{
+//    /// 是否需要输入金额
+//    NSDictionary * paraDict = @{
+//                                @"businessId":[UserInfo getUserId],
+//                                };
+//    if (AES_Security) {
+//        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+//        NSString * aesString = [Security AesEncrypt:jsonString2];
+//        paraDict = @{
+//                     @"data":aesString,
+//                     };
+//    }
+//    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+//    [EDSHttpReqManager3 getisallowinputmoney:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        [Tools hiddenProgress:HUD];
+//        NSString * message = [responseObject objectForKey:@"message"];
+//        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+//        if (1 == status) {
+//            NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
+//            // NSLog(@"%ld",result);
+//            // 0 普通模式 需要;    1 （快单模式）不需要
+//            _allowInputMoney = result;
+//        }else{
+//            NSLog(@"getAllowInputMoney %@",message);
+//        }
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [Tools hiddenProgress:HUD];
+//    }];
+//}
 
 - (NSDictionary *)dictWithorderRegionOneId:(NSInteger)orderRegionOneId orderRegionTwoId:(NSInteger)orderRegionTwoId orderCount:(NSInteger)orderCount{
     return  @{
@@ -567,18 +567,14 @@
 
 #pragma mark - 发布任务Action:
 - (IBAction)hpReleaseBtnAction:(UIButton *)sender {
-    NSLog(@"%s",__func__);
-    NSLog(@"列表:%@",_Hp_RegionArray);
     
-    NSLog(@"%ld:%@",self.Hp_view2_textfield.text.length , self.Hp_view2_textfield.text);
-    
-    // 0 普通模式 需要;    1 （快单模式）不需要
-    if (_allowInputMoney == 0) {
-        if (self.Hp_view2_textfield.text.length == 0 || [self.Hp_view2_textfield.text integerValue] < 5) {
-            [Tools showHUD:HpTaskMoneyWithin];
-            return;
-        }
-    }
+//    // 0 普通模式 需要;    1 （快单模式）不需要
+//    if (_allowInputMoney == 0) {
+//        if (self.Hp_view2_textfield.text.length == 0 || [self.Hp_view2_textfield.text integerValue] < 0) {
+//            [Tools showHUD:HpTaskMoneyWithin];
+//            return;
+//        }
+//    }
     
     if (_totalCount <= 0) {
         [Tools showHUD:HpOrderCountErrorMsg];
@@ -645,7 +641,7 @@
     orderCountLbl.textColor = TextColor6;
     orderCountLbl.backgroundColor = [UIColor clearColor];
     orderCountLbl.textAlignment = NSTextAlignmentLeft;
-    orderCountLbl.text = [NSString stringWithFormat:@"订单数量: %ld单",orderCount];
+    orderCountLbl.text = [NSString stringWithFormat:@"订单数量: %ld单",(long)orderCount];
     [demoView addSubview:orderCountLbl];
     
     y = CGRectGetMaxY(orderCountLbl.frame);
@@ -670,8 +666,14 @@
     orderBalanceLbl.backgroundColor = [UIColor clearColor];
     orderBalanceLbl.textAlignment = NSTextAlignmentLeft;
     orderBalanceLbl.numberOfLines = 0;
-    NSString * orderBalanceContent = [NSString stringWithFormat:@"当前任务结算: %.2f元,剩余余额%.2f元",OrderBalance,RemainBalance];
-    orderBalanceLbl.text = orderBalanceContent;
+    NSString * orderBalanceContent = [NSString stringWithFormat:@"消耗余额: %.2f元,剩余余额%.2f元",OrderBalance,RemainBalance];
+    // NSAttributedString// 5
+    NSRange yuanRage = [orderBalanceContent rangeOfString:@"元,"];
+    // NSLog(@"%@",NSStringFromRange(yuanRage));
+    NSRange redRage = NSMakeRange(5, yuanRage.location - 5);
+    NSMutableAttributedString * orderBalanceContentAttr = [[NSMutableAttributedString alloc] initWithString:orderBalanceContent];
+    [orderBalanceContentAttr addAttribute:NSForegroundColorAttributeName value:RedDefault range:redRage];
+    orderBalanceLbl.attributedText = orderBalanceContentAttr;
     [demoView addSubview:orderBalanceLbl];
     //
     CGFloat contentHeight = [Tools stringHeight:orderBalanceContent fontSize:15 width:CGRectGetWidth(demoView.frame)-leftMargin].height;
