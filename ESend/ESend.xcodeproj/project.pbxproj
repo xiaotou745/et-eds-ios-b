@@ -95,8 +95,6 @@
 		68586AA81BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */; };
 		68586AA91BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */; };
 		68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */; };
-		685C0C931BF0495600AAD77C /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 685C0C921BF0495600AAD77C /* UIAlertView+Blocks.m */; };
-		685C0C941BF0496900AAD77C /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 685C0C921BF0495600AAD77C /* UIAlertView+Blocks.m */; };
 		685C0E801BF06AC300AAD77C /* ZXAztecDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 685C0C9A1BF06AC300AAD77C /* ZXAztecDecoder.m */; };
 		685C0E811BF06AC300AAD77C /* ZXAztecDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 685C0C9A1BF06AC300AAD77C /* ZXAztecDecoder.m */; };
 		685C0E821BF06AC300AAD77C /* ZXAztecDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 685C0C9D1BF06AC300AAD77C /* ZXAztecDetector.m */; };
@@ -634,6 +632,8 @@
 		68AE2BE31BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; };
 		68C3D71D1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
 		68C3D71E1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
+		68D07A8D1C02B5F40036985F /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D07A8C1C02B5F40036985F /* UIAlertView+Blocks.m */; };
+		68D07A8E1C02B5F40036985F /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D07A8C1C02B5F40036985F /* UIAlertView+Blocks.m */; };
 		68D88B7C1BE1FF8A0086AC91 /* EDS9CellHomepageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D88B7A1BE1FF8A0086AC91 /* EDS9CellHomepageVC.m */; };
 		68D88B7D1BE1FF8A0086AC91 /* EDS9CellHomepageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D88B7A1BE1FF8A0086AC91 /* EDS9CellHomepageVC.m */; };
 		68D88B7E1BE1FF8A0086AC91 /* EDS9CellHomepageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68D88B7B1BE1FF8A0086AC91 /* EDS9CellHomepageVC.xib */; };
@@ -1166,8 +1166,6 @@
 		68586AA41BAE8E6800B26780 /* EDSRiderDeliveryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDeliveryCell.h; sourceTree = "<group>"; };
 		68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDeliveryCell.m; sourceTree = "<group>"; };
 		68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryCell.xib; sourceTree = "<group>"; };
-		685C0C911BF0495600AAD77C /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+Blocks.h"; path = "../../../../../eds/edaisong_iosapp/SupermanC/SupermanC/basic/UIAlertView+Blocks.h"; sourceTree = "<group>"; };
-		685C0C921BF0495600AAD77C /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+Blocks.m"; path = "../../../../../eds/edaisong_iosapp/SupermanC/SupermanC/basic/UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		685C0C991BF06AC300AAD77C /* ZXAztecDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXAztecDecoder.h; sourceTree = "<group>"; };
 		685C0C9A1BF06AC300AAD77C /* ZXAztecDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZXAztecDecoder.m; sourceTree = "<group>"; };
 		685C0C9C1BF06AC300AAD77C /* ZXAztecDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXAztecDetector.h; sourceTree = "<group>"; };
@@ -1706,6 +1704,8 @@
 		68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMNavigationTitleView.m; sourceTree = "<group>"; };
 		68C3D71B1BCBA6140081D082 /* UIImage+KmImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KmImg.h"; sourceTree = "<group>"; };
 		68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KmImg.m"; sourceTree = "<group>"; };
+		68D07A8B1C02B5F40036985F /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+Blocks.h"; path = "ZXingObjC/UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		68D07A8C1C02B5F40036985F /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIAlertView+Blocks.m"; path = "ZXingObjC/UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		68D88B791BE1FF8A0086AC91 /* EDS9CellHomepageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDS9CellHomepageVC.h; sourceTree = "<group>"; };
 		68D88B7A1BE1FF8A0086AC91 /* EDS9CellHomepageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDS9CellHomepageVC.m; sourceTree = "<group>"; };
 		68D88B7B1BE1FF8A0086AC91 /* EDS9CellHomepageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDS9CellHomepageVC.xib; sourceTree = "<group>"; };
@@ -3793,9 +3793,9 @@
 		F6C6AC591B12F3620007A980 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				68D07A8B1C02B5F40036985F /* UIAlertView+Blocks.h */,
+				68D07A8C1C02B5F40036985F /* UIAlertView+Blocks.m */,
 				685C0C961BF06AC300AAD77C /* ZXingObjC */,
-				685C0C911BF0495600AAD77C /* UIAlertView+Blocks.h */,
-				685C0C921BF0495600AAD77C /* UIAlertView+Blocks.m */,
 				684A39A91BD644E60076CE8D /* CustomAlertView */,
 				CF22B0161BAB4A61000F19D9 /* MJRefresh */,
 				2E5781911BA2773400A04B9D /* wechat */,
@@ -4556,7 +4556,6 @@
 				F67D35651B5664A600083DA4 /* SDWebImageDownloader.m in Sources */,
 				685C0F771BF06AC400AAD77C /* ZXRSSExpandedBlockParsedResult.m in Sources */,
 				685C0FD91BF06AC400AAD77C /* ZXPDF417BoundingBox.m in Sources */,
-				685C0C941BF0496900AAD77C /* UIAlertView+Blocks.m in Sources */,
 				685C0F4F1BF06AC300AAD77C /* ZXDataMatrixX12Encoder.m in Sources */,
 				F67D35661B5664A600083DA4 /* ThirdOrderListViewController.m in Sources */,
 				F67D35671B5664A600083DA4 /* AFURLConnectionOperation.m in Sources */,
@@ -4674,6 +4673,7 @@
 				685C103C1BF06C1900AAD77C /* EDSBusinessQRVC.m in Sources */,
 				F67D35941B5664A600083DA4 /* GradientView.m in Sources */,
 				685C0F871BF06AC400AAD77C /* ZXBitArrayBuilder.m in Sources */,
+				68D07A8E1C02B5F40036985F /* UIAlertView+Blocks.m in Sources */,
 				CF22B0381BAB4A61000F19D9 /* MJRefreshGifFooter.m in Sources */,
 				F67D35951B5664A600083DA4 /* OrderStatisticsViewController.m in Sources */,
 				F67D35961B5664A600083DA4 /* UIImageView+WebCache.m in Sources */,
@@ -5019,7 +5019,6 @@
 				F66062591B3AC72400F9AF0A /* ThirdOrderListViewController.m in Sources */,
 				685C0F761BF06AC400AAD77C /* ZXRSSExpandedBlockParsedResult.m in Sources */,
 				685C0FD81BF06AC400AAD77C /* ZXPDF417BoundingBox.m in Sources */,
-				685C0C931BF0495600AAD77C /* UIAlertView+Blocks.m in Sources */,
 				685C0F4E1BF06AC300AAD77C /* ZXDataMatrixX12Encoder.m in Sources */,
 				F6C6AD761B12F42F0007A980 /* AFURLConnectionOperation.m in Sources */,
 				F66CA1601B1EF97A006BDDB8 /* OriginModel.m in Sources */,
@@ -5137,6 +5136,7 @@
 				685C103B1BF06C1900AAD77C /* EDSBusinessQRVC.m in Sources */,
 				E482C3621B3E4D3E008471E8 /* OrderStatisticsViewController.m in Sources */,
 				685C0F861BF06AC400AAD77C /* ZXBitArrayBuilder.m in Sources */,
+				68D07A8D1C02B5F40036985F /* UIAlertView+Blocks.m in Sources */,
 				CF22B0371BAB4A61000F19D9 /* MJRefreshGifFooter.m in Sources */,
 				F6C6ADB31B12F42F0007A980 /* UIImageView+WebCache.m in Sources */,
 				F6C6ADB61B12F42F0007A980 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
