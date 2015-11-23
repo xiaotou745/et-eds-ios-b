@@ -37,11 +37,11 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             <subviews>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="QAg-Sc-zOd">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="244"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="274"/>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="244" id="9kL-8k-IDa"/>
+                                        <constraint firstAttribute="height" constant="274" id="9kL-8k-IDa"/>
                                     </constraints>
                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="msi-z5-mkT">
                                         <size key="itemSize" width="86" height="68"/>
@@ -51,7 +51,7 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bdk-Tm-qxd" userLabel="View1">
-                                    <rect key="frame" x="0.0" y="244" width="600" height="30"/>
+                                    <rect key="frame" x="0.0" y="274" width="600" height="30"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="电脑版商户中心支持配送区域修改" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCu-l7-JOb">
                                             <rect key="frame" x="37" y="0.0" width="548" height="30"/>
@@ -84,7 +84,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mqD-ak-neq" userLabel="View2">
-                                    <rect key="frame" x="0.0" y="274" width="600" height="80"/>
+                                    <rect key="frame" x="0.0" y="304" width="600" height="80"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NVS-HS-hrT" userLabel="line">
                                             <rect key="frame" x="15" y="40" width="570" height="1"/>

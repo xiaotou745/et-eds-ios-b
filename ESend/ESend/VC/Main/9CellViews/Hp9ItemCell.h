@@ -19,10 +19,14 @@
 
 @interface Hp9ItemCell : UICollectionViewCell
 
-@property (strong, nonatomic) IBOutlet UIButton *minusButton;
+// @property (strong, nonatomic) IBOutlet UIButton *minusButton;
 @property (strong, nonatomic) IBOutlet UIView *contents;
-@property (strong, nonatomic) IBOutlet UILabel *countLabel;
+// @property (strong, nonatomic) IBOutlet UILabel *countLabel;
 @property (strong, nonatomic) IBOutlet UILabel *regionName;
+// 显示与隐藏
+@property (strong, nonatomic) IBOutlet UIImageView *minusImg;
+@property (strong, nonatomic) IBOutlet UIButton *minusActionBtn;
+@property (strong, nonatomic) IBOutlet UILabel *orderCountLbl;
 
 @property (strong, nonatomic) Hp9CellRegionModel * dataModel;
 
