@@ -5597,7 +5597,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.business.ninecell;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "6a372366-58c5-423c-94cc-05a0393e6495";
+				PROVISIONING_PROFILE = "749bff86-a008-44c7-be76-86df30fcfaf7";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
@@ -5642,7 +5642,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.business.ninecell;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "fa0f5cbd-77c9-4d33-80aa-c20224376cc2";
+				PROVISIONING_PROFILE = "749bff86-a008-44c7-be76-86df30fcfaf7";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = inhouse;
@@ -5687,7 +5687,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.business.ninecell;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "fa0f5cbd-77c9-4d33-80aa-c20224376cc2";
+				PROVISIONING_PROFILE = "749bff86-a008-44c7-be76-86df30fcfaf7";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = adhoc;
