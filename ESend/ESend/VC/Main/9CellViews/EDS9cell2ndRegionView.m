@@ -49,7 +49,7 @@
     
     if (!_collectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-        [flowLayout setItemSize:CGSizeMake(86, 68)];//设置cell的尺寸
+        [flowLayout setItemSize:CGSizeMake(86, 78)];//设置cell的尺寸
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];//设置其布局方向
         flowLayout.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);//设置其边界
         flowLayout.minimumLineSpacing = 10;

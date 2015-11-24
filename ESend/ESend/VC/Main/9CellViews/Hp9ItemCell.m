@@ -26,6 +26,13 @@
 //    self.minusButton.layer.borderWidth = 0.5f;
 //    self.minusButton.layer.cornerRadius = 5.0f;
     
+    self.orderCountLbl.backgroundColor = RedDefault;
+    self.orderCountLbl.layer.cornerRadius = 10;
+    self.orderCountLbl.layer.masksToBounds = YES;
+    self.orderCountLbl.textColor = [UIColor whiteColor];
+    self.orderCountLbl.hidden = YES;
+
+    
     //[self.minusButton addTarget:self action:@selector(minusButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     // 监听
     [self addObserver:self forKeyPath:@"dataModel.orderCount" options:NSKeyValueObservingOptionNew context:NULL];
@@ -67,6 +74,7 @@
     }
     // 隐藏 按钮； 刷新  订单数量
     self.minusImg.hidden = !(self.dataModel.orderCount > 0);
+    self.orderCountLbl.hidden = !(self.dataModel.orderCount > 0);
     self.minusActionBtn.enabled = (self.dataModel.orderCount > 0);
 //    self.countLabel.text = (self.dataModel.orderCount>0)?[NSString stringWithFormat:@"%ld单",self.dataModel.orderCount]:@"" ;
     self.orderCountLbl.text = (self.dataModel.orderCount>0)?[NSString stringWithFormat:@"%ld",self.dataModel.orderCount]:@"" ;

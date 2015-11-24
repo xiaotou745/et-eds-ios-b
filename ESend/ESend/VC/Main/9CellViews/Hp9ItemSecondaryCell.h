@@ -13,11 +13,16 @@
 
 @interface Hp9ItemSecondaryCell : UICollectionViewCell
 
-@property (strong, nonatomic) IBOutlet UIButton *minusButton;
+// @property (strong, nonatomic) IBOutlet UIButton *minusButton;
 @property (strong, nonatomic) IBOutlet UIView *contents;
-@property (strong, nonatomic) IBOutlet UILabel *countLabel;
+// @property (strong, nonatomic) IBOutlet UILabel *countLabel;
 @property (strong, nonatomic) IBOutlet UILabel *regionName;
 
 @property (strong, nonatomic) Hp9cellSecondaryRegion * dataModel;
+
+// 显示与隐藏
+@property (strong, nonatomic) IBOutlet UIImageView *minusImg;
+@property (strong, nonatomic) IBOutlet UIButton *minusActionBtn;
+@property (strong, nonatomic) IBOutlet UILabel *orderCountLbl;
 
 @end
