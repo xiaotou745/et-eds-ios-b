@@ -131,6 +131,10 @@
 		68AE2BE31BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; };
 		68C3D71D1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
 		68C3D71E1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
+		68FE8CCA1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */; };
+		68FE8CCB1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */; };
+		68FE8CCC1C05B1FB004BABB4 /* SSHomepageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */; };
+		68FE8CCD1C05B1FB004BABB4 /* SSHomepageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */; };
 		CF07AEE11BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; };
 		CF07AEE21BAEB30D005A93EB /* MNDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */; };
 		CF07AEE31BAEB30D005A93EB /* MNDatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */; };
@@ -690,6 +694,9 @@
 		68C3D71B1BCBA6140081D082 /* UIImage+KmImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KmImg.h"; sourceTree = "<group>"; };
 		68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KmImg.m"; sourceTree = "<group>"; };
 		68EFEE2C1BCCEF8B00CCB4FE /* BS_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BS_Header.h; sourceTree = "<group>"; };
+		68FE8CC71C05B1FB004BABB4 /* SSHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSHomepageViewController.h; sourceTree = "<group>"; };
+		68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSHomepageViewController.m; sourceTree = "<group>"; };
+		68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSHomepageViewController.xib; sourceTree = "<group>"; };
 		CF07AEDE1BAEB30D005A93EB /* MNDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNDatePicker.h; sourceTree = "<group>"; };
 		CF07AEDF1BAEB30D005A93EB /* MNDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNDatePicker.m; sourceTree = "<group>"; };
 		CF07AEE01BAEB30D005A93EB /* MNDatePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MNDatePicker.xib; sourceTree = "<group>"; };
@@ -1506,6 +1513,16 @@
 			name = KMTitleView;
 			sourceTree = "<group>";
 		};
+		68FE8CC61C05B1C6004BABB4 /* Shansong */ = {
+			isa = PBXGroup;
+			children = (
+				68FE8CC71C05B1FB004BABB4 /* SSHomepageViewController.h */,
+				68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */,
+				68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */,
+			);
+			path = Shansong;
+			sourceTree = "<group>";
+		};
 		CF22B0161BAB4A61000F19D9 /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1787,6 +1804,7 @@
 		F66CA1291B1E9965006BDDB8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				68FE8CC61C05B1C6004BABB4 /* Shansong */,
 				F66062561B3AC70000F9AF0A /* ThirdOrder */,
 				F66CA12A1B1E9982006BDDB8 /* TakeOrderListViewController.h */,
 				F66CA12B1B1E9982006BDDB8 /* TakeOrderListViewController.m */,
@@ -2430,6 +2448,7 @@
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
 				6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */,
+				68FE8CCD1C05B1FB004BABB4 /* SSHomepageViewController.xib in Resources */,
 				68AE2BD81BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
 				F67D35F71B5664A600083DA4 /* blue_btn_pre@2x.png in Resources */,
 				F67D35F81B5664A600083DA4 /* Main.storyboard in Resources */,
@@ -2510,6 +2529,7 @@
 				F6C6AD8D1B12F42F0007A980 /* MJPhotoBrowser.bundle in Resources */,
 				2EA0CA7E1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
 				2E5D878F1B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
+				68FE8CCC1C05B1FB004BABB4 /* SSHomepageViewController.xib in Resources */,
 				F62A73EE1B5CCA84001632B5 /* 2@3x.png in Resources */,
 				F66CA1281B1DC407006BDDB8 /* blue_border_btn_nor@2x.png in Resources */,
 				6801E3C01BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */,
@@ -2622,6 +2642,7 @@
 				F67D35721B5664A600083DA4 /* AppDelegate.mm in Sources */,
 				F67D35731B5664A600083DA4 /* OBGradientView.m in Sources */,
 				686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
+				68FE8CCB1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */,
 				6867455E1BA91B4C005F59D4 /* ManFactory.m in Sources */,
 				6811E0D01BCA5C5300F81F03 /* DayBillInfo.m in Sources */,
 				2EA0CA6B1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
@@ -2843,6 +2864,7 @@
 				F6C6AD9F1B12F42F0007A980 /* OBGradientView.m in Sources */,
 				E46C49351B3C4A2D00CE0033 /* MDSenderDetailCell.m in Sources */,
 				686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
+				68FE8CCA1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */,
 				6867455D1BA91B4C005F59D4 /* ManFactory.m in Sources */,
 				6811E0CF1BCA5C5300F81F03 /* DayBillInfo.m in Sources */,
 				2EA0CA6A1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
