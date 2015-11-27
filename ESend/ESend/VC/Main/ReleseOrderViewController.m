@@ -630,43 +630,18 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         if (distrib == 0) {
             str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count];
         }
-//        
-//        if (_JKalert) {
-//            [_JKalert removeFromSuperview];
-//            _JKalert = nil;
-//        }
-//        _JKalert = [[JKAlertDialog alloc] initWithTitle:@"确定要发布订单吗？" message:str];
-//        [_JKalert addButton:Button_CANCEL withTitle:@"取消" handler:^(JKAlertDialogItem *item) {
-//            
-//        }];
-//        __block ReleseOrderViewController * blockSelf = self;
-//        [_JKalert addButton:Button_OK withTitle:@"确定" handler:^(JKAlertDialogItem *item) {
-//            [blockSelf releseInfo];
-//        }];
-//        [_JKalert show];
-        
-        // Here we need to pass a full frame
         CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
         NSString * alertTitle = @"确定要发布订单吗?";
-        // Add some custom content to the alert view
         [alertView setContainerView:[self createAlertView:alertTitle content:str]];
-        
-        // Modify the parameters
         [alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"取消", @"确定", nil]];
-        // You may use a Block, rather than a delegate.
-        
         __block ReleseOrderViewController * blockSelf = self;
         [alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
-            // NSLog(@"Block: Button at position %d is clicked on alertView %d.", buttonIndex, (int)[alertView tag]);
             if (1 == buttonIndex) {
                 [blockSelf releseInfo];
             }
             [alertView close];
         }];
-        
         [alertView setUseMotionEffects:true];
-        
-        // And launch the dialog
         [alertView show];
         
         [Tools hiddenProgress:HUD];
@@ -675,11 +650,6 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     }];
     
     return;
-    //配送费
- 
-   
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定要发布订单吗" message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-//    [alertView show];
 }
 
 
@@ -798,54 +768,6 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     }
 }
 
-/*
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != 1) {
-        return;
-    }
-    
-    NSMutableArray *childList = [NSMutableArray array];
-    for (NSInteger i = 0; i < _priceTFList.count; i++) {
-        UITextField *textFiled = _priceTFList[i];
-        NSDictionary *childOrder = @{
-                                     //                                     @"ChildId"     : @(i),
-                                     @"GoodPrice"   : @([textFiled.text floatValue])};
-        [childList addObject:childOrder];
-    }
-    NSData *childListData = [NSJSONSerialization dataWithJSONObject:childList options:NSJSONWritingPrettyPrinted error:NULL];
-    
-
-    NSDictionary *requsetData = @{@"userId"                 : [UserInfo getUserId],
-                                  @"receviceName"           : @"",
-                                  @"receviceAddress"        : _address.text ? _address.text : @"",
-                                  @"recevicePhone"          : _phoneTF.text ? _phoneTF.text : @"",
-                                  @"Amount"                 : @(_totalAmount),
-                                  @"IsPay"                  : @(_completePayBtn.checked),
-                                  @"Remark"                 : _remarkTF.text,
-                                  @"OrderChlidJson"         : [[NSString alloc]initWithData:childListData encoding:NSUTF8StringEncoding],
-                                  @"version"                : @"1.0",
-                                  @"TimeSpan"               : @((int)[[NSDate date] timeIntervalSince1970]),
-                                  @"longitude"              : @(0.0),
-                                  @"laitude"                : @(0.0),
-                                  @"OrderCount"             : @(_priceTFList.count),
-                                  @"OrderSign"              : @"",
-                                  @"PubLatitude"            : @(_coordinate.latitude),
-                                  @"PubLongitude"           : @(_coordinate.longitude)
-                                  };
-    
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    [FHQNetWorkingAPI releseOrder:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:ReleseOrderNotification object:nil];
-        
-        [Tools showHUD:@"发布成功"];
-        [Tools hiddenProgress:HUD];
-        [self.navigationController popViewControllerAnimated:YES];
-    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        [Tools hiddenProgress:HUD];
-    }];
-}
-*/
  
 //实现相关delegate 处理位置信息更新
 //处理位置坐标更新

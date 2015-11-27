@@ -95,6 +95,12 @@
 		685E53B11BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */; };
 		685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; };
 		685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; };
+		686630C21C0708EC009293D3 /* SSEditAdderssViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686630C01C0708EC009293D3 /* SSEditAdderssViewController.m */; };
+		686630C31C0708EC009293D3 /* SSEditAdderssViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686630C01C0708EC009293D3 /* SSEditAdderssViewController.m */; };
+		686630C41C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686630C11C0708EC009293D3 /* SSEditAdderssViewController.xib */; };
+		686630C51C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686630C11C0708EC009293D3 /* SSEditAdderssViewController.xib */; };
+		686630C81C070B4C009293D3 /* SSEditorTypeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 686630C71C070B4C009293D3 /* SSEditorTypeTransformer.m */; };
+		686630C91C070B4C009293D3 /* SSEditorTypeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 686630C71C070B4C009293D3 /* SSEditorTypeTransformer.m */; };
 		686745441BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
 		686745451BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */; };
 		686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */; };
@@ -663,6 +669,11 @@
 		685E53AD1BBB878E00BE429C /* EDSBillStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsVC.h; sourceTree = "<group>"; };
 		685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsVC.m; sourceTree = "<group>"; };
 		685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsVC.xib; sourceTree = "<group>"; };
+		686630BF1C0708EC009293D3 /* SSEditAdderssViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSEditAdderssViewController.h; sourceTree = "<group>"; };
+		686630C01C0708EC009293D3 /* SSEditAdderssViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSEditAdderssViewController.m; sourceTree = "<group>"; };
+		686630C11C0708EC009293D3 /* SSEditAdderssViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSEditAdderssViewController.xib; sourceTree = "<group>"; };
+		686630C61C070B4C009293D3 /* SSEditorTypeTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSEditorTypeTransformer.h; sourceTree = "<group>"; };
+		686630C71C070B4C009293D3 /* SSEditorTypeTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSEditorTypeTransformer.m; sourceTree = "<group>"; };
 		686745411BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDeliveryInfoCell.h; sourceTree = "<group>"; };
 		686745421BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDeliveryInfoCell.m; sourceTree = "<group>"; };
 		686745431BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryInfoCell.xib; sourceTree = "<group>"; };
@@ -1448,6 +1459,18 @@
 			name = BillStatistics;
 			sourceTree = "<group>";
 		};
+		686630BE1C0708BB009293D3 /* EditAddress */ = {
+			isa = PBXGroup;
+			children = (
+				686630BF1C0708EC009293D3 /* SSEditAdderssViewController.h */,
+				686630C01C0708EC009293D3 /* SSEditAdderssViewController.m */,
+				686630C11C0708EC009293D3 /* SSEditAdderssViewController.xib */,
+				686630C61C070B4C009293D3 /* SSEditorTypeTransformer.h */,
+				686630C71C070B4C009293D3 /* SSEditorTypeTransformer.m */,
+			);
+			name = EditAddress;
+			sourceTree = "<group>";
+		};
 		6867454F1BA9197C005F59D4 /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
@@ -1516,6 +1539,7 @@
 		68FE8CC61C05B1C6004BABB4 /* Shansong */ = {
 			isa = PBXGroup;
 			children = (
+				686630BE1C0708BB009293D3 /* EditAddress */,
 				68FE8CC71C05B1FB004BABB4 /* SSHomepageViewController.h */,
 				68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */,
 				68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */,
@@ -2449,6 +2473,7 @@
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
 				6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */,
 				68FE8CCD1C05B1FB004BABB4 /* SSHomepageViewController.xib in Resources */,
+				686630C51C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */,
 				68AE2BD81BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
 				F67D35F71B5664A600083DA4 /* blue_btn_pre@2x.png in Resources */,
 				F67D35F81B5664A600083DA4 /* Main.storyboard in Resources */,
@@ -2504,6 +2529,7 @@
 				F6549F811B1C364100FAACEE /* verifty_icon@2x.png in Resources */,
 				CF22B0141BAB2BC7000F19D9 /* EDSHomepageVC.xib in Resources */,
 				F678A7E11B29787E0026DA37 /* alipay_icon@2x.png in Resources */,
+				686630C41C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */,
 				6801E3C21BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png in Resources */,
 				F6C6AE7C1B1845750007A980 /* blue_btn_pre@2x.png in Resources */,
 				F6C6AC3E1B12F2640007A980 /* Main.storyboard in Resources */,
@@ -2639,6 +2665,7 @@
 				F67D356F1B5664A600083DA4 /* InfoInTheReviewViewController.m in Sources */,
 				F67D35701B5664A600083DA4 /* MessageDetailViewController.m in Sources */,
 				F67D35711B5664A600083DA4 /* NSDataEx.m in Sources */,
+				686630C31C0708EC009293D3 /* SSEditAdderssViewController.m in Sources */,
 				F67D35721B5664A600083DA4 /* AppDelegate.mm in Sources */,
 				F67D35731B5664A600083DA4 /* OBGradientView.m in Sources */,
 				686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
@@ -2691,6 +2718,7 @@
 				F67D359B1B5664A600083DA4 /* UIImageView+MJWebCache.m in Sources */,
 				686745621BA9205C005F59D4 /* UIView+Common.m in Sources */,
 				F67D359C1B5664A600083DA4 /* AboutViewController.m in Sources */,
+				686630C91C070B4C009293D3 /* SSEditorTypeTransformer.m in Sources */,
 				F67D359E1B5664A600083DA4 /* SDWebImageDownloaderOperation.m in Sources */,
 				F67D359F1B5664A600083DA4 /* UIButton+AFNetworking.m in Sources */,
 				F67D35A01B5664A600083DA4 /* BankTableViewCell.m in Sources */,
@@ -2861,6 +2889,7 @@
 				F62E8D151B30188F006F3862 /* MessageDetailViewController.m in Sources */,
 				F6441B521B3D470100EA3C9D /* NSDataEx.m in Sources */,
 				F6C6AC381B12F2640007A980 /* AppDelegate.mm in Sources */,
+				686630C21C0708EC009293D3 /* SSEditAdderssViewController.m in Sources */,
 				F6C6AD9F1B12F42F0007A980 /* OBGradientView.m in Sources */,
 				E46C49351B3C4A2D00CE0033 /* MDSenderDetailCell.m in Sources */,
 				686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
@@ -2913,6 +2942,7 @@
 				F61C76241B467B50009051B9 /* AboutViewController.m in Sources */,
 				686745611BA9205C005F59D4 /* UIView+Common.m in Sources */,
 				F6C6ADAB1B12F42F0007A980 /* SDWebImageDownloaderOperation.m in Sources */,
+				686630C81C070B4C009293D3 /* SSEditorTypeTransformer.m in Sources */,
 				F6C6ADB81B12F42F0007A980 /* UIButton+AFNetworking.m in Sources */,
 				F643BB271B2710CF0050E3AE /* BankTableViewCell.m in Sources */,
 				E46C49321B3C4A1300CE0033 /* MDGoodsListCell.m in Sources */,

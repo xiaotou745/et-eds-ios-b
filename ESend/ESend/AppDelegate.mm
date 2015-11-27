@@ -12,7 +12,7 @@
 #import "APService.h"
 #import "MessageDetailViewController.h"
 #import "MessageModel.h"
-#import "EDSHomepageVC.h"
+#import "SSHomepageViewController.h"
 #import "RegisterViewController.h"
 #import "WelcomeViewController.h"
 #import "MobClick.h"
@@ -51,14 +51,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    
-    // token
-    // 检测网络连接的单例,网络变化时的回调方法
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-    
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        NSLog(@"net status: %ld",(long)status);
     }];
     
     [self refreshToken];
@@ -75,12 +69,12 @@
     [self.window makeKeyAndVisible];
     
     _mapManager = [[BMKMapManager alloc]init]; 
-    BOOL ret = [_mapManager start:@"uazMqGlv1NImlBWYoh4elkOs"  generalDelegate:nil];
+    BOOL ret = [_mapManager start:BaiduLbsKey  generalDelegate:nil];
     if (!ret) {
-        CLog(@"flai");
+        CLog(@"map start fail");
     }
     
-    EDSHomepageVC * takeOrderVC = [[EDSHomepageVC alloc] initWithNibName:@"EDSHomepageVC" bundle:nil];
+    SSHomepageViewController * takeOrderVC = [[SSHomepageViewController alloc] initWithNibName:NSStringFromClass([SSHomepageViewController class]) bundle:nil];
     _rootNav = [[UINavigationController alloc] initWithRootViewController:takeOrderVC];
     _rootNav.navigationBarHidden = YES;
     self.window.rootViewController = _rootNav;
@@ -89,12 +83,8 @@
     [self setupJpush:launchOptions];
     [self setPushTag];
     
-    [MobClick setLogEnabled:YES];
-    [MobClick startWithAppkey:@"55962f3267e58ef3fc001ad7" reportPolicy:REALTIME channelId:@"appstore"];
-    
-    // 检测更新接口
-    //[self checkNewVersion];
-    
+//    [MobClick setLogEnabled:YES];
+//    [MobClick startWithAppkey:@"55962f3267e58ef3fc001ad7" reportPolicy:REALTIME channelId:@"appstore"];
     //处理推送
     if ([launchOptions objectForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"]) {
         NSDictionary *data = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -102,18 +92,8 @@
     }
 
     [self updateCityList];
-
-    /*
-     以下接口需要token,为保证请求有效，在第一次获取token成功之后请求
-     */
-//    [self updateBankCityList];
-////    // 同步发单用户电话号码
-//    [self consigneeAddressB];
-    
     //向微信注册
-    [WXApi registerApp:APP_ID withDescription:@"EDS_B"];
-    
-
+    [WXApi registerApp:APP_ID withDescription:@"EDS_B_SS"];
     return YES;
 }
 
@@ -159,20 +139,13 @@
     } isShowError:NO];
 }
 
-- (void)appUpdate:(NSDictionary *)appInfo {
-    // NSLog(@"%@",appInfo);
-}
-
 - (void)pushNotificationView:(NSDictionary*)data {
-    
     if ([UserInfo isLogin]) {
         NSString *sound = [[data getDictionaryWithKey:@"aps"]  getStringWithKey:@"sound"];
         NSArray *info = [sound componentsSeparatedByString:@":"];
         if ([info count] != 2) {
             return;
         }
-        
-        
         if ([info[0] isEqualToString:@"Notice"]) {
             MessageModel *message = [[MessageModel alloc] init];
             message.messageId = info[1];
@@ -180,20 +153,14 @@
             vc.message = message;
             [_rootNav pushViewController:vc animated:YES];
         }
-       
     }
-    
-    // NSLog(@"%@",data);
 }
 
 - (void)setPushTag {
-    
     NSString *tag = nil ;
-    
     if ([UserInfo isLogin]) {
         tag = [NSString stringWithFormat:@"B_%@",[UserInfo getUserId]];
     }
-               
     if (tag) {
         [APService setTags:[NSSet setWithArray:@[tag, [UserInfo getUserId]]] alias:tag callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
     } else {
@@ -237,32 +204,24 @@
 
 - (void)showLoginAnimated:(BOOL)animated {
     if (![UserInfo isLogin]) {
-        
-
         LoginViewController * loginVC = [[LoginViewController alloc] init];
         UINavigationController *loginNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
         loginNav.navigationBarHidden     = YES;
-
         [self.window.rootViewController presentViewController:loginNav animated:animated completion:^{
-            
         }];
     }
 }
 
 - (void)showWelcomeLoginAnimated:(BOOL)animated {
     if (![UserInfo isLogin]) {
-        
         if (!_welcomeNav) {
             WelcomeViewController * welcomeVC = [[WelcomeViewController alloc] init];
             _welcomeNav = [[UINavigationController alloc] initWithRootViewController:welcomeVC];
             _welcomeNav.navigationBarHidden     = YES;
         }
-
         [self.window.rootViewController presentViewController:_welcomeNav animated:animated completion:^{
-            
         }];
     }
-
 }
 
 - (void)showRegister {
@@ -280,9 +239,7 @@
     //        UserType= 1 骑士 2 商家 默认1骑士
     NSDictionary *requestData = @{@"PlatForm" : @(2),
                                   @"UserType" : @(2)};
-    
     [FHQNetWorkingAPI update:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
-        
         //判断版本升级
         NSString * build = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
         NSComparisonResult results = [build compare:[result objectForKey:@"Version"]];
@@ -354,7 +311,6 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
     // Required
     [APService handleRemoteNotification:userInfo];
     if (application.applicationState == UIApplicationStateInactive) {
@@ -429,10 +385,7 @@
         [FHQNetWorkingAPI getToken:paraDict successBlock:^(id result, AFHTTPRequestOperation *operation) {
             NSString * token = [NSString stringWithFormat:@"%@",result];
             [UserInfo saveToken:token];
-            
             NSString * localtoken = [UserInfo getToken];
-            NSLog(@"local:%@",localtoken);
-            
             _getTokenSuccessCount ++;
             if (1 == _getTokenSuccessCount) { // 第一次通过接口获得token
                 // 更新银行列表，需要token
@@ -440,8 +393,6 @@
                 // 同步发单用户电话号码，需要token
                 [self consigneeAddressB];
             }
-
-            
         } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
             _getTokenCount ++;
             if (_getTokenCount < 5) {
@@ -449,29 +400,18 @@
             }
         }];
     }
-
 }
 
 #pragma mark - 电话联想,24小时同步商户发单历史到本地
 
 - (void)consigneeAddressB{
     if ([UserInfo isLogin]) {
-        
         NSString * firstTime = @"2015-01-01 00:00:00";
-        
-//        if ([UserInfo getMaxDate]) {
-//            firstTime = [UserInfo getMaxDate];
-//        }
-        // Plan A, 如上，始终 2015-01-01
-        // Plan B，退出登录之后，置空MaxDate
-        
         NSDictionary * paraDict = @{
                                     @"BusinessId":[UserInfo getUserId],
                                     @"PubDate":firstTime,
                                     @"Version":APIVersion
                                     };
-        //NSLog(@"para:%@",paraDict);
-        
         [FHQNetWorkingAPI consigneeAddress:paraDict successBlock:^(id result, AFHTTPRequestOperation *operation) {
             NSString * MaxDate = result[@"MaxDate"];
             NSArray * ConsigneeAdressBDM = result[@"Data"];
@@ -479,14 +419,9 @@
                 [UserInfo saveMaxDate:MaxDate];
             }
             if (ConsigneeAdressBDM.count > 0) {
-                NSLog(@"arr:%@",ConsigneeAdressBDM);
-                // 存本地
                 [self storeConsignees:ConsigneeAdressBDM];
-            }else{
-                //NSLog(@"array:0");
             }
         } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-            
         }];
     }
 }
@@ -499,9 +434,7 @@
      PubDate	订单发布时间
      */
     NSString * bid = [UserInfo getUserId];
-    
     for (NSDictionary * adict in ConsigneeAdressBDM) {
-        
         NSMutableArray * localConsignees = [NSMutableArray arrayWithArray:[DataArchive storedConsigneesWithShopid:bid]];
         ConsigneeModel * consignee = [[ConsigneeModel alloc] init];
         consignee.consigneePhone = adict[@"PhoneNo"];
@@ -509,14 +442,7 @@
         consignee.consigneePubDate = adict[@"PubDate"];
         consignee.consigneeUserName = adict[@"UserName"];
         consignee.consigneeId = [NSString stringWithFormat:@"%@",adict[@"Id"]];
-        
         if (localConsignees.count > 0) {
-            
-            //        for (ConsigneeModel * aConsignee in localConsignees) {
-            //            if ([aConsignee samePhoneWithConsignee:consignee]) {
-            //                localConsignees repla
-            //            }
-            //        }
             BOOL contain = NO;
             for (int i = 0; i < localConsignees.count; i ++) {
                 ConsigneeModel * aConsignee = [localConsignees objectAtIndex:i];
@@ -525,15 +451,11 @@
                     contain = YES;
                     break;
                 }
-                
             }
-            
             if (!contain) {
                 [localConsignees addObject:consignee];
             }
-            
             [DataArchive storeConsignees:localConsignees shopId:bid];
-            
         }else{
             [DataArchive storeConsignees:[NSArray arrayWithObjects:consignee, nil] shopId:bid];
         }
@@ -560,53 +482,17 @@
 #pragma mark - 微信代理
 /// 微信代理
 -(void) onResp:(BaseResp*)resp{
-    
     //NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
-    
     NSString *strTitle;
-    
     if([resp isKindOfClass:[PayResp class]]){
-        
         //支付返回结果，实际支付结果需要去微信服务器端查询
-        
         strTitle = [NSString stringWithFormat:@"支付结果"];
-        
-       // [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_WechatOrderNotificationOnline object:[NSNumber numberWithInt:resp.errCode]];
-        
         if (WXSuccess == resp.errCode) {
             [[NSNotificationCenter defaultCenter] postNotificationName:WechatPaySuccessNotification object:nil];
         } else {
             [Tools showHUD:@"支付失败"];
         }
-        
-//        switch (resp.errCode) {
-//                
-//            case WXSuccess:
-//                
-//                strMsg = @"支付结果：成功！";
-//                
-//                NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
-//                
-//                break;
-//                
-//                
-//                
-//            default:
-//                
-//                strMsg = [NSString stringWithFormat:@"支付结果：失败"];
-//                
-//                //strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
-//                
-//                NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
-//                
-//                break;
-//                
-//        }
-        
     }
-    
-    
-    
 }
 
 
