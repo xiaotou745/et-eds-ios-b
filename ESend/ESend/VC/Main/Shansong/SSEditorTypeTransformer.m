@@ -29,4 +29,17 @@
     }
 }
 
++ (UIImage *)imageWithEditorType:(SSAddressEditorType)type{
+    UIImage * img = nil;
+    switch (type) {
+        case SSAddressEditorTypeFa:img = [UIImage imageNamed:@"ss_release_fa"];
+            break;
+        case SSAddressEditorTypeShou:img = [UIImage imageNamed:@"ss_release_shou"];
+            break;
+        default:
+            break;
+    }
+    return img;
+}
+
 @end

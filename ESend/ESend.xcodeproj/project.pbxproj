@@ -91,6 +91,8 @@
 		68586AA81BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */; };
 		68586AA91BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */; };
 		68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */; };
+		685E34FF1C0BF211001CEABB /* SSAddressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E34FE1C0BF211001CEABB /* SSAddressInfo.m */; };
+		685E35001C0BF211001CEABB /* SSAddressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E34FE1C0BF211001CEABB /* SSAddressInfo.m */; };
 		685E53B01BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */; };
 		685E53B11BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */; };
 		685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; };
@@ -121,6 +123,10 @@
 		686745621BA9205C005F59D4 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745601BA9205C005F59D4 /* UIView+Common.m */; };
 		686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
 		686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
+		68753F2D1C085BBC00418E7B /* SSAdressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68753F2B1C085BBC00418E7B /* SSAdressCell.m */; };
+		68753F2E1C085BBC00418E7B /* SSAdressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68753F2B1C085BBC00418E7B /* SSAdressCell.m */; };
+		68753F2F1C085BBC00418E7B /* SSAdressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68753F2C1C085BBC00418E7B /* SSAdressCell.xib */; };
+		68753F301C085BBC00418E7B /* SSAdressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68753F2C1C085BBC00418E7B /* SSAdressCell.xib */; };
 		6878F7811BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; };
 		6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; };
 		6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; };
@@ -666,6 +672,8 @@
 		68586AA41BAE8E6800B26780 /* EDSRiderDeliveryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSRiderDeliveryCell.h; sourceTree = "<group>"; };
 		68586AA51BAE8E6800B26780 /* EDSRiderDeliveryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSRiderDeliveryCell.m; sourceTree = "<group>"; };
 		68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryCell.xib; sourceTree = "<group>"; };
+		685E34FD1C0BF211001CEABB /* SSAddressInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAddressInfo.h; sourceTree = "<group>"; };
+		685E34FE1C0BF211001CEABB /* SSAddressInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAddressInfo.m; sourceTree = "<group>"; };
 		685E53AD1BBB878E00BE429C /* EDSBillStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsVC.h; sourceTree = "<group>"; };
 		685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsVC.m; sourceTree = "<group>"; };
 		685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsVC.xib; sourceTree = "<group>"; };
@@ -691,6 +699,9 @@
 		686745601BA9205C005F59D4 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
 		686745631BA96CF1005F59D4 /* UIImage+tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+tools.h"; sourceTree = "<group>"; };
 		686745641BA96CF1005F59D4 /* UIImage+tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+tools.m"; sourceTree = "<group>"; };
+		68753F2A1C085BBC00418E7B /* SSAdressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAdressCell.h; sourceTree = "<group>"; };
+		68753F2B1C085BBC00418E7B /* SSAdressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAdressCell.m; sourceTree = "<group>"; };
+		68753F2C1C085BBC00418E7B /* SSAdressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSAdressCell.xib; sourceTree = "<group>"; };
 		6878F77E1BB1559800E33ACD /* EDSBusinessShouldKnow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBusinessShouldKnow.h; sourceTree = "<group>"; };
 		6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBusinessShouldKnow.m; sourceTree = "<group>"; };
 		6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBusinessShouldKnow.xib; sourceTree = "<group>"; };
@@ -1445,6 +1456,15 @@
 			name = FullfillMoney;
 			sourceTree = "<group>";
 		};
+		685E34FC1C0BF1E3001CEABB /* model */ = {
+			isa = PBXGroup;
+			children = (
+				685E34FD1C0BF211001CEABB /* SSAddressInfo.h */,
+				685E34FE1C0BF211001CEABB /* SSAddressInfo.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		685E53AC1BBB86FC00BE429C /* BillStatistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -1467,6 +1487,9 @@
 				686630C11C0708EC009293D3 /* SSEditAdderssViewController.xib */,
 				686630C61C070B4C009293D3 /* SSEditorTypeTransformer.h */,
 				686630C71C070B4C009293D3 /* SSEditorTypeTransformer.m */,
+				68753F2A1C085BBC00418E7B /* SSAdressCell.h */,
+				68753F2B1C085BBC00418E7B /* SSAdressCell.m */,
+				68753F2C1C085BBC00418E7B /* SSAdressCell.xib */,
 			);
 			name = EditAddress;
 			sourceTree = "<group>";
@@ -1539,6 +1562,7 @@
 		68FE8CC61C05B1C6004BABB4 /* Shansong */ = {
 			isa = PBXGroup;
 			children = (
+				685E34FC1C0BF1E3001CEABB /* model */,
 				686630BE1C0708BB009293D3 /* EditAddress */,
 				68FE8CC71C05B1FB004BABB4 /* SSHomepageViewController.h */,
 				68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */,
@@ -2455,6 +2479,7 @@
 				F62A73E71B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F67D35F11B5664A600083DA4 /* gray_border_btn_nor@2x.png in Resources */,
 				6867454E1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
+				68753F301C085BBC00418E7B /* SSAdressCell.xib in Resources */,
 				F62A73EF1B5CCA84001632B5 /* 2@3x.png in Resources */,
 				6801E3C31BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png in Resources */,
 				F67D35F21B5664A600083DA4 /* demo_card@3x.png in Resources */,
@@ -2541,6 +2566,7 @@
 				686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68580C931BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
+				68753F2F1C085BBC00418E7B /* SSAdressCell.xib in Resources */,
 				6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */,
 				F65E8D1F1B39807600053141 /* Images 19-52-49-033.xcassets in Resources */,
 				F6188A841B219CB20033E58B /* map_icon@2x.png in Resources */,
@@ -2697,6 +2723,7 @@
 				F67D35881B5664A600083DA4 /* HMSegmentedControl.m in Sources */,
 				68AE2BE31BC9161600E8149C /* KMNavigationTitleView.m in Sources */,
 				CF22B0361BAB4A61000F19D9 /* MJRefreshFooter.m in Sources */,
+				685E35001C0BF211001CEABB /* SSAddressInfo.m in Sources */,
 				F67D35891B5664A600083DA4 /* QRadioButton.m in Sources */,
 				2E57819E1BA2774800A04B9D /* WXUtil.mm in Sources */,
 				F67D358C1B5664A600083DA4 /* BankViewController.m in Sources */,
@@ -2789,6 +2816,7 @@
 				F67D35D51B5664A600083DA4 /* BankModel.m in Sources */,
 				F67D35D61B5664A600083DA4 /* PlaceholderTextView.m in Sources */,
 				685E53B11BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */,
+				68753F2E1C085BBC00418E7B /* SSAdressCell.m in Sources */,
 				F67D35D81B5664A600083DA4 /* ChildOrderModel.m in Sources */,
 				F67D35D91B5664A600083DA4 /* OrdersListTableViewController.m in Sources */,
 				F67D35DA1B5664A600083DA4 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -2921,6 +2949,7 @@
 				F6C6ADA11B12F42F0007A980 /* QRadioButton.m in Sources */,
 				68AE2BE21BC9161600E8149C /* KMNavigationTitleView.m in Sources */,
 				CF22B0351BAB4A61000F19D9 /* MJRefreshFooter.m in Sources */,
+				685E34FF1C0BF211001CEABB /* SSAddressInfo.m in Sources */,
 				2E57819D1BA2774800A04B9D /* WXUtil.mm in Sources */,
 				F64DFD791B270E9F00A909E5 /* BankViewController.m in Sources */,
 				F6C6AC961B12F3EB0007A980 /* BaseModel.m in Sources */,
@@ -3013,6 +3042,7 @@
 				F62E8D091B2FC92C006F3862 /* BankModel.m in Sources */,
 				F6C6ADA01B12F42F0007A980 /* PlaceholderTextView.m in Sources */,
 				685E53B01BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */,
+				68753F2D1C085BBC00418E7B /* SSAdressCell.m in Sources */,
 				F6441B241B3BD99C00EA3C9D /* ChildOrderModel.m in Sources */,
 				F66CA1321B1E9BF2006BDDB8 /* OrdersListTableViewController.m in Sources */,
 				F6C6ADB51B12F42F0007A980 /* AFNetworkActivityIndicatorManager.m in Sources */,

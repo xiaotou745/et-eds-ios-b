@@ -20,4 +20,6 @@ typedef NS_ENUM(NSInteger, SSAddressEditorType) {
 @interface SSEditorTypeTransformer : NSObject
 + (SSAddressEditorType)typeWithEditorTitleStr:(NSString *)title;
 + (NSString *)titleStringWithEditorType:(SSAddressEditorType)type;
++ (UIImage *)imageWithEditorType:(SSAddressEditorType)type;
+
 @end

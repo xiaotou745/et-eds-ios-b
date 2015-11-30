@@ -8,6 +8,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSEditAdderssViewController">
             <connections>
+                <outlet property="addressTextField" destination="1dn-VP-OVE" id="R18-1K-gv4"/>
+                <outlet property="headerBg" destination="lSr-3E-NwW" id="LXS-7D-509"/>
+                <outlet property="headerImg" destination="Rki-Wo-vwC" id="vJj-sc-www"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,24 +23,24 @@
                     <rect key="frame" x="0.0" y="64" width="600" height="54"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rki-Wo-vwC">
-                            <rect key="frame" x="12" y="9" width="36" height="36"/>
+                            <rect key="frame" x="12" y="12" width="30" height="30"/>
                             <animations/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="Rki-Wo-vwC" secondAttribute="height" id="77b-iI-5MG"/>
-                                <constraint firstAttribute="width" constant="36" id="iZo-5E-V8Z"/>
+                                <constraint firstAttribute="width" constant="30" id="iZo-5E-V8Z"/>
                             </constraints>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orQ-0n-KPG">
-                            <rect key="frame" x="544" y="5" width="44" height="44"/>
+                            <rect key="frame" x="558" y="12" width="30" height="30"/>
                             <animations/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="44" id="PQa-Tn-fuV"/>
+                                <constraint firstAttribute="width" constant="30" id="PQa-Tn-fuV"/>
                                 <constraint firstAttribute="width" secondItem="orQ-0n-KPG" secondAttribute="height" multiplier="1:1" id="ycc-kh-ZH5"/>
                             </constraints>
                             <state key="normal" image="ss_addr_map"/>
                         </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入发货地址" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1dn-VP-OVE">
-                            <rect key="frame" x="56" y="12" width="480" height="30"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text=" " placeholder="请输入发货地址" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1dn-VP-OVE">
+                            <rect key="frame" x="47" y="12" width="503" height="30"/>
                             <animations/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -51,9 +54,13 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54" id="0tf-Mi-P1S"/>
+                        <constraint firstItem="1dn-VP-OVE" firstAttribute="top" secondItem="lSr-3E-NwW" secondAttribute="top" constant="12" id="1rb-2g-Bx6"/>
                         <constraint firstItem="orQ-0n-KPG" firstAttribute="centerY" secondItem="lSr-3E-NwW" secondAttribute="centerY" id="5xH-6C-N3Z"/>
                         <constraint firstItem="Rki-Wo-vwC" firstAttribute="centerY" secondItem="lSr-3E-NwW" secondAttribute="centerY" id="7Ft-Fx-TBv"/>
+                        <constraint firstAttribute="bottom" secondItem="1dn-VP-OVE" secondAttribute="bottom" constant="12" id="EPj-Tr-d4Z"/>
+                        <constraint firstItem="1dn-VP-OVE" firstAttribute="leading" secondItem="Rki-Wo-vwC" secondAttribute="trailing" constant="5" id="Gaf-uT-Hfo"/>
                         <constraint firstItem="Rki-Wo-vwC" firstAttribute="leading" secondItem="lSr-3E-NwW" secondAttribute="leading" constant="12" id="Gfv-62-boU"/>
+                        <constraint firstItem="orQ-0n-KPG" firstAttribute="leading" secondItem="1dn-VP-OVE" secondAttribute="trailing" constant="8" id="hFT-gr-VBh"/>
                         <constraint firstAttribute="trailing" secondItem="orQ-0n-KPG" secondAttribute="trailing" constant="12" id="wRX-OU-msW"/>
                     </constraints>
                 </view>
