@@ -93,6 +93,16 @@
 		68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */; };
 		685E34FF1C0BF211001CEABB /* SSAddressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E34FE1C0BF211001CEABB /* SSAddressInfo.m */; };
 		685E35001C0BF211001CEABB /* SSAddressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E34FE1C0BF211001CEABB /* SSAddressInfo.m */; };
+		685E35051C0C177B001CEABB /* SSMapAddrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E35031C0C177B001CEABB /* SSMapAddrViewController.m */; };
+		685E35061C0C177B001CEABB /* SSMapAddrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E35031C0C177B001CEABB /* SSMapAddrViewController.m */; };
+		685E35071C0C177B001CEABB /* SSMapAddrViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E35041C0C177B001CEABB /* SSMapAddrViewController.xib */; };
+		685E35081C0C177B001CEABB /* SSMapAddrViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E35041C0C177B001CEABB /* SSMapAddrViewController.xib */; };
+		685E350C1C0C4557001CEABB /* SSMapAddrCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E350A1C0C4557001CEABB /* SSMapAddrCell.m */; };
+		685E350D1C0C4557001CEABB /* SSMapAddrCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E350A1C0C4557001CEABB /* SSMapAddrCell.m */; };
+		685E350E1C0C4557001CEABB /* SSMapAddrCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E350B1C0C4557001CEABB /* SSMapAddrCell.xib */; };
+		685E350F1C0C4557001CEABB /* SSMapAddrCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E350B1C0C4557001CEABB /* SSMapAddrCell.xib */; };
+		685E35121C0C4667001CEABB /* SSMapAddrInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E35111C0C4667001CEABB /* SSMapAddrInfo.m */; };
+		685E35131C0C4667001CEABB /* SSMapAddrInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E35111C0C4667001CEABB /* SSMapAddrInfo.m */; };
 		685E53B01BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */; };
 		685E53B11BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */; };
 		685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; };
@@ -674,6 +684,14 @@
 		68586AA61BAE8E6800B26780 /* EDSRiderDeliveryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSRiderDeliveryCell.xib; sourceTree = "<group>"; };
 		685E34FD1C0BF211001CEABB /* SSAddressInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAddressInfo.h; sourceTree = "<group>"; };
 		685E34FE1C0BF211001CEABB /* SSAddressInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAddressInfo.m; sourceTree = "<group>"; };
+		685E35021C0C177B001CEABB /* SSMapAddrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMapAddrViewController.h; sourceTree = "<group>"; };
+		685E35031C0C177B001CEABB /* SSMapAddrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMapAddrViewController.m; sourceTree = "<group>"; };
+		685E35041C0C177B001CEABB /* SSMapAddrViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSMapAddrViewController.xib; sourceTree = "<group>"; };
+		685E35091C0C4557001CEABB /* SSMapAddrCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMapAddrCell.h; sourceTree = "<group>"; };
+		685E350A1C0C4557001CEABB /* SSMapAddrCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMapAddrCell.m; sourceTree = "<group>"; };
+		685E350B1C0C4557001CEABB /* SSMapAddrCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSMapAddrCell.xib; sourceTree = "<group>"; };
+		685E35101C0C4667001CEABB /* SSMapAddrInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMapAddrInfo.h; sourceTree = "<group>"; };
+		685E35111C0C4667001CEABB /* SSMapAddrInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMapAddrInfo.m; sourceTree = "<group>"; };
 		685E53AD1BBB878E00BE429C /* EDSBillStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsVC.h; sourceTree = "<group>"; };
 		685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsVC.m; sourceTree = "<group>"; };
 		685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsVC.xib; sourceTree = "<group>"; };
@@ -1461,8 +1479,23 @@
 			children = (
 				685E34FD1C0BF211001CEABB /* SSAddressInfo.h */,
 				685E34FE1C0BF211001CEABB /* SSAddressInfo.m */,
+				685E35101C0C4667001CEABB /* SSMapAddrInfo.h */,
+				685E35111C0C4667001CEABB /* SSMapAddrInfo.m */,
 			);
 			name = model;
+			sourceTree = "<group>";
+		};
+		685E35011C0C1701001CEABB /* map */ = {
+			isa = PBXGroup;
+			children = (
+				685E35021C0C177B001CEABB /* SSMapAddrViewController.h */,
+				685E35031C0C177B001CEABB /* SSMapAddrViewController.m */,
+				685E35041C0C177B001CEABB /* SSMapAddrViewController.xib */,
+				685E35091C0C4557001CEABB /* SSMapAddrCell.h */,
+				685E350A1C0C4557001CEABB /* SSMapAddrCell.m */,
+				685E350B1C0C4557001CEABB /* SSMapAddrCell.xib */,
+			);
+			path = map;
 			sourceTree = "<group>";
 		};
 		685E53AC1BBB86FC00BE429C /* BillStatistics */ = {
@@ -1562,6 +1595,7 @@
 		68FE8CC61C05B1C6004BABB4 /* Shansong */ = {
 			isa = PBXGroup;
 			children = (
+				685E35011C0C1701001CEABB /* map */,
 				685E34FC1C0BF1E3001CEABB /* model */,
 				686630BE1C0708BB009293D3 /* EditAddress */,
 				68FE8CC71C05B1FB004BABB4 /* SSHomepageViewController.h */,
@@ -2493,6 +2527,7 @@
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				CF22B0301BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
 				685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
+				685E35081C0C177B001CEABB /* SSMapAddrViewController.xib in Resources */,
 				68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */,
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
@@ -2500,6 +2535,7 @@
 				68FE8CCD1C05B1FB004BABB4 /* SSHomepageViewController.xib in Resources */,
 				686630C51C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */,
 				68AE2BD81BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
+				685E350F1C0C4557001CEABB /* SSMapAddrCell.xib in Resources */,
 				F67D35F71B5664A600083DA4 /* blue_btn_pre@2x.png in Resources */,
 				F67D35F81B5664A600083DA4 /* Main.storyboard in Resources */,
 				2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
@@ -2549,6 +2585,7 @@
 				F6549F7F1B1C331300FAACEE /* back_nor@2x.png in Resources */,
 				F62A73E61B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F62A73EC1B5CCA84001632B5 /* 2@2x.png in Resources */,
+				685E350E1C0C4557001CEABB /* SSMapAddrCell.xib in Resources */,
 				685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
 				68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */,
 				F6549F811B1C364100FAACEE /* verifty_icon@2x.png in Resources */,
@@ -2563,6 +2600,7 @@
 				CF22B02F1BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
 				F62A73EA1B5CCA84001632B5 /* 2@1x.png in Resources */,
 				F6C6AE751B18386C0007A980 /* phone_icon@2x.png in Resources */,
+				685E35071C0C177B001CEABB /* SSMapAddrViewController.xib in Resources */,
 				686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68580C931BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
@@ -2676,6 +2714,7 @@
 				F67D35651B5664A600083DA4 /* SDWebImageDownloader.m in Sources */,
 				F67D35661B5664A600083DA4 /* ThirdOrderListViewController.m in Sources */,
 				F67D35671B5664A600083DA4 /* AFURLConnectionOperation.m in Sources */,
+				685E35061C0C177B001CEABB /* SSMapAddrViewController.m in Sources */,
 				F67D35681B5664A600083DA4 /* OriginModel.m in Sources */,
 				F66D7BBB1B661DC800A6A946 /* EmptyAlterView.m in Sources */,
 				F67D35691B5664A600083DA4 /* DataSigner.m in Sources */,
@@ -2749,6 +2788,7 @@
 				F67D359E1B5664A600083DA4 /* SDWebImageDownloaderOperation.m in Sources */,
 				F67D359F1B5664A600083DA4 /* UIButton+AFNetworking.m in Sources */,
 				F67D35A01B5664A600083DA4 /* BankTableViewCell.m in Sources */,
+				685E350D1C0C4557001CEABB /* SSMapAddrCell.m in Sources */,
 				F67D35A11B5664A600083DA4 /* MDGoodsListCell.m in Sources */,
 				F67D35A21B5664A600083DA4 /* OrderRefuseViewController.m in Sources */,
 				F67D35A31B5664A600083DA4 /* openssl_wrapper.m in Sources */,
@@ -2807,6 +2847,7 @@
 				F67D35CB1B5664A600083DA4 /* MJPhotoView.m in Sources */,
 				F67D35CC1B5664A600083DA4 /* AFHTTPRequestOperationManager.m in Sources */,
 				F67D35CD1B5664A600083DA4 /* FHQNetWorkingAPI.m in Sources */,
+				685E35131C0C4667001CEABB /* SSMapAddrInfo.m in Sources */,
 				F67D35CF1B5664A600083DA4 /* ExpensesViewController.m in Sources */,
 				F67D35D01B5664A600083DA4 /* SDWebImageCompat.m in Sources */,
 				F67D35D11B5664A600083DA4 /* MoreTableViewCell.m in Sources */,
@@ -2902,6 +2943,7 @@
 				F66062591B3AC72400F9AF0A /* ThirdOrderListViewController.m in Sources */,
 				F6C6AD761B12F42F0007A980 /* AFURLConnectionOperation.m in Sources */,
 				F66CA1601B1EF97A006BDDB8 /* OriginModel.m in Sources */,
+				685E35051C0C177B001CEABB /* SSMapAddrViewController.m in Sources */,
 				F66D7BBA1B661A2800A6A946 /* EmptyAlterView.m in Sources */,
 				F6441B4F1B3D470100EA3C9D /* DataSigner.m in Sources */,
 				F6441B4E1B3D470100EA3C9D /* base64.m in Sources */,
@@ -2975,6 +3017,7 @@
 				F6C6ADB81B12F42F0007A980 /* UIButton+AFNetworking.m in Sources */,
 				F643BB271B2710CF0050E3AE /* BankTableViewCell.m in Sources */,
 				E46C49321B3C4A1300CE0033 /* MDGoodsListCell.m in Sources */,
+				685E350C1C0C4557001CEABB /* SSMapAddrCell.m in Sources */,
 				E4B39BF81B3D84D800ABE1A3 /* OrderRefuseViewController.m in Sources */,
 				F6441B531B3D470100EA3C9D /* openssl_wrapper.m in Sources */,
 				F6C6AD8F1B12F42F0007A980 /* MJPhotoLoadingView.m in Sources */,
@@ -3033,6 +3076,7 @@
 				F6C6AD721B12F42F0007A980 /* AFHTTPRequestOperationManager.m in Sources */,
 				F6C6AC971B12F3EB0007A980 /* FHQNetWorkingAPI.m in Sources */,
 				F61A82C21B3E87370060558D /* ExpensesViewController.m in Sources */,
+				685E35121C0C4667001CEABB /* SSMapAddrInfo.m in Sources */,
 				F6C6ADA81B12F42F0007A980 /* SDWebImageCompat.m in Sources */,
 				F64DFD701B26C7A200A909E5 /* MoreTableViewCell.m in Sources */,
 				F66FF0991B1C68EF00511B7D /* ForgetPasswordViewController.m in Sources */,

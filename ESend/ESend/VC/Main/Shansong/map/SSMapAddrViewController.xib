@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSMapAddrViewController">
+            <connections>
+                <outlet property="addressTableView" destination="zDr-cE-NJc" id="TBX-5B-r0f"/>
+                <outlet property="mapView" destination="cRH-e3-lQG" id="fco-Pd-G5s"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRH-e3-lQG" customClass="BMKMapView">
+                    <rect key="frame" x="0.0" y="64" width="600" height="190"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="190" id="K3S-oN-Sy4"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zDr-cE-NJc">
+                    <rect key="frame" x="0.0" y="254" width="600" height="346"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="AbY-yS-CXk"/>
+                        <outlet property="delegate" destination="-1" id="O2H-9G-H6r"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="cRH-e3-lQG" secondAttribute="trailing" id="0g9-lT-Hrg"/>
+                <constraint firstItem="cRH-e3-lQG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ApU-Ta-vl2"/>
+                <constraint firstItem="cRH-e3-lQG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="DM0-Lr-gon"/>
+                <constraint firstAttribute="bottom" secondItem="zDr-cE-NJc" secondAttribute="bottom" id="ECa-6F-Fb7"/>
+                <constraint firstItem="zDr-cE-NJc" firstAttribute="top" secondItem="cRH-e3-lQG" secondAttribute="bottom" id="PGi-SS-Thl"/>
+                <constraint firstItem="zDr-cE-NJc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cH1-9S-Oow"/>
+                <constraint firstAttribute="trailing" secondItem="zDr-cE-NJc" secondAttribute="trailing" id="kYG-jb-43r"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

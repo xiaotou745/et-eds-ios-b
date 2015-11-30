@@ -15,6 +15,7 @@
 @property (nonatomic,copy) NSString * uid;
 @property (nonatomic,copy) NSString * address;
 @property (nonatomic,copy) NSString * city;
+@property (nonatomic,assign) CLLocationCoordinate2D coordinate;
 
 @property (nonatomic,copy) NSString * addition;
 

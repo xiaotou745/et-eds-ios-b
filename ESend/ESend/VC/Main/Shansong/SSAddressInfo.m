@@ -16,6 +16,7 @@
         self.address = poi.address;
         self.city = poi.city;
         self.addition = @"";
+        self.coordinate = poi.pt;
     }
     return self;
 }

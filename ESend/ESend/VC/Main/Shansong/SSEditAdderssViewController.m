@@ -10,6 +10,8 @@
 #import <BaiduMapAPI/BMapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "SSAdressCell.h"
+#import "SSMapAddrViewController.h"
+
 
 @interface SSEditAdderssViewController ()<UITextFieldDelegate,BMKPoiSearchDelegate,BMKLocationServiceDelegate,UITableViewDataSource,UITableViewDelegate>
 {
@@ -145,8 +147,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     id a = [_POIs objectAtIndex:indexPath.row];
-    NSLog(@"%@",a);
+    // NSLog(@"%@",a);
     [_POITable removeFromSuperview];
 }
 
+- (IBAction)mapAddrAction:(UIButton *)sender {
+    SSMapAddrViewController * mavc = [[SSMapAddrViewController alloc] initWithNibName:NSStringFromClass([SSMapAddrViewController class]) bundle:nil];
+    [self.navigationController pushViewController:mavc animated:YES];
+}
 @end
