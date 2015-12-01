@@ -8,8 +8,14 @@
 
 #import "SSHomepageViewController.h"
 #import "SSEditAdderssViewController.h"
+#import "MineViewController.h"
 
-@interface SSHomepageViewController ()<UINavigationControllerDelegate>
+@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate>
+@property (strong, nonatomic) IBOutlet UILabel *hp_FaAddrLabel;
+@property (strong, nonatomic) IBOutlet UILabel *hp_ShouAddrLabel;
+
+@property (nonatomic, assign) NSInteger api_kilo;
+@property (strong, nonatomic) IBOutlet UITextField *kiloTextField;
 
 @end
 
@@ -20,14 +26,34 @@
     self.navigationController.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
-    self.titleLabel.text = @"呼叫配送员";
-    self.leftBtn.hidden = YES;
-    [self.rightBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
-    [self.rightBtn addTarget:self action:@selector(clickUserVC) forControlEvents:UIControlEventTouchUpInside];
+    // notify
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongAddrAdditionFinishedNotify:) name:ShanSongAddressAdditionFinishedNotify object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kiloTextFieldChanged:) name:UITextFieldTextDidChangeNotification object:nil];
+
+    
+    self.titleLabel.text = @"E代送";
+    [self.leftBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
+    [self.leftBtn addTarget:self action:@selector(clickUserVC) forControlEvents:UIControlEventTouchUpInside];
 }
 
+#pragma mark - outlet actions
+- (IBAction)addKilo:(UIButton *)sender {
+    self.kiloTextField.text = [NSString stringWithFormat:@"%ld",++self.api_kilo];
+    NSLog(@"%ld",self.api_kilo);
+}
+
+- (IBAction)minusKilo:(UIButton *)sender {
+    if (self.api_kilo == 0) {
+        return;
+    }
+    self.kiloTextField.text = [NSString stringWithFormat:@"%ld",--self.api_kilo];
+    NSLog(@"%ld",self.api_kilo);
+}
+
+
 - (void)clickUserVC{
-    
+    MineViewController *vc = [[MineViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -
@@ -48,6 +74,25 @@
         navigationController.interactivePopGestureRecognizer.enabled = NO;
     } else {
         navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+- (void)kiloTextFieldChanged:(NSNotification *)notify{
+    NSLog(@"%@",notify);
+}
+
+#pragma mark - nofitys
+- (void)shanSongAddrAdditionFinishedNotify:(NSNotification *)notify{
+    NSDictionary * info = notify.userInfo;
+    SSAddressEditorType addrType = [[info objectForKey:NotifyTypeKey] integerValue];
+    SSAddressInfo * addrInfo = [info objectForKey:NotifyInfoKey];
+    if (addrType == SSAddressEditorTypeFa) {
+        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@%@",addrInfo.name,addrInfo.addition];
+        self.hp_FaAddrLabel.textColor = DeepGrey;
+    }else if(addrType == SSAddressEditorTypeShou){
+        self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@%@",addrInfo.name,addrInfo.addition];
+        self.hp_ShouAddrLabel.textColor = DeepGrey;
     }
 }
 

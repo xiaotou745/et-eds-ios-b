@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 #import <BaiduMapAPI/BMapKit.h>
 #import "SSEditorTypeTransformer.h"
+#import "SSMapAddrCell.h"
 
 @interface SSMapAddrViewController : BaseViewController
 

@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 #import "SSEditorTypeTransformer.h"
+#import "SSMapAddrViewController.h"
 
 @interface SSEditAdderssViewController : BaseViewController
 

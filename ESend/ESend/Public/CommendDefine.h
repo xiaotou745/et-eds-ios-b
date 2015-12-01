@@ -228,8 +228,9 @@ fprintf(stderr, "-------\n");                                               \
 
 // static NSString * const AFAppJavaAPIBaseURLString = @"http://10.8.7.42:8094/api-http/services/";// 新版java接口
 
-
-
+/*闪送相关的通知*/
+#define ShanSongAddressAdditionFinishedNotify @"ShanSongAddressAdditionFinishedNotify" // 补充地址完成
+#define ShanSongAddressHistorySelectedNotify @"ShanSongAddressHistorySelectedNotify" // 选择历史地址
 
 
 #if 0

@@ -7,6 +7,7 @@
 //
 
 #import "SSAddrAdditionViewController.h"
+#import "NSString+allSpace.h"
 #import "SSHttpReqServer.h"
 
 @interface SSAddrAdditionViewController ()
@@ -54,7 +55,15 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)confirmBtnAction:(UIButton *)sender {
+    if (self.addrAdditioinTF.text.length <= 0 || [self.addrAdditioinTF.text allSpace]) {
+        [Tools showHUD:[NSString stringWithFormat:@"请%@",self.titleLabel.text]];
+        return;
+    }
+    self.addrInfo.addition = self.addrAdditioinTF.text;
+    NSDictionary * notifyInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.addrInfo,NotifyInfoKey,[NSNumber numberWithInteger:self.type],NotifyTypeKey, nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ShanSongAddressAdditionFinishedNotify object:nil userInfo:notifyInfo];
     
+    [self.navigationController popToRootViewControllerAnimated:YES];
     
 //    NSDictionary * paraDict = @{
 //                                @"businessid":@"1105",//[UserInfo getUserId],

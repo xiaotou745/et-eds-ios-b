@@ -7,7 +7,6 @@
 //
 
 #import "SSMapAddrViewController.h"
-#import "SSMapAddrCell.h"
 #import "SSAddrAdditionViewController.h"
 
 @interface SSMapAddrViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,UITableViewDataSource,UITableViewDelegate>

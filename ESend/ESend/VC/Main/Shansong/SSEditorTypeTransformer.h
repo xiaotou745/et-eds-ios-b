@@ -16,6 +16,8 @@ typedef NS_ENUM(NSInteger, SSAddressEditorType) {
 #define HpFaTitle @"发货地址"
 #define HpShouTitle @"收货地址"
 
+#define NotifyTypeKey @"type"//
+#define NotifyInfoKey @"addrInfo"
 
 @interface SSEditorTypeTransformer : NSObject
 + (SSAddressEditorType)typeWithEditorTitleStr:(NSString *)title;

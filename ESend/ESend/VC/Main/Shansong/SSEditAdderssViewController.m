@@ -10,7 +10,6 @@
 #import <BaiduMapAPI/BMapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "SSAdressCell.h"
-#import "SSMapAddrViewController.h"
 #import "SSAddrAdditionViewController.h"
 
 
@@ -59,7 +58,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    // [self.addressTextField becomeFirstResponder];
+    [self.addressTextField becomeFirstResponder];
 }
 
 - (void)addressTextChanged:(NSNotification *)notify{
