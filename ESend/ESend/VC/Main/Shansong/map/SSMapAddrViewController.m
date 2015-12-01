@@ -8,6 +8,7 @@
 
 #import "SSMapAddrViewController.h"
 #import "SSMapAddrCell.h"
+#import "SSAddrAdditionViewController.h"
 
 @interface SSMapAddrViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,UITableViewDataSource,UITableViewDelegate>
 {
@@ -17,6 +18,8 @@
     
     BOOL _selectPOIFlag;
 }
+@property (nonatomic,assign) SSAddressEditorType type;
+
 @property (strong, nonatomic) IBOutlet BMKMapView *mapView;
 @property (strong, nonatomic) NSMutableArray * addressList;
 @property (strong, nonatomic) IBOutlet UITableView *addressTableView;
@@ -24,6 +27,13 @@
 @end
 
 @implementation SSMapAddrViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil Type:(SSAddressEditorType)type{
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.type = type;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,14 +55,22 @@
     [self.view addSubview:_mapIcon];
 
     self.addressTableView.backgroundColor = BackgroundColor;
+    
+    [self.rightBtn addTarget:self action:@selector(clickConform) forControlEvents:UIControlEventTouchUpInside];
+    [self.rightBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.rightBtn.hidden = YES;
+}
+
+- (void)clickConform{
+    SSAddressInfo * info = [self selectedMapAddr];
+    SSAddrAdditionViewController * aavc = [[SSAddrAdditionViewController alloc] initWithNibName:NSStringFromClass([SSAddrAdditionViewController class]) bundle:nil Type:self.type Addr:info];
+    [self.navigationController pushViewController:aavc animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     _mapView.delegate = self;
-//    if (_locationCoordinate2D.latitude != 0) {
-//        _mapView.centerCoordinate = _locationCoordinate2D;
-//    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -98,7 +116,6 @@
     CGRect  imgRect = _mapIcon.frame;
     imgRect.origin.y += 5;
     _mapIcon.frame = imgRect;
-    
     CLLocationCoordinate2D newcoor = [_mapView convertPoint:CGPointMake(MainWidth/2,(self.mapView.frame.size.height)/2) toCoordinateFromView:self.mapView];
     NSLog(@"%lf %lf",newcoor.latitude, newcoor.longitude);
     
@@ -150,6 +167,10 @@
         [self.addressTableView reloadData];
         [self.addressTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         
+        if (_addressList.count > 0) {
+            self.rightBtn.hidden = NO;
+        }
+        
     }else {
         [Tools showHUD:@"未找到结果"];
         NSLog(@"抱歉，未找到结果");
@@ -194,7 +215,6 @@
     SSMapAddrInfo * info = [_addressList objectAtIndex:indexPath.section];
     _selectPOIFlag = YES;
     [_mapView setCenterCoordinate:info.coordinate animated:YES];
-    
 }
 
 #pragma mark - dealing datasource
@@ -203,6 +223,17 @@
         SSMapAddrInfo * aInfo = [_addressList objectAtIndex:i];
         aInfo.selected = (i == section);
     }
+}
+
+- (SSMapAddrInfo *)selectedMapAddr{
+    SSMapAddrInfo * theOne = nil;
+    for (SSMapAddrInfo * info in _addressList) {
+        if (info.selected) {
+            theOne = info;
+            break;
+        }
+    }
+    return theOne;
 }
 
 @end

@@ -141,6 +141,10 @@
 		6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */; };
 		6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; };
 		6878F7841BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */; };
+		687ED11C1C0D458200728E65 /* SSAddrAdditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687ED11A1C0D458200728E65 /* SSAddrAdditionViewController.m */; };
+		687ED11D1C0D458200728E65 /* SSAddrAdditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687ED11A1C0D458200728E65 /* SSAddrAdditionViewController.m */; };
+		687ED11E1C0D458200728E65 /* SSAddrAdditionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 687ED11B1C0D458200728E65 /* SSAddrAdditionViewController.xib */; };
+		687ED11F1C0D458200728E65 /* SSAddrAdditionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 687ED11B1C0D458200728E65 /* SSAddrAdditionViewController.xib */; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; };
@@ -723,6 +727,9 @@
 		6878F77E1BB1559800E33ACD /* EDSBusinessShouldKnow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBusinessShouldKnow.h; sourceTree = "<group>"; };
 		6878F77F1BB1559800E33ACD /* EDSBusinessShouldKnow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBusinessShouldKnow.m; sourceTree = "<group>"; };
 		6878F7801BB1559800E33ACD /* EDSBusinessShouldKnow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBusinessShouldKnow.xib; sourceTree = "<group>"; };
+		687ED1191C0D458200728E65 /* SSAddrAdditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAddrAdditionViewController.h; sourceTree = "<group>"; };
+		687ED11A1C0D458200728E65 /* SSAddrAdditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAddrAdditionViewController.m; sourceTree = "<group>"; };
+		687ED11B1C0D458200728E65 /* SSAddrAdditionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSAddrAdditionViewController.xib; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -1570,6 +1577,16 @@
 			name = BusinessNote;
 			sourceTree = "<group>";
 		};
+		687ED1181C0D403300728E65 /* addrAddition */ = {
+			isa = PBXGroup;
+			children = (
+				687ED1191C0D458200728E65 /* SSAddrAdditionViewController.h */,
+				687ED11A1C0D458200728E65 /* SSAddrAdditionViewController.m */,
+				687ED11B1C0D458200728E65 /* SSAddrAdditionViewController.xib */,
+			);
+			path = addrAddition;
+			sourceTree = "<group>";
+		};
 		68AE2BD11BC8E88D00E8149C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1595,6 +1612,7 @@
 		68FE8CC61C05B1C6004BABB4 /* Shansong */ = {
 			isa = PBXGroup;
 			children = (
+				687ED1181C0D403300728E65 /* addrAddition */,
 				685E35011C0C1701001CEABB /* map */,
 				685E34FC1C0BF1E3001CEABB /* model */,
 				686630BE1C0708BB009293D3 /* EditAddress */,
@@ -2533,6 +2551,7 @@
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
 				6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */,
 				68FE8CCD1C05B1FB004BABB4 /* SSHomepageViewController.xib in Resources */,
+				687ED11F1C0D458200728E65 /* SSAddrAdditionViewController.xib in Resources */,
 				686630C51C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */,
 				68AE2BD81BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
 				685E350F1C0C4557001CEABB /* SSMapAddrCell.xib in Resources */,
@@ -2577,6 +2596,7 @@
 				F67D36141B56658800083DA4 /* Property List.plist in Resources */,
 				F6549F831B1C378900FAACEE /* gray_border_btn_nor@2x.png in Resources */,
 				F62A73E81B5CCA84001632B5 /* 1@3x.png in Resources */,
+				687ED11E1C0D458200728E65 /* SSAddrAdditionViewController.xib in Resources */,
 				68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
 				F62E8D031B2E80F1006F3862 /* demo_card@3x.png in Resources */,
 				2EA0CA431B82C72700BBAA63 /* ComplaintViewController.xib in Resources */,
@@ -2766,6 +2786,7 @@
 				F67D35891B5664A600083DA4 /* QRadioButton.m in Sources */,
 				2E57819E1BA2774800A04B9D /* WXUtil.mm in Sources */,
 				F67D358C1B5664A600083DA4 /* BankViewController.m in Sources */,
+				687ED11D1C0D458200728E65 /* SSAddrAdditionViewController.m in Sources */,
 				F67D358D1B5664A600083DA4 /* BaseModel.m in Sources */,
 				F67D358E1B5664A600083DA4 /* WithdrewViewController.m in Sources */,
 				F67D358F1B5664A600083DA4 /* main.m in Sources */,
@@ -2995,6 +3016,7 @@
 				2E57819D1BA2774800A04B9D /* WXUtil.mm in Sources */,
 				F64DFD791B270E9F00A909E5 /* BankViewController.m in Sources */,
 				F6C6AC961B12F3EB0007A980 /* BaseModel.m in Sources */,
+				687ED11C1C0D458200728E65 /* SSAddrAdditionViewController.m in Sources */,
 				F6441B351B3D321B00EA3C9D /* WithdrewViewController.m in Sources */,
 				F6C6AC351B12F2640007A980 /* main.m in Sources */,
 				E46C492F1B3C490C00CE0033 /* MDNotesCell.m in Sources */,

@@ -8,7 +8,10 @@
 
 #import "BaseViewController.h"
 #import <BaiduMapAPI/BMapKit.h>
+#import "SSEditorTypeTransformer.h"
 
 @interface SSMapAddrViewController : BaseViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil Type:(SSAddressEditorType)type;
 
 @end
