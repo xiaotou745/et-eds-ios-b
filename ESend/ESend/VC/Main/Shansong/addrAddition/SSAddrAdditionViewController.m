@@ -55,11 +55,41 @@
 }
 - (IBAction)confirmBtnAction:(UIButton *)sender {
     
-    [SSHttpReqServer orderflashpush:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+    
+//    NSDictionary * paraDict = @{
+//                                @"businessid":@"1105",//[UserInfo getUserId],
+//                                @"pubname":@"san",
+//                                @"islogin":@"true",
+//                                @"publongitude":@"116.516578",
+//                                @"publatitude":@"39.917445",
+//                                @"pubphoneno":@"18810287488",
+//                                @"pubaddress":@"尚8里文创园A座7-11",
+//                                @"taketype":@"0",
+//                                @"takelongitude":@"0",
+//                                @"takelatitude":@"0",
+//                                @"recevicename":@"四",
+//                                @"recevicephoneno":@"15392978661",
+//                                @"receviceaddress":@"v华腾",
+//                                @"recevicelongitude":@"116.516578",
+//                                @"recevicelatitude":@"39.917445",
+//                                @"productname":@"货物名字",
+//                                @"remark":@"这是备注",
+//                                @"amount":@"10.00",
+//                                @"weight":@"3",
+//                                @"km":@"4",
+//                                };
+//    if (AES_Security) {
+//        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+//        NSString * aesString = [Security AesEncrypt:jsonString2];
+//        paraDict = @{@"data":aesString,};
+//    }
+//    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+//    [SSHttpReqServer orderflashpush:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        [Tools hiddenProgress:HUD];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [Tools hiddenProgress:HUD];
+//
+//    }];
 }
 
 @end

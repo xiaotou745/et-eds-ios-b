@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "SSAdressCell.h"
 #import "SSMapAddrViewController.h"
+#import "SSAddrAdditionViewController.h"
 
 
 @interface SSEditAdderssViewController ()<UITextFieldDelegate,BMKPoiSearchDelegate,BMKLocationServiceDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -53,6 +54,12 @@
     self.titleLabel.text = [SSEditorTypeTransformer titleStringWithEditorType:self.type];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addressTextChanged:) name:UITextFieldTextDidChangeNotification object:self.addressTextField];
     self.headerImg.image = [SSEditorTypeTransformer imageWithEditorType:self.type];
+    self.addressTextField.placeholder = (self.type == SSAddressEditorTypeFa)?@"请输入发货地址":@"请输入收货地址";
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    // [self.addressTextField becomeFirstResponder];
 }
 
 - (void)addressTextChanged:(NSNotification *)notify{
@@ -144,15 +151,25 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == _POITable) {
+        return 55;
+    }else{
+        return 0;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    id a = [_POIs objectAtIndex:indexPath.row];
+    SSAddressInfo *info = [_POIs objectAtIndex:indexPath.row];
     // NSLog(@"%@",a);
-    [_POITable removeFromSuperview];
+    // [_POITable removeFromSuperview];
+    SSAddrAdditionViewController * aavc = [[SSAddrAdditionViewController alloc] initWithNibName:NSStringFromClass([SSAddrAdditionViewController class]) bundle:nil Type:self.type Addr:info];
+    [self.navigationController pushViewController:aavc animated:YES];
 }
 
 - (IBAction)mapAddrAction:(UIButton *)sender {
-    SSMapAddrViewController * mavc = [[SSMapAddrViewController alloc] initWithNibName:NSStringFromClass([SSMapAddrViewController class]) bundle:nil];
+    SSMapAddrViewController * mavc = [[SSMapAddrViewController alloc] initWithNibName:NSStringFromClass([SSMapAddrViewController class]) bundle:nil Type:self.type];
     [self.navigationController pushViewController:mavc animated:YES];
 }
 @end
