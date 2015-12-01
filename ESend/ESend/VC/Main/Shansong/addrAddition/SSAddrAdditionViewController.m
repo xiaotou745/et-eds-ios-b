@@ -7,6 +7,7 @@
 //
 
 #import "SSAddrAdditionViewController.h"
+#import "SSHttpReqServer.h"
 
 @interface SSAddrAdditionViewController ()
 @property (nonatomic,assign) SSAddressEditorType type;
@@ -39,6 +40,8 @@
     }
     self.typeImg.image = [SSEditorTypeTransformer imageWithEditorType:self.type];
     self.addressContent.text = self.addrInfo.name;
+    [self.confirmBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
+    
 }
 
 - (void)updateViewConstraints{
@@ -52,6 +55,11 @@
 }
 - (IBAction)confirmBtnAction:(UIButton *)sender {
     
+    [SSHttpReqServer orderflashpush:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
 }
 
 @end

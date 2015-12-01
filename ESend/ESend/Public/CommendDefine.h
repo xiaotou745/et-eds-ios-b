@@ -232,7 +232,7 @@ fprintf(stderr, "-------\n");                                               \
 
 
 
-#if 1
+#if 0
 
     #define OPEN_API_SEVER @"http://api.edaisong.com/20151022/" //生产
     #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20151022/" //上传图片地址

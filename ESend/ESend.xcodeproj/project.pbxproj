@@ -145,6 +145,8 @@
 		687ED11D1C0D458200728E65 /* SSAddrAdditionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687ED11A1C0D458200728E65 /* SSAddrAdditionViewController.m */; };
 		687ED11E1C0D458200728E65 /* SSAddrAdditionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 687ED11B1C0D458200728E65 /* SSAddrAdditionViewController.xib */; };
 		687ED11F1C0D458200728E65 /* SSAddrAdditionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 687ED11B1C0D458200728E65 /* SSAddrAdditionViewController.xib */; };
+		687ED1261C0D7C4E00728E65 /* SSHttpReqServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 687ED1251C0D7C4E00728E65 /* SSHttpReqServer.m */; };
+		687ED1271C0D7C4E00728E65 /* SSHttpReqServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 687ED1251C0D7C4E00728E65 /* SSHttpReqServer.m */; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; };
@@ -730,6 +732,8 @@
 		687ED1191C0D458200728E65 /* SSAddrAdditionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAddrAdditionViewController.h; sourceTree = "<group>"; };
 		687ED11A1C0D458200728E65 /* SSAddrAdditionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAddrAdditionViewController.m; sourceTree = "<group>"; };
 		687ED11B1C0D458200728E65 /* SSAddrAdditionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSAddrAdditionViewController.xib; sourceTree = "<group>"; };
+		687ED1241C0D7C4E00728E65 /* SSHttpReqServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSHttpReqServer.h; sourceTree = "<group>"; };
+		687ED1251C0D7C4E00728E65 /* SSHttpReqServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSHttpReqServer.m; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -2164,6 +2168,8 @@
 				F6C6AC831B12F3EB0007A980 /* FHQNetWorkingAPI.m */,
 				F6C6AC841B12F3EB0007A980 /* FHQNetWorkingKit.h */,
 				F6C6AC851B12F3EB0007A980 /* FHQNetWorkingKit.m */,
+				687ED1241C0D7C4E00728E65 /* SSHttpReqServer.h */,
+				687ED1251C0D7C4E00728E65 /* SSHttpReqServer.m */,
 				F6C6AC911B12F3EB0007A980 /* GradientView.h */,
 				F6C6AC861B12F3EB0007A980 /* GradientView.m */,
 				F6C6AC871B12F3EB0007A980 /* Tools.h */,
@@ -2773,6 +2779,7 @@
 				F67D357E1B5664A600083DA4 /* DataVerifier.m in Sources */,
 				F67D357F1B5664A600083DA4 /* Tools.m in Sources */,
 				F67D35801B5664A600083DA4 /* LoadingButtton.m in Sources */,
+				687ED1271C0D7C4E00728E65 /* SSHttpReqServer.m in Sources */,
 				F67D35811B5664A600083DA4 /* OrderDetailRemarkTableCell.m in Sources */,
 				F67D35821B5664A600083DA4 /* AliPay.m in Sources */,
 				F67D35831B5664A600083DA4 /* PayViewController.m in Sources */,
@@ -3003,6 +3010,7 @@
 				F6C6AC9A1B12F3EB0007A980 /* Tools.m in Sources */,
 				F6C6ACA01B12F3EB0007A980 /* LoadingButtton.m in Sources */,
 				F6188A821B2192430033E58B /* OrderDetailRemarkTableCell.m in Sources */,
+				687ED1261C0D7C4E00728E65 /* SSHttpReqServer.m in Sources */,
 				F6441B581B3D472700EA3C9D /* AliPay.m in Sources */,
 				F66FF09C1B1D489900511B7D /* PayViewController.m in Sources */,
 				F6C6AC9F1B12F3EB0007A980 /* LineProgressView.m in Sources */,
