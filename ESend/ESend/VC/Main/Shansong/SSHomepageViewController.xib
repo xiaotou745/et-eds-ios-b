@@ -287,6 +287,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7E9-DA-8GT">
                                                     <rect key="frame" x="206" y="7" width="1" height="30"/>
                                                     <animations/>
+                                                    <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="0.5" id="FMH-Tz-S8t"/>
                                                     </constraints>
@@ -326,6 +327,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PUo-Ni-Eg6">
                                             <rect key="frame" x="12" y="44" width="588" height="1"/>
                                             <animations/>
+                                            <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="W9c-zy-0At"/>
                                             </constraints>
@@ -363,6 +365,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ubU-Eo-zFL">
                                                     <rect key="frame" x="206" y="7" width="1" height="30"/>
                                                     <animations/>
+                                                    <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="0.5" id="jRa-7D-5jy"/>
                                                     </constraints>
@@ -431,16 +434,16 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npF-A7-U9S">
                                             <rect key="frame" x="90" y="0.0" width="247" height="44"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_normal" highlightedImage="ss_release_selected" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eUl-hd-QD7">
-                                                    <rect key="frame" x="5" y="7" width="30" height="30"/>
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_normal" highlightedImage="ss_release_selected" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eUl-hd-QD7">
+                                                    <rect key="frame" x="5" y="12" width="20" height="20"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="eUl-hd-QD7" secondAttribute="height" multiplier="1:1" id="ASg-IN-c8e"/>
-                                                        <constraint firstAttribute="width" constant="30" id="jJn-Pe-t3g"/>
+                                                        <constraint firstAttribute="width" constant="20" id="jJn-Pe-t3g"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="立即取货" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYN-UU-g9S">
-                                                    <rect key="frame" x="38" y="7" width="208" height="30"/>
+                                                    <rect key="frame" x="28" y="12" width="218" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -461,16 +464,16 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2hA-8Y-oR3">
                                             <rect key="frame" x="342" y="0.0" width="246" height="44"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_normal" highlightedImage="ss_release_selected" translatesAutoresizingMaskIntoConstraints="NO" id="fhN-1r-Vs8">
-                                                    <rect key="frame" x="5" y="7" width="30" height="30"/>
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_normal" highlightedImage="ss_release_selected" translatesAutoresizingMaskIntoConstraints="NO" id="fhN-1r-Vs8">
+                                                    <rect key="frame" x="5" y="12" width="20" height="20"/>
                                                     <animations/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="NJZ-1T-IpV"/>
+                                                        <constraint firstAttribute="width" constant="20" id="NJZ-1T-IpV"/>
                                                         <constraint firstAttribute="width" secondItem="fhN-1r-Vs8" secondAttribute="height" multiplier="1:1" id="f8u-ID-n7o"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="预约取货" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2W-jB-sYH">
-                                                    <rect key="frame" x="38" y="7" width="207" height="30"/>
+                                                    <rect key="frame" x="28" y="12" width="217" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -616,6 +619,9 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="asB-NO-hqL"/>
+                                            </connections>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YYI-Hl-raN">
                                             <rect key="frame" x="12" y="51" width="576" height="30"/>
@@ -626,6 +632,9 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="t5f-Yb-Dtr"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <animations/>

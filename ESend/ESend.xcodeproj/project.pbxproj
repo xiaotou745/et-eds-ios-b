@@ -133,6 +133,10 @@
 		686745621BA9205C005F59D4 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745601BA9205C005F59D4 /* UIView+Common.m */; };
 		686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
 		686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 686745641BA96CF1005F59D4 /* UIImage+tools.m */; };
+		686A498F1C0ED93100558D5D /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 686A498E1C0ED93100558D5D /* AddressBook.framework */; };
+		686A49911C0ED93700558D5D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 686A49901C0ED93700558D5D /* AddressBookUI.framework */; };
+		686A49941C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A49931C0EE70600558D5D /* NSString+PhoneFormat.m */; };
+		686A49951C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A49931C0EE70600558D5D /* NSString+PhoneFormat.m */; };
 		68753F2D1C085BBC00418E7B /* SSAdressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68753F2B1C085BBC00418E7B /* SSAdressCell.m */; };
 		68753F2E1C085BBC00418E7B /* SSAdressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68753F2B1C085BBC00418E7B /* SSAdressCell.m */; };
 		68753F2F1C085BBC00418E7B /* SSAdressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68753F2C1C085BBC00418E7B /* SSAdressCell.xib */; };
@@ -725,6 +729,10 @@
 		686745601BA9205C005F59D4 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
 		686745631BA96CF1005F59D4 /* UIImage+tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+tools.h"; sourceTree = "<group>"; };
 		686745641BA96CF1005F59D4 /* UIImage+tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+tools.m"; sourceTree = "<group>"; };
+		686A498E1C0ED93100558D5D /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		686A49901C0ED93700558D5D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		686A49921C0EE70600558D5D /* NSString+PhoneFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PhoneFormat.h"; sourceTree = "<group>"; };
+		686A49931C0EE70600558D5D /* NSString+PhoneFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PhoneFormat.m"; sourceTree = "<group>"; };
 		68753F2A1C085BBC00418E7B /* SSAdressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAdressCell.h; sourceTree = "<group>"; };
 		68753F2B1C085BBC00418E7B /* SSAdressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAdressCell.m; sourceTree = "<group>"; };
 		68753F2C1C085BBC00418E7B /* SSAdressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSAdressCell.xib; sourceTree = "<group>"; };
@@ -1248,6 +1256,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				686A49911C0ED93700558D5D /* AddressBookUI.framework in Frameworks */,
+				686A498F1C0ED93100558D5D /* AddressBook.framework in Frameworks */,
 				F67D35DD1B5664A600083DA4 /* CoreTelephony.framework in Frameworks */,
 				F67D35DE1B5664A600083DA4 /* CFNetwork.framework in Frameworks */,
 				F67D35DF1B5664A600083DA4 /* libz.1.dylib in Frameworks */,
@@ -1557,6 +1567,8 @@
 		686745671BA98ED4005F59D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				686A49901C0ED93700558D5D /* AddressBookUI.framework */,
+				686A498E1C0ED93100558D5D /* AddressBook.framework */,
 				F637CF4E1B437F1D00410C24 /* CoreTelephony.framework */,
 				F637CF4C1B437D2200410C24 /* CFNetwork.framework */,
 				F6441BAC1B3D490000EA3C9D /* libz.1.dylib */,
@@ -1627,6 +1639,8 @@
 				68FE8CC71C05B1FB004BABB4 /* SSHomepageViewController.h */,
 				68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */,
 				68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */,
+				686A49921C0EE70600558D5D /* NSString+PhoneFormat.h */,
+				686A49931C0EE70600558D5D /* NSString+PhoneFormat.m */,
 			);
 			path = Shansong;
 			sourceTree = "<group>";
@@ -2701,6 +2715,7 @@
 				F67D35411B5664A600083DA4 /* RDVTabBar.m in Sources */,
 				F67D35421B5664A600083DA4 /* SDWebImagePrefetcher.m in Sources */,
 				F67D35431B5664A600083DA4 /* MD5DataSigner.m in Sources */,
+				686A49951C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */,
 				68580CA81BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */,
 				F67D35441B5664A600083DA4 /* OrderDetailViewController.m in Sources */,
 				F67D35451B5664A600083DA4 /* AppAudioPlayer.m in Sources */,
@@ -2933,6 +2948,7 @@
 				F6C6ADA21B12F42F0007A980 /* RDVTabBar.m in Sources */,
 				F6C6ADAD1B12F42F0007A980 /* SDWebImagePrefetcher.m in Sources */,
 				F6441B511B3D470100EA3C9D /* MD5DataSigner.m in Sources */,
+				686A49941C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */,
 				68580CA71BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */,
 				F66F4D3F1B21409F005F2BAC /* OrderDetailViewController.m in Sources */,
 				F6C6AD7A1B12F42F0007A980 /* AppAudioPlayer.m in Sources */,

@@ -9,8 +9,11 @@
 #import "SSHomepageViewController.h"
 #import "SSEditAdderssViewController.h"
 #import "MineViewController.h"
+#import <AddressBookUI/AddressBookUI.h>
+#import <AddressBook/AddressBook.h>
+#import "NSString+PhoneFormat.h"
 
-@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate>
+@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate>
 
 // 地址
 @property (strong, nonatomic) IBOutlet UILabel *hp_FaAddrLabel;
@@ -35,7 +38,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *hp_ShouPhoneTextField;
 @property (strong, nonatomic) IBOutlet UITextField *hp_FaNameTextField;
 @property (strong, nonatomic) IBOutlet UITextField *hp_FaPhoneTextField;
-
+@property (assign,nonatomic) SSAddressEditorType phoneType;
 
 @end
 
@@ -50,7 +53,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongAddrAdditionFinishedNotify:) name:ShanSongAddressAdditionFinishedNotify object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kiloTextFieldChanged:) name:UITextFieldTextDidChangeNotification object:nil];
 
-    
     self.titleLabel.text = @"E代送";
     [self.leftBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.leftBtn addTarget:self action:@selector(clickUserVC) forControlEvents:UIControlEventTouchUpInside];
@@ -71,10 +73,16 @@
 }
 
 - (IBAction)shouPhoneAction:(UIButton *)sender {
-    
+    self.phoneType = SSAddressEditorTypeShou;
+    ABPeoplePickerNavigationController *picker =[[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self;
+    [self presentViewController:picker animated:YES completion:^{}];
 }
 - (IBAction)faPhoneAction:(UIButton *)sender {
-    
+    self.phoneType = SSAddressEditorTypeFa;
+    ABPeoplePickerNavigationController *picker =[[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self;
+    [self presentViewController:picker animated:YES completion:^{}];
 }
 
 - (void)clickUserVC{
@@ -134,6 +142,42 @@
         self.api_distance = distance/1000;
         self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.2f",self.api_distance];
     }
+}
+
+
+#pragma mark - ABPeoplePickerNavigationControllerDelegate
+//选择属性之后，注意如果上面的代理方法实现后此方法不会被调用
+-(void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker didSelectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
+    if (person && property == kABPersonPhoneProperty) {
+        ABMultiValueRef phoneMulti = ABRecordCopyValue(person, property);
+        CFIndex index = ABMultiValueGetIndexForIdentifier(phoneMulti, identifier);
+        NSString * phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneMulti, index);
+        NSLog(@"%@",[phone phoneFormat]);
+        if (self.phoneType == SSAddressEditorTypeFa) {
+            self.hp_FaPhoneTextField.text = [phone phoneFormat];
+        }else{
+            self.hp_ShouPhoneTextField.text = [phone phoneFormat];
+        }
+    }
+}
+
+- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
+    if (person && property == kABPersonPhoneProperty) {
+        ABMultiValueRef phoneMulti = ABRecordCopyValue(person, property);
+        CFIndex index = ABMultiValueGetIndexForIdentifier(phoneMulti, identifier);
+        NSString * phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneMulti, index);
+        NSLog(@"%@",[phone phoneFormat]);
+        if (self.phoneType == SSAddressEditorTypeFa) {
+            self.hp_FaPhoneTextField.text = [phone phoneFormat];
+        }else{
+            self.hp_ShouPhoneTextField.text = [phone phoneFormat];
+        }
+    }
+    return NO;
+}
+//点击取消按钮
+-(void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker{
+   // NSLog(@"取消选择.");
 }
 
 @end
