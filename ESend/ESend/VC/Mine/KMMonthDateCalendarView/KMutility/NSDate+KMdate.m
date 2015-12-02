@@ -21,8 +21,17 @@
     return [dateFormatter stringFromDate:localeDate];
 }
 
+
+- (NSString *)km_simpleToString{
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:8]];
+    [dateFormatter setLocale:[NSLocale currentLocale]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [dateFormatter stringFromDate:self];
+}
+
 - (NSString *)km_toString{
-    return [self dateToStringWithFormat:@"yyyy-MM-dd hh:mm:ss"];
+    return [self dateToStringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
 }
 
 - (NSDate *)addDays:(NSInteger)day{

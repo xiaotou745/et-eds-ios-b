@@ -28,4 +28,7 @@
 - (BOOL)is20140101Day;
 - (BOOL)is201401Month;
 
+
+- (NSString *)km_simpleToString;
+
 @end

@@ -139,6 +139,9 @@ fprintf(stderr, "-------\n");                                               \
 // 1f2226
 #define BlackColor  [UIColor colorWithHexString:@"1f2226"]
 
+//
+#define BBC0C7Color [UIColor colorWithHexString:@"bbc0c7"]
+
 #define isCanUseString(str) ( (str != nil) && ![str isKindOfClass:[NSNull class]] && [str isKindOfClass:[NSString class]] && [str length] > 0 )
 #define isCanUseObj(str) ( str && (str != nil) && ![str isKindOfClass:[NSNull class]] )
 #define isCanUseArray(arr) ( arr && (arr != nil) && ![arr isKindOfClass:[NSNull class]] )

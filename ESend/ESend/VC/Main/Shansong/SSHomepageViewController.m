@@ -12,8 +12,14 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import <AddressBook/AddressBook.h>
 #import "NSString+PhoneFormat.h"
+#import "SSAppointmentTimeView.h"
+#import "NSDate+KMdate.h"
 
-@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate>
+@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate>{
+    SSAppointmentTimeView * _appointTimeView;
+    dispatch_source_t _timer;
+}
+@property (strong, nonatomic) IBOutlet UIScrollView *scroller;
 
 // 地址
 @property (strong, nonatomic) IBOutlet UILabel *hp_FaAddrLabel;
@@ -40,6 +46,29 @@
 @property (strong, nonatomic) IBOutlet UITextField *hp_FaPhoneTextField;
 @property (assign,nonatomic) SSAddressEditorType phoneType;
 
+// 取货时间
+@property (nonatomic,assign) BOOL api_pick_now;
+@property (nonatomic,copy) NSString * api_pick_time;
+@property (strong, nonatomic) IBOutlet UIImageView *hp_PickNowImg;
+@property (strong, nonatomic) IBOutlet UILabel *hp_PickNowLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *hp_pickAppointmentImg;
+@property (strong, nonatomic) IBOutlet UILabel *hp_pickAppointmentLabel;
+@property (strong, nonatomic) IBOutlet UIView *hp_PickNowBgView;
+@property (strong, nonatomic) IBOutlet UIView *hp_pickAppointmentBgView;
+
+// 名称 备注
+@property (strong, nonatomic) IBOutlet UITextField *productName;
+@property (strong, nonatomic) IBOutlet UITextField *remark;
+
+// 手机号，验证码
+@property (strong, nonatomic) IBOutlet UIButton *getVerCodeAction;
+@property (strong, nonatomic) IBOutlet UITextField *hp_myPhoneTextField;
+@property (strong, nonatomic) IBOutlet UITextField *hp_myVerCodeTextField;
+///
+
+@property (strong, nonatomic) IBOutlet UIButton *hp_nextBtn;
+@property (strong, nonatomic) IBOutlet UILabel *hp_totalFeeLabel;
+
 @end
 
 @implementation SSHomepageViewController
@@ -48,14 +77,57 @@
     [super viewDidLoad];
     self.navigationController.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-    
     // notify
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongAddrAdditionFinishedNotify:) name:ShanSongAddressAdditionFinishedNotify object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kiloTextFieldChanged:) name:UITextFieldTextDidChangeNotification object:nil];
 
     self.titleLabel.text = @"E代送";
     [self.leftBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.leftBtn addTarget:self action:@selector(clickUserVC) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self addObserver:self forKeyPath:@"api_pick_now" options:NSKeyValueObservingOptionNew context:NULL];
+    self.api_pick_now = YES;
+    self.api_pick_time = [self currentDateString];
+    // tap
+    UITapGestureRecognizer * tapNow = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickTimeType:)];
+    UITapGestureRecognizer * tapAppointment = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickTimeType:)];
+    [self.hp_PickNowBgView addGestureRecognizer:tapNow];
+    [self.hp_pickAppointmentBgView addGestureRecognizer:tapAppointment];
+    //
+    [self.getVerCodeAction setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
+
+    [self.hp_nextBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
+}
+
+- (void)pickTimeType:(UITapGestureRecognizer *)tap{
+    if (tap.view.tag == 1102) {
+        self.api_pick_now = NO;
+        if (!_appointTimeView) {
+            _appointTimeView = [[SSAppointmentTimeView alloc] initWithDelegate:self];
+        }
+        [_appointTimeView showInView:self.view];
+    }else if (tap.view.tag == 1101){
+        self.api_pick_now = YES;
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(updateUIForKeypath:) withObject:keyPath waitUntilDone:NO];
+    } else {
+        [self updateUIForKeypath:keyPath];
+    }
+}
+
+- (void)updateUIForKeypath:(NSString *)keyPath {
+    if ([keyPath isEqualToString:@"api_pick_now"]) {
+        self.hp_PickNowImg.highlighted = self.api_pick_now;
+        self.hp_pickAppointmentImg.highlighted = !self.api_pick_now;
+        self.hp_PickNowLabel.textColor = self.api_pick_now?DeepGrey:BBC0C7Color;
+        self.hp_pickAppointmentLabel.textColor = self.api_pick_now?BBC0C7Color:DeepGrey;
+    }
 }
 
 #pragma mark - outlet actions
@@ -88,6 +160,31 @@
 - (void)clickUserVC{
     MineViewController *vc = [[MineViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+}
+- (IBAction)getVerCodeBtnAction:(UIButton *)sender {
+    if (!_timer) {
+        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
+        dispatch_source_set_timer(_timer, DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    }
+    __block int i = 60;
+    __weak typeof(_getVerCodeAction) weakBtn = _getVerCodeAction;
+    dispatch_source_set_event_handler(_timer, ^{
+        if (i == 0) {
+            dispatch_suspend(_timer);
+            [weakBtn setTitle:[NSString stringWithFormat:@"获取验证码"] forState:UIControlStateNormal];
+            weakBtn.enabled = YES;
+            i = 60;
+            return ;
+        }
+        [weakBtn setTitle:[NSString stringWithFormat:@"已发送(%d)",i] forState:UIControlStateNormal];
+        weakBtn.enabled = NO;
+        i--;
+    });
+    dispatch_resume(_timer);
+    return ;
+}
+
+- (IBAction)nextStepAction:(UIButton *)sender {
 }
 
 #pragma mark -
@@ -152,7 +249,7 @@
         ABMultiValueRef phoneMulti = ABRecordCopyValue(person, property);
         CFIndex index = ABMultiValueGetIndexForIdentifier(phoneMulti, identifier);
         NSString * phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneMulti, index);
-        NSLog(@"%@",[phone phoneFormat]);
+        //NSLog(@"%@",[phone phoneFormat]);
         if (self.phoneType == SSAddressEditorTypeFa) {
             self.hp_FaPhoneTextField.text = [phone phoneFormat];
         }else{
@@ -166,7 +263,7 @@
         ABMultiValueRef phoneMulti = ABRecordCopyValue(person, property);
         CFIndex index = ABMultiValueGetIndexForIdentifier(phoneMulti, identifier);
         NSString * phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneMulti, index);
-        NSLog(@"%@",[phone phoneFormat]);
+        //NSLog(@"%@",[phone phoneFormat]);
         if (self.phoneType == SSAddressEditorTypeFa) {
             self.hp_FaPhoneTextField.text = [phone phoneFormat];
         }else{
@@ -178,6 +275,44 @@
 //点击取消按钮
 -(void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker{
    // NSLog(@"取消选择.");
+}
+
+#pragma mark 键盘相关处理
+- (void)keyboardWillShow:(NSNotification*)notification {
+    
+    NSDictionary *userInfo = [notification userInfo];
+    CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    [UIView animateWithDuration:[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                     animations:^{
+                         [_scroller changeFrameHeight:ScreenHeight - keyboardRect.size.height - 64];
+                         UIView *firstResponder = [Tools findFirstResponderFromView:_scroller];
+                         [_scroller scrollRectToVisible:CGRectInset(firstResponder.frame, 0, -20) animated:YES];
+                     }];
+}
+
+- (void)keyboardWillHide:(NSNotification*)notification {
+    
+    NSDictionary *userInfo = [notification userInfo];
+    [UIView animateWithDuration:[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]
+                     animations:^{
+                         
+                         [_scroller changeFrameHeight:ScreenHeight - 64 - 44 ];
+                         
+                     }];
+}
+
+#pragma mark - 日期选择
+- (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSDate *)date{
+    // NSLog(@"%@ \n %@",date, [date km_simpleToString]);
+    self.api_pick_time = [date km_simpleToString];
+}
+
+- (NSString *)currentDateString{
+    NSDate * date = [NSDate date];
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: date];
+    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
+    return [localeDate km_simpleToString];
 }
 
 @end

@@ -9,14 +9,28 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSHomepageViewController">
             <connections>
+                <outlet property="getVerCodeAction" destination="0ub-8G-nTY" id="Y2s-cw-kTR"/>
                 <outlet property="hp_FaAddrLabel" destination="5lz-bc-4rF" id="rnH-lw-uGP"/>
                 <outlet property="hp_FaNameTextField" destination="Tsh-xM-VE0" id="nCI-mD-BMk"/>
                 <outlet property="hp_FaPhoneTextField" destination="d7Q-jb-X4Z" id="cfE-xY-5Vi"/>
+                <outlet property="hp_PickNowBgView" destination="npF-A7-U9S" id="SWN-BB-MVp"/>
+                <outlet property="hp_PickNowImg" destination="eUl-hd-QD7" id="0U3-rn-wK4"/>
+                <outlet property="hp_PickNowLabel" destination="ZYN-UU-g9S" id="TMP-UU-alw"/>
                 <outlet property="hp_ShouAddrLabel" destination="0go-HN-szI" id="WDw-Gd-gjK"/>
                 <outlet property="hp_ShouNameTextField" destination="n1q-SD-DIE" id="0cw-0k-Oet"/>
                 <outlet property="hp_ShouPhoneTextField" destination="TEb-pS-Rxo" id="rbt-e0-0nK"/>
                 <outlet property="hp_distanceLabel" destination="4Tn-Ic-CzL" id="5lw-S9-dwk"/>
+                <outlet property="hp_myPhoneTextField" destination="ZxM-dE-urf" id="03z-jO-snp"/>
+                <outlet property="hp_myVerCodeTextField" destination="YYI-Hl-raN" id="GyG-NT-Fdv"/>
+                <outlet property="hp_nextBtn" destination="u2Y-gM-Tah" id="6iM-44-ab6"/>
+                <outlet property="hp_pickAppointmentBgView" destination="2hA-8Y-oR3" id="wtn-EW-i0T"/>
+                <outlet property="hp_pickAppointmentImg" destination="fhN-1r-Vs8" id="KRv-3V-Nlb"/>
+                <outlet property="hp_pickAppointmentLabel" destination="D2W-jB-sYH" id="Q9B-fU-BhR"/>
+                <outlet property="hp_totalFeeLabel" destination="Esl-ZB-6Vd" id="Djd-AX-d5z"/>
                 <outlet property="kiloTextField" destination="NFA-4G-3Y0" id="mKz-fl-Ndu"/>
+                <outlet property="productName" destination="k8s-9z-8Gt" id="DpD-P4-109"/>
+                <outlet property="remark" destination="DsE-BC-ixT" id="fOe-3T-EXV"/>
+                <outlet property="scroller" destination="WHr-RP-aTQ" id="awn-ad-rDM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -431,7 +445,7 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npF-A7-U9S">
+                                        <view tag="1101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="npF-A7-U9S">
                                             <rect key="frame" x="90" y="0.0" width="247" height="44"/>
                                             <subviews>
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_normal" highlightedImage="ss_release_selected" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eUl-hd-QD7">
@@ -461,7 +475,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="ZYN-UU-g9S" secondAttribute="trailing" constant="1" id="nFj-rE-Sq5"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2hA-8Y-oR3">
+                                        <view tag="1102" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2hA-8Y-oR3">
                                             <rect key="frame" x="342" y="0.0" width="246" height="44"/>
                                             <subviews>
                                                 <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_normal" highlightedImage="ss_release_selected" translatesAutoresizingMaskIntoConstraints="NO" id="fhN-1r-Vs8">
@@ -523,6 +537,7 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QRg-eD-QzF">
                                             <rect key="frame" x="12" y="44" width="588" height="0.0"/>
                                             <animations/>
+                                            <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="IgQ-PW-HpH"/>
                                             </constraints>
@@ -597,21 +612,26 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PZv-Lw-u0M">
                                             <rect key="frame" x="12" y="43" width="588" height="1"/>
                                             <animations/>
+                                            <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="GLA-8q-zTm"/>
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ub-8G-nTY">
-                                            <rect key="frame" x="513" y="7" width="75" height="30"/>
+                                            <rect key="frame" x="503" y="7" width="85" height="30"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="Eev-Ik-Y3P"/>
-                                                <constraint firstAttribute="width" constant="75" id="rHA-TW-iq3"/>
+                                                <constraint firstAttribute="width" constant="85" id="rHA-TW-iq3"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <state key="normal" title="获取验证码"/>
+                                            <connections>
+                                                <action selector="getVerCodeBtnAction:" destination="-1" eventType="touchUpInside" id="YWL-d3-2gf"/>
+                                            </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZxM-dE-urf">
-                                            <rect key="frame" x="12" y="7" width="491" height="30"/>
+                                            <rect key="frame" x="12" y="7" width="481" height="30"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="gZj-eZ-nKL"/>
@@ -695,22 +715,28 @@
                         <constraint firstAttribute="trailing" secondItem="MSs-4a-mS9" secondAttribute="trailing" id="p5e-ed-kyk"/>
                         <constraint firstItem="MSs-4a-mS9" firstAttribute="leading" secondItem="WHr-RP-aTQ" secondAttribute="leading" id="wIt-mx-zub"/>
                     </constraints>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="Vvu-vh-7K8"/>
+                    </connections>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3X4-BR-rB8">
                     <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u2Y-gM-Tah">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u2Y-gM-Tah">
                             <rect key="frame" x="338" y="0.0" width="262" height="44"/>
                             <animations/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="mXg-Kc-sQN"/>
                             </constraints>
-                            <state key="normal" title="Button"/>
+                            <state key="normal" title="下一步"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="mXg-Kc-sQN"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <action selector="nextStepAction:" destination="-1" eventType="touchUpInside" id="Lw6-A5-qql"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSO-ka-5Ou">
                             <rect key="frame" x="0.0" y="0.0" width="338" height="44"/>

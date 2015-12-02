@@ -137,6 +137,10 @@
 		686A49911C0ED93700558D5D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 686A49901C0ED93700558D5D /* AddressBookUI.framework */; };
 		686A49941C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A49931C0EE70600558D5D /* NSString+PhoneFormat.m */; };
 		686A49951C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A49931C0EE70600558D5D /* NSString+PhoneFormat.m */; };
+		686A499E1C0F11EE00558D5D /* SSAppointmentTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A499D1C0F11EE00558D5D /* SSAppointmentTimeView.m */; };
+		686A499F1C0F11EE00558D5D /* SSAppointmentTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 686A499D1C0F11EE00558D5D /* SSAppointmentTimeView.m */; };
+		686A49A11C0F11FC00558D5D /* SSAppointmentTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686A49A01C0F11FC00558D5D /* SSAppointmentTimeView.xib */; };
+		686A49A21C0F11FC00558D5D /* SSAppointmentTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686A49A01C0F11FC00558D5D /* SSAppointmentTimeView.xib */; };
 		68753F2D1C085BBC00418E7B /* SSAdressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68753F2B1C085BBC00418E7B /* SSAdressCell.m */; };
 		68753F2E1C085BBC00418E7B /* SSAdressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68753F2B1C085BBC00418E7B /* SSAdressCell.m */; };
 		68753F2F1C085BBC00418E7B /* SSAdressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68753F2C1C085BBC00418E7B /* SSAdressCell.xib */; };
@@ -733,6 +737,9 @@
 		686A49901C0ED93700558D5D /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		686A49921C0EE70600558D5D /* NSString+PhoneFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PhoneFormat.h"; sourceTree = "<group>"; };
 		686A49931C0EE70600558D5D /* NSString+PhoneFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PhoneFormat.m"; sourceTree = "<group>"; };
+		686A499C1C0F11EE00558D5D /* SSAppointmentTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAppointmentTimeView.h; sourceTree = "<group>"; };
+		686A499D1C0F11EE00558D5D /* SSAppointmentTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAppointmentTimeView.m; sourceTree = "<group>"; };
+		686A49A01C0F11FC00558D5D /* SSAppointmentTimeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSAppointmentTimeView.xib; sourceTree = "<group>"; };
 		68753F2A1C085BBC00418E7B /* SSAdressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAdressCell.h; sourceTree = "<group>"; };
 		68753F2B1C085BBC00418E7B /* SSAdressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAdressCell.m; sourceTree = "<group>"; };
 		68753F2C1C085BBC00418E7B /* SSAdressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSAdressCell.xib; sourceTree = "<group>"; };
@@ -1641,6 +1648,9 @@
 				68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */,
 				686A49921C0EE70600558D5D /* NSString+PhoneFormat.h */,
 				686A49931C0EE70600558D5D /* NSString+PhoneFormat.m */,
+				686A499C1C0F11EE00558D5D /* SSAppointmentTimeView.h */,
+				686A499D1C0F11EE00558D5D /* SSAppointmentTimeView.m */,
+				686A49A01C0F11FC00558D5D /* SSAppointmentTimeView.xib */,
 			);
 			path = Shansong;
 			sourceTree = "<group>";
@@ -2562,6 +2572,7 @@
 				6801E3C31BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png in Resources */,
 				F67D35F21B5664A600083DA4 /* demo_card@3x.png in Resources */,
 				F67D35F31B5664A600083DA4 /* blue_btn_nor@2x.png in Resources */,
+				686A49A21C0F11FC00558D5D /* SSAppointmentTimeView.xib in Resources */,
 				68580C941BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				CF07AEE41BAEB30D005A93EB /* MNDatePicker.xib in Resources */,
 				F67D35F41B5664A600083DA4 /* back_nor@2x.png in Resources */,
@@ -2629,6 +2640,7 @@
 				F6C6AE7D1B1845750007A980 /* blue_btn_nor@2x.png in Resources */,
 				686745591BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */,
 				F6549F7F1B1C331300FAACEE /* back_nor@2x.png in Resources */,
+				686A49A11C0F11FC00558D5D /* SSAppointmentTimeView.xib in Resources */,
 				F62A73E61B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F62A73EC1B5CCA84001632B5 /* 2@2x.png in Resources */,
 				685E350E1C0C4557001CEABB /* SSMapAddrCell.xib in Resources */,
@@ -2786,6 +2798,7 @@
 				6811E0D01BCA5C5300F81F03 /* DayBillInfo.m in Sources */,
 				2EA0CA6B1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F67D35741B5664A600083DA4 /* MDSenderDetailCell.m in Sources */,
+				686A499F1C0F11EE00558D5D /* SSAppointmentTimeView.m in Sources */,
 				F6F7033A1B6A52B80094E7A8 /* JKAlertDialog.m in Sources */,
 				687ED12B1C0D955700728E65 /* NSString+allSpace.m in Sources */,
 				F67D35751B5664A600083DA4 /* UIView+WebCacheOperation.m in Sources */,
@@ -3019,6 +3032,7 @@
 				6811E0CF1BCA5C5300F81F03 /* DayBillInfo.m in Sources */,
 				2EA0CA6A1B841EA800BBAA63 /* ConsigneeModel.m in Sources */,
 				F6C6ADB41B12F42F0007A980 /* UIView+WebCacheOperation.m in Sources */,
+				686A499E1C0F11EE00558D5D /* SSAppointmentTimeView.m in Sources */,
 				F6F703191B68D8740094E7A8 /* JKAlertDialog.m in Sources */,
 				687ED12A1C0D955700728E65 /* NSString+allSpace.m in Sources */,
 				F6441B5B1B3D47B100EA3C9D /* Order.m in Sources */,
