@@ -10,7 +10,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSHomepageViewController">
             <connections>
                 <outlet property="hp_FaAddrLabel" destination="5lz-bc-4rF" id="rnH-lw-uGP"/>
+                <outlet property="hp_FaNameTextField" destination="Tsh-xM-VE0" id="nCI-mD-BMk"/>
+                <outlet property="hp_FaPhoneTextField" destination="d7Q-jb-X4Z" id="cfE-xY-5Vi"/>
                 <outlet property="hp_ShouAddrLabel" destination="0go-HN-szI" id="WDw-Gd-gjK"/>
+                <outlet property="hp_ShouNameTextField" destination="n1q-SD-DIE" id="0cw-0k-Oet"/>
+                <outlet property="hp_ShouPhoneTextField" destination="TEb-pS-Rxo" id="rbt-e0-0nK"/>
+                <outlet property="hp_distanceLabel" destination="4Tn-Ic-CzL" id="5lw-S9-dwk"/>
                 <outlet property="kiloTextField" destination="NFA-4G-3Y0" id="mKz-fl-Ndu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -153,27 +158,27 @@
                                             </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NFA-4G-3Y0">
-                                            <rect key="frame" x="97" y="0.0" width="50" height="39"/>
+                                            <rect key="frame" x="92" y="0.0" width="50" height="39"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="u7E-iF-QA0"/>
                                             </constraints>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="LGp-lB-qXx"/>
                                             </connections>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="公斤" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="952-Lr-NKY">
-                                            <rect key="frame" x="149" y="0.0" width="50" height="39"/>
+                                            <rect key="frame" x="142" y="0.0" width="50" height="39"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kci-yv-Wka">
-                                            <rect key="frame" x="207" y="0.0" width="40" height="40"/>
+                                            <rect key="frame" x="192" y="0.0" width="40" height="40"/>
                                             <animations/>
                                             <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                             <state key="normal" image="ss_release_add"/>
@@ -188,7 +193,7 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Tn-Ic-CzL">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Tn-Ic-CzL">
                                             <rect key="frame" x="52" y="39" width="60" height="39"/>
                                             <animations/>
                                             <constraints>
@@ -215,7 +220,7 @@
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="NFA-4G-3Y0" firstAttribute="leading" secondItem="p1k-2M-AUI" secondAttribute="trailing" constant="5" id="3fP-Qc-ArG"/>
+                                        <constraint firstItem="NFA-4G-3Y0" firstAttribute="leading" secondItem="p1k-2M-AUI" secondAttribute="trailing" id="3fP-Qc-ArG"/>
                                         <constraint firstItem="KNi-p2-2eA" firstAttribute="height" secondItem="9Fk-mb-6Jv" secondAttribute="height" id="3gu-eZ-eIC"/>
                                         <constraint firstItem="kci-yv-Wka" firstAttribute="width" secondItem="p1k-2M-AUI" secondAttribute="width" id="45z-Cd-HqW"/>
                                         <constraint firstItem="9Fk-mb-6Jv" firstAttribute="width" secondItem="XYE-Jf-uXs" secondAttribute="width" id="4Z3-uj-pBk"/>
@@ -234,7 +239,7 @@
                                         <constraint firstItem="euE-Ob-FzV" firstAttribute="centerY" secondItem="9Fk-mb-6Jv" secondAttribute="centerY" id="WiV-00-XQP"/>
                                         <constraint firstItem="4Tn-Ic-CzL" firstAttribute="centerY" secondItem="9Fk-mb-6Jv" secondAttribute="centerY" id="an3-D2-bZY"/>
                                         <constraint firstItem="9Fk-mb-6Jv" firstAttribute="leading" secondItem="XK3-oL-WEp" secondAttribute="leading" constant="12" id="dCh-Zr-6vJ"/>
-                                        <constraint firstItem="kci-yv-Wka" firstAttribute="leading" secondItem="952-Lr-NKY" secondAttribute="trailing" constant="8" id="fUs-QH-vbF"/>
+                                        <constraint firstItem="kci-yv-Wka" firstAttribute="leading" secondItem="952-Lr-NKY" secondAttribute="trailing" id="fUs-QH-vbF"/>
                                         <constraint firstAttribute="trailing" secondItem="euE-Ob-FzV" secondAttribute="trailing" constant="12" id="jLa-hC-qqj"/>
                                         <constraint firstItem="4Tn-Ic-CzL" firstAttribute="leading" secondItem="9Fk-mb-6Jv" secondAttribute="trailing" id="thJ-5d-m5M"/>
                                         <constraint firstItem="kci-yv-Wka" firstAttribute="centerY" secondItem="XYE-Jf-uXs" secondAttribute="centerY" id="uD0-dU-Rjk"/>
@@ -242,7 +247,7 @@
                                         <constraint firstItem="kci-yv-Wka" firstAttribute="height" secondItem="p1k-2M-AUI" secondAttribute="height" id="vp0-al-mgQ"/>
                                         <constraint firstItem="p1k-2M-AUI" firstAttribute="centerY" secondItem="XYE-Jf-uXs" secondAttribute="centerY" id="vyy-z0-Tin"/>
                                         <constraint firstItem="9Fk-mb-6Jv" firstAttribute="height" secondItem="XYE-Jf-uXs" secondAttribute="height" id="ysy-HM-MkQ"/>
-                                        <constraint firstItem="952-Lr-NKY" firstAttribute="leading" secondItem="NFA-4G-3Y0" secondAttribute="trailing" constant="2" id="ywr-gJ-zyM"/>
+                                        <constraint firstItem="952-Lr-NKY" firstAttribute="leading" secondItem="NFA-4G-3Y0" secondAttribute="trailing" id="ywr-gJ-zyM"/>
                                         <constraint firstItem="NFA-4G-3Y0" firstAttribute="height" secondItem="XYE-Jf-uXs" secondAttribute="height" id="z0d-r0-lZ2"/>
                                     </constraints>
                                 </view>
@@ -293,7 +298,11 @@
                                                         <constraint firstAttribute="width" constant="40" id="fpc-6Z-hPR"/>
                                                         <constraint firstAttribute="height" constant="40" id="phi-V5-AsQ"/>
                                                     </constraints>
+                                                    <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                     <state key="normal" image="ss_release_contacts"/>
+                                                    <connections>
+                                                        <action selector="shouPhoneAction:" destination="-1" eventType="touchUpInside" id="5ei-Le-28z"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <animations/>
@@ -365,7 +374,11 @@
                                                         <constraint firstAttribute="height" constant="40" id="swR-PA-rNd"/>
                                                         <constraint firstAttribute="width" constant="40" id="zE6-JO-k1c"/>
                                                     </constraints>
+                                                    <inset key="imageEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                     <state key="normal" image="ss_release_contacts"/>
+                                                    <connections>
+                                                        <action selector="faPhoneAction:" destination="-1" eventType="touchUpInside" id="4zH-xp-zya"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <animations/>

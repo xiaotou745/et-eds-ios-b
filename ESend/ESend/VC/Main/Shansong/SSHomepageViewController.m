@@ -11,11 +11,31 @@
 #import "MineViewController.h"
 
 @interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate>
+
+// 地址
 @property (strong, nonatomic) IBOutlet UILabel *hp_FaAddrLabel;
 @property (strong, nonatomic) IBOutlet UILabel *hp_ShouAddrLabel;
 
+@property (strong, nonatomic) SSAddressInfo * api_addr_fa;
+@property (strong, nonatomic) SSAddressInfo * api_addr_shou;
+
+@property (assign, nonatomic) BOOL api_addr_fa_hasValue;
+@property (assign, nonatomic) BOOL api_addr_shou_hasValue;
+
+// 公斤
 @property (nonatomic, assign) NSInteger api_kilo;
 @property (strong, nonatomic) IBOutlet UITextField *kiloTextField;
+
+// 距离
+@property (nonatomic, assign) double api_distance;
+@property (strong, nonatomic) IBOutlet UILabel *hp_distanceLabel;
+
+// 姓名,电话
+@property (strong, nonatomic) IBOutlet UITextField *hp_ShouNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *hp_ShouPhoneTextField;
+@property (strong, nonatomic) IBOutlet UITextField *hp_FaNameTextField;
+@property (strong, nonatomic) IBOutlet UITextField *hp_FaPhoneTextField;
+
 
 @end
 
@@ -38,18 +58,24 @@
 
 #pragma mark - outlet actions
 - (IBAction)addKilo:(UIButton *)sender {
+    [self.kiloTextField resignFirstResponder];
     self.kiloTextField.text = [NSString stringWithFormat:@"%ld",++self.api_kilo];
-    NSLog(@"%ld",self.api_kilo);
 }
 
 - (IBAction)minusKilo:(UIButton *)sender {
+    [self.kiloTextField resignFirstResponder];
     if (self.api_kilo == 0) {
         return;
     }
     self.kiloTextField.text = [NSString stringWithFormat:@"%ld",--self.api_kilo];
-    NSLog(@"%ld",self.api_kilo);
 }
 
+- (IBAction)shouPhoneAction:(UIButton *)sender {
+    
+}
+- (IBAction)faPhoneAction:(UIButton *)sender {
+    
+}
 
 - (void)clickUserVC{
     MineViewController *vc = [[MineViewController alloc] init];
@@ -79,7 +105,10 @@
 
 #pragma mark - UITextFieldDelegate
 - (void)kiloTextFieldChanged:(NSNotification *)notify{
-    NSLog(@"%@",notify);
+    if (((UITextField *)notify.object) == self.kiloTextField) {
+        self.api_kilo = [((UITextField *)notify.object).text integerValue];
+
+    }
 }
 
 #pragma mark - nofitys
@@ -90,9 +119,20 @@
     if (addrType == SSAddressEditorTypeFa) {
         self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@%@",addrInfo.name,addrInfo.addition];
         self.hp_FaAddrLabel.textColor = DeepGrey;
+        self.api_addr_fa = addrInfo;
+        self.api_addr_fa_hasValue = YES;
     }else if(addrType == SSAddressEditorTypeShou){
         self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@%@",addrInfo.name,addrInfo.addition];
         self.hp_ShouAddrLabel.textColor = DeepGrey;
+        self.api_addr_shou = addrInfo;
+        self.api_addr_shou_hasValue = YES;
+    }
+    if (self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {
+        BMKMapPoint point1 = BMKMapPointForCoordinate(self.api_addr_fa.coordinate);
+        BMKMapPoint point2 = BMKMapPointForCoordinate(self.api_addr_shou.coordinate);
+        CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
+        self.api_distance = distance/1000;
+        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.2f",self.api_distance];
     }
 }
 
