@@ -18,8 +18,19 @@
 #import "NSString+evaluatePhoneNumber.h"
 #import "UserInfo.h"
 #import "SSLoginVC.h"
+#import "NSString+allSpace.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
+#define SS_HPNoFaAddressMsg @"请输入发货地址"
+#define SS_HPNoShouAddressMsg @"请输入收货地址"
+#define SS_HpNoShouNameMsg @"请输入收件人姓名"
+#define SS_HpNoShouPhoneMsg @"请输入收件人电话"
+#define SS_HpNoFaNameMsg @"请输入寄件人姓名"
+#define SS_HpNoFaPhoneMsg @"请输入寄件人电话"
+#define SS_HpNoProductNameMsg @"请输入物品名称"
+
+#define SS_HpNoMyCellPhoneMsg @"请输入您的手机号"
+#define SS_HpNoMyCodeMsg @"请输入验证码"
 
 @interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate>{
     SSAppointmentTimeView * _appointTimeView;
@@ -60,6 +71,10 @@
 @property (strong, nonatomic) IBOutlet UILabel *hp_pickAppointmentLabel;
 @property (strong, nonatomic) IBOutlet UIView *hp_PickNowBgView;
 @property (strong, nonatomic) IBOutlet UIView *hp_pickAppointmentBgView;
+
+@property (strong, nonatomic) IBOutlet UIView *hp_appointmentBg;
+@property (strong, nonatomic) IBOutlet UILabel *hp_appointmentLabel;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *hp_appointmentHeight;
 
 // 名称 备注
 @property (strong, nonatomic) IBOutlet UITextField *productName;
@@ -156,6 +171,10 @@
         self.hp_pickAppointmentImg.highlighted = !self.api_pick_now;
         self.hp_PickNowLabel.textColor = self.api_pick_now?DeepGrey:BBC0C7Color;
         self.hp_pickAppointmentLabel.textColor = self.api_pick_now?BBC0C7Color:DeepGrey;
+        //
+        self.hp_appointmentBg.hidden = self.api_pick_now;
+        self.hp_appointmentHeight.constant = self.api_pick_now?0:30;
+        self.scrollerHeight.constant += self.api_pick_now?-30:+30;
     }
 }
 
@@ -251,6 +270,47 @@
 }
 
 - (IBAction)nextStepAction:(UIButton *)sender {
+    if (!self.api_addr_fa_hasValue) {
+        [Tools showHUD:SS_HPNoFaAddressMsg];
+        return;
+    }
+    if (!self.api_addr_shou_hasValue) {
+        [Tools showHUD:SS_HPNoShouAddressMsg];
+        return;
+    }
+    if (self.hp_ShouNameTextField.text.length <= 0 || [self.hp_ShouNameTextField.text allSpace]) {
+        [Tools showHUD:SS_HPNoShouAddressMsg];
+        return;
+    }
+    if (self.hp_ShouPhoneTextField.text.length <= 0 || [self.hp_ShouPhoneTextField.text allSpace]) {
+        [Tools showHUD:SS_HpNoShouPhoneMsg];
+        return;
+    }
+    if (self.hp_FaNameTextField.text.length <= 0 || [self.hp_FaNameTextField.text allSpace]) {
+        [Tools showHUD:SS_HpNoFaNameMsg];
+        return;
+    }
+    if (self.hp_FaPhoneTextField.text.length <= 0 || [self.hp_FaPhoneTextField.text allSpace]) {
+        [Tools showHUD:SS_HpNoFaPhoneMsg];
+        return;
+    }
+    if (self.productName.text.length <= 0 || [self.productName.text allSpace]) {
+        [Tools showHUD:SS_HpNoProductNameMsg];
+        return;
+    }
+    
+    if (![UserInfo isLogin]) {
+        if (self.hp_myPhoneTextField.text.length <= 0 || [self.hp_myPhoneTextField.text allSpace]) {
+            [Tools showHUD:SS_HpNoMyCellPhoneMsg];
+            return;
+        }
+        if (self.hp_myVerCodeTextField.text.length <= 0 || [self.hp_myVerCodeTextField.text allSpace]) {
+            [Tools showHUD:SS_HpNoMyCodeMsg];
+            return;
+        }
+    }
+    
+    [self releaseOrder];
 }
 
 #pragma mark -
@@ -374,6 +434,7 @@
 - (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSDate *)date{
     // NSLog(@"%@ \n %@",date, [date km_simpleToString]);
     self.api_pick_time = [date km_simpleToString];
+    self.hp_appointmentLabel.text = self.api_pick_time;
 }
 
 - (NSString *)currentDateString{
@@ -386,40 +447,51 @@
 
 #pragma mark - API
 - (void)releaseOrder{
-//    NSDictionary * paraDict = @{
-//                                @"businessid":@"1105",//[UserInfo getUserId],
-//                                @"pubname":@"san",
-//                                @"islogin":@"true",
-//                                @"publongitude":@"116.516578",
-//                                @"publatitude":@"39.917445",
-//                                @"pubphoneno":@"18810287488",
-//                                @"pubaddress":@"尚8里文创园A座7-11",
-//                                @"taketype":@"0",
-//                                @"takelongitude":@"0",
-//                                @"takelatitude":@"0",
-//                                @"recevicename":@"四",
-//                                @"recevicephoneno":@"15392978661",
-//                                @"receviceaddress":@"v华腾",
-//                                @"recevicelongitude":@"116.516578",
-//                                @"recevicelatitude":@"39.917445",
-//                                @"productname":@"货物名字",
-//                                @"remark":@"这是备注",
-//                                @"amount":@"10.00",
-//                                @"weight":@"3",
-//                                @"km":@"4",
-//                                };
-//    if (AES_Security) {
-//        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-//        NSString * aesString = [Security AesEncrypt:jsonString2];
-//        paraDict = @{@"data":aesString,};
-//    }
-//    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-//    [SSHttpReqServer orderflashpush:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        [Tools hiddenProgress:HUD];
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [Tools hiddenProgress:HUD];
-//
-//    }];
+    NSDictionary * paraDict = @{
+                                @"businessid":[UserInfo isLogin]?[UserInfo getUserId]:@"",
+                                @"businessphoneno":self.hp_myPhoneTextField.text,
+                                @"verificationcode":self.hp_myVerCodeTextField.text,
+                                @"pubname":self.hp_FaNameTextField.text,
+                                @"islogin":[UserInfo isLogin]?@"true":@"false",
+                                @"publongitude":@"116.516578",
+                                @"publatitude":@"39.917445",
+                                @"pubphoneno":@"18810287488",
+                                @"pubaddress":@"尚8里文创园A座7-11",
+                                @"taketype":@"0",
+                                @"takelongitude":@"0",
+                                @"takelatitude":@"0",
+                                @"recevicename":@"四",
+                                @"recevicephoneno":@"15392978661",
+                                @"receviceaddress":@"v华腾",
+                                @"recevicelongitude":@"116.516578",
+                                @"recevicelatitude":@"39.917445",
+                                @"productname":@"货物名字",
+                                @"remark":@"这是备注",
+                                @"amount":@"10.00",
+                                @"weight":@"3",
+                                @"km":@"4",
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{@"data":aesString,};
+    }
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    [SSHttpReqServer orderflashpush:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            //NSDictionary * result = [responseObject objectForKey:@"result"];
+
+        }else{
+            
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+
+    }];
 }
 /// 获取计算价格公式
 - (void)getPriceRule{

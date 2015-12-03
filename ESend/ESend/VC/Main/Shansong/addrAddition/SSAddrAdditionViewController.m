@@ -54,10 +54,10 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)confirmBtnAction:(UIButton *)sender {
-    if (self.addrAdditioinTF.text.length <= 0 || [self.addrAdditioinTF.text allSpace]) {
-        [Tools showHUD:[NSString stringWithFormat:@"请%@",self.titleLabel.text]];
-        return;
-    }
+//    if (self.addrAdditioinTF.text.length <= 0 || [self.addrAdditioinTF.text allSpace]) {
+//        [Tools showHUD:[NSString stringWithFormat:@"请%@",self.titleLabel.text]];
+//        return;
+//    }
     self.addrInfo.addition = self.addrAdditioinTF.text;
     NSDictionary * notifyInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.addrInfo,NotifyInfoKey,[NSNumber numberWithInteger:self.type],NotifyTypeKey, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:ShanSongAddressAdditionFinishedNotify object:nil userInfo:notifyInfo];
