@@ -20,6 +20,7 @@
                 <outlet property="hp_ShouNameTextField" destination="n1q-SD-DIE" id="0cw-0k-Oet"/>
                 <outlet property="hp_ShouPhoneTextField" destination="TEb-pS-Rxo" id="rbt-e0-0nK"/>
                 <outlet property="hp_distanceLabel" destination="4Tn-Ic-CzL" id="5lw-S9-dwk"/>
+                <outlet property="hp_myPhoneCodeBg" destination="L9R-CZ-4KZ" id="rOg-Ke-yJl"/>
                 <outlet property="hp_myPhoneTextField" destination="ZxM-dE-urf" id="03z-jO-snp"/>
                 <outlet property="hp_myVerCodeTextField" destination="YYI-Hl-raN" id="GyG-NT-Fdv"/>
                 <outlet property="hp_nextBtn" destination="u2Y-gM-Tah" id="6iM-44-ab6"/>
@@ -31,6 +32,7 @@
                 <outlet property="productName" destination="k8s-9z-8Gt" id="DpD-P4-109"/>
                 <outlet property="remark" destination="DsE-BC-ixT" id="fOe-3T-EXV"/>
                 <outlet property="scroller" destination="WHr-RP-aTQ" id="awn-ad-rDM"/>
+                <outlet property="scrollerHeight" destination="tkk-Yp-0dL" id="cbh-a2-LrQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -45,7 +47,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MSs-4a-mS9">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="558"/>
                             <subviews>
-                                <view tag="2000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="twh-pg-CXv">
+                                <view tag="2000" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="twh-pg-CXv" userLabel="发货地址">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                     <subviews>
                                         <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_fa" translatesAutoresizingMaskIntoConstraints="NO" id="2eJ-e1-mTg">
@@ -92,7 +94,7 @@
                                         <constraint firstItem="nvB-Is-4SJ" firstAttribute="leading" secondItem="twh-pg-CXv" secondAttribute="leading" id="t6M-7S-FUB"/>
                                     </constraints>
                                 </view>
-                                <view tag="2001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="REx-tu-DR2">
+                                <view tag="2001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="REx-tu-DR2" userLabel="收货地址">
                                     <rect key="frame" x="0.0" y="55" width="600" height="54"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入收货地址" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0go-HN-szI">
@@ -145,7 +147,7 @@
                                         <constraint firstAttribute="height" constant="0.5" id="2eI-TB-CsQ"/>
                                     </constraints>
                                 </imageView>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XK3-oL-WEp">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XK3-oL-WEp" userLabel="重量距离">
                                     <rect key="frame" x="0.0" y="119" width="600" height="78"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="重量:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYE-Jf-uXs">
@@ -171,7 +173,7 @@
                                                 <action selector="minusKilo:" destination="-1" eventType="touchUpInside" id="Ntj-MS-sJy"/>
                                             </connections>
                                         </button>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NFA-4G-3Y0">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NFA-4G-3Y0">
                                             <rect key="frame" x="92" y="0.0" width="50" height="39"/>
                                             <animations/>
                                             <constraints>
@@ -265,7 +267,7 @@
                                         <constraint firstItem="NFA-4G-3Y0" firstAttribute="height" secondItem="XYE-Jf-uXs" secondAttribute="height" id="z0d-r0-lZ2"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWP-qn-sMP">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWP-qn-sMP" userLabel="收寄件人电话">
                                     <rect key="frame" x="0.0" y="207" width="600" height="90"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dU6-N9-x1W">
@@ -432,7 +434,7 @@
                                         <constraint firstItem="dU6-N9-x1W" firstAttribute="top" secondItem="kWP-qn-sMP" secondAttribute="top" id="meV-k0-Xe6"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohD-zY-WW5">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohD-zY-WW5" userLabel="取货时间">
                                     <rect key="frame" x="0.0" y="307" width="600" height="44"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="取货时间:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DP-iE-vQm">
@@ -531,7 +533,7 @@
                                         </mask>
                                     </variation>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9s-jY-jgX">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9s-jY-jgX" userLabel="物品备注">
                                     <rect key="frame" x="0.0" y="361" width="600" height="88"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QRg-eD-QzF">
@@ -606,7 +608,7 @@
                                         <constraint firstItem="Ysu-Qa-t1d" firstAttribute="top" secondItem="B9s-jY-jgX" secondAttribute="top" id="yth-9L-Pk1"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L9R-CZ-4KZ">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L9R-CZ-4KZ" userLabel="手机号验证码">
                                     <rect key="frame" x="0.0" y="459" width="600" height="88"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PZv-Lw-u0M">
@@ -741,7 +743,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSO-ka-5Ou">
                             <rect key="frame" x="0.0" y="0.0" width="338" height="44"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 18" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Esl-ZB-6Vd">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Esl-ZB-6Vd">
                                     <rect key="frame" x="82" y="0.0" width="256" height="44"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>

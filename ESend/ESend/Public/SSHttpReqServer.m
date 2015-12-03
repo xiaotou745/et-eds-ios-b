@@ -43,4 +43,35 @@
     return operation;
 }
 
+/*
+ 1.1.3 获取任务配送费配置
+ url:/common/gettaskdistributionconfig POST
+ */
++ (AFHTTPRequestOperation *)gettaskdistributionconfigsuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@common/gettaskdistributionconfig",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
+/*
+ 1.1.8 商戶端 发送短信验证码
+ url:/business/sendcode POST
+ */
++ (AFHTTPRequestOperation *)businesssendcode:(NSDictionary *)dict
+                                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@business/sendcode",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
 @end

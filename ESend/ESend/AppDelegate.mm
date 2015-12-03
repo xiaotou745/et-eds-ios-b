@@ -79,7 +79,7 @@
     _rootNav.navigationBarHidden = YES;
     self.window.rootViewController = _rootNav;
     
-    [self showWelcomeLoginAnimated:NO];
+    // [self showWelcomeLoginAnimated:NO];
     [self setupJpush:launchOptions];
     [self setPushTag];
     

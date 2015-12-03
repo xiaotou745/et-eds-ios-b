@@ -19,4 +19,19 @@
 + (AFHTTPRequestOperation *)orderflashpush:(NSDictionary *)dict
                                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/*
+ 1.1.3 获取任务配送费配置
+ url:/common/gettaskdistributionconfig POST
+ */
++ (AFHTTPRequestOperation *)gettaskdistributionconfigsuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/*
+ 1.1.8 商戶端 发送短信验证码
+ url:/business/sendcode POST
+ */
++ (AFHTTPRequestOperation *)businesssendcode:(NSDictionary *)dict
+                                     success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

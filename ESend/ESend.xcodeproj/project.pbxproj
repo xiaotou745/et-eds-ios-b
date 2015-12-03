@@ -169,6 +169,8 @@
 		68AE2BE31BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; };
 		68C3D71D1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
 		68C3D71E1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
+		68EB380F1C101B220046071E /* SSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EB380E1C101B210046071E /* SSLoginVC.m */; };
+		68EB38101C101B220046071E /* SSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EB380E1C101B210046071E /* SSLoginVC.m */; };
 		68FE8CCA1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */; };
 		68FE8CCB1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */; };
 		68FE8CCC1C05B1FB004BABB4 /* SSHomepageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */; };
@@ -763,6 +765,8 @@
 		68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMNavigationTitleView.m; sourceTree = "<group>"; };
 		68C3D71B1BCBA6140081D082 /* UIImage+KmImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KmImg.h"; sourceTree = "<group>"; };
 		68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KmImg.m"; sourceTree = "<group>"; };
+		68EB380D1C101B210046071E /* SSLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLoginVC.h; sourceTree = "<group>"; };
+		68EB380E1C101B210046071E /* SSLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLoginVC.m; sourceTree = "<group>"; };
 		68EFEE2C1BCCEF8B00CCB4FE /* BS_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BS_Header.h; sourceTree = "<group>"; };
 		68FE8CC71C05B1FB004BABB4 /* SSHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSHomepageViewController.h; sourceTree = "<group>"; };
 		68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSHomepageViewController.m; sourceTree = "<group>"; };
@@ -1646,6 +1650,8 @@
 				68FE8CC71C05B1FB004BABB4 /* SSHomepageViewController.h */,
 				68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */,
 				68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */,
+				68EB380D1C101B210046071E /* SSLoginVC.h */,
+				68EB380E1C101B210046071E /* SSLoginVC.m */,
 				686A49921C0EE70600558D5D /* NSString+PhoneFormat.h */,
 				686A49931C0EE70600558D5D /* NSString+PhoneFormat.m */,
 				686A499C1C0F11EE00558D5D /* SSAppointmentTimeView.h */,
@@ -2780,6 +2786,7 @@
 				F67D356A1B5664A600083DA4 /* base64.m in Sources */,
 				2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				6801E3B91BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */,
+				68EB38101C101B220046071E /* SSLoginVC.m in Sources */,
 				F67D356B1B5664A600083DA4 /* OrderDetailReciverTableCell.m in Sources */,
 				F67D356C1B5664A600083DA4 /* AFURLSessionManager.m in Sources */,
 				6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */,
@@ -3014,6 +3021,7 @@
 				E48ECF9B1B3FC5C700F09660 /* OrderDetailReciverTableCell.m in Sources */,
 				2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				6801E3B81BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */,
+				68EB380F1C101B220046071E /* SSLoginVC.m in Sources */,
 				F6C6AD791B12F42F0007A980 /* AFURLSessionManager.m in Sources */,
 				F6C6ADB91B12F42F0007A980 /* UIImageView+AFNetworking.m in Sources */,
 				6878F7811BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */,

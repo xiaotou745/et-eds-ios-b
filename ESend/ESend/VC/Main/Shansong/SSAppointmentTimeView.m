@@ -30,17 +30,17 @@
         [self.datePicker setCalendar:[NSCalendar currentCalendar]];
         [self.datePicker setTimeZone: [NSTimeZone timeZoneForSecondsFromGMT:8]];
         
-        NSDate * date = [NSDate date];
-        NSTimeZone *zone = [NSTimeZone systemTimeZone];
-        NSInteger interval = [zone secondsFromGMTForDate: date];
-        NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
-        [self.datePicker setMinimumDate:localeDate];
-        
-        NSDate * tomorrow = [[NSDate new] addDays:1];
-        NSString * aString = [[[tomorrow km_toString] componentsSeparatedByString:@" "] firstObject];
-        NSString * tomorrowString = [aString stringByAppendingString:@" 23:59:59"];
-        tomorrow = [tomorrowString km_toDate];
-        [self.datePicker setMaximumDate:tomorrow];
+//        NSDate * date = [NSDate date];
+//        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+//        NSInteger interval = [zone secondsFromGMTForDate: date];
+//        NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
+//        [self.datePicker setMinimumDate:localeDate];
+//        
+//        NSDate * tomorrow = [[NSDate new] addDays:1];
+//        NSString * aString = [[[tomorrow km_toString] componentsSeparatedByString:@" "] firstObject];
+//        NSString * tomorrowString = [aString stringByAppendingString:@" 23:59:59"];
+//        tomorrow = [tomorrowString km_toDate];
+//        [self.datePicker setMaximumDate:tomorrow];
         
     }
     
@@ -59,7 +59,17 @@
     [_mask addGestureRecognizer:tap];
     
     //
-
+    NSDate * date = [NSDate date];
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: date];
+    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
+    [self.datePicker setMinimumDate:localeDate];
+    
+    NSDate * tomorrow = [[NSDate new] addDays:1];
+    NSString * aString = [[[tomorrow km_toString] componentsSeparatedByString:@" "] firstObject];
+    NSString * tomorrowString = [aString stringByAppendingString:@" 23:59:59"];
+    tomorrow = [tomorrowString km_toDate];
+    [self.datePicker setMaximumDate:tomorrow];
     //
     self.frame = CGRectMake(0, view.frame.size.height, ScreenWidth, self.frame.size.height);
     [[[[UIApplication sharedApplication] delegate] window] addSubview:self];
