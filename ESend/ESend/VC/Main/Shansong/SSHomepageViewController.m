@@ -237,7 +237,7 @@
     
     [SSHttpReqServer businesssendcode:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-        if (1 == status) {
+        if (200 == status) {
             
             if (!_timer) {
                 _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
@@ -279,7 +279,7 @@
         return;
     }
     if (self.hp_ShouNameTextField.text.length <= 0 || [self.hp_ShouNameTextField.text allSpace]) {
-        [Tools showHUD:SS_HPNoShouAddressMsg];
+        [Tools showHUD:SS_HpNoShouNameMsg];
         return;
     }
     if (self.hp_ShouPhoneTextField.text.length <= 0 || [self.hp_ShouPhoneTextField.text allSpace]) {
@@ -453,23 +453,23 @@
                                 @"verificationcode":self.hp_myVerCodeTextField.text,
                                 @"pubname":self.hp_FaNameTextField.text,
                                 @"islogin":[UserInfo isLogin]?@"true":@"false",
-                                @"publongitude":@"116.516578",
-                                @"publatitude":@"39.917445",
-                                @"pubphoneno":@"18810287488",
-                                @"pubaddress":@"尚8里文创园A座7-11",
-                                @"taketype":@"0",
+                                @"publongitude":[NSNumber numberWithFloat:self.api_addr_fa.coordinate.longitude],
+                                @"publatitude":[NSNumber numberWithFloat:self.api_addr_fa.coordinate.latitude],
+                                @"pubphoneno":self.hp_FaPhoneTextField.text,
+                                @"pubaddress":[NSString stringWithFormat:@"%@%@",self.api_addr_fa.name,self.api_addr_fa.addition],
+                                @"taketype":self.api_pick_now?@"0":@"1",
                                 @"takelongitude":@"0",
                                 @"takelatitude":@"0",
-                                @"recevicename":@"四",
-                                @"recevicephoneno":@"15392978661",
-                                @"receviceaddress":@"v华腾",
-                                @"recevicelongitude":@"116.516578",
-                                @"recevicelatitude":@"39.917445",
-                                @"productname":@"货物名字",
-                                @"remark":@"这是备注",
-                                @"amount":@"10.00",
-                                @"weight":@"3",
-                                @"km":@"4",
+                                @"recevicename":self.hp_ShouNameTextField.text,
+                                @"recevicephoneno":self.hp_ShouPhoneTextField.text,
+                                @"receviceaddress":[NSString stringWithFormat:@"%@%@",self.api_addr_shou.name,self.api_addr_shou.addition],
+                                @"recevicelongitude":[NSNumber numberWithFloat:self.api_addr_shou.coordinate.longitude],
+                                @"recevicelatitude":[NSNumber numberWithFloat:self.api_addr_shou.coordinate.latitude],
+                                @"productname":self.productName.text,
+                                @"remark":(self.remark.text == nil)?@"":self.remark.text,
+                                @"amount":[NSNumber numberWithDouble:self.api_total_fee],
+                                @"weight":[NSNumber numberWithInteger:self.api_kilo],
+                                @"km":[NSNumber numberWithDouble:self.api_distance],
                                 };
     if (AES_Security) {
         NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
@@ -481,11 +481,11 @@
         [Tools hiddenProgress:HUD];
         
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-        if (1 == status) {
-            //NSDictionary * result = [responseObject objectForKey:@"result"];
-
-        }else{
-            
+        NSString * message = [responseObject objectForKey:@"message"];
+        [Tools showHUD:message];
+        if (status == 1) {
+            // 本地缓存 ,收,发
+            // uid  :  address{ }
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
