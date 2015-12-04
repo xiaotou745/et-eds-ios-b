@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SSMapAddrInfo.h"
+#import "SSAddressInfo.h"
 
 @interface SSMapAddrCell : UITableViewCell
 
@@ -17,6 +17,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *addressName;
 @property (strong, nonatomic) IBOutlet UILabel *addressDetail;
 
-@property (nonatomic,strong) SSMapAddrInfo * addrInfo;
+@property (nonatomic,strong) SSAddressInfo * addrInfo;
 
 @end

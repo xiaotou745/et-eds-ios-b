@@ -11,6 +11,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "SSAdressCell.h"
 #import "SSAddrAdditionViewController.h"
+#import "DataArchive.h"
+#import "UserInfo.h"
 
 
 @interface SSEditAdderssViewController ()<UITextFieldDelegate,BMKPoiSearchDelegate,BMKLocationServiceDelegate,UITableViewDataSource,UITableViewDelegate>
@@ -54,6 +56,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addressTextChanged:) name:UITextFieldTextDidChangeNotification object:self.addressTextField];
     self.headerImg.image = [SSEditorTypeTransformer imageWithEditorType:self.type];
     self.addressTextField.placeholder = (self.type == SSAddressEditorTypeFa)?@"请输入发货地址":@"请输入收货地址";
+    
+    NSArray * faAddrs = [DataArchive storedFaAddrsWithBusinessId:[UserInfo getUserId]];
+    NSArray * ShouAddrs = [DataArchive storedShouAddrsWithBusinessId:[UserInfo getUserId]];
+    NSLog(@"fff -- %@",faAddrs);
+    for (SSAddressInfo * ind in ShouAddrs) {
+        
+        NSLog(@"sss -- %@",ind);
+        NSLog(@"%@ - %@",ind.uid,ind.name);
+
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{

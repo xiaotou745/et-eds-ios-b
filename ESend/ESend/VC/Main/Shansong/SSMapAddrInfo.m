@@ -6,8 +6,8 @@
 //  Copyright © 2015年 Saltlight. All rights reserved.
 //
 
-#import "SSMapAddrInfo.h"
-
-@implementation SSMapAddrInfo
-
-@end
+//#import "SSMapAddrInfo.h"
+//
+//@implementation SSMapAddrInfo
+//
+//@end

@@ -16,8 +16,53 @@
         self.address = poi.address;
         self.city = poi.city;
         self.addition = @"";
-        self.coordinate = poi.pt;
+        self.latitude = [NSString stringWithFormat:@"%f",poi.pt.latitude];
+        self.longitude = [NSString stringWithFormat:@"%f",poi.pt.longitude];
+
+//        self.coordinate = poi.pt;
     }
     return self;
 }
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:_name forKey:@"name"];
+    [aCoder encodeObject:_uid forKey:@"uid"];
+    [aCoder encodeObject:_address forKey:@"address"];
+    [aCoder encodeObject:_city forKey:@"city"];
+    [aCoder encodeObject:_latitude forKey:@"latitude"];
+    [aCoder encodeObject:_longitude forKey:@"longitude"];
+    [aCoder encodeObject:_addition forKey:@"addition"];
+    [aCoder encodeObject:[NSNumber numberWithBool:_selected] forKey:@"selected"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super init]) {
+        _name = [aDecoder decodeObjectForKey:@"name"];
+        _uid = [aDecoder decodeObjectForKey:@"uid"];
+        _address = [aDecoder decodeObjectForKey:@"address"];
+        _city = [aDecoder decodeObjectForKey:@"city"];
+        _latitude = [aDecoder decodeObjectForKey:@"latitude"];
+        _longitude = [aDecoder decodeObjectForKey:@"longitude"];
+        _addition = [aDecoder decodeObjectForKey:@"addition"];
+        _selected = [[aDecoder decodeObjectForKey:@"selected"] boolValue];
+    }
+    
+    return  self;
+}
+
+- (BOOL)sameTo:(SSAddressInfo *)anAddr{
+    BOOL result = NO;
+    if ([self.name isEqualToString:anAddr.name] &&
+        [self.address isEqualToString:anAddr.address] &&
+        [self.city isEqualToString:anAddr.city] &&
+        [self.latitude isEqualToString:anAddr.latitude] &&
+        [self.longitude isEqualToString:anAddr.longitude] &&
+        [self.addition isEqualToString:anAddr.addition]) {
+        result = YES;
+    }
+    return result;
+}
+
 @end

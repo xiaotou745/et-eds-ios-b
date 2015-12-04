@@ -20,7 +20,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setAddrInfo:(SSMapAddrInfo *)addrInfo{
+- (void)setAddrInfo:(SSAddressInfo *)addrInfo{
     
     _addrInfo  = addrInfo;
     self.statusImg.image = _addrInfo.selected?[UIImage imageNamed:@"ss_release_selected"]:[UIImage imageNamed:@"ss_release_normal"];

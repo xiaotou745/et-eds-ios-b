@@ -67,10 +67,104 @@
             }
         }
     }
-    
-
-    
     [self storeConsignees:array shopId:shopid];
 }
 
+
+/*  发货收货地址  */
+/*
+ 闪送 发货，收货地址
+ */
+
++ (NSString *)rootFaAddrFilePath{
+    NSString * docp = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) objectAtIndex:0];
+    return [docp stringByAppendingString:[NSString stringWithFormat:@"/ssFaAddrs.dat"]];
+}
+
++ (NSMutableDictionary *)rootFaAddrDictionary{
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:[self rootFaAddrFilePath]];
+}
+
++ (void)storeFaAddress:(SSAddressInfo *)addr businessId:(NSString *)bid{
+    NSMutableDictionary * rootDict = [self rootFaAddrDictionary];
+    if (rootDict == nil) {
+        rootDict = [[NSMutableDictionary alloc] initWithCapacity:0];
+    }
+    NSMutableArray * addrs = [rootDict objectForKey:bid];
+    if (nil == addrs) {
+        addrs = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    if (addr) {
+        [addrs addObject:addr];
+    }
+    [rootDict setObject:addrs forKey:bid];
+    [NSKeyedArchiver archiveRootObject:rootDict toFile:[self rootFaAddrFilePath]];
+}
++ (NSArray *)storedFaAddrsWithBusinessId:(NSString *)bid{
+    return [[self rootFaAddrDictionary] objectForKey:bid];
+}
+
++ (void)deleteFaAddrWithId:(NSString *)uid bid:(NSString *)bid{
+    NSMutableDictionary * rootDict = [self rootFaAddrDictionary];
+    if (rootDict == nil) {
+        return;
+    }
+    NSMutableArray * array = [NSMutableArray arrayWithArray:[self storedFaAddrsWithBusinessId:bid]];
+    for (int i = 0; i < array.count; i++) {
+        SSAddressInfo * addrInfo = [array objectAtIndex:i];
+        if ([addrInfo.uid compare:uid] == NSOrderedSame) {
+            [array removeObjectAtIndex:i];
+            break;
+        }
+    }
+    [rootDict setObject:array forKey:bid];
+    [NSKeyedArchiver archiveRootObject:rootDict toFile:[self rootFaAddrFilePath]];
+}
+
+///////// = = = == = = = = = == =  收
++ (NSString *)rootShouAddrFilePath{
+    NSString * docp = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES) objectAtIndex:0];
+    return [docp stringByAppendingString:[NSString stringWithFormat:@"/ssShouAddrs.dat"]];
+}
+
++ (NSMutableDictionary *)rootShouAddrDictionary{
+    return [NSKeyedUnarchiver unarchiveObjectWithFile:[self rootShouAddrFilePath]];
+}
+
++ (void)storeShouAddress:(SSAddressInfo *)addr businessId:(NSString *)bid{
+    NSMutableDictionary * rootDict = [self rootShouAddrDictionary];
+    if (rootDict == nil) {
+        rootDict = [[NSMutableDictionary alloc] initWithCapacity:0];
+    }
+    NSMutableArray * addrs = [rootDict objectForKey:bid];
+    if (nil == addrs) {
+        addrs = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    if (addr) {
+        [addrs addObject:addr];
+    }
+    [rootDict setObject:addrs forKey:bid];
+    [NSKeyedArchiver archiveRootObject:rootDict toFile:[self rootShouAddrFilePath]];
+}
+
++ (NSArray *)storedShouAddrsWithBusinessId:(NSString *)bid{
+    return [[self rootShouAddrDictionary] objectForKey:bid];
+}
+
++ (void)deleteShouAddrWithId:(NSString *)uid bid:(NSString *)bid{
+    NSMutableDictionary * rootDict = [self rootShouAddrDictionary];
+    if (rootDict == nil) {
+        return;
+    }
+    NSMutableArray * array = [NSMutableArray arrayWithArray:[self storedShouAddrsWithBusinessId:bid]];
+    for (int i = 0; i < array.count; i++) {
+        SSAddressInfo * addrInfo = [array objectAtIndex:i];
+        if ([addrInfo.uid compare:uid] == NSOrderedSame) {
+            [array removeObjectAtIndex:i];
+            break;
+        }
+    }
+    [rootDict setObject:array forKey:bid];
+    [NSKeyedArchiver archiveRootObject:rootDict toFile:[self rootShouAddrFilePath]];
+}
 @end

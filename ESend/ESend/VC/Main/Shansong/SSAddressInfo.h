@@ -15,10 +15,15 @@
 @property (nonatomic,copy) NSString * uid;
 @property (nonatomic,copy) NSString * address;
 @property (nonatomic,copy) NSString * city;
-@property (nonatomic,assign) CLLocationCoordinate2D coordinate;
+@property (nonatomic,copy) NSString * latitude;
+@property (nonatomic,copy) NSString * longitude;
 
 @property (nonatomic,copy) NSString * addition;
 
+@property (nonatomic,assign) BOOL selected;
+
 - (instancetype)initWithBMKPoiInfo:(BMKPoiInfo *)poi;
+
+- (BOOL)sameTo:(SSAddressInfo *)anAddr;
 
 @end

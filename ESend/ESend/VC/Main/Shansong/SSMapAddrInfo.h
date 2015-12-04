@@ -6,10 +6,10 @@
 //  Copyright © 2015年 Saltlight. All rights reserved.
 //
 
-#import "SSAddressInfo.h"
-
-@interface SSMapAddrInfo : SSAddressInfo
-
-@property (nonatomic,assign) BOOL selected;
-
-@end
+//#import "SSAddressInfo.h"
+//
+//@interface SSMapAddrInfo : SSAddressInfo
+//
+//@property (nonatomic,assign) BOOL selected;
+//
+//@end

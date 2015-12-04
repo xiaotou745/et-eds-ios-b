@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 #import "SSEditorTypeTransformer.h"
-#import "SSMapAddrInfo.h"
+#import "SSAddressInfo.h"
 
 @interface SSAddrAdditionViewController : BaseViewController
 

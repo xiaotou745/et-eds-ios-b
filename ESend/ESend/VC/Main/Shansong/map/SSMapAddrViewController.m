@@ -148,17 +148,18 @@
          
          @property (nonatomic,copy) NSString * addition;
          */
-        SSMapAddrInfo * mapAddr1 = [[SSMapAddrInfo alloc] init];
+        SSAddressInfo * mapAddr1 = [[SSAddressInfo alloc] init];
         mapAddr1.name = result.addressDetail.streetName;
         mapAddr1.address = result.address;
         mapAddr1.city = result.addressDetail.city;
-        mapAddr1.coordinate = result.location;
+        mapAddr1.latitude = [NSString stringWithFormat:@"%f",result.location.latitude];
+        mapAddr1.longitude = [NSString stringWithFormat:@"%f",result.location.longitude];
         mapAddr1.selected = YES;
         [_addressList addObject:mapAddr1];
         
         for (BMKPoiInfo * info in result.poiList) {
             //NSLog(@"%f,%f",info.pt.latitude,info.pt.longitude);
-            SSMapAddrInfo * mapAddr = [[SSMapAddrInfo alloc] initWithBMKPoiInfo:info];
+            SSAddressInfo * mapAddr = [[SSAddressInfo alloc] initWithBMKPoiInfo:info];
             mapAddr.selected = NO;
             [_addressList addObject:mapAddr];
         }
@@ -211,22 +212,23 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self highlightThisIdx:indexPath.section];
     [tableView reloadData];
-    SSMapAddrInfo * info = [_addressList objectAtIndex:indexPath.section];
+    SSAddressInfo * info = [_addressList objectAtIndex:indexPath.section];
     _selectPOIFlag = YES;
-    [_mapView setCenterCoordinate:info.coordinate animated:YES];
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake([info.latitude doubleValue], [info.longitude doubleValue]);
+    [_mapView setCenterCoordinate:center animated:YES];
 }
 
 #pragma mark - dealing datasource
 - (void)highlightThisIdx:(NSInteger)section{
     for (int i = 0; i < _addressList.count; i++) {
-        SSMapAddrInfo * aInfo = [_addressList objectAtIndex:i];
+        SSAddressInfo * aInfo = [_addressList objectAtIndex:i];
         aInfo.selected = (i == section);
     }
 }
 
-- (SSMapAddrInfo *)selectedMapAddr{
-    SSMapAddrInfo * theOne = nil;
-    for (SSMapAddrInfo * info in _addressList) {
+- (SSAddressInfo *)selectedMapAddr{
+    SSAddressInfo * theOne = nil;
+    for (SSAddressInfo * info in _addressList) {
         if (info.selected) {
             theOne = info;
             break;

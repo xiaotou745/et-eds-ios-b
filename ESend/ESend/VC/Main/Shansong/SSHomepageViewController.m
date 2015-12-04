@@ -19,6 +19,7 @@
 #import "UserInfo.h"
 #import "SSLoginVC.h"
 #import "NSString+allSpace.h"
+#import "DataArchive.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
@@ -359,8 +360,8 @@
         self.api_addr_shou_hasValue = YES;
     }
     if (self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {
-        BMKMapPoint point1 = BMKMapPointForCoordinate(self.api_addr_fa.coordinate);
-        BMKMapPoint point2 = BMKMapPointForCoordinate(self.api_addr_shou.coordinate);
+        BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]));
+        BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]));
         CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
         self.api_distance = distance/1000;
         self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.2f",self.api_distance];
@@ -453,8 +454,8 @@
                                 @"verificationcode":self.hp_myVerCodeTextField.text,
                                 @"pubname":self.hp_FaNameTextField.text,
                                 @"islogin":[UserInfo isLogin]?@"true":@"false",
-                                @"publongitude":[NSNumber numberWithFloat:self.api_addr_fa.coordinate.longitude],
-                                @"publatitude":[NSNumber numberWithFloat:self.api_addr_fa.coordinate.latitude],
+                                @"publongitude":self.api_addr_fa.longitude,
+                                @"publatitude":self.api_addr_fa.latitude,
                                 @"pubphoneno":self.hp_FaPhoneTextField.text,
                                 @"pubaddress":[NSString stringWithFormat:@"%@%@",self.api_addr_fa.name,self.api_addr_fa.addition],
                                 @"taketype":self.api_pick_now?@"0":@"1",
@@ -463,8 +464,8 @@
                                 @"recevicename":self.hp_ShouNameTextField.text,
                                 @"recevicephoneno":self.hp_ShouPhoneTextField.text,
                                 @"receviceaddress":[NSString stringWithFormat:@"%@%@",self.api_addr_shou.name,self.api_addr_shou.addition],
-                                @"recevicelongitude":[NSNumber numberWithFloat:self.api_addr_shou.coordinate.longitude],
-                                @"recevicelatitude":[NSNumber numberWithFloat:self.api_addr_shou.coordinate.latitude],
+                                @"recevicelongitude":self.api_addr_shou.longitude,
+                                @"recevicelatitude":self.api_addr_shou.latitude,
                                 @"productname":self.productName.text,
                                 @"remark":(self.remark.text == nil)?@"":self.remark.text,
                                 @"amount":[NSNumber numberWithDouble:self.api_total_fee],
@@ -485,7 +486,19 @@
         [Tools showHUD:message];
         if (status == 1) {
             // 本地缓存 ,收,发
-            // uid  :  address{ }
+            // uid  :  address{地址，经度，纬度，姓名，手机}
+            NSDictionary * uInfo = @{
+                                        @"userId":[[responseObject objectForKey:@"result"] objectForKey:@"businessId"],
+                                    };
+            [UserInfo saveUserInfo:uInfo];
+            if ([UserInfo isLogin]) {
+                self.api_addr_fa.uid = [self generateUniqueId];
+                [DataArchive storeFaAddress:self.api_addr_fa businessId:[UserInfo getUserId]];
+                self.api_addr_shou.uid = [self generateUniqueId];
+                [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
+            }
+            
+            // 清空内存？
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -528,6 +541,15 @@
         }
         self.hp_totalFeeLabel.text = [NSString stringWithFormat:@"¥ %.2f",self.api_total_fee];
     }
+}
+
+#pragma mark - general uid
+- (NSString *)generateUniqueId{
+    CFUUIDRef uuidRef =CFUUIDCreate(NULL);
+    CFStringRef uuidStringRef =CFUUIDCreateString(NULL, uuidRef);
+    CFRelease(uuidRef);
+    NSString *uniqueId = (__bridge NSString *)uuidStringRef;
+    return uniqueId;
 }
 
 @end
