@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "SSAddressInfo.h"
 
+@class SSAdressCell;
+
+@protocol SSAdressCellDelegate <NSObject>
+
+@required
+- (void)deleteAddressWithId:(NSString *)uid;
+@end
+
 @interface SSAdressCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *AddressName;
 @property (strong, nonatomic) IBOutlet UIImageView *separator;
@@ -17,6 +25,8 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *deleteBtnWidth;
 
 @property (strong, nonatomic) SSAddressInfo * addressInfo;
+
+@property (weak,nonatomic) id<SSAdressCellDelegate>delegate;
 
 - (void)hideSeparator;
 - (void)hideDeleteBtn;

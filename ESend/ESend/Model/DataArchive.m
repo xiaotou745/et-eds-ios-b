@@ -95,7 +95,16 @@
         addrs = [[NSMutableArray alloc] initWithCapacity:0];
     }
     if (addr) {
-        [addrs addObject:addr];
+        BOOL isContained = NO;
+        for (SSAddressInfo * addrInfo in addrs) {
+            if ([addr sameTo:addrInfo]) {
+                isContained = YES;
+                break;
+            }
+        }
+        if (!isContained) {
+            [addrs addObject:addr];
+        }
     }
     [rootDict setObject:addrs forKey:bid];
     [NSKeyedArchiver archiveRootObject:rootDict toFile:[self rootFaAddrFilePath]];
@@ -141,7 +150,16 @@
         addrs = [[NSMutableArray alloc] initWithCapacity:0];
     }
     if (addr) {
-        [addrs addObject:addr];
+        BOOL isContained = NO;
+        for (SSAddressInfo * addrInfo in addrs) {
+            if ([addr sameTo:addrInfo]) {
+                isContained = YES;
+                break;
+            }
+        }
+        if (!isContained) {
+            [addrs addObject:addr];
+        }
     }
     [rootDict setObject:addrs forKey:bid];
     [NSKeyedArchiver archiveRootObject:rootDict toFile:[self rootShouAddrFilePath]];

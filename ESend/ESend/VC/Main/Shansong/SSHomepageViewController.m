@@ -20,6 +20,7 @@
 #import "SSLoginVC.h"
 #import "NSString+allSpace.h"
 #import "DataArchive.h"
+#import "SSpayViewController.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
@@ -33,7 +34,7 @@
 #define SS_HpNoMyCellPhoneMsg @"请输入您的手机号"
 #define SS_HpNoMyCodeMsg @"请输入验证码"
 
-@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate>{
+@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,SSEditAdderssViewControllerDelegate>{
     SSAppointmentTimeView * _appointTimeView;
     dispatch_source_t _timer;
 }
@@ -317,6 +318,7 @@
 #pragma mark -
 - (IBAction)editAddress:(UIButton *)sender {
     SSEditAdderssViewController * eavc = [[SSEditAdderssViewController alloc] initWithNibName:NSStringFromClass([SSEditAdderssViewController class]) bundle:nil Type:[SSEditorTypeTransformer typeWithEditorTitleStr:sender.currentTitle]];
+    eavc.delegate = self;
     [self.navigationController pushViewController:eavc animated:YES];
 }
 
@@ -493,11 +495,17 @@
             [UserInfo saveUserInfo:uInfo];
             if ([UserInfo isLogin]) {
                 self.api_addr_fa.uid = [self generateUniqueId];
+                self.api_addr_fa.personName = self.hp_FaNameTextField.text;
+                self.api_addr_fa.personPhone = self.hp_FaPhoneTextField.text;
                 [DataArchive storeFaAddress:self.api_addr_fa businessId:[UserInfo getUserId]];
                 self.api_addr_shou.uid = [self generateUniqueId];
+                self.api_addr_shou.personName = self.hp_ShouNameTextField.text;
+                self.api_addr_shou.personPhone = self.hp_ShouPhoneTextField.text;
                 [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
             }
             
+            SSpayViewController * payVC = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
+            [self.navigationController pushViewController:payVC animated:YES];
             // 清空内存？
         }
         
@@ -550,6 +558,38 @@
     CFRelease(uuidRef);
     NSString *uniqueId = (__bridge NSString *)uuidStringRef;
     return uniqueId;
+}
+
+#pragma mark - SSEditAdderssViewControllerDelegate
+- (void)editAddressVC:(SSEditAdderssViewController *)vc didSelectHistroyAddr:(SSAddressInfo *)address type:(SSAddressEditorType)type{
+    
+    if (type == SSAddressEditorTypeFa) {
+        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@%@",address.name,address.addition];
+        self.hp_FaAddrLabel.textColor = DeepGrey;
+        self.api_addr_fa = address;
+        self.api_addr_fa_hasValue = YES;
+        //
+        self.hp_FaNameTextField.text = address.personName;
+        self.hp_FaPhoneTextField.text = address.personPhone;
+    }else if (type == SSAddressEditorTypeShou){
+        self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@%@",address.name,address.addition];
+        self.hp_ShouAddrLabel.textColor = DeepGrey;
+        self.api_addr_shou = address;
+        self.api_addr_shou_hasValue = YES;
+        //
+        self.hp_ShouNameTextField.text = address.personName;
+        self.hp_ShouPhoneTextField.text = address.personPhone;
+    }
+    if (self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {
+        BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]));
+        BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]));
+        CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
+        self.api_distance = distance/1000;
+        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.2f",self.api_distance];
+        
+        // 计算费用总计;
+        [self calculateAndDisplayTotalFee];
+    }
 }
 
 @end

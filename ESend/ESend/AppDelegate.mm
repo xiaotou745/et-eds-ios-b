@@ -380,8 +380,8 @@
 - (void)refreshToken{
     if ([UserInfo isLogin]) {
         NSDictionary * paraDict = @{
-                                    @"ssid":[UserInfo getUUID],
-                                    @"appkey":[UserInfo getAppkey]
+                                    @"ssid":(nil == [UserInfo getUUID])?@"":[UserInfo getUUID],
+                                    @"appkey":(nil == [UserInfo getAppkey])?@"":[UserInfo getAppkey],
                                     };
         [FHQNetWorkingAPI getToken:paraDict successBlock:^(id result, AFHTTPRequestOperation *operation) {
             NSString * token = [NSString stringWithFormat:@"%@",result];

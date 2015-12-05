@@ -10,7 +10,16 @@
 #import "SSEditorTypeTransformer.h"
 #import "SSMapAddrViewController.h"
 
+@class SSEditAdderssViewController;
+@protocol SSEditAdderssViewControllerDelegate <NSObject>
+
+@required
+- (void)editAddressVC:(SSEditAdderssViewController *)vc didSelectHistroyAddr:(SSAddressInfo *)address type:(SSAddressEditorType)type;
+@end
+
 @interface SSEditAdderssViewController : BaseViewController
 
+@property (nonatomic,weak) id<SSEditAdderssViewControllerDelegate>delegate;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil Type:(SSAddressEditorType)type;
+
 @end

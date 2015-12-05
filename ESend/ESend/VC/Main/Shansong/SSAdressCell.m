@@ -30,10 +30,12 @@
 - (void)setAddressInfo:(SSAddressInfo *)addressInfo{
     _addressInfo =  addressInfo;
     self.AddressName.text = _addressInfo.name;
-    self.AddressDetail.text = [NSString stringWithFormat:@"%@ %@",_addressInfo.city,_addressInfo.address];
+    self.AddressDetail.text = [NSString stringWithFormat:@"%@",_addressInfo.address];
 }
 
 - (IBAction)deleteCell:(UIButton *)sender {
-    
+    if ([self.delegate respondsToSelector:@selector(deleteAddressWithId:)]) {
+        [self.delegate deleteAddressWithId:_addressInfo.uid];
+    }
 }
 @end

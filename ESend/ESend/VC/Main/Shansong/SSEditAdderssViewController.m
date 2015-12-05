@@ -13,9 +13,10 @@
 #import "SSAddrAdditionViewController.h"
 #import "DataArchive.h"
 #import "UserInfo.h"
+#import "UIColor+KMhexColor.h"
 
 
-@interface SSEditAdderssViewController ()<UITextFieldDelegate,BMKPoiSearchDelegate,BMKLocationServiceDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface SSEditAdderssViewController ()<UITextFieldDelegate,BMKPoiSearchDelegate,BMKLocationServiceDelegate,UITableViewDataSource,UITableViewDelegate,SSAdressCellDelegate>
 {
     BMKPoiSearch * _searcher;
     BMKLocationService * _locService;
@@ -31,6 +32,9 @@
 
 @property (strong, nonatomic) NSMutableArray * POIs;
 
+@property (strong, nonatomic) IBOutlet UITableView *historyTable;
+@property (strong, nonatomic) NSMutableArray * historyAddrs;
+
 @end
 
 @implementation SSEditAdderssViewController
@@ -40,6 +44,7 @@
         self.type = type;
         //
         _POIs = [[NSMutableArray alloc] initWithCapacity:0];
+        _historyAddrs = [[NSMutableArray alloc] initWithCapacity:0];
         //初始化检索对象
         _searcher =[[BMKPoiSearch alloc] init];
         _searcher.delegate = self;
@@ -65,6 +70,17 @@
         NSLog(@"sss -- %@",ind);
         NSLog(@"%@ - %@",ind.uid,ind.name);
 
+    }
+    
+    if (self.type == SSAddressEditorTypeFa) {
+        [_historyAddrs addObjectsFromArray:faAddrs];
+    }else if (self.type == SSAddressEditorTypeShou){
+        [_historyAddrs addObjectsFromArray:ShouAddrs];
+    }
+    
+    if (_historyAddrs.count > 0) {
+        _historyTable.hidden = NO;
+        [_historyTable reloadData];
     }
 }
 
@@ -143,6 +159,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView == _POITable) {
         return _POIs.count;
+    }else if (tableView == self.historyTable){
+        return _historyAddrs.count;
     }else{
         return 0;
     }
@@ -157,6 +175,15 @@
         cell.addressInfo = [_POIs objectAtIndex:indexPath.row];
         [cell hideDeleteBtn];
         return cell;
+    }else if (tableView == self.historyTable){
+        static NSString * EAhistoryTableCellId = @"EAhistoryTableCellId";
+        SSAdressCell * cell = [tableView dequeueReusableCellWithIdentifier:EAhistoryTableCellId];
+        if (nil == cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSAdressCell class]) owner:self options:nil] lastObject];
+        }
+        cell.addressInfo = [_historyAddrs objectAtIndex:indexPath.row];
+        cell.delegate = self;
+        return cell;
     }else{
         return nil;
     }
@@ -165,22 +192,78 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _POITable) {
         return 55;
+    }else if (tableView == self.historyTable){
+        return 55;
     }else{
         return 0;
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (tableView == self.historyTable) {
+        return 25;
+    }else{
+        return 0;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (tableView == self.historyTable) {
+        UIView * aView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 25)];
+        aView.backgroundColor = BackgroundColor;
+        UILabel * aLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, ScreenWidth - 12, 25)];
+        aLabel.backgroundColor = [UIColor clearColor];
+        aLabel.text = @"历史地址";
+        aLabel.font = [UIFont systemFontOfSize:13];
+        aLabel.textAlignment = NSTextAlignmentLeft;
+        aLabel.textColor = [UIColor km_colorWithHexString:@"888888"];
+        [aView addSubview:aLabel];
+        return aView;
+    }else{
+        return nil;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SSAddressInfo *info = [_POIs objectAtIndex:indexPath.row];
-    // NSLog(@"%@",a);
-    // [_POITable removeFromSuperview];
-    SSAddrAdditionViewController * aavc = [[SSAddrAdditionViewController alloc] initWithNibName:NSStringFromClass([SSAddrAdditionViewController class]) bundle:nil Type:self.type Addr:info];
-    [self.navigationController pushViewController:aavc animated:YES];
+    if (tableView == _POITable) {
+        SSAddressInfo *info = [_POIs objectAtIndex:indexPath.row];
+        // NSLog(@"%@",a);
+        // [_POITable removeFromSuperview];
+        SSAddrAdditionViewController * aavc = [[SSAddrAdditionViewController alloc] initWithNibName:NSStringFromClass([SSAddrAdditionViewController class]) bundle:nil Type:self.type Addr:info];
+        [self.navigationController pushViewController:aavc animated:YES];
+    }else if (tableView == self.historyTable){
+        SSAddressInfo *info = [_historyAddrs objectAtIndex:indexPath.row];
+        if ([self.delegate respondsToSelector:@selector(editAddressVC:didSelectHistroyAddr:type:)]) {
+            [self.delegate editAddressVC:self didSelectHistroyAddr:info type:self.type];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+
 }
 
 - (IBAction)mapAddrAction:(UIButton *)sender {
     SSMapAddrViewController * mavc = [[SSMapAddrViewController alloc] initWithNibName:NSStringFromClass([SSMapAddrViewController class]) bundle:nil Type:self.type];
     [self.navigationController pushViewController:mavc animated:YES];
+}
+
+#pragma mark - SSAdressCellDelegate
+- (void)deleteAddressWithId:(NSString *)uid{
+    for (SSAddressInfo * addrInfo in _historyAddrs) {
+        if ([addrInfo.uid isEqualToString:uid]) {
+            [_historyAddrs removeObject:addrInfo];
+            break;
+        }
+    }
+    [self.historyTable reloadData];
+    if (_historyAddrs.count <= 0) {
+        self.historyTable.hidden = YES;
+    }
+    
+    if (self.type == SSAddressEditorTypeFa) {
+        [DataArchive deleteFaAddrWithId:uid bid:[UserInfo getUserId]];
+    }else if (self.type == SSAddressEditorTypeShou){
+        [DataArchive deleteShouAddrWithId:uid bid:[UserInfo getUserId]];
+    }
 }
 @end

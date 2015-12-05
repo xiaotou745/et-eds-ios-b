@@ -22,6 +22,10 @@
 
 @property (nonatomic,assign) BOOL selected;
 
+
+@property (nonatomic,copy) NSString * personName;
+@property (nonatomic,copy) NSString * personPhone;
+
 - (instancetype)initWithBMKPoiInfo:(BMKPoiInfo *)poi;
 
 - (BOOL)sameTo:(SSAddressInfo *)anAddr;

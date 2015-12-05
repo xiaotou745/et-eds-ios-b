@@ -11,6 +11,7 @@
                 <outlet property="addressTextField" destination="1dn-VP-OVE" id="R18-1K-gv4"/>
                 <outlet property="headerBg" destination="lSr-3E-NwW" id="LXS-7D-509"/>
                 <outlet property="headerImg" destination="Rki-Wo-vwC" id="vJj-sc-www"/>
+                <outlet property="historyTable" destination="bcc-e5-RnH" id="l5K-7Y-44j"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -67,13 +68,26 @@
                         <constraint firstAttribute="trailing" secondItem="orQ-0n-KPG" secondAttribute="trailing" constant="12" id="wRX-OU-msW"/>
                     </constraints>
                 </view>
+                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bcc-e5-RnH">
+                    <rect key="frame" x="0.0" y="128" width="600" height="472"/>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="paT-lt-HW0"/>
+                        <outlet property="delegate" destination="-1" id="1y4-pY-9Kw"/>
+                    </connections>
+                </tableView>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="bcc-e5-RnH" secondAttribute="bottom" id="07A-Be-KD6"/>
                 <constraint firstAttribute="trailing" secondItem="lSr-3E-NwW" secondAttribute="trailing" id="AJU-eY-Wtx"/>
+                <constraint firstAttribute="trailing" secondItem="bcc-e5-RnH" secondAttribute="trailing" id="Gzi-L2-RIx"/>
                 <constraint firstItem="lSr-3E-NwW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="QAi-XK-7fR"/>
                 <constraint firstItem="lSr-3E-NwW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="XZf-my-y7z"/>
+                <constraint firstItem="bcc-e5-RnH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vbW-Md-v70"/>
+                <constraint firstItem="bcc-e5-RnH" firstAttribute="top" secondItem="lSr-3E-NwW" secondAttribute="bottom" constant="10" id="vtc-Fk-yZ0"/>
             </constraints>
         </view>
     </objects>

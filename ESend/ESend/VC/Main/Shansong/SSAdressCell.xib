@@ -24,32 +24,32 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIk-qv-9CL">
-                        <rect key="frame" x="12" y="27" width="265" height="26"/>
+                        <rect key="frame" x="12" y="27" width="254" height="26"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.73333333333333328" green="0.75294117647058822" blue="0.7803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxJ-fK-YT0">
-                        <rect key="frame" x="287" y="13" width="28" height="28"/>
-                        <animations/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="28" id="3wo-2A-Wzd"/>
-                            <constraint firstAttribute="width" secondItem="bxJ-fK-YT0" secondAttribute="height" multiplier="1:1" id="Vqd-SV-goe"/>
-                        </constraints>
-                        <inset key="imageEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
-                        <state key="normal" image="ss_addr_delete"/>
-                        <connections>
-                            <action selector="deleteCell:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wsH-tf-2iI"/>
-                        </connections>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvg-Xo-c7z">
-                        <rect key="frame" x="12" y="0.0" width="265" height="27"/>
+                        <rect key="frame" x="12" y="0.0" width="254" height="27"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxJ-fK-YT0">
+                        <rect key="frame" x="276" y="5" width="44" height="44"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="44" id="3wo-2A-Wzd"/>
+                            <constraint firstAttribute="width" secondItem="bxJ-fK-YT0" secondAttribute="height" multiplier="1:1" id="Vqd-SV-goe"/>
+                        </constraints>
+                        <inset key="imageEdgeInsets" minX="15" minY="15" maxX="15" maxY="15"/>
+                        <state key="normal" image="ss_addr_delete"/>
+                        <connections>
+                            <action selector="deleteCell:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wsH-tf-2iI"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <animations/>
                 <constraints>
@@ -58,7 +58,7 @@
                     <constraint firstItem="bxJ-fK-YT0" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="8MN-Fd-qVc"/>
                     <constraint firstItem="qvg-Xo-c7z" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="1:2" id="Jyx-p1-kjy"/>
                     <constraint firstAttribute="bottom" secondItem="Egl-an-zcj" secondAttribute="bottom" id="MWG-zi-6y6"/>
-                    <constraint firstAttribute="trailing" secondItem="bxJ-fK-YT0" secondAttribute="trailing" constant="5" id="U6d-zQ-SaO"/>
+                    <constraint firstAttribute="trailing" secondItem="bxJ-fK-YT0" secondAttribute="trailing" id="U6d-zQ-SaO"/>
                     <constraint firstItem="Egl-an-zcj" firstAttribute="top" secondItem="AIk-qv-9CL" secondAttribute="bottom" constant="1" id="aOD-H7-r71"/>
                     <constraint firstItem="AIk-qv-9CL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="eBR-9O-U6Y"/>
                     <constraint firstItem="qvg-Xo-c7z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="hCf-3Q-tJz"/>

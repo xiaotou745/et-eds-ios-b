@@ -34,6 +34,9 @@
     [aCoder encodeObject:_longitude forKey:@"longitude"];
     [aCoder encodeObject:_addition forKey:@"addition"];
     [aCoder encodeObject:[NSNumber numberWithBool:_selected] forKey:@"selected"];
+    //
+    [aCoder encodeObject:_personName forKey:@"personName"];
+    [aCoder encodeObject:_personPhone forKey:@"personPhone"];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -47,6 +50,8 @@
         _longitude = [aDecoder decodeObjectForKey:@"longitude"];
         _addition = [aDecoder decodeObjectForKey:@"addition"];
         _selected = [[aDecoder decodeObjectForKey:@"selected"] boolValue];
+        _personName = [aDecoder decodeObjectForKey:@"personName"];
+        _personPhone = [aDecoder decodeObjectForKey:@"personPhone"];
     }
     
     return  self;
@@ -59,7 +64,9 @@
         [self.city isEqualToString:anAddr.city] &&
         [self.latitude isEqualToString:anAddr.latitude] &&
         [self.longitude isEqualToString:anAddr.longitude] &&
-        [self.addition isEqualToString:anAddr.addition]) {
+        [self.addition isEqualToString:anAddr.addition] &&
+        [self.personPhone isEqualToString:anAddr.personPhone] &&
+        [self.personName isEqualToString:anAddr.personName]) {
         result = YES;
     }
     return result;
