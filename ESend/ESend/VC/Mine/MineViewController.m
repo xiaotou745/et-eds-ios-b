@@ -143,7 +143,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
 - (void)bulidView {
     
     // 导航条
-    self.titleLabel.text = @"商家中心";
+    self.titleLabel.text = @"个人中心";
     
     [self.rightBtn setTitle:@"更多" forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(clickMore) forControlEvents:UIControlEventTouchUpInside];
@@ -155,8 +155,15 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _topView.layer.cornerRadius = 5;
     [self.view addSubview:_topView];
     
+    // 账号
+    UILabel * accountFix = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 40, 25)];
+    accountFix.text = @"账号";
+    accountFix.textColor = LightGrey;
+    accountFix.font = [UIFont systemFontOfSize:BigFontSize];
+    [_topView addSubview:accountFix];
+
     // 店铺名称
-    _supplierNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, MainWidth - 30 - 110, 25)];
+    _supplierNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, MainWidth - 30 - 60, 25)];
     _supplierNameLabel.text = [UserInfo getBussinessName];
     _supplierNameLabel.textColor = DeepGrey;
     _supplierNameLabel.font = [UIFont systemFontOfSize:BigFontSize];
@@ -166,55 +173,27 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _supplierNameLabel.userInteractionEnabled = YES;
     [_supplierNameLabel addGestureRecognizer:tapUserInfo];
     
-    UIImageView *rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(MainWidth - 20 - 40, 10, 40, 50)];
-    rightImageView.contentMode = UIViewContentModeCenter;
-    rightImageView.image = [UIImage imageNamed:@"right_indicate"];
-    rightImageView.userInteractionEnabled = YES;
-    [_topView addSubview:rightImageView];
-    
-    UITapGestureRecognizer *tapName = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUserInfo)];
-    [rightImageView addGestureRecognizer:tapName];
-    
-    // msg
-    _businessFixNote = [[UILabel alloc] init];
-    _businessFixNote.frame = CGRectMake(MainWidth - 90 - 60, 25/2 + 10, 90, 25);
-    _businessFixNote.text = BusinessInfoMsg;
-    _businessFixNote.textAlignment = NSTextAlignmentRight;
-    _businessFixNote.textColor = LightGrey;
-    _businessFixNote.font = [UIFont systemFontOfSize:NormalFontSize];
-    _businessFixNote.backgroundColor = [UIColor clearColor];
-    _businessFixNote.hidden = NO;
-    [_topView addSubview:_businessFixNote];
-    
     ///
-    _userStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _userStatusBtn.enabled = NO;
-    _userStatusBtn.frame = CGRectMake(MainWidth - 110 - 20, 25/2 + 10, 70, 25);
-    [_userStatusBtn setBackgroundSmallImageNor:@"blue_border_btn_nor" smallImagePre:@"blue_border_btn_nor" smallImageDis:nil];
-    [_userStatusBtn setTitleColor:BlueColor forState:UIControlStateNormal];
-    [_userStatusBtn setTitle:@"审核中" forState:UIControlStateNormal];
-    _userStatusBtn.hidden = YES;
-    _userStatusBtn.titleLabel.font = [UIFont systemFontOfSize:NormalFontSize];
-    [_userStatusBtn addTarget:self action:@selector(showUserInfo) forControlEvents:UIControlEventTouchUpInside];
-    [_topView addSubview:_userStatusBtn];
-    
-    // 手机号
-    _supplierPhoneLbl = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_supplierNameLabel.frame) + 5, MainWidth - 30 - 110, 25)];
-    _supplierPhoneLbl.text = [UserInfo getbussinessPhone];
-    _supplierPhoneLbl.textColor = DeepGrey;
-    _supplierPhoneLbl.font = [UIFont systemFontOfSize:NormalFontSize];
-    [_topView addSubview:_supplierPhoneLbl];
-    
+//    _userStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+////    _userStatusBtn.enabled = NO;
+//    _userStatusBtn.frame = CGRectMake(MainWidth - 110 - 20, 25/2 + 10, 70, 25);
+//    [_userStatusBtn setBackgroundSmallImageNor:@"blue_border_btn_nor" smallImagePre:@"blue_border_btn_nor" smallImageDis:nil];
+//    [_userStatusBtn setTitleColor:BlueColor forState:UIControlStateNormal];
+//    [_userStatusBtn setTitle:@"审核中" forState:UIControlStateNormal];
+//    _userStatusBtn.hidden = YES;
+//    _userStatusBtn.titleLabel.font = [UIFont systemFontOfSize:NormalFontSize];
+//    [_userStatusBtn addTarget:self action:@selector(showUserInfo) forControlEvents:UIControlEventTouchUpInside];
+//    [_topView addSubview:_userStatusBtn];
     
     UIView *line = [Tools createLine];
-    line.frame = CGRectMake(10, CGRectGetMaxY(_supplierPhoneLbl.frame) + 10, MainWidth - 20 - 20, 0.5);
+    line.frame = CGRectMake(10, CGRectGetMaxY(_supplierNameLabel.frame) + 10, MainWidth - 20 - 20, 0.5);
     [_topView addSubview:line];
     
     /// 余额数值
     _balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(line.frame), MainWidth/2 - 20, 30)];
     _balanceLabel.text = @"";
     _balanceLabel.textAlignment = NSTextAlignmentCenter;
-    _balanceLabel.textColor = DeepGrey;
+    _balanceLabel.textColor = RedDefault;
     _balanceLabel.font = [UIFont systemFontOfSize:BigFontSize];
     [_topView addSubview:_balanceLabel];
     
@@ -222,7 +201,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _withdrawDeposit = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(_balanceLabel.frame), MainWidth/2 - 20, 30)];
     _withdrawDeposit.text = @"余额";
     _withdrawDeposit.textAlignment = NSTextAlignmentCenter;
-    _withdrawDeposit.textColor = LightGrey;
+    _withdrawDeposit.textColor = DeepGrey;
     _withdrawDeposit.font = [UIFont systemFontOfSize:BigFontSize];
     [_topView addSubview:_withdrawDeposit];
     
@@ -265,22 +244,22 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _newMessageIcon.hidden = YES;
     
     
-    NSArray *titles = @[@"账单",  @"订单统计", @"消息中心",@"商家须知"];
-    NSArray *icons = @[@"detail",  @"order_detail", @"message_icon",@"business_note"];
+    NSArray *titles = @[@"账单",  @"订单统计", @"价格表",@"消息中心"];
+    NSArray *icons = @[@"detail",  @"order_detail", @"ss_user_jiagebiao",@"message_icon"];
     
     for (NSInteger i = 0; i < titles.count; i++) {
         NSString *contectStr = @"";
         
         MineCell *view = [[MineCell alloc] initWithTitle:titles[i] imageName:icons[i] content:contectStr];
         
-        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45 + ((i>=2)?20:0) + ((i==3)?20:0), MainWidth - 20, 45);
+        view.frame = CGRectMake(10, CGRectGetMaxY(_topView.frame) + 20 + i*45 + ((i>2)?20:0), MainWidth - 20, 45);
         [self.view addSubview:view];
         view.tag = 1000+i;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapView:)];
         [view addGestureRecognizer:tap];
         
-        if (i == 2) {
+        if (i == 3) {
             [view addSubview:_newMessageIcon];
 
         }
@@ -291,7 +270,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
 - (void)tapView:(UITapGestureRecognizer*)tap {
     
-    if (tap.view.tag == 1002) {
+    if (tap.view.tag == 1003) {
         MessagesViewController *vc = [[MessagesViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
         return;
@@ -310,11 +289,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
     }
     
     if (tap.view.tag == 1000) { // 账单统计
-        // v1.2.1之前的订单统计
-//        ExpensesViewController *vc = [[ExpensesViewController alloc] init];
-//        [self.navigationController pushViewController:vc animated:YES];
-//        return;
-        
         // v1.2.1的订单统计
         EDSBillStatisticsVC * vc = [[EDSBillStatisticsVC alloc] initWithNibName:@"EDSBillStatisticsVC" bundle:nil];
         [self.navigationController pushViewController:vc animated:YES];
@@ -322,9 +296,8 @@ typedef NS_ENUM(NSInteger, BottomType) {
         
     }
     
-    if (tap.view.tag == 1003) {
-        //NSLog(@"1003");
-        // http://m.edaisong.com/htmls/rule.html
+    if (tap.view.tag == 1002) {
+        // 价格表
         EDSBusinessShouldKnow * bskVC = [[EDSBusinessShouldKnow alloc] initWithNibName:@"EDSBusinessShouldKnow" bundle:nil];
         [self.navigationController pushViewController:bskVC animated:YES];
     }

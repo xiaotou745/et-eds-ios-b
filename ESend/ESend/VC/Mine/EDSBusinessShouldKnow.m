@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.titleLabel.text = @"商家须知";
+    self.titleLabel.text = @"价格表";
     
     [self.BS_businessShouldKnow loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:BusinessShouldKnowURL]]];
 }
