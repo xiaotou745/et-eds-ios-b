@@ -21,6 +21,7 @@
 #import "NSString+allSpace.h"
 #import "DataArchive.h"
 #import "SSpayViewController.h"
+#import "SSMyOrdersVC.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
@@ -120,6 +121,8 @@
     self.titleLabel.text = @"E代送";
     [self.leftBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.leftBtn addTarget:self action:@selector(clickUserVC) forControlEvents:UIControlEventTouchUpInside];
+    [self.rightBtn setImage:[UIImage imageNamed:@"order_icon"] forState:UIControlStateNormal];
+    [self.rightBtn addTarget:self action:@selector(clickMyOrders) forControlEvents:UIControlEventTouchUpInside];
     
     [self addObserver:self forKeyPath:@"api_pick_now" options:NSKeyValueObservingOptionNew context:NULL];
     self.api_pick_now = YES;
@@ -207,6 +210,16 @@
     ABPeoplePickerNavigationController *picker =[[ABPeoplePickerNavigationController alloc] init];
     picker.peoplePickerDelegate = self;
     [self presentViewController:picker animated:YES completion:^{}];
+}
+
+- (void)clickMyOrders{
+    if ([UserInfo isLogin]) {
+        SSMyOrdersVC *vc = [[SSMyOrdersVC alloc] initWithNibName:NSStringFromClass([SSMyOrdersVC class]) bundle:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        SSLoginVC * welcomeVC = [[SSLoginVC alloc] init];
+        [self.navigationController pushViewController:welcomeVC animated:YES];
+    }
 }
 
 - (void)clickUserVC{

@@ -222,9 +222,9 @@
             NSLog(@"%@",error.userInfo);
             [UserInfo saveUserInfo:@{@"userId"  : [[error.userInfo objectForKey:@"Result"] getStringWithKey:@"userId"],
                                      @"phoneNo" : _usernameTF.text}];
-            
-            PrefectInfoViewController *vc = [[PrefectInfoViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+//            PrefectInfoViewController *vc = [[PrefectInfoViewController alloc] init];
+//            [self.navigationController pushViewController:vc animated:YES];
         }
     }];
    

@@ -169,22 +169,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
     _supplierNameLabel.font = [UIFont systemFontOfSize:BigFontSize];
     [_topView addSubview:_supplierNameLabel];
     
-    UITapGestureRecognizer *tapUserInfo = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUserInfo)];
-    _supplierNameLabel.userInteractionEnabled = YES;
-    [_supplierNameLabel addGestureRecognizer:tapUserInfo];
-    
-    ///
-//    _userStatusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-////    _userStatusBtn.enabled = NO;
-//    _userStatusBtn.frame = CGRectMake(MainWidth - 110 - 20, 25/2 + 10, 70, 25);
-//    [_userStatusBtn setBackgroundSmallImageNor:@"blue_border_btn_nor" smallImagePre:@"blue_border_btn_nor" smallImageDis:nil];
-//    [_userStatusBtn setTitleColor:BlueColor forState:UIControlStateNormal];
-//    [_userStatusBtn setTitle:@"审核中" forState:UIControlStateNormal];
-//    _userStatusBtn.hidden = YES;
-//    _userStatusBtn.titleLabel.font = [UIFont systemFontOfSize:NormalFontSize];
-//    [_userStatusBtn addTarget:self action:@selector(showUserInfo) forControlEvents:UIControlEventTouchUpInside];
-//    [_topView addSubview:_userStatusBtn];
-    
     UIView *line = [Tools createLine];
     line.frame = CGRectMake(10, CGRectGetMaxY(_supplierNameLabel.frame) + 10, MainWidth - 20 - 20, 0.5);
     [_topView addSubview:line];

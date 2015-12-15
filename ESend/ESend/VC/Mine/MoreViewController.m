@@ -123,7 +123,7 @@
         [UserInfo clearUserInfo];
         [UserInfo clearBusinessPhone ];
         
-        [APPDLE showLoginAnimated:YES];
+//        [APPDLE showLoginAnimated:YES];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:LogoutNotifaction object:nil];
         [self.navigationController popToRootViewControllerAnimated:YES];

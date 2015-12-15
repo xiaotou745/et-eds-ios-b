@@ -79,6 +79,16 @@
 		6811E0D01BCA5C5300F81F03 /* DayBillInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0CE1BCA5C5300F81F03 /* DayBillInfo.m */; };
 		6811E0D31BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */; };
 		6811E0D41BCA5D2000F81F03 /* DayBillDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */; };
+		6833078F1C1FF4F700AC6601 /* SSMyOrdersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833078D1C1FF4F700AC6601 /* SSMyOrdersVC.m */; };
+		683307901C1FF4F700AC6601 /* SSMyOrdersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833078D1C1FF4F700AC6601 /* SSMyOrdersVC.m */; };
+		683307911C1FF4F700AC6601 /* SSMyOrdersVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6833078E1C1FF4F700AC6601 /* SSMyOrdersVC.xib */; };
+		683307921C1FF4F700AC6601 /* SSMyOrdersVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6833078E1C1FF4F700AC6601 /* SSMyOrdersVC.xib */; };
+		683307971C20172D00AC6601 /* SSOrderUnpayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 683307951C20172D00AC6601 /* SSOrderUnpayCell.m */; };
+		683307981C20172D00AC6601 /* SSOrderUnpayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 683307951C20172D00AC6601 /* SSOrderUnpayCell.m */; };
+		683307991C20172D00AC6601 /* SSOrderUnpayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */; };
+		6833079A1C20172D00AC6601 /* SSOrderUnpayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */; };
+		6833079E1C20185500AC6601 /* SSMyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833079D1C20185500AC6601 /* SSMyOrderModel.m */; };
+		6833079F1C20185500AC6601 /* SSMyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833079D1C20185500AC6601 /* SSMyOrderModel.m */; };
 		684A39AC1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; };
 		684A39AD1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; };
 		68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
@@ -703,6 +713,15 @@
 		6811E0D11BCA5D2000F81F03 /* DayBillDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayBillDetailInfo.h; sourceTree = "<group>"; };
 		6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayBillDetailInfo.m; sourceTree = "<group>"; };
 		6833078A1C1FE86C00AC6601 /* SSPayMethodTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPayMethodTypes.h; sourceTree = "<group>"; };
+		6833078C1C1FF4F700AC6601 /* SSMyOrdersVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMyOrdersVC.h; sourceTree = "<group>"; };
+		6833078D1C1FF4F700AC6601 /* SSMyOrdersVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMyOrdersVC.m; sourceTree = "<group>"; };
+		6833078E1C1FF4F700AC6601 /* SSMyOrdersVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSMyOrdersVC.xib; sourceTree = "<group>"; };
+		683307941C20172D00AC6601 /* SSOrderUnpayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderUnpayCell.h; sourceTree = "<group>"; };
+		683307951C20172D00AC6601 /* SSOrderUnpayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderUnpayCell.m; sourceTree = "<group>"; };
+		683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderUnpayCell.xib; sourceTree = "<group>"; };
+		6833079B1C20178200AC6601 /* SSMyOrderStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMyOrderStatus.h; sourceTree = "<group>"; };
+		6833079C1C20185500AC6601 /* SSMyOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMyOrderModel.h; sourceTree = "<group>"; };
+		6833079D1C20185500AC6601 /* SSMyOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMyOrderModel.m; sourceTree = "<group>"; };
 		684A39AA1BD644E60076CE8D /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		68580C851BA7BB7E0082C18C /* EDSOrderStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSOrderStatisticsVC.h; path = ../EDSOrderStatisticsVC.h; sourceTree = "<group>"; };
@@ -1500,6 +1519,30 @@
 			name = dataModel;
 			sourceTree = "<group>";
 		};
+		6833078B1C1FF4DC00AC6601 /* myOrders */ = {
+			isa = PBXGroup;
+			children = (
+				683307931C20096A00AC6601 /* cell */,
+				6833078C1C1FF4F700AC6601 /* SSMyOrdersVC.h */,
+				6833078D1C1FF4F700AC6601 /* SSMyOrdersVC.m */,
+				6833078E1C1FF4F700AC6601 /* SSMyOrdersVC.xib */,
+				6833079B1C20178200AC6601 /* SSMyOrderStatus.h */,
+				6833079C1C20185500AC6601 /* SSMyOrderModel.h */,
+				6833079D1C20185500AC6601 /* SSMyOrderModel.m */,
+			);
+			path = myOrders;
+			sourceTree = "<group>";
+		};
+		683307931C20096A00AC6601 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				683307941C20172D00AC6601 /* SSOrderUnpayCell.h */,
+				683307951C20172D00AC6601 /* SSOrderUnpayCell.m */,
+				683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		684A39A91BD644E60076CE8D /* CustomAlertView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1690,6 +1733,7 @@
 		68FE8CC61C05B1C6004BABB4 /* Shansong */ = {
 			isa = PBXGroup;
 			children = (
+				6833078B1C1FF4DC00AC6601 /* myOrders */,
 				688F5C0F1C12D03E0031ADE4 /* SSpay */,
 				687ED1181C0D403300728E65 /* addrAddition */,
 				685E35011C0C1701001CEABB /* map */,
@@ -2626,6 +2670,7 @@
 				6801E3C31BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png in Resources */,
 				F67D35F21B5664A600083DA4 /* demo_card@3x.png in Resources */,
 				F67D35F31B5664A600083DA4 /* blue_btn_nor@2x.png in Resources */,
+				6833079A1C20172D00AC6601 /* SSOrderUnpayCell.xib in Resources */,
 				686A49A21C0F11FC00558D5D /* SSAppointmentTimeView.xib in Resources */,
 				688F5C161C12D0680031ADE4 /* SSpayViewController.xib in Resources */,
 				68580C941BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
@@ -2673,6 +2718,7 @@
 				F67D36061B5664A600083DA4 /* blue_btn_noSelect@2x.pdf in Resources */,
 				F67D36071B5664A600083DA4 /* demo_license@3x.png in Resources */,
 				6867455A1BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */,
+				683307921C1FF4F700AC6601 /* SSMyOrdersVC.xib in Resources */,
 				CF22B0151BAB2BC7000F19D9 /* EDSHomepageVC.xib in Resources */,
 				F62A73EB1B5CCA84001632B5 /* 2@1x.png in Resources */,
 				F62A73ED1B5CCA84001632B5 /* 2@2x.png in Resources */,
@@ -2738,10 +2784,12 @@
 				F62A73EE1B5CCA84001632B5 /* 2@3x.png in Resources */,
 				F66CA1281B1DC407006BDDB8 /* blue_border_btn_nor@2x.png in Resources */,
 				6801E3C01BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */,
+				683307991C20172D00AC6601 /* SSOrderUnpayCell.xib in Resources */,
 				68AE2BDE1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
 				68107CB61C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib in Resources */,
 				F637CF511B437F5700410C24 /* PushConfig.plist in Resources */,
 				E48ECF951B3FBC2F00F09660 /* blue_btn_noSelect@2x.pdf in Resources */,
+				683307911C1FF4F700AC6601 /* SSMyOrdersVC.xib in Resources */,
 				F62E8D021B2E80F1006F3862 /* demo_license@3x.png in Resources */,
 				F6549F7A1B1C27D900FAACEE /* photo_default@2x.png in Resources */,
 				68586AA91BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */,
@@ -2819,6 +2867,7 @@
 				F67D35571B5664A600083DA4 /* UIImageView+HighlightedWebCache.m in Sources */,
 				F67D35581B5664A600083DA4 /* MJPhotoToolbar.m in Sources */,
 				F67D355A1B5664A600083DA4 /* MDOrderInfoCell.m in Sources */,
+				683307901C1FF4F700AC6601 /* SSMyOrdersVC.m in Sources */,
 				F67D355B1B5664A600083DA4 /* AFHTTPRequestOperation.m in Sources */,
 				686745561BA91AF7005F59D4 /* SCFBCustomView.m in Sources */,
 				F67D355C1B5664A600083DA4 /* NSString+encrypto.m in Sources */,
@@ -2842,6 +2891,7 @@
 				2EA0CA831B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				6801E3B91BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */,
 				68EB38101C101B220046071E /* SSLoginVC.m in Sources */,
+				683307981C20172D00AC6601 /* SSOrderUnpayCell.m in Sources */,
 				F67D356B1B5664A600083DA4 /* OrderDetailReciverTableCell.m in Sources */,
 				F67D356C1B5664A600083DA4 /* AFURLSessionManager.m in Sources */,
 				6878F7821BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */,
@@ -2864,6 +2914,7 @@
 				686A499F1C0F11EE00558D5D /* SSAppointmentTimeView.m in Sources */,
 				F6F7033A1B6A52B80094E7A8 /* JKAlertDialog.m in Sources */,
 				687ED12B1C0D955700728E65 /* NSString+allSpace.m in Sources */,
+				6833079F1C20185500AC6601 /* SSMyOrderModel.m in Sources */,
 				F67D35751B5664A600083DA4 /* UIView+WebCacheOperation.m in Sources */,
 				F67D35771B5664A600083DA4 /* Order.m in Sources */,
 				F67D35781B5664A600083DA4 /* ReleseOrderViewController.m in Sources */,
@@ -3057,6 +3108,7 @@
 				F6C6AD911B12F42F0007A980 /* MJPhotoToolbar.m in Sources */,
 				E46C49261B3C48BC00CE0033 /* MDOrderInfoCell.m in Sources */,
 				F6C6AD711B12F42F0007A980 /* AFHTTPRequestOperation.m in Sources */,
+				6833078F1C1FF4F700AC6601 /* SSMyOrdersVC.m in Sources */,
 				F6C6AD9E1B12F42F0007A980 /* NSString+encrypto.m in Sources */,
 				686745551BA91AF7005F59D4 /* SCFBCustomView.m in Sources */,
 				F66CA1431B1EEF52006BDDB8 /* DataBase.m in Sources */,
@@ -3080,6 +3132,7 @@
 				2EA0CA821B84C05C00BBAA63 /* JSONKit.m in Sources */,
 				6801E3B81BC8B1BD00CE13ED /* KMMonthDateCalendarView.m in Sources */,
 				68EB380F1C101B220046071E /* SSLoginVC.m in Sources */,
+				683307971C20172D00AC6601 /* SSOrderUnpayCell.m in Sources */,
 				F6C6AD791B12F42F0007A980 /* AFURLSessionManager.m in Sources */,
 				F6C6ADB91B12F42F0007A980 /* UIImageView+AFNetworking.m in Sources */,
 				6878F7811BB1559800E33ACD /* EDSBusinessShouldKnow.m in Sources */,
@@ -3102,6 +3155,7 @@
 				686A499E1C0F11EE00558D5D /* SSAppointmentTimeView.m in Sources */,
 				F6F703191B68D8740094E7A8 /* JKAlertDialog.m in Sources */,
 				687ED12A1C0D955700728E65 /* NSString+allSpace.m in Sources */,
+				6833079E1C20185500AC6601 /* SSMyOrderModel.m in Sources */,
 				F6441B5B1B3D47B100EA3C9D /* Order.m in Sources */,
 				F62E8D181B302AFD006F3862 /* ReleseOrderViewController.m in Sources */,
 				F62E8D0F1B30084A006F3862 /* MessageModel.m in Sources */,

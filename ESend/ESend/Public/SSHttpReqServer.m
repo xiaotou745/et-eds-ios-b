@@ -74,4 +74,20 @@
     return operation;
 }
 
+/*
+ 1.1.9 商户app首页获取商家订单列表
+ url:/order/shansongqueryorderb POST
+ */
++ (AFHTTPRequestOperation *)shanSongQueryOrderB:(NSDictionary *)dict
+                                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@order/shansongqueryorderb",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
 @end

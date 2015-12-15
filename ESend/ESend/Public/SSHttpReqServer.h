@@ -34,4 +34,15 @@
 + (AFHTTPRequestOperation *)businesssendcode:(NSDictionary *)dict
                                      success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/*
+ 1.1.9 商户app首页获取商家订单列表
+ url:/order/shansongqueryorderb POST
+ */
+///来源（默认1、旧后台，2新后台 3闪送）,例如：1,3
+///0:待接单订单列表 2 待取货订单列表 4 配送中订单列表 50待支付 1已完成
++ (AFHTTPRequestOperation *)shanSongQueryOrderB:(NSDictionary *)dict
+                                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 @end
