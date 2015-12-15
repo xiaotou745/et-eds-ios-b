@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSpayViewController">
             <connections>
+                <outlet property="payActionBtn" destination="aa9-XP-CnZ" id="LCG-Zu-MZi"/>
+                <outlet property="payInfoBgView" destination="Mm8-2a-nJX" id="Mg3-Kp-reM"/>
+                <outlet property="payMethodTable" destination="IPf-FX-gaQ" id="cXe-hI-rLx"/>
+                <outlet property="payMethodTableHeight" destination="wZd-g1-OTq" id="5Yk-uF-G5S"/>
+                <outlet property="payTotalLabel" destination="6gj-OY-Cz4" id="S51-Ic-fpf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -13,7 +19,77 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mm8-2a-nJX">
+                    <rect key="frame" x="0.0" y="64" width="600" height="55"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gj-OY-Cz4">
+                            <rect key="frame" x="80" y="0.0" width="510" height="55"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="支付金额:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pig-Ow-0jh">
+                            <rect key="frame" x="8" y="0.0" width="70" height="55"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="yZ0-dt-ORD"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="6gj-OY-Cz4" secondAttribute="trailing" constant="10" id="RZf-DE-3Hn"/>
+                        <constraint firstAttribute="bottom" secondItem="Pig-Ow-0jh" secondAttribute="bottom" id="e5g-hh-MMa"/>
+                        <constraint firstItem="6gj-OY-Cz4" firstAttribute="top" secondItem="Mm8-2a-nJX" secondAttribute="top" id="iU4-Q0-L2P"/>
+                        <constraint firstAttribute="bottom" secondItem="6gj-OY-Cz4" secondAttribute="bottom" id="lR6-yj-kVl"/>
+                        <constraint firstAttribute="height" constant="55" id="lXk-df-6SZ"/>
+                        <constraint firstItem="6gj-OY-Cz4" firstAttribute="leading" secondItem="Pig-Ow-0jh" secondAttribute="trailing" id="t8Q-0j-gMy"/>
+                        <constraint firstItem="Pig-Ow-0jh" firstAttribute="top" secondItem="Mm8-2a-nJX" secondAttribute="top" id="vFd-Tb-DUI"/>
+                        <constraint firstItem="Pig-Ow-0jh" firstAttribute="leading" secondItem="Mm8-2a-nJX" secondAttribute="leading" constant="10" id="wxW-h9-dRU"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IPf-FX-gaQ">
+                    <rect key="frame" x="0.0" y="129" width="600" height="128"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="128" id="wZd-g1-OTq"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="9BI-n8-8Xr"/>
+                        <outlet property="delegate" destination="-1" id="RTi-DT-bis"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aa9-XP-CnZ">
+                    <rect key="frame" x="10" y="297" width="580" height="44"/>
+                    <animations/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="1gX-2F-8UX"/>
+                    </constraints>
+                    <state key="normal" title="确认支付"/>
+                </button>
+            </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="aa9-XP-CnZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="Ki4-e1-3SZ"/>
+                <constraint firstItem="Mm8-2a-nJX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="OQL-Cq-6Hy"/>
+                <constraint firstItem="IPf-FX-gaQ" firstAttribute="top" secondItem="Mm8-2a-nJX" secondAttribute="bottom" constant="10" id="Yps-YX-Z8U"/>
+                <constraint firstAttribute="trailing" secondItem="IPf-FX-gaQ" secondAttribute="trailing" id="Yr0-HE-RvF"/>
+                <constraint firstAttribute="trailing" secondItem="aa9-XP-CnZ" secondAttribute="trailing" constant="10" id="bK8-SW-F46"/>
+                <constraint firstItem="aa9-XP-CnZ" firstAttribute="top" secondItem="IPf-FX-gaQ" secondAttribute="bottom" constant="40" id="d4m-M5-naT"/>
+                <constraint firstItem="IPf-FX-gaQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="d7p-nC-1VR"/>
+                <constraint firstAttribute="trailing" secondItem="Mm8-2a-nJX" secondAttribute="trailing" id="sEO-BZ-KTS"/>
+                <constraint firstItem="Mm8-2a-nJX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="y7s-Ma-rO5"/>
+            </constraints>
         </view>
     </objects>
 </document>

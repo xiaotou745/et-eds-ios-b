@@ -65,6 +65,14 @@
 		68090EA51BA2B248000680D8 /* EDSFullfillMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */; };
 		68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */; };
 		68090EA71BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */; };
+		68107CB41C1FC05E00DE1E9C /* SSRemainingBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68107CB21C1FC05E00DE1E9C /* SSRemainingBalanceCell.m */; };
+		68107CB51C1FC05E00DE1E9C /* SSRemainingBalanceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68107CB21C1FC05E00DE1E9C /* SSRemainingBalanceCell.m */; };
+		68107CB61C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68107CB31C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib */; };
+		68107CB71C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68107CB31C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib */; };
+		68107CBB1C1FC6E300DE1E9C /* SSPayMethodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68107CB91C1FC6E300DE1E9C /* SSPayMethodCell.m */; };
+		68107CBC1C1FC6E300DE1E9C /* SSPayMethodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68107CB91C1FC6E300DE1E9C /* SSPayMethodCell.m */; };
+		68107CBD1C1FC6E300DE1E9C /* SSPayMethodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68107CBA1C1FC6E300DE1E9C /* SSPayMethodCell.xib */; };
+		68107CBE1C1FC6E300DE1E9C /* SSPayMethodCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68107CBA1C1FC6E300DE1E9C /* SSPayMethodCell.xib */; };
 		6811E0CB1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0CA1BCA5B9200F81F03 /* RecordTypeModel.m */; };
 		6811E0CC1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0CA1BCA5B9200F81F03 /* RecordTypeModel.m */; };
 		6811E0CF1BCA5C5300F81F03 /* DayBillInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6811E0CE1BCA5C5300F81F03 /* DayBillInfo.m */; };
@@ -682,12 +690,19 @@
 		68090EA11BA2B248000680D8 /* EDSFullfillMoneyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSFullfillMoneyVC.h; path = ../EDSFullfillMoneyVC.h; sourceTree = "<group>"; };
 		68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDSFullfillMoneyVC.m; path = ../EDSFullfillMoneyVC.m; sourceTree = "<group>"; };
 		68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EDSFullfillMoneyVC.xib; path = ../EDSFullfillMoneyVC.xib; sourceTree = "<group>"; };
+		68107CB11C1FC05E00DE1E9C /* SSRemainingBalanceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSRemainingBalanceCell.h; sourceTree = "<group>"; };
+		68107CB21C1FC05E00DE1E9C /* SSRemainingBalanceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSRemainingBalanceCell.m; sourceTree = "<group>"; };
+		68107CB31C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSRemainingBalanceCell.xib; sourceTree = "<group>"; };
+		68107CB81C1FC6E300DE1E9C /* SSPayMethodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPayMethodCell.h; sourceTree = "<group>"; };
+		68107CB91C1FC6E300DE1E9C /* SSPayMethodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPayMethodCell.m; sourceTree = "<group>"; };
+		68107CBA1C1FC6E300DE1E9C /* SSPayMethodCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSPayMethodCell.xib; sourceTree = "<group>"; };
 		6811E0C91BCA5B9200F81F03 /* RecordTypeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordTypeModel.h; sourceTree = "<group>"; };
 		6811E0CA1BCA5B9200F81F03 /* RecordTypeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordTypeModel.m; sourceTree = "<group>"; };
 		6811E0CD1BCA5C5300F81F03 /* DayBillInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayBillInfo.h; sourceTree = "<group>"; };
 		6811E0CE1BCA5C5300F81F03 /* DayBillInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayBillInfo.m; sourceTree = "<group>"; };
 		6811E0D11BCA5D2000F81F03 /* DayBillDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayBillDetailInfo.h; sourceTree = "<group>"; };
 		6811E0D21BCA5D2000F81F03 /* DayBillDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayBillDetailInfo.m; sourceTree = "<group>"; };
+		6833078A1C1FE86C00AC6601 /* SSPayMethodTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPayMethodTypes.h; sourceTree = "<group>"; };
 		684A39AA1BD644E60076CE8D /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		68580C851BA7BB7E0082C18C /* EDSOrderStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSOrderStatisticsVC.h; path = ../EDSOrderStatisticsVC.h; sourceTree = "<group>"; };
@@ -1457,6 +1472,20 @@
 			name = subViews;
 			sourceTree = "<group>";
 		};
+		68107CB01C1FBFF900DE1E9C /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				68107CB11C1FC05E00DE1E9C /* SSRemainingBalanceCell.h */,
+				68107CB21C1FC05E00DE1E9C /* SSRemainingBalanceCell.m */,
+				68107CB31C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib */,
+				68107CB81C1FC6E300DE1E9C /* SSPayMethodCell.h */,
+				68107CB91C1FC6E300DE1E9C /* SSPayMethodCell.m */,
+				68107CBA1C1FC6E300DE1E9C /* SSPayMethodCell.xib */,
+				6833078A1C1FE86C00AC6601 /* SSPayMethodTypes.h */,
+			);
+			path = cells;
+			sourceTree = "<group>";
+		};
 		6811E0C81BCA5B3600F81F03 /* dataModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1628,6 +1657,7 @@
 		688F5C0F1C12D03E0031ADE4 /* SSpay */ = {
 			isa = PBXGroup;
 			children = (
+				68107CB01C1FBFF900DE1E9C /* cells */,
 				688F5C101C12D0680031ADE4 /* SSpayViewController.h */,
 				688F5C111C12D0680031ADE4 /* SSpayViewController.m */,
 				688F5C121C12D0680031ADE4 /* SSpayViewController.xib */,
@@ -2601,6 +2631,7 @@
 				68580C941BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				CF07AEE41BAEB30D005A93EB /* MNDatePicker.xib in Resources */,
 				F67D35F41B5664A600083DA4 /* back_nor@2x.png in Resources */,
+				68107CB71C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib in Resources */,
 				686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68AE2BDF1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
 				6801E3C11BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */,
@@ -2647,6 +2678,7 @@
 				F62A73ED1B5CCA84001632B5 /* 2@2x.png in Resources */,
 				F67D36081B5664A600083DA4 /* photo_default@2x.png in Resources */,
 				F67D36091B5664A600083DA4 /* Address.sqlite in Resources */,
+				68107CBE1C1FC6E300DE1E9C /* SSPayMethodCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2707,11 +2739,13 @@
 				F66CA1281B1DC407006BDDB8 /* blue_border_btn_nor@2x.png in Resources */,
 				6801E3C01BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */,
 				68AE2BDE1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
+				68107CB61C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib in Resources */,
 				F637CF511B437F5700410C24 /* PushConfig.plist in Resources */,
 				E48ECF951B3FBC2F00F09660 /* blue_btn_noSelect@2x.pdf in Resources */,
 				F62E8D021B2E80F1006F3862 /* demo_license@3x.png in Resources */,
 				F6549F7A1B1C27D900FAACEE /* photo_default@2x.png in Resources */,
 				68586AA91BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */,
+				68107CBD1C1FC6E300DE1E9C /* SSPayMethodCell.xib in Resources */,
 				F66CA15D1B1EF5F9006BDDB8 /* Address.sqlite in Resources */,
 				688F5C151C12D0680031ADE4 /* SSpayViewController.xib in Resources */,
 			);
@@ -2779,6 +2813,7 @@
 				F67D35531B5664A600083DA4 /* ExpensesInfoModel.m in Sources */,
 				F67D35541B5664A600083DA4 /* AFNetworkReachabilityManager.m in Sources */,
 				F67D35551B5664A600083DA4 /* RSADataVerifier.m in Sources */,
+				68107CB51C1FC05E00DE1E9C /* SSRemainingBalanceCell.m in Sources */,
 				F67D35561B5664A600083DA4 /* UIWebView+AFNetworking.m in Sources */,
 				686745451BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */,
 				F67D35571B5664A600083DA4 /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -2819,6 +2854,7 @@
 				686630C31C0708EC009293D3 /* SSEditAdderssViewController.m in Sources */,
 				F67D35721B5664A600083DA4 /* AppDelegate.mm in Sources */,
 				F67D35731B5664A600083DA4 /* OBGradientView.m in Sources */,
+				68107CBC1C1FC6E300DE1E9C /* SSPayMethodCell.m in Sources */,
 				686745661BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
 				68FE8CCB1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */,
 				6867455E1BA91B4C005F59D4 /* ManFactory.m in Sources */,
@@ -3015,6 +3051,7 @@
 				F6C6AD741B12F42F0007A980 /* AFNetworkReachabilityManager.m in Sources */,
 				F6441B551B3D470100EA3C9D /* RSADataVerifier.m in Sources */,
 				F6C6ADBC1B12F42F0007A980 /* UIWebView+AFNetworking.m in Sources */,
+				68107CB41C1FC05E00DE1E9C /* SSRemainingBalanceCell.m in Sources */,
 				F6C6ADB21B12F42F0007A980 /* UIImageView+HighlightedWebCache.m in Sources */,
 				686745441BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.m in Sources */,
 				F6C6AD911B12F42F0007A980 /* MJPhotoToolbar.m in Sources */,
@@ -3055,6 +3092,7 @@
 				686630C21C0708EC009293D3 /* SSEditAdderssViewController.m in Sources */,
 				F6C6AD9F1B12F42F0007A980 /* OBGradientView.m in Sources */,
 				E46C49351B3C4A2D00CE0033 /* MDSenderDetailCell.m in Sources */,
+				68107CBB1C1FC6E300DE1E9C /* SSPayMethodCell.m in Sources */,
 				686745651BA96CF1005F59D4 /* UIImage+tools.m in Sources */,
 				68FE8CCA1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */,
 				6867455D1BA91B4C005F59D4 /* ManFactory.m in Sources */,
