@@ -89,6 +89,10 @@
 		6833079A1C20172D00AC6601 /* SSOrderUnpayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */; };
 		6833079E1C20185500AC6601 /* SSMyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833079D1C20185500AC6601 /* SSMyOrderModel.m */; };
 		6833079F1C20185500AC6601 /* SSMyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833079D1C20185500AC6601 /* SSMyOrderModel.m */; };
+		683307A41C20365900AC6601 /* SSOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 683307A21C20365900AC6601 /* SSOrderDetailVC.m */; };
+		683307A51C20365900AC6601 /* SSOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 683307A21C20365900AC6601 /* SSOrderDetailVC.m */; };
+		683307A61C20365900AC6601 /* SSOrderDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683307A31C20365900AC6601 /* SSOrderDetailVC.xib */; };
+		683307A71C20365900AC6601 /* SSOrderDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683307A31C20365900AC6601 /* SSOrderDetailVC.xib */; };
 		684A39AC1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; };
 		684A39AD1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; };
 		68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
@@ -722,6 +726,9 @@
 		6833079B1C20178200AC6601 /* SSMyOrderStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMyOrderStatus.h; sourceTree = "<group>"; };
 		6833079C1C20185500AC6601 /* SSMyOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMyOrderModel.h; sourceTree = "<group>"; };
 		6833079D1C20185500AC6601 /* SSMyOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMyOrderModel.m; sourceTree = "<group>"; };
+		683307A11C20365900AC6601 /* SSOrderDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderDetailVC.h; sourceTree = "<group>"; };
+		683307A21C20365900AC6601 /* SSOrderDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderDetailVC.m; sourceTree = "<group>"; };
+		683307A31C20365900AC6601 /* SSOrderDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderDetailVC.xib; sourceTree = "<group>"; };
 		684A39AA1BD644E60076CE8D /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		68580C851BA7BB7E0082C18C /* EDSOrderStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSOrderStatisticsVC.h; path = ../EDSOrderStatisticsVC.h; sourceTree = "<group>"; };
@@ -1522,6 +1529,7 @@
 		6833078B1C1FF4DC00AC6601 /* myOrders */ = {
 			isa = PBXGroup;
 			children = (
+				683307A01C20361D00AC6601 /* details */,
 				683307931C20096A00AC6601 /* cell */,
 				6833078C1C1FF4F700AC6601 /* SSMyOrdersVC.h */,
 				6833078D1C1FF4F700AC6601 /* SSMyOrdersVC.m */,
@@ -1541,6 +1549,16 @@
 				683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		683307A01C20361D00AC6601 /* details */ = {
+			isa = PBXGroup;
+			children = (
+				683307A11C20365900AC6601 /* SSOrderDetailVC.h */,
+				683307A21C20365900AC6601 /* SSOrderDetailVC.m */,
+				683307A31C20365900AC6601 /* SSOrderDetailVC.xib */,
+			);
+			path = details;
 			sourceTree = "<group>";
 		};
 		684A39A91BD644E60076CE8D /* CustomAlertView */ = {
@@ -2680,6 +2698,7 @@
 				686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68AE2BDF1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
 				6801E3C11BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */,
+				683307A71C20365900AC6601 /* SSOrderDetailVC.xib in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				CF22B0301BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
 				685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
@@ -2750,6 +2769,7 @@
 				685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
 				68090EA61BA2B248000680D8 /* EDSFullfillMoneyVC.xib in Resources */,
 				F6549F811B1C364100FAACEE /* verifty_icon@2x.png in Resources */,
+				683307A61C20365900AC6601 /* SSOrderDetailVC.xib in Resources */,
 				CF22B0141BAB2BC7000F19D9 /* EDSHomepageVC.xib in Resources */,
 				F678A7E11B29787E0026DA37 /* alipay_icon@2x.png in Resources */,
 				686630C41C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */,
@@ -2973,6 +2993,7 @@
 				68C3D71E1BCBA6140081D082 /* UIImage+KmImg.m in Sources */,
 				F67D35A51B5664A600083DA4 /* Encryption.m in Sources */,
 				F67D35A61B5664A600083DA4 /* FMDatabasePool.m in Sources */,
+				683307A51C20365900AC6601 /* SSOrderDetailVC.m in Sources */,
 				F67D35A71B5664A600083DA4 /* SupermanOrderModel.m in Sources */,
 				F67D35A81B5664A600083DA4 /* BussinessModel.m in Sources */,
 				F67D35A91B5664A600083DA4 /* SDWebImageManager.m in Sources */,
@@ -3214,6 +3235,7 @@
 				68C3D71D1BCBA6140081D082 /* UIImage+KmImg.m in Sources */,
 				F66CA1571B1EEF9C006BDDB8 /* FMDatabasePool.m in Sources */,
 				F6441B1E1B3BC2AC00EA3C9D /* SupermanOrderModel.m in Sources */,
+				683307A41C20365900AC6601 /* SSOrderDetailVC.m in Sources */,
 				F62E8D061B2EB23D006F3862 /* BussinessModel.m in Sources */,
 				F6C6ADAC1B12F42F0007A980 /* SDWebImageManager.m in Sources */,
 				F660625C1B3AC7EE00F9AF0A /* ThirdOrderTableViewCell.m in Sources */,

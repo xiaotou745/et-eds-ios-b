@@ -7,8 +7,24 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSMyOrdersVC">
             <connections>
+                <outlet property="buttonCompleted" destination="7Ss-Fd-skv" id="Uhf-EB-orJ"/>
+                <outlet property="buttonOndelivering" destination="hhW-tG-ehI" id="1F9-Oa-NoO"/>
+                <outlet property="buttonOntaking" destination="xYh-Bj-NHj" id="nIv-WJ-bYo"/>
+                <outlet property="buttonUngrab" destination="aq2-Nc-afL" id="Z0d-eQ-mQc"/>
+                <outlet property="buttonUnpay" destination="szn-Ir-wIL" id="o4o-lM-CdB"/>
+                <outlet property="contentScroller" destination="lcb-BI-4OJ" id="fiW-Bq-XyV"/>
                 <outlet property="contentScrollerWidth" destination="L4c-aU-XR9" id="gkS-Cb-Xnt"/>
+                <outlet property="optionHeaderScroller" destination="4cI-4m-qPy" id="p62-DZ-IsX"/>
                 <outlet property="optionHeaderScrollerWidth" destination="30X-ZP-8pq" id="CaL-A0-FkF"/>
+                <outlet property="separator11" destination="nBe-iu-oGS" id="gB5-cx-xgV"/>
+                <outlet property="separator12" destination="Dkh-0Q-Q2s" id="qLk-aR-wCg"/>
+                <outlet property="separator13" destination="ihb-yH-Z3B" id="Y7q-LN-6ej"/>
+                <outlet property="separator14" destination="Pw7-6U-nzY" id="o3g-n0-1qU"/>
+                <outlet property="tableCompleted" destination="SK0-1G-hlR" id="q5v-ea-vLs"/>
+                <outlet property="tableOndelivering" destination="Yai-sa-Zy0" id="Ic8-9o-cZ4"/>
+                <outlet property="tableOntaking" destination="Soq-hm-OYP" id="9Ik-mk-U23"/>
+                <outlet property="tableUngrab" destination="DuA-ka-YE7" id="r0M-hP-s93"/>
+                <outlet property="tableUnpay" destination="kco-io-q7D" id="Vtw-M7-97q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,6 +48,9 @@
                                             <state key="normal" title="待支付(0)">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="iip-Qk-RJL"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nBe-iu-oGS" userLabel="separator11">
                                             <rect key="frame" x="178" y="3" width="1" height="30"/>
@@ -47,6 +66,9 @@
                                             <state key="normal" title="待接单(0)">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="j2G-Dq-KLX"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xYh-Bj-NHj">
                                             <rect key="frame" x="362" y="0.0" width="176" height="34"/>
@@ -54,6 +76,9 @@
                                             <state key="normal" title="取货中(0)">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="iYf-Cd-eoi"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dkh-0Q-Q2s" userLabel="separator12">
                                             <rect key="frame" x="359" y="3" width="1" height="30"/>
@@ -69,6 +94,9 @@
                                             <state key="normal" title="配送中(0)">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="X15-kR-7Z6"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pw7-6U-nzY" userLabel="separator14">
                                             <rect key="frame" x="721" y="3" width="1" height="30"/>
@@ -80,6 +108,9 @@
                                             <state key="normal" title="已完成(0)">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="9FM-80-pmI"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <animations/>
@@ -232,6 +263,9 @@
                                 <constraint firstItem="4jS-Eh-FDC" firstAttribute="leading" secondItem="lcb-BI-4OJ" secondAttribute="leading" id="PG5-xY-1WC"/>
                                 <constraint firstItem="4jS-Eh-FDC" firstAttribute="centerY" secondItem="lcb-BI-4OJ" secondAttribute="centerY" id="x4w-y4-2ZN"/>
                             </constraints>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="HVE-XE-JUy"/>
+                            </connections>
                         </scrollView>
                     </subviews>
                     <animations/>
