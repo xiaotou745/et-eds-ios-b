@@ -187,6 +187,8 @@
 		689CA4901C2268E500D9073E /* SSOrderUngrabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */; };
 		689CA4911C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */; };
 		689CA4921C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */; };
+		689CA4951C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4941C22EF9C00D9073E /* SSOrderDetailModel.m */; };
+		689CA4961C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4941C22EF9C00D9073E /* SSOrderDetailModel.m */; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; };
@@ -810,6 +812,8 @@
 		689CA48C1C2268E500D9073E /* SSOrderUngrabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderUngrabCell.h; sourceTree = "<group>"; };
 		689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderUngrabCell.m; sourceTree = "<group>"; };
 		689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderUngrabCell.xib; sourceTree = "<group>"; };
+		689CA4931C22EF9C00D9073E /* SSOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderDetailModel.h; sourceTree = "<group>"; };
+		689CA4941C22EF9C00D9073E /* SSOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderDetailModel.m; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -1567,6 +1571,8 @@
 				683307A11C20365900AC6601 /* SSOrderDetailVC.h */,
 				683307A21C20365900AC6601 /* SSOrderDetailVC.m */,
 				683307A31C20365900AC6601 /* SSOrderDetailVC.xib */,
+				689CA4931C22EF9C00D9073E /* SSOrderDetailModel.h */,
+				689CA4941C22EF9C00D9073E /* SSOrderDetailModel.m */,
 			);
 			path = details;
 			sourceTree = "<group>";
@@ -2866,6 +2872,7 @@
 				CF22B0321BAB4A61000F19D9 /* MJRefreshComponent.m in Sources */,
 				F67D35401B5664A600083DA4 /* MDSubOrderModel.m in Sources */,
 				F67D35411B5664A600083DA4 /* RDVTabBar.m in Sources */,
+				689CA4961C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */,
 				F67D35421B5664A600083DA4 /* SDWebImagePrefetcher.m in Sources */,
 				F67D35431B5664A600083DA4 /* MD5DataSigner.m in Sources */,
 				686A49951C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */,
@@ -3109,6 +3116,7 @@
 				CF22B0311BAB4A61000F19D9 /* MJRefreshComponent.m in Sources */,
 				E46C49471B3C713700CE0033 /* MDSubOrderModel.m in Sources */,
 				F6C6ADA21B12F42F0007A980 /* RDVTabBar.m in Sources */,
+				689CA4951C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */,
 				F6C6ADAD1B12F42F0007A980 /* SDWebImagePrefetcher.m in Sources */,
 				F6441B511B3D470100EA3C9D /* MD5DataSigner.m in Sources */,
 				686A49941C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */,

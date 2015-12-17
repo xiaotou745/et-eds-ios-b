@@ -45,4 +45,16 @@
                                         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+/*
+ 1.1.2获取订单详情
+ 
+ url:/order/getorderdetails 创建人：胡灵波 post 参数
+ 
+ 参数	描述	允许为空
+ orderId	订单id	否
+ businessId	商户id,商户ID大于0返回取货码	是
+ */
++ (AFHTTPRequestOperation *)shanSongGetOrderDetails:(NSDictionary *)dict
+                                            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface SSOrderDetailVC : BaseViewController
-
+@property (nonatomic,copy) NSString * orderId;
 @end

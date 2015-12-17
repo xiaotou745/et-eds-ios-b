@@ -422,19 +422,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SSOrderDetailVC * odf9c = [[SSOrderDetailVC alloc] initWithNibName:NSStringFromClass([SSOrderDetailVC class]) bundle:nil];
+    NSInteger orderId;
     if (tableView == self.tableUnpay) {
-        
+        SSMyOrderModel * orderModel = [_datasourceUnpay objectAtIndex:indexPath.row];
+        orderId = orderModel.orderId;
     }else if (tableView == self.tableUngrab) {
-        
+        SSMyOrderModel * orderModel = [_datasourceUngrab objectAtIndex:indexPath.row];
+        orderId = orderModel.orderId;
     }else if (tableView == self.tableOntaking) {
-        
+        SSMyOrderModel * orderModel = [_datasourceOntaking objectAtIndex:indexPath.row];
+        orderId = orderModel.orderId;
     }else if (tableView == self.tableOndelivering) {
-        
+        SSMyOrderModel * orderModel = [_datasourceOndelivering objectAtIndex:indexPath.row];
+        orderId = orderModel.orderId;
     }else if (tableView == self.tableCompleted) {
-        
+        SSMyOrderModel * orderModel = [_datasourceCompleted objectAtIndex:indexPath.row];
+        orderId = orderModel.orderId;
     }else{
         
     }
+    odf9c.orderId = [NSString stringWithFormat:@"%ld",orderId];
     [self.navigationController pushViewController:odf9c animated:YES];
 }
 

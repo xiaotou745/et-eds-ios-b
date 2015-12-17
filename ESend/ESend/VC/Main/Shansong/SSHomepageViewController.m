@@ -121,7 +121,7 @@
     self.titleLabel.text = @"E代送";
     [self.leftBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.leftBtn addTarget:self action:@selector(clickUserVC) forControlEvents:UIControlEventTouchUpInside];
-    [self.rightBtn setImage:[UIImage imageNamed:@"order_icon"] forState:UIControlStateNormal];
+    [self.rightBtn setImage:[UIImage imageNamed:@"ss_nav_order"] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(clickMyOrders) forControlEvents:UIControlEventTouchUpInside];
     
     [self addObserver:self forKeyPath:@"api_pick_now" options:NSKeyValueObservingOptionNew context:NULL];

@@ -90,4 +90,25 @@
     return operation;
 }
 
+/*
+ 1.1.2获取订单详情
+ 
+ url:/order/getorderdetails 创建人：胡灵波 post 参数
+ 
+ 参数	描述	允许为空
+ orderId	订单id	否
+ businessId	商户id,商户ID大于0返回取货码	是
+ */
++ (AFHTTPRequestOperation *)shanSongGetOrderDetails:(NSDictionary *)dict
+                                            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@order/getorderdetails",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
 @end
