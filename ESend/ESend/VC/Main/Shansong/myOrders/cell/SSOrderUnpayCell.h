@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "SSMyOrderModel.h"
 
-@interface SSOrderUnpayCell : UITableViewCell
+@class SSOrderUnpayCell;
+@protocol SSOrderUnpayCellDelegate <NSObject>
 
+@optional
+- (void)orderUnpayCell:(SSOrderUnpayCell *)cell payWithId:(NSString *)orderId;
+
+@end
+
+@interface SSOrderUnpayCell : UITableViewCell
 @property (nonatomic,strong) SSMyOrderModel * datasource;
+@property (nonatomic,weak) id<SSOrderUnpayCellDelegate>delegate;
 
 @end

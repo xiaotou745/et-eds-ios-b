@@ -14,6 +14,7 @@
 #import "SSOrderDetailVC.h"
 #import "SSHttpReqServer.h"
 #import "SSMyOrderModel.h"
+#import "SSOrderUngrabCell.h"
 
 /*
  typedef NS_ENUM(NSInteger, SSMyOrderStatus) {
@@ -40,7 +41,7 @@
 
 #define SS_DEFALT_PAGE_SIZE  15
 
-@interface SSMyOrdersVC ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+@interface SSMyOrdersVC ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,SSOrderUnpayCellDelegate,SSOrderUngrabCellDelegate>
 {
     SSMyOrderStatus _orderListStatus;           // 当前订单状态
     
@@ -366,32 +367,34 @@
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
         }
         cell.datasource = [_datasourceUnpay objectAtIndex:indexPath.row];
+        cell.delegate = self;
         return cell;
     }else if (tableView == self.tableUngrab) {
-        SSOrderUnpayCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_UNPAY_CELLID];
+        SSOrderUngrabCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_UNGRAB_CELLID];
         if (nil == cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUngrabCell class]) owner:self options:nil] lastObject];
         }
         cell.datasource = [_datasourceUngrab objectAtIndex:indexPath.row];
+        cell.delegate = self;
         return cell;
     }else if (tableView == self.tableOntaking) {
-        SSOrderUnpayCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_UNPAY_CELLID];
+        SSOrderUngrabCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_ONTAKING_CELLID];
         if (nil == cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUngrabCell class]) owner:self options:nil] lastObject];
         }
         cell.datasource = [_datasourceOntaking objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableOndelivering) {
-        SSOrderUnpayCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_UNPAY_CELLID];
+        SSOrderUngrabCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_ONDELIVERING_CELLID];
         if (nil == cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUngrabCell class]) owner:self options:nil] lastObject];
         }
         cell.datasource = [_datasourceOndelivering objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableCompleted) {
-        SSOrderUnpayCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_UNPAY_CELLID];
+        SSOrderUngrabCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_COMPLETED_CELLID];
         if (nil == cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUngrabCell class]) owner:self options:nil] lastObject];
         }
         cell.datasource = [_datasourceCompleted objectAtIndex:indexPath.row];
         return cell;
@@ -401,19 +404,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 152;
     if (tableView == self.tableUnpay) {
-        
+        return 152;
     }else if (tableView == self.tableUngrab) {
-
+        return 198;
     }else if (tableView == self.tableOntaking) {
-
+        return 198;
     }else if (tableView == self.tableOndelivering) {
-
+        return 198;
     }else if (tableView == self.tableCompleted) {
-
+        return 198;
     }else{
-        
+        return 0;
     }
 }
 
@@ -433,15 +435,6 @@
     }else{
         
     }
-//    TaskInRegionModel * regionModel = nil;
-//    if (_selectedStatus == OrderStatusAccepted) {
-//        regionModel = [_TLIR_DataSourceFirst objectAtIndex:indexPath.row];
-//    }else if (_selectedStatus == OrderStatusReceive) {
-//        regionModel = [_TLIR_DataSourceSecond objectAtIndex:indexPath.row];
-//    }else if (_selectedStatus == OrderStatusComplete) {
-//        regionModel = [_TLIR_DataSourceThird objectAtIndex:indexPath.row];
-//    }
-//    odf9c.grabOrderId = regionModel.grabOrderId;
     [self.navigationController pushViewController:odf9c animated:YES];
 }
 
@@ -889,6 +882,16 @@
         [blockSelf endTheFooterRefreshingWithStatus:_orderListStatus];
     }];
 
+}
+
+#pragma mark - 支付未支付的代理
+- (void)orderUnpayCell:(SSOrderUnpayCell *)cell payWithId:(NSString *)orderId{
+    
+}
+
+#pragma mark - 加小费
+- (void)orderUngrabCell:(SSOrderUngrabCell *)cell payXiaoFeeWithId:(NSString *)orderId{
+    
 }
 
 

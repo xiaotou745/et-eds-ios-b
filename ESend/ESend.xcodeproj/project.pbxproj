@@ -183,6 +183,10 @@
 		688F5C141C12D0680031ADE4 /* SSpayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 688F5C111C12D0680031ADE4 /* SSpayViewController.m */; };
 		688F5C151C12D0680031ADE4 /* SSpayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688F5C121C12D0680031ADE4 /* SSpayViewController.xib */; };
 		688F5C161C12D0680031ADE4 /* SSpayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688F5C121C12D0680031ADE4 /* SSpayViewController.xib */; };
+		689CA48F1C2268E500D9073E /* SSOrderUngrabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */; };
+		689CA4901C2268E500D9073E /* SSOrderUngrabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */; };
+		689CA4911C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */; };
+		689CA4921C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; };
@@ -803,6 +807,9 @@
 		688F5C101C12D0680031ADE4 /* SSpayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSpayViewController.h; sourceTree = "<group>"; };
 		688F5C111C12D0680031ADE4 /* SSpayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSpayViewController.m; sourceTree = "<group>"; };
 		688F5C121C12D0680031ADE4 /* SSpayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSpayViewController.xib; sourceTree = "<group>"; };
+		689CA48C1C2268E500D9073E /* SSOrderUngrabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderUngrabCell.h; sourceTree = "<group>"; };
+		689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderUngrabCell.m; sourceTree = "<group>"; };
+		689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderUngrabCell.xib; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -1547,6 +1554,9 @@
 				683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */,
 				684A5D431C218BFB00F28A23 /* SSMyOrderModel.h */,
 				684A5D441C218BFB00F28A23 /* SSMyOrderModel.m */,
+				689CA48C1C2268E500D9073E /* SSOrderUngrabCell.h */,
+				689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */,
+				689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2741,6 +2751,7 @@
 				CF22B0151BAB2BC7000F19D9 /* EDSHomepageVC.xib in Resources */,
 				F62A73EB1B5CCA84001632B5 /* 2@1x.png in Resources */,
 				F62A73ED1B5CCA84001632B5 /* 2@2x.png in Resources */,
+				689CA4921C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */,
 				F67D36081B5664A600083DA4 /* photo_default@2x.png in Resources */,
 				F67D36091B5664A600083DA4 /* Address.sqlite in Resources */,
 				68107CBE1C1FC6E300DE1E9C /* SSPayMethodCell.xib in Resources */,
@@ -2808,6 +2819,7 @@
 				68AE2BDE1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
 				68107CB61C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib in Resources */,
 				F637CF511B437F5700410C24 /* PushConfig.plist in Resources */,
+				689CA4911C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */,
 				E48ECF951B3FBC2F00F09660 /* blue_btn_noSelect@2x.pdf in Resources */,
 				683307911C1FF4F700AC6601 /* SSMyOrdersVC.xib in Resources */,
 				F62E8D021B2E80F1006F3862 /* demo_license@3x.png in Resources */,
@@ -2893,6 +2905,7 @@
 				686745561BA91AF7005F59D4 /* SCFBCustomView.m in Sources */,
 				F67D355C1B5664A600083DA4 /* NSString+encrypto.m in Sources */,
 				F67D355D1B5664A600083DA4 /* DataBase.m in Sources */,
+				689CA4901C2268E500D9073E /* SSOrderUngrabCell.m in Sources */,
 				F67D355E1B5664A600083DA4 /* CustomTextView.m in Sources */,
 				F67D355F1B5664A600083DA4 /* AFURLRequestSerialization.m in Sources */,
 				68586AA81BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */,
@@ -3135,6 +3148,7 @@
 				686745551BA91AF7005F59D4 /* SCFBCustomView.m in Sources */,
 				F66CA1431B1EEF52006BDDB8 /* DataBase.m in Sources */,
 				F6C6AD7C1B12F42F0007A980 /* CustomTextView.m in Sources */,
+				689CA48F1C2268E500D9073E /* SSOrderUngrabCell.m in Sources */,
 				F6C6AD771B12F42F0007A980 /* AFURLRequestSerialization.m in Sources */,
 				F66CA1241B1D9F3F006BDDB8 /* MapViewController.m in Sources */,
 				68586AA71BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */,

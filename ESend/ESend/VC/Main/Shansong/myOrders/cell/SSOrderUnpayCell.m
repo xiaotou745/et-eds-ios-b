@@ -37,8 +37,11 @@
 }
 
 - (IBAction)cellPay:(UIButton *)sender {
-    NSLog(@"%s",__func__);
+    if ([self.delegate respondsToSelector:@selector(orderUnpayCell:payWithId:)]) {
+        [self.delegate orderUnpayCell:self payWithId:[NSString stringWithFormat:@"%ld",_datasource.orderId]];
+    }
 }
+
 
 - (void)setDatasource:(SSMyOrderModel *)datasource{
     _datasource = datasource;
