@@ -9,6 +9,16 @@
 #import "SSOrderDetailVC.h"
 
 @interface SSOrderDetailVC ()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollerContentHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollerBottomToBound;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *OrderHeaderToTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderContentHeight;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderFaAddrHeight; // default 25;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderShouAddrHeight;  // default 25;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderNameToAddrBottomDistance;  // default 35;有配送信息， 否则 5
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderRemarkHeight;
 
 @end
 
@@ -16,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleLabel.text = @"订单系那个钱";
+    self.titleLabel.text = @"订单详情";
 }
 
 - (void)didReceiveMemoryWarning {
