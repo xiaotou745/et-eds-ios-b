@@ -241,7 +241,7 @@
     
     NSDictionary * paraDict = @{
                                 @"phoneNo":_hp_myPhoneTextField.text,
-                                @"type":@"1",
+                                @"type":@"6",
                                 @"messageType":@"0",
                                 };
 //    if (AES_Security) {

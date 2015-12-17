@@ -12,6 +12,9 @@
 #import "MJRefresh.h"
 #import "UserInfo.h"
 #import "SSOrderDetailVC.h"
+#import "SSHttpReqServer.h"
+#import "SSMyOrderModel.h"
+
 /*
  typedef NS_ENUM(NSInteger, SSMyOrderStatus) {
  SSMyOrderStatusUnpayed = 50,
@@ -135,6 +138,9 @@
 }
 /// 配置头部选取区
 - (void)optionViewsCustomize{
+    self.optionHeaderScroller.layer.borderColor = [SeparatorLineColor CGColor];
+    self.optionHeaderScroller.layer.borderWidth = 0.5f;
+    
     self.separator11.backgroundColor =
     self.separator12.backgroundColor =
     self.separator13.backgroundColor =
@@ -164,6 +170,7 @@
     self.buttonUnpay.backgroundColor =
     self.buttonUnpay.backgroundColor = [UIColor whiteColor];
     
+    self.buttonUnpay.enabled = NO;
     // self.TLIR_OptionIndicator.backgroundColor = BlueColor;
 }
 
@@ -305,9 +312,16 @@
         return;
     }
     [self beginRefresh];
+    [self performSelectorOnMainThread:@selector(adjustOptionScrollerWithX:) withObject:[NSNumber numberWithFloat:x/ScreenWidth] waitUntilDone:YES];
 }
 
-
+- (void)adjustOptionScrollerWithX:(NSNumber *)NumX{
+    CGFloat wholeWidth = self.optionHeaderScrollerWidth.constant;
+    CGFloat buttonWidth = wholeWidth/5;
+    CGFloat buttonHeight = 50;
+    CGRect targetRect = CGRectMake(buttonWidth * [NumX floatValue], 0, buttonWidth, buttonHeight);
+    [self.optionHeaderScroller scrollRectToVisible:targetRect animated:YES];
+}
 /// 按钮事件
 - (IBAction)optionButtonAction:(UIButton *)sender {
     [self _buttonEventWithSender:sender];
@@ -351,30 +365,35 @@
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
         }
+        cell.datasource = [_datasourceUnpay objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableUngrab) {
         SSOrderUnpayCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_UNPAY_CELLID];
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
         }
+        cell.datasource = [_datasourceUngrab objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableOntaking) {
         SSOrderUnpayCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_UNPAY_CELLID];
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
         }
+        cell.datasource = [_datasourceOntaking objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableOndelivering) {
         SSOrderUnpayCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_UNPAY_CELLID];
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
         }
+        cell.datasource = [_datasourceOndelivering objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableCompleted) {
         SSOrderUnpayCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_UNPAY_CELLID];
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUnpayCell class]) owner:self options:nil] lastObject];
         }
+        cell.datasource = [_datasourceCompleted objectAtIndex:indexPath.row];
         return cell;
     }else{
         return 0;
@@ -382,9 +401,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 118;
+    return 152;
     if (tableView == self.tableUnpay) {
-
+        
     }else if (tableView == self.tableUngrab) {
 
     }else if (tableView == self.tableOntaking) {
@@ -427,30 +446,80 @@
 }
 
 #pragma mark - API
+
+- (void)endTheRefreshingWithStatus:(SSMyOrderStatus)status{
+    if (status == SSMyOrderStatusUnpayed) {
+        [self.tableUnpay.header endRefreshing];
+    }else if (status == SSMyOrderStatusUngrab){
+        [self.tableUngrab.header endRefreshing];
+    }else if (status == SSMyOrderStatusOntaking){
+        [self.tableOntaking.header endRefreshing];
+    }else if (status == SSMyOrderStatusOnDelivering){
+        [self.tableOndelivering.header endRefreshing];
+    }else if (status == SSMyOrderStatusCompleted){
+        [self.tableCompleted.header endRefreshing];
+    }
+}
+
+- (void)endOtherRefreshingWithStatus:(SSMyOrderStatus)status{
+    if (status == SSMyOrderStatusUnpayed) {
+        _currentPageUnpay = 1;
+        [self.tableUngrab.header endRefreshing];
+        [self.tableOntaking.header endRefreshing];
+        [self.tableOndelivering.header endRefreshing];
+        [self.tableCompleted.header endRefreshing];
+    }else if (status == SSMyOrderStatusUngrab){
+        _currentPageUngrab = 1;
+        [self.tableUnpay.header endRefreshing];
+        [self.tableOntaking.header endRefreshing];
+        [self.tableOndelivering.header endRefreshing];
+        [self.tableCompleted.header endRefreshing];
+    }else if (status == SSMyOrderStatusOntaking){
+        _currentPageOntaking = 1;
+        [self.tableUnpay.header endRefreshing];
+        [self.tableUngrab.header endRefreshing];
+        [self.tableOndelivering.header endRefreshing];
+        [self.tableCompleted.header endRefreshing];
+    }else if (status == SSMyOrderStatusOnDelivering){
+        _currentPageOndelivering = 1;
+        [self.tableUnpay.header endRefreshing];
+        [self.tableUngrab.header endRefreshing];
+        [self.tableOntaking.header endRefreshing];
+        [self.tableCompleted.header endRefreshing];
+    }else if (status == SSMyOrderStatusCompleted){
+        _currentPageCompleted = 1;
+        [self.tableUnpay.header endRefreshing];
+        [self.tableUngrab.header endRefreshing];
+        [self.tableOntaking.header endRefreshing];
+        [self.tableOndelivering.header endRefreshing];
+    }
+}
+
+- (void)endTheFooterRefreshingWithStatus:(SSMyOrderStatus)status{
+    if (status == SSMyOrderStatusUnpayed) {
+        [self.tableUnpay.footer endRefreshing];
+    }else if (status == SSMyOrderStatusUngrab){
+        [self.tableUngrab.footer endRefreshing];
+    }else if (status == SSMyOrderStatusOntaking){
+        [self.tableOntaking.footer endRefreshing];
+    }else if (status == SSMyOrderStatusOnDelivering){
+        [self.tableOndelivering.footer endRefreshing];
+    }else if (status == SSMyOrderStatusCompleted){
+        [self.tableCompleted.footer endRefreshing];
+    }
+}
+
 /// 订单列表，下拉
 - (void)pullDownReqForList{
     if (_operation) {
         [_operation cancel];
         _operation = nil;
     }
-    if (_selectedStatus == OrderStatusAccepted) {
-        // 重置上拉加载的页码
-        _currentPage1st = 1;
-        [self.TLIR_TableSecond.header endRefreshing];
-        [self.TLIR_TableThird.header endRefreshing];
-    }else if (_selectedStatus == OrderStatusReceive) {
-        _currentPage2nd = 1;
-        [self.TLIR_TableFirst.header endRefreshing];
-        [self.TLIR_TableThird.header endRefreshing];
-    }else if (_selectedStatus == OrderStatusComplete) {
-        _currentPage3rd = 1;
-        [self.TLIR_TableFirst.header endRefreshing];
-        [self.TLIR_TableSecond.header endRefreshing];
-    }
+    [self endOtherRefreshingWithStatus:_orderListStatus];
     NSDictionary * paraData = @{
-                                @"businessId":[NSNumber numberWithInteger:self.businessid],//[NSNumber numberWithInt:2125],//[UserInfo getUserId],
-                                @"status":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
-                                @"regionId":[NSNumber numberWithInteger:self.regionid],//[NSNumber numberWithInteger:1],
+                                @"businessId":[UserInfo getUserId],//[NSNumber numberWithInt:2125],//[UserInfo getUserId],
+                                @"status":[NSString stringWithFormat:@"%ld",(long)_orderListStatus],
+                                @"platform":@"1,3",//[NSNumber numberWithInteger:1],
                                 @"currentPage":[NSNumber numberWithInteger:1],
                                 };
     if (AES_Security) {
@@ -458,85 +527,123 @@
         NSString * aesString = [Security AesEncrypt:jsonString2];
         paraData = @{@"data":aesString,};
     }
-    _operation = [EDSHttpReqManager3 businessGetmyorderb:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (_selectedStatus == OrderStatusAccepted) {
-            [self.TLIR_TableFirst.header endRefreshing];
-        }else if (_selectedStatus == OrderStatusReceive) {
-            [self.TLIR_TableSecond.header endRefreshing];
-        }else if (_selectedStatus == OrderStatusComplete) {
-            [self.TLIR_TableThird.header endRefreshing];
-        }
+    __block SSMyOrdersVC * blockSelf = self;
+    _operation = [SSHttpReqServer shanSongQueryOrderB:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [blockSelf endTheRefreshingWithStatus:_orderListStatus];
         NSString * message = [responseObject objectForKey:@"message"];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
             NSDictionary * result = [responseObject objectForKey:@"result"];
-            long quHuoOrderCountTotal = [[result objectForKey:@"quHuoOrderCountTotal"] longValue];
-            long peiSongOrderCountTotal = [[result objectForKey:@"peiSongOrderCountTotal"] longValue];
-            long yiWanChenOrderCountTotal = [[result objectForKey:@"yiWanChenOrderCountTotal"] longValue];
-            [self setOptionButton:self.TLIR_OptionFirstBtn count:quHuoOrderCountTotal];
-            [self setOptionButton:self.TLIR_OptionSecondBtn count:peiSongOrderCountTotal];
-            [self setOptionButton:self.TLIR_OptionThirdBtn count:yiWanChenOrderCountTotal];
-            NSArray * orderRespModel = [result objectForKey:@"orderRespModel"];
+            long unpayCount = [[result objectForKey:@"waitPayCount"] longValue];
+            long ungrabCount = [[result objectForKey:@"newCount"] longValue];
+            long onTakingCount = [[result objectForKey:@"deliveryCount"] longValue];
+            long onDeliveryingCount = [[result objectForKey:@"takingCount"] longValue];
+            long completedCount = [[result objectForKey:@"hadCompleteCount"] longValue];
             
-            if (_selectedStatus == OrderStatusAccepted) {
-                [_TLIR_DataSourceFirst removeAllObjects];
+            [self setOptionButton:self.buttonUnpay count:unpayCount];
+            [self setOptionButton:self.buttonUngrab count:ungrabCount];
+            [self setOptionButton:self.buttonOntaking count:onTakingCount];
+            [self setOptionButton:self.buttonOndelivering count:onDeliveryingCount];
+            [self setOptionButton:self.buttonCompleted count:completedCount];
+            NSArray * orderRespModel = [result objectForKey:@"orders"];
+            
+            if (_orderListStatus == SSMyOrderStatusUnpayed) {
+                [_datasourceUnpay removeAllObjects];
                 for (NSDictionary * aRespModel in orderRespModel) {
-                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
-                    [_TLIR_DataSourceFirst addObject:regioinModel];
+                    SSMyOrderModel * orderModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceUnpay addObject:orderModel];
                 }
                 // empty
-                if (_TLIR_DataSourceFirst.count == 0) {
-                    [self _showTableEmpty:_TLIR_TableFirst];
+                if (_datasourceUnpay.count == 0) {
+                    [self _showTableEmpty:_tableUnpay];
                 }else{
-                    [self _hideTableEmpty:_TLIR_TableFirst];
+                    [self _hideTableEmpty:_tableUnpay];
                 }
-                [_TLIR_TableFirst reloadData];
+                [_tableUnpay reloadData];
                 // footer refresh
-                if (_TLIR_DataSourceFirst.count >= TLIR_Default_PageSize) {
-                    if (self.TLIR_TableFirst.footer) {
-                        [self.TLIR_TableFirst removeFooter];
+                if (_datasourceUnpay.count >= SS_DEFALT_PAGE_SIZE) {
+                    if (_tableUnpay.footer) {
+                        [_tableUnpay removeFooter];
                     }
-                    [self.TLIR_TableFirst addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
-                    self.TLIR_TableFirst.footer.state = MJRefreshFooterStateIdle;
+                    [_tableUnpay addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
+                    _tableUnpay.footer.state = MJRefreshFooterStateIdle;
                 }
                 
-            }else if (_selectedStatus == OrderStatusReceive){
-                [_TLIR_DataSourceSecond removeAllObjects];
+            }else if (_orderListStatus == SSMyOrderStatusUngrab){
+                [_datasourceUngrab removeAllObjects];
                 for (NSDictionary * aRespModel in orderRespModel) {
-                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
-                    [_TLIR_DataSourceSecond addObject:regioinModel];
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceUngrab addObject:regioinModel];
                 }
-                if (_TLIR_DataSourceSecond.count == 0) {
-                    [self _showTableEmpty:_TLIR_TableSecond];
+                if (_datasourceUngrab.count == 0) {
+                    [self _showTableEmpty:_tableUngrab];
                 }else{
-                    [self _hideTableEmpty:_TLIR_TableSecond];
+                    [self _hideTableEmpty:_tableUngrab];
                 }
-                [_TLIR_TableSecond reloadData];
-                if (_TLIR_DataSourceSecond.count >= TLIR_Default_PageSize) {
-                    if (self.TLIR_TableSecond.footer) {
-                        [self.TLIR_TableSecond removeFooter];
+                [_tableUngrab reloadData];
+                if (_datasourceUngrab.count >= SS_DEFALT_PAGE_SIZE) {
+                    if (_tableUngrab.footer) {
+                        [_tableUngrab removeFooter];
                     }
-                    [self.TLIR_TableSecond addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
-                    self.TLIR_TableSecond.footer.state = MJRefreshFooterStateIdle;
+                    [_tableUngrab addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
+                    _tableUngrab.footer.state = MJRefreshFooterStateIdle;
                 }
-            }else if (_selectedStatus == OrderStatusComplete){
-                [_TLIR_DataSourceThird removeAllObjects];
+            }else if (_orderListStatus == SSMyOrderStatusOntaking){
+                [_datasourceOntaking removeAllObjects];
                 for (NSDictionary * aRespModel in orderRespModel) {
-                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
-                    [_TLIR_DataSourceThird addObject:regioinModel];
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceOntaking addObject:regioinModel];
                 }
-                if (_TLIR_DataSourceThird.count == 0) {
-                    [self _showTableEmpty:_TLIR_TableThird];
+                if (_datasourceOntaking.count == 0) {
+                    [self _showTableEmpty:_tableOntaking];
                 }else{
-                    [self _hideTableEmpty:_TLIR_TableThird];
+                    [self _hideTableEmpty:_tableOntaking];
                 }
-                [_TLIR_TableThird reloadData];
-                if (_TLIR_DataSourceThird.count >= TLIR_Default_PageSize) {
-                    if (self.TLIR_TableThird.footer) {
-                        [self.TLIR_TableThird removeFooter];
+                [_tableOntaking reloadData];
+                if (_datasourceOntaking.count >= SS_DEFALT_PAGE_SIZE) {
+                    if (_tableOntaking.footer) {
+                        [_tableOntaking removeFooter];
                     }
-                    [self.TLIR_TableThird addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
-                    self.TLIR_TableThird.footer.state = MJRefreshFooterStateIdle;
+                    [_tableOntaking addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
+                    _tableOntaking.footer.state = MJRefreshFooterStateIdle;
+                }
+            }else if (_orderListStatus == SSMyOrderStatusOnDelivering){
+                [_datasourceOndelivering removeAllObjects];
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceOndelivering addObject:regioinModel];
+                }
+                if (_datasourceOndelivering.count == 0) {
+                    [self _showTableEmpty:_tableOndelivering];
+                }else{
+                    [self _hideTableEmpty:_tableOndelivering];
+                }
+                [_tableOndelivering reloadData];
+                if (_datasourceOndelivering.count >= SS_DEFALT_PAGE_SIZE) {
+                    if (_tableOndelivering.footer) {
+                        [_tableOndelivering removeFooter];
+                    }
+                    [_tableOndelivering addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
+                    _tableOndelivering.footer.state = MJRefreshFooterStateIdle;
+                }
+            }else if (_orderListStatus == SSMyOrderStatusCompleted){
+                [_datasourceCompleted removeAllObjects];
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceCompleted addObject:regioinModel];
+                }
+                if (_datasourceCompleted.count == 0) {
+                    [self _showTableEmpty:_tableCompleted];
+                }else{
+                    [self _hideTableEmpty:_tableCompleted];
+                }
+                [_tableCompleted reloadData];
+                if (_datasourceCompleted.count >= SS_DEFALT_PAGE_SIZE) {
+                    if (_tableCompleted.footer) {
+                        [_tableCompleted removeFooter];
+                    }
+                    [_tableCompleted addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
+                    _tableCompleted.footer.state = MJRefreshFooterStateIdle;
                 }
             }
             
@@ -544,14 +651,9 @@
             [Tools showHUD:message];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (_selectedStatus == OrderStatusAccepted) {
-            [self.TLIR_TableFirst.header endRefreshing];
-        }else if (_selectedStatus == OrderStatusReceive) {
-            [self.TLIR_TableSecond.header endRefreshing];
-        }else if (_selectedStatus == OrderStatusComplete) {
-            [self.TLIR_TableThird.header endRefreshing];
-        }
+        [blockSelf endTheRefreshingWithStatus:_orderListStatus];
     }];
+
 }
 
 
@@ -559,81 +661,129 @@
 
 #pragma mark - 订单为空的情况
 - (void)_showTableEmpty:(UITableView *)tableV{
-    if (tableV == self.TLIR_TableFirst) {
-        if (!_logoImgEmpty1) {
-            _logoImgEmpty1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
-            _logoImgEmpty1.backgroundColor = [UIColor clearColor];
+    if (tableV == self.tableUnpay) {
+        if (!_logoImgEmptyUnpay) {
+            _logoImgEmptyUnpay = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+            _logoImgEmptyUnpay.backgroundColor = [UIColor clearColor];
         }
-        _logoImgEmpty1.image = [UIImage imageNamed:@"checkLogo"];
-        _logoImgEmpty1.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
-        [tableV addSubview:_logoImgEmpty1];
-        if (!_markedWordsLbl1) {
-            _markedWordsLbl1 = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmpty1) +Space_Big, ScreenWidth, 30)];
-            _markedWordsLbl1.backgroundColor = [UIColor clearColor];
-            _markedWordsLbl1.textAlignment = NSTextAlignmentCenter;
-            _markedWordsLbl1.textColor     = DeepGrey;
-            _markedWordsLbl1.font          = FONT_SIZE(BigFontSize);
+        _logoImgEmptyUnpay.image = [UIImage imageNamed:@"checkLogo"];
+        _logoImgEmptyUnpay.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
+        [tableV addSubview:_logoImgEmptyUnpay];
+        if (!_markedWordsLblUnpay) {
+            _markedWordsLblUnpay = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmptyUnpay) +Space_Big, ScreenWidth, 30)];
+            _markedWordsLblUnpay.backgroundColor = [UIColor clearColor];
+            _markedWordsLblUnpay.textAlignment = NSTextAlignmentCenter;
+            _markedWordsLblUnpay.textColor     = DeepGrey;
+            _markedWordsLblUnpay.font          = FONT_SIZE(BigFontSize);
         }
-        _markedWordsLbl1.text = TLIR_NoDataS1;
-        [tableV addSubview:_markedWordsLbl1];
-    }else if (tableV == self.TLIR_TableSecond){
-        if (!_logoImgEmpty2) {
-            _logoImgEmpty2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
-            _logoImgEmpty2.backgroundColor = [UIColor clearColor];
+        _markedWordsLblUnpay.text = SS_NO_DATA_UNPAY;
+        [tableV addSubview:_markedWordsLblUnpay];
+    }else if (tableV == self.tableUngrab){
+        if (!_logoImgEmptyUngrab) {
+            _logoImgEmptyUngrab = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+            _logoImgEmptyUngrab.backgroundColor = [UIColor clearColor];
         }
-        _logoImgEmpty2.image = [UIImage imageNamed:@"checkLogo"];
-        _logoImgEmpty2.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
-        [tableV addSubview:_logoImgEmpty2];
-        if (!_markedWordsLbl2) {
-            _markedWordsLbl2 = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmpty2) +Space_Big, ScreenWidth, 30)];
-            _markedWordsLbl2.backgroundColor = [UIColor clearColor];
-            _markedWordsLbl2.textAlignment = NSTextAlignmentCenter;
-            _markedWordsLbl2.textColor     = DeepGrey;
-            _markedWordsLbl2.font          = FONT_SIZE(BigFontSize);
+        _logoImgEmptyUngrab.image = [UIImage imageNamed:@"checkLogo"];
+        _logoImgEmptyUngrab.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
+        [tableV addSubview:_logoImgEmptyUngrab];
+        if (!_markedWordsLblUngrab) {
+            _markedWordsLblUngrab = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmptyUngrab) +Space_Big, ScreenWidth, 30)];
+            _markedWordsLblUngrab.backgroundColor = [UIColor clearColor];
+            _markedWordsLblUngrab.textAlignment = NSTextAlignmentCenter;
+            _markedWordsLblUngrab.textColor     = DeepGrey;
+            _markedWordsLblUngrab.font          = FONT_SIZE(BigFontSize);
         }
-        _markedWordsLbl2.text = TLIR_NoDataS2;
-        [tableV addSubview:_markedWordsLbl2];
-    }else if (tableV == self.TLIR_TableThird){
-        if (!_logoImgEmpty3) {
-            _logoImgEmpty3 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
-            _logoImgEmpty3.backgroundColor = [UIColor clearColor];
+        _markedWordsLblUngrab.text = SS_NO_DATA_UNGRAB;
+        [tableV addSubview:_markedWordsLblUngrab];
+    }else if (tableV == self.tableOntaking){
+        if (!_logoImgEmptyOntaking) {
+            _logoImgEmptyOntaking = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+            _logoImgEmptyOntaking.backgroundColor = [UIColor clearColor];
         }
-        _logoImgEmpty3.image = [UIImage imageNamed:@"checkLogo"];
-        _logoImgEmpty3.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
-        [tableV addSubview:_logoImgEmpty3];
-        if (!_markedWordsLbl3) {
-            _markedWordsLbl3 = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmpty3) +Space_Big, ScreenWidth, 30)];
-            _markedWordsLbl3.backgroundColor = [UIColor clearColor];
-            _markedWordsLbl3.textAlignment = NSTextAlignmentCenter;
-            _markedWordsLbl3.textColor     = DeepGrey;
-            _markedWordsLbl3.font          = FONT_SIZE(BigFontSize);
+        _logoImgEmptyOntaking.image = [UIImage imageNamed:@"checkLogo"];
+        _logoImgEmptyOntaking.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
+        [tableV addSubview:_logoImgEmptyOntaking];
+        if (!_markedWordsLblOntaking) {
+            _markedWordsLblOntaking = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmptyOntaking) +Space_Big, ScreenWidth, 30)];
+            _markedWordsLblOntaking.backgroundColor = [UIColor clearColor];
+            _markedWordsLblOntaking.textAlignment = NSTextAlignmentCenter;
+            _markedWordsLblOntaking.textColor     = DeepGrey;
+            _markedWordsLblOntaking.font          = FONT_SIZE(BigFontSize);
         }
-        _markedWordsLbl3.text = TLIR_NoDataS3;
-        [tableV addSubview:_markedWordsLbl3];
+        _markedWordsLblOntaking.text = SS_NO_DATA_ONTAKING;
+        [tableV addSubview:_markedWordsLblOntaking];
+    }else if (tableV == self.tableOndelivering){
+        if (!_logoImgEmptyOndelivering) {
+            _logoImgEmptyOndelivering = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+            _logoImgEmptyOndelivering.backgroundColor = [UIColor clearColor];
+        }
+        _logoImgEmptyOndelivering.image = [UIImage imageNamed:@"checkLogo"];
+        _logoImgEmptyOndelivering.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
+        [tableV addSubview:_logoImgEmptyOndelivering];
+        if (!_markedWordsLblOndelivering) {
+            _markedWordsLblOndelivering = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmptyOndelivering) +Space_Big, ScreenWidth, 30)];
+            _markedWordsLblOndelivering.backgroundColor = [UIColor clearColor];
+            _markedWordsLblOndelivering.textAlignment = NSTextAlignmentCenter;
+            _markedWordsLblOndelivering.textColor     = DeepGrey;
+            _markedWordsLblOndelivering.font          = FONT_SIZE(BigFontSize);
+        }
+        _markedWordsLblOndelivering.text = SS_NO_DATA_ONDELIVERING;
+        [tableV addSubview:_markedWordsLblOndelivering];
+    }else if (tableV == self.tableCompleted){
+        if (!_logoImgEmptyCompleted) {
+            _logoImgEmptyCompleted = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+            _logoImgEmptyCompleted.backgroundColor = [UIColor clearColor];
+        }
+        _logoImgEmptyCompleted.image = [UIImage imageNamed:@"checkLogo"];
+        _logoImgEmptyCompleted.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
+        [tableV addSubview:_logoImgEmptyCompleted];
+        if (!_markedWordsLblCompleted) {
+            _markedWordsLblCompleted = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmptyCompleted) +Space_Big, ScreenWidth, 30)];
+            _markedWordsLblCompleted.backgroundColor = [UIColor clearColor];
+            _markedWordsLblCompleted.textAlignment = NSTextAlignmentCenter;
+            _markedWordsLblCompleted.textColor     = DeepGrey;
+            _markedWordsLblCompleted.font          = FONT_SIZE(BigFontSize);
+        }
+        _markedWordsLblCompleted.text = SS_NO_DATA_COMPLETED;
+        [tableV addSubview:_markedWordsLblCompleted];
     }
 }
 
 - (void)_hideTableEmpty:(UITableView *)tableV{
-    if (tableV == self.TLIR_TableFirst) {
-        if (_logoImgEmpty1) {
-            [_logoImgEmpty1 removeFromSuperview];
+    if (tableV == self.tableUnpay) {
+        if (_logoImgEmptyUnpay) {
+            [_logoImgEmptyUnpay removeFromSuperview];
         }
-        if (_markedWordsLbl1) {
-            [_markedWordsLbl1 removeFromSuperview];
+        if (_markedWordsLblUnpay) {
+            [_markedWordsLblUnpay removeFromSuperview];
         }
-    }else if (tableV == self.TLIR_TableSecond){
-        if (_logoImgEmpty2) {
-            [_logoImgEmpty2 removeFromSuperview];
+    }else if (tableV == self.tableUngrab){
+        if (_logoImgEmptyUngrab) {
+            [_logoImgEmptyUngrab removeFromSuperview];
         }
-        if (_markedWordsLbl2) {
-            [_markedWordsLbl2 removeFromSuperview];
+        if (_markedWordsLblUngrab) {
+            [_markedWordsLblUngrab removeFromSuperview];
         }
-    }else if (tableV == self.TLIR_TableThird){
-        if (_logoImgEmpty3) {
-            [_logoImgEmpty3 removeFromSuperview];
+    }else if (tableV == self.tableOntaking){
+        if (_logoImgEmptyOntaking) {
+            [_logoImgEmptyOntaking removeFromSuperview];
         }
-        if (_markedWordsLbl3) {
-            [_markedWordsLbl3 removeFromSuperview];
+        if (_markedWordsLblOntaking) {
+            [_markedWordsLblOntaking removeFromSuperview];
+        }
+    }else if (tableV == self.tableOndelivering){
+        if (_logoImgEmptyOndelivering) {
+            [_logoImgEmptyOndelivering removeFromSuperview];
+        }
+        if (_markedWordsLblOndelivering) {
+            [_markedWordsLblOndelivering removeFromSuperview];
+        }
+    }else if (tableV == self.tableCompleted){
+        if (_logoImgEmptyCompleted) {
+            [_logoImgEmptyCompleted removeFromSuperview];
+        }
+        if (_markedWordsLblCompleted) {
+            [_markedWordsLblCompleted removeFromSuperview];
         }
     }
 }
@@ -643,17 +793,21 @@
 #pragma mark - API - 上拉
 - (void)tlir_tableViewFooterRefresh{
     NSInteger currentPage = 1;
-    if (_selectedStatus == OrderStatusAccepted) {
-        currentPage = ++_currentPage1st;
-    }else if (_selectedStatus == OrderStatusReceive) {
-        currentPage = ++_currentPage2nd;
-    }else if (_selectedStatus == OrderStatusComplete) {
-        currentPage = ++_currentPage3rd;
+    if (_orderListStatus == SSMyOrderStatusUnpayed) {
+        currentPage = ++_currentPageUnpay;
+    }else if (_orderListStatus == SSMyOrderStatusUngrab) {
+        currentPage = ++_currentPageUngrab;
+    }else if (_orderListStatus == SSMyOrderStatusOntaking) {
+        currentPage = ++_currentPageOntaking;
+    }else if (_orderListStatus == SSMyOrderStatusOnDelivering) {
+        currentPage = ++_currentPageOndelivering;
+    }else if (_orderListStatus == SSMyOrderStatusCompleted) {
+        currentPage = ++_currentPageCompleted;
     }
     NSDictionary * paraData = @{
-                                @"businessId":[NSNumber numberWithInteger:self.businessid],//[NSNumber numberWithInt:2125],//[UserInfo getUserId],
-                                @"status":[NSString stringWithFormat:@"%ld",(long)_selectedStatus],
-                                @"regionId":[NSNumber numberWithInteger:self.regionid],//[NSNumber numberWithInteger:1],
+                                @"businessId":[UserInfo getUserId],//[NSNumber numberWithInt:2125],//[UserInfo getUserId],
+                                @"status":[NSString stringWithFormat:@"%ld",(long)_orderListStatus],
+                                @"platform":@"1,3",//[NSNumber numberWithInteger:1],
                                 @"currentPage":[NSNumber numberWithInteger:currentPage],
                                 };
     if (AES_Security) {
@@ -661,70 +815,80 @@
         NSString * aesString = [Security AesEncrypt:jsonString2];
         paraData = @{@"data":aesString,};
     }
-    
-    [EDSHttpReqManager3 businessGetmyorderb:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (_selectedStatus == OrderStatusAccepted) {
-            [self.TLIR_TableFirst.footer endRefreshing];
-        }else if (_selectedStatus == OrderStatusReceive) {
-            [self.TLIR_TableSecond.footer endRefreshing];
-        }else if (_selectedStatus == OrderStatusComplete) {
-            [self.TLIR_TableThird.footer endRefreshing];
-        }
-        
+    __block SSMyOrdersVC * blockSelf = self;
+    _operation = [SSHttpReqServer shanSongQueryOrderB:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [blockSelf endTheFooterRefreshingWithStatus:_orderListStatus];
         NSString * message = [responseObject objectForKey:@"message"];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
             NSDictionary * result = [responseObject objectForKey:@"result"];
-            long quHuoOrderCountTotal = [[result objectForKey:@"quHuoOrderCountTotal"] longValue];
-            long peiSongOrderCountTotal = [[result objectForKey:@"peiSongOrderCountTotal"] longValue];
-            long yiWanChenOrderCountTotal = [[result objectForKey:@"yiWanChenOrderCountTotal"] longValue];
-            [self setOptionButton:self.TLIR_OptionFirstBtn count:quHuoOrderCountTotal];
-            [self setOptionButton:self.TLIR_OptionSecondBtn count:peiSongOrderCountTotal];
-            [self setOptionButton:self.TLIR_OptionThirdBtn count:yiWanChenOrderCountTotal];
-            NSArray * orderRespModel = [result objectForKey:@"orderRespModel"];
+            long unpayCount = [[result objectForKey:@"waitPayCount"] longValue];
+            long ungrabCount = [[result objectForKey:@"newCount"] longValue];
+            long onTakingCount = [[result objectForKey:@"deliveryCount"] longValue];
+            long onDeliveryingCount = [[result objectForKey:@"takingCount"] longValue];
+            long completedCount = [[result objectForKey:@"hadCompleteCount"] longValue];
             
-            if (_selectedStatus == OrderStatusAccepted) {
+            [self setOptionButton:self.buttonUnpay count:unpayCount];
+            [self setOptionButton:self.buttonUngrab count:ungrabCount];
+            [self setOptionButton:self.buttonOntaking count:onTakingCount];
+            [self setOptionButton:self.buttonOndelivering count:onDeliveryingCount];
+            [self setOptionButton:self.buttonCompleted count:completedCount];
+            NSArray * orderRespModel = [result objectForKey:@"orders"];
+            
+            if (_orderListStatus == SSMyOrderStatusUnpayed) {
                 for (NSDictionary * aRespModel in orderRespModel) {
-                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
-                    [_TLIR_DataSourceFirst addObject:regioinModel];
+                    SSMyOrderModel * orderModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceUnpay addObject:orderModel];
                 }
-                [_TLIR_TableFirst reloadData];
+                [_tableUnpay reloadData];
                 if ([orderRespModel count] == 0){
-                    _TLIR_TableFirst.footer.state = MJRefreshFooterStateNoMoreData;
+                    _tableUnpay.footer.state = MJRefreshFooterStateNoMoreData;
                 }
-            }else if (_selectedStatus == OrderStatusReceive){
+            }else if (_orderListStatus == SSMyOrderStatusUngrab){
                 for (NSDictionary * aRespModel in orderRespModel) {
-                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
-                    [_TLIR_DataSourceSecond addObject:regioinModel];
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceUngrab addObject:regioinModel];
                 }
-                [_TLIR_TableSecond reloadData];
+                [_tableUngrab reloadData];
                 if ([orderRespModel count] == 0){
-                    _TLIR_TableSecond.footer.state = MJRefreshFooterStateNoMoreData;
+                    _tableUngrab.footer.state = MJRefreshFooterStateNoMoreData;
                 }
-            }else if (_selectedStatus == OrderStatusComplete){
+            }else if (_orderListStatus == SSMyOrderStatusOntaking){
                 for (NSDictionary * aRespModel in orderRespModel) {
-                    TaskInRegionModel * regioinModel = [[TaskInRegionModel alloc] initWithDic:aRespModel];
-                    [_TLIR_DataSourceThird addObject:regioinModel];
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceOntaking addObject:regioinModel];
                 }
-                [_TLIR_TableThird reloadData];
+                [_tableOntaking reloadData];
                 if ([orderRespModel count] == 0){
-                    _TLIR_TableThird.footer.state = MJRefreshFooterStateNoMoreData;
+                    _tableOntaking.footer.state = MJRefreshFooterStateNoMoreData;
+                }
+            }else if (_orderListStatus == SSMyOrderStatusOnDelivering){
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceOndelivering addObject:regioinModel];
+                }
+                [_tableOndelivering reloadData];
+                if ([orderRespModel count] == 0){
+                    _tableOndelivering.footer.state = MJRefreshFooterStateNoMoreData;
+                }
+            }else if (_orderListStatus == SSMyOrderStatusCompleted){
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceCompleted addObject:regioinModel];
+                }
+                [_tableCompleted reloadData];
+                if ([orderRespModel count] == 0){
+                    _tableCompleted.footer.state = MJRefreshFooterStateNoMoreData;
                 }
             }
             
         }else{
             [Tools showHUD:message];
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (_selectedStatus == OrderStatusAccepted) {
-            [self.TLIR_TableFirst.footer endRefreshing];
-        }else if (_selectedStatus == OrderStatusReceive) {
-            [self.TLIR_TableSecond.footer endRefreshing];
-        }else if (_selectedStatus == OrderStatusComplete) {
-            [self.TLIR_TableThird.footer endRefreshing];
-        }
+        [blockSelf endTheFooterRefreshingWithStatus:_orderListStatus];
     }];
+
 }
 
 

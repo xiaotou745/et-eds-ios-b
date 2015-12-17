@@ -87,14 +87,14 @@
 		683307981C20172D00AC6601 /* SSOrderUnpayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 683307951C20172D00AC6601 /* SSOrderUnpayCell.m */; };
 		683307991C20172D00AC6601 /* SSOrderUnpayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */; };
 		6833079A1C20172D00AC6601 /* SSOrderUnpayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */; };
-		6833079E1C20185500AC6601 /* SSMyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833079D1C20185500AC6601 /* SSMyOrderModel.m */; };
-		6833079F1C20185500AC6601 /* SSMyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6833079D1C20185500AC6601 /* SSMyOrderModel.m */; };
 		683307A41C20365900AC6601 /* SSOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 683307A21C20365900AC6601 /* SSOrderDetailVC.m */; };
 		683307A51C20365900AC6601 /* SSOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 683307A21C20365900AC6601 /* SSOrderDetailVC.m */; };
 		683307A61C20365900AC6601 /* SSOrderDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683307A31C20365900AC6601 /* SSOrderDetailVC.xib */; };
 		683307A71C20365900AC6601 /* SSOrderDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 683307A31C20365900AC6601 /* SSOrderDetailVC.xib */; };
 		684A39AC1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; };
 		684A39AD1BD644E60076CE8D /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */; };
+		684A5D451C218BFB00F28A23 /* SSMyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A5D441C218BFB00F28A23 /* SSMyOrderModel.m */; };
+		684A5D461C218BFB00F28A23 /* SSMyOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 684A5D441C218BFB00F28A23 /* SSMyOrderModel.m */; };
 		68580C881BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C891BA7BB7E0082C18C /* EDSOrderStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */; };
 		68580C8A1BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */; };
@@ -724,13 +724,13 @@
 		683307951C20172D00AC6601 /* SSOrderUnpayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderUnpayCell.m; sourceTree = "<group>"; };
 		683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderUnpayCell.xib; sourceTree = "<group>"; };
 		6833079B1C20178200AC6601 /* SSMyOrderStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMyOrderStatus.h; sourceTree = "<group>"; };
-		6833079C1C20185500AC6601 /* SSMyOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMyOrderModel.h; sourceTree = "<group>"; };
-		6833079D1C20185500AC6601 /* SSMyOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMyOrderModel.m; sourceTree = "<group>"; };
 		683307A11C20365900AC6601 /* SSOrderDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderDetailVC.h; sourceTree = "<group>"; };
 		683307A21C20365900AC6601 /* SSOrderDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderDetailVC.m; sourceTree = "<group>"; };
 		683307A31C20365900AC6601 /* SSOrderDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderDetailVC.xib; sourceTree = "<group>"; };
 		684A39AA1BD644E60076CE8D /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
 		684A39AB1BD644E60076CE8D /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		684A5D431C218BFB00F28A23 /* SSMyOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMyOrderModel.h; sourceTree = "<group>"; };
+		684A5D441C218BFB00F28A23 /* SSMyOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMyOrderModel.m; sourceTree = "<group>"; };
 		68580C851BA7BB7E0082C18C /* EDSOrderStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EDSOrderStatisticsVC.h; path = ../EDSOrderStatisticsVC.h; sourceTree = "<group>"; };
 		68580C861BA7BB7E0082C18C /* EDSOrderStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EDSOrderStatisticsVC.m; path = ../EDSOrderStatisticsVC.m; sourceTree = "<group>"; };
 		68580C871BA7BB7E0082C18C /* EDSOrderStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EDSOrderStatisticsVC.xib; path = ../EDSOrderStatisticsVC.xib; sourceTree = "<group>"; };
@@ -1535,8 +1535,6 @@
 				6833078D1C1FF4F700AC6601 /* SSMyOrdersVC.m */,
 				6833078E1C1FF4F700AC6601 /* SSMyOrdersVC.xib */,
 				6833079B1C20178200AC6601 /* SSMyOrderStatus.h */,
-				6833079C1C20185500AC6601 /* SSMyOrderModel.h */,
-				6833079D1C20185500AC6601 /* SSMyOrderModel.m */,
 			);
 			path = myOrders;
 			sourceTree = "<group>";
@@ -1547,6 +1545,8 @@
 				683307941C20172D00AC6601 /* SSOrderUnpayCell.h */,
 				683307951C20172D00AC6601 /* SSOrderUnpayCell.m */,
 				683307961C20172D00AC6601 /* SSOrderUnpayCell.xib */,
+				684A5D431C218BFB00F28A23 /* SSMyOrderModel.h */,
+				684A5D441C218BFB00F28A23 /* SSMyOrderModel.m */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2842,6 +2842,7 @@
 				CF22B03E1BAB4A61000F19D9 /* MJRefreshLegendFooter.m in Sources */,
 				F67D35361B5664A600083DA4 /* FMDatabaseAdditions.m in Sources */,
 				F67D35371B5664A600083DA4 /* FMResultSet.m in Sources */,
+				684A5D461C218BFB00F28A23 /* SSMyOrderModel.m in Sources */,
 				F67D35381B5664A600083DA4 /* SDWebImageManager+MJ.m in Sources */,
 				68580C9F1BA836E10082C18C /* MNUnderLineButton.m in Sources */,
 				F67D353B1B5664A600083DA4 /* LoginViewController.m in Sources */,
@@ -2934,7 +2935,6 @@
 				686A499F1C0F11EE00558D5D /* SSAppointmentTimeView.m in Sources */,
 				F6F7033A1B6A52B80094E7A8 /* JKAlertDialog.m in Sources */,
 				687ED12B1C0D955700728E65 /* NSString+allSpace.m in Sources */,
-				6833079F1C20185500AC6601 /* SSMyOrderModel.m in Sources */,
 				F67D35751B5664A600083DA4 /* UIView+WebCacheOperation.m in Sources */,
 				F67D35771B5664A600083DA4 /* Order.m in Sources */,
 				F67D35781B5664A600083DA4 /* ReleseOrderViewController.m in Sources */,
@@ -3084,6 +3084,7 @@
 				CF22B03D1BAB4A61000F19D9 /* MJRefreshLegendFooter.m in Sources */,
 				F66CA1561B1EEF9C006BDDB8 /* FMDatabaseAdditions.m in Sources */,
 				F66CA1591B1EEF9C006BDDB8 /* FMResultSet.m in Sources */,
+				684A5D451C218BFB00F28A23 /* SSMyOrderModel.m in Sources */,
 				F6C6AD931B12F42F0007A980 /* SDWebImageManager+MJ.m in Sources */,
 				68580C9E1BA836E10082C18C /* MNUnderLineButton.m in Sources */,
 				F6C6AE701B171BAB0007A980 /* LoginViewController.m in Sources */,
@@ -3176,7 +3177,6 @@
 				686A499E1C0F11EE00558D5D /* SSAppointmentTimeView.m in Sources */,
 				F6F703191B68D8740094E7A8 /* JKAlertDialog.m in Sources */,
 				687ED12A1C0D955700728E65 /* NSString+allSpace.m in Sources */,
-				6833079E1C20185500AC6601 /* SSMyOrderModel.m in Sources */,
 				F6441B5B1B3D47B100EA3C9D /* Order.m in Sources */,
 				F62E8D181B302AFD006F3862 /* ReleseOrderViewController.m in Sources */,
 				F62E8D0F1B30084A006F3862 /* MessageModel.m in Sources */,
@@ -3536,7 +3536,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "c116f7d1-9307-4cbe-bc8b-3dd56f2f400a";
+				PROVISIONING_PROFILE = "9a871084-1191-4994-9d2d-96405c300010";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
@@ -3546,8 +3546,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Qiao Song (K8X74FRV4K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Qiao Song (K8X74FRV4K)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3581,7 +3581,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "7d4f6905-4352-4d84-bbf2-d6023edff5b4";
+				PROVISIONING_PROFILE = "9a871084-1191-4994-9d2d-96405c300010";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
@@ -3591,8 +3591,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Qiao Song (K8X74FRV4K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Qiao Song (K8X74FRV4K)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3626,7 +3626,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "7d4f6905-4352-4d84-bbf2-d6023edff5b4";
+				PROVISIONING_PROFILE = "9a871084-1191-4994-9d2d-96405c300010";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = inhouse;
@@ -3636,8 +3636,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Qiao Song (K8X74FRV4K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Qiao Song (K8X74FRV4K)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3671,7 +3671,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "7d4f6905-4352-4d84-bbf2-d6023edff5b4";
+				PROVISIONING_PROFILE = "9a871084-1191-4994-9d2d-96405c300010";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = adhoc;
