@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, SSMyOrderStatus) {
     SSMyOrderStatusOntaking = 2,
     SSMyOrderStatusOnDelivering = 4,
     SSMyOrderStatusCompleted = 1,
+    SSMyOrderStatusCanceled = 3,
 };
 
 #endif /* SSMyOrderStatus_h */

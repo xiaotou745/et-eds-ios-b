@@ -7,8 +7,8 @@
 //
 
 #import "EDSBusinessShouldKnow.h"
-
-#define BusinessShouldKnowURL @"http://m.edaisong.com/htmls/rule.html"
+// http://m.edaisong.com/htmls/list-price.html
+#define BusinessShouldKnowURL @"http://m.edaisong.com/htmls/list-price.html"
 
 @interface EDSBusinessShouldKnow ()<UIWebViewDelegate>
 {

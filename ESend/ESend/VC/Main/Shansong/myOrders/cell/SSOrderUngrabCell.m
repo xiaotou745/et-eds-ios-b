@@ -58,6 +58,7 @@
     self.cellCommission.text = [NSString stringWithFormat:@"¥%.2f",_datasource.orderCommission];
     self.cellKmKilo.text = [NSString stringWithFormat:@"%.0f公斤/%.0fkm",_datasource.weight,_datasource.km];
     self.cellTakeCode.text = [NSString stringWithFormat:@"取货码: %@",_datasource.pickupCode];
-    self.cellXiaoFee.hidden = (_datasource.status != SSMyOrderStatusUngrab);
+    // self.cellXiaoFee.hidden = (_datasource.status != SSMyOrderStatusUngrab);
+    self.cellXiaoFee.hidden = YES;
 }
 @end

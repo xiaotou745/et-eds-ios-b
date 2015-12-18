@@ -7,7 +7,7 @@
 //
 
 #import "BaseModel.h"
-
+#import "SSMyOrderStatus.h"
 
 
 @interface SSOrderDetailModel : BaseModel
@@ -22,9 +22,9 @@
 @property (nonatomic,assign) BOOL ispay;// 是否付款
 @property (nonatomic,assign) double amount;// 金额
 @property (nonatomic,copy) NSString * remark;// 备注;
-@property (nonatomic,assign) NSInteger status;// 状态
+@property (nonatomic,assign) SSMyOrderStatus status;// 状态
 @property (nonatomic,assign) NSInteger businessid;// 商户id
-@property (nonatomic,copy) NSString * orderfrom;// 订单来源
+@property (nonatomic,assign) NSInteger orderfrom;// 订单来源
 @property (nonatomic,assign) double weight;// 订单总重量
 @property (nonatomic,assign) double km;// 距离
 @property (nonatomic,assign) NSInteger ordercount;// 订单数量
@@ -35,11 +35,6 @@
 
 @property (nonatomic,assign) NSInteger taketype;// 取货状态默认0立即，1 预约
 @property (nonatomic,copy) NSString * productname;// 物品名称;
-//@property (nonatomic,copy) NSString * name;// 商户姓名
-//@property (nonatomic,copy) NSString * phoneno;// 手机号码
-//@property (nonatomic,copy) NSString * phoneno2;// 手机号码;
-//@property (nonatomic,copy) NSString * address;// 商户地址
-//@property (nonatomic,copy) NSString * landline;// 商户固定电话
 @property (nonatomic,assign) NSInteger iscomplain;// 是否显示投诉
 @property (nonatomic,copy) NSString * clienterName;// 骑士姓名
 @property (nonatomic,assign) NSInteger clienterid;// 骑士id
@@ -53,5 +48,11 @@
 @property (nonatomic,copy) NSString * grabtime;// 抢单时间
 @property (nonatomic,copy) NSString * taketime;// 取货时间
 @property (nonatomic,copy) NSString * expectedTakeTime;// 期望那取货时间
+@property (nonatomic,assign) NSInteger orderId;// id
+
+// readonly
+@property (nonatomic,copy,readonly) NSString * orderStatusString;   // 订单状态中文
+@property (nonatomic,copy,readonly) NSString * orderStatusImg;      // 订单状态图片地址
+@property (nonatomic,copy,readonly) NSString * orderFromString;     // 订单来源
 
 @end

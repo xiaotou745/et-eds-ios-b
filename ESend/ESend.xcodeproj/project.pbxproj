@@ -189,6 +189,10 @@
 		689CA4921C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */; };
 		689CA4951C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4941C22EF9C00D9073E /* SSOrderDetailModel.m */; };
 		689CA4961C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4941C22EF9C00D9073E /* SSOrderDetailModel.m */; };
+		689CA4991C23EB8200D9073E /* NSString+SSDateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4981C23EB8200D9073E /* NSString+SSDateFormat.m */; };
+		689CA49A1C23EB8200D9073E /* NSString+SSDateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4981C23EB8200D9073E /* NSString+SSDateFormat.m */; };
+		689CA4A11C24182F00D9073E /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4A01C24182F00D9073E /* UIAlertView+Blocks.m */; };
+		689CA4A21C24182F00D9073E /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4A01C24182F00D9073E /* UIAlertView+Blocks.m */; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; };
@@ -814,6 +818,10 @@
 		689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderUngrabCell.xib; sourceTree = "<group>"; };
 		689CA4931C22EF9C00D9073E /* SSOrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderDetailModel.h; sourceTree = "<group>"; };
 		689CA4941C22EF9C00D9073E /* SSOrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderDetailModel.m; sourceTree = "<group>"; };
+		689CA4971C23EB8200D9073E /* NSString+SSDateFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SSDateFormat.h"; sourceTree = "<group>"; };
+		689CA4981C23EB8200D9073E /* NSString+SSDateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SSDateFormat.m"; sourceTree = "<group>"; };
+		689CA49F1C24182F00D9073E /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
+		689CA4A01C24182F00D9073E /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -1573,6 +1581,8 @@
 				683307A31C20365900AC6601 /* SSOrderDetailVC.xib */,
 				689CA4931C22EF9C00D9073E /* SSOrderDetailModel.h */,
 				689CA4941C22EF9C00D9073E /* SSOrderDetailModel.m */,
+				689CA4971C23EB8200D9073E /* NSString+SSDateFormat.h */,
+				689CA4981C23EB8200D9073E /* NSString+SSDateFormat.m */,
 			);
 			path = details;
 			sourceTree = "<group>";
@@ -2278,6 +2288,8 @@
 				F6C6AD031B12F42E0007A980 /* OBGradientView.m */,
 				F6C6AD041B12F42E0007A980 /* PlaceholderTextView.h */,
 				F6C6AD051B12F42E0007A980 /* PlaceholderTextView.m */,
+				689CA49F1C24182F00D9073E /* UIAlertView+Blocks.h */,
+				689CA4A01C24182F00D9073E /* UIAlertView+Blocks.m */,
 				2EA0CA701B842E3F00BBAA63 /* IOS */,
 			);
 			path = Lib;
@@ -2862,6 +2874,7 @@
 				F67D35371B5664A600083DA4 /* FMResultSet.m in Sources */,
 				684A5D461C218BFB00F28A23 /* SSMyOrderModel.m in Sources */,
 				F67D35381B5664A600083DA4 /* SDWebImageManager+MJ.m in Sources */,
+				689CA49A1C23EB8200D9073E /* NSString+SSDateFormat.m in Sources */,
 				68580C9F1BA836E10082C18C /* MNUnderLineButton.m in Sources */,
 				F67D353B1B5664A600083DA4 /* LoginViewController.m in Sources */,
 				F67D353C1B5664A600083DA4 /* BaseViewController.m in Sources */,
@@ -3041,6 +3054,7 @@
 				F67D35B81B5664A600083DA4 /* MPNotificationView.m in Sources */,
 				2EA0CA6F1B842A1600BBAA63 /* NSString+X136.m in Sources */,
 				F67D35B91B5664A600083DA4 /* UIProgressView+AFNetworking.m in Sources */,
+				689CA4A21C24182F00D9073E /* UIAlertView+Blocks.m in Sources */,
 				F67D35BA1B5664A600083DA4 /* DZNSegmentedControl.m in Sources */,
 				F67D35BB1B5664A600083DA4 /* ExpensesMonthDataModel.m in Sources */,
 				F67D35BC1B5664A600083DA4 /* MBProgressHUD.m in Sources */,
@@ -3106,6 +3120,7 @@
 				F66CA1591B1EEF9C006BDDB8 /* FMResultSet.m in Sources */,
 				684A5D451C218BFB00F28A23 /* SSMyOrderModel.m in Sources */,
 				F6C6AD931B12F42F0007A980 /* SDWebImageManager+MJ.m in Sources */,
+				689CA4991C23EB8200D9073E /* NSString+SSDateFormat.m in Sources */,
 				68580C9E1BA836E10082C18C /* MNUnderLineButton.m in Sources */,
 				F6C6AE701B171BAB0007A980 /* LoginViewController.m in Sources */,
 				F6C6AC9C1B12F3EB0007A980 /* BaseViewController.m in Sources */,
@@ -3285,6 +3300,7 @@
 				F6C6ADBA1B12F42F0007A980 /* UIProgressView+AFNetworking.m in Sources */,
 				2EA0CA6E1B842A1600BBAA63 /* NSString+X136.m in Sources */,
 				F6C6AD871B12F42F0007A980 /* DZNSegmentedControl.m in Sources */,
+				689CA4A11C24182F00D9073E /* UIAlertView+Blocks.m in Sources */,
 				E482C3681B3EA1A7008471E8 /* ExpensesMonthDataModel.m in Sources */,
 				F6C6AD8B1B12F42F0007A980 /* MBProgressHUD.m in Sources */,
 				F6C6ADA31B12F42F0007A980 /* RDVTabBarController.m in Sources */,
