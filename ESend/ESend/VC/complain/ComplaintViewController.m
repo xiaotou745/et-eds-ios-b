@@ -87,10 +87,10 @@
     }
     
     [self.complaintTextView resignFirstResponder];
-    long cid = self.orderModel.ClienterId;
-    long bid = self.orderModel.businessId;
-    NSString * orderId = self.orderModel.orderId;
-    NSString * OrderNo = self.orderModel.orderNumber;
+    NSInteger cid = self.orderModel.clienterid;
+    NSInteger bid = self.orderModel.businessid;
+    NSString * orderId = [NSString stringWithFormat:@"%ld",self.orderModel.orderId];
+    NSString * OrderNo = self.orderModel.orderno;
     NSString * Reason = self.complaintTextView.text;
     //NSLog(@"%ld,%ld,%@,%@,%@",cid,bid,orderId,OrderNo,Reason);
     

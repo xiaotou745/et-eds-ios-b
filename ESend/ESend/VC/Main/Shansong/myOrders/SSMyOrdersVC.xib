@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSMyOrdersVC">
             <connections>
+                <outlet property="buttonCanceled" destination="s9i-Mp-uRB" id="7PQ-1R-Bnt"/>
                 <outlet property="buttonCompleted" destination="7Ss-Fd-skv" id="Uhf-EB-orJ"/>
                 <outlet property="buttonOndelivering" destination="hhW-tG-ehI" id="1F9-Oa-NoO"/>
                 <outlet property="buttonOntaking" destination="xYh-Bj-NHj" id="nIv-WJ-bYo"/>
@@ -20,6 +21,8 @@
                 <outlet property="separator12" destination="Dkh-0Q-Q2s" id="qLk-aR-wCg"/>
                 <outlet property="separator13" destination="ihb-yH-Z3B" id="Y7q-LN-6ej"/>
                 <outlet property="separator14" destination="Pw7-6U-nzY" id="o3g-n0-1qU"/>
+                <outlet property="separator15" destination="IVw-6D-NZe" id="baJ-7r-8cO"/>
+                <outlet property="tableCanceled" destination="lQ4-u0-Z1c" id="f5k-rh-fmv"/>
                 <outlet property="tableCompleted" destination="SK0-1G-hlR" id="q5v-ea-vLs"/>
                 <outlet property="tableOndelivering" destination="Yai-sa-Zy0" id="Ic8-9o-cZ4"/>
                 <outlet property="tableOntaking" destination="Soq-hm-OYP" id="9Ik-mk-U23"/>
@@ -43,7 +46,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="900" height="50"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szn-Ir-wIL" userLabel="待接单">
-                                            <rect key="frame" x="0.0" y="0.0" width="176" height="48"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="146" height="48"/>
                                             <animations/>
                                             <state key="normal" title="待支付(0)">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,7 +56,7 @@
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nBe-iu-oGS" userLabel="separator11">
-                                            <rect key="frame" x="178" y="10" width="1" height="30"/>
+                                            <rect key="frame" x="148" y="10" width="1" height="30"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="fI1-JZ-ki3"/>
@@ -61,7 +64,7 @@
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aq2-Nc-afL" userLabel="待取货">
-                                            <rect key="frame" x="181" y="0.0" width="176" height="48"/>
+                                            <rect key="frame" x="151" y="0.0" width="145" height="48"/>
                                             <animations/>
                                             <state key="normal" title="待接单(0)">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -71,7 +74,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xYh-Bj-NHj">
-                                            <rect key="frame" x="362" y="0.0" width="176" height="48"/>
+                                            <rect key="frame" x="301" y="0.0" width="146" height="48"/>
                                             <animations/>
                                             <state key="normal" title="取货中(0)">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -81,15 +84,15 @@
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dkh-0Q-Q2s" userLabel="separator12">
-                                            <rect key="frame" x="359" y="10" width="1" height="30"/>
+                                            <rect key="frame" x="298" y="10" width="1" height="30"/>
                                             <animations/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ihb-yH-Z3B" userLabel="separator13">
-                                            <rect key="frame" x="540" y="10" width="1" height="30"/>
+                                            <rect key="frame" x="449" y="10" width="1" height="30"/>
                                             <animations/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhW-tG-ehI">
-                                            <rect key="frame" x="543" y="0.0" width="176" height="48"/>
+                                            <rect key="frame" x="452" y="0.0" width="145" height="48"/>
                                             <animations/>
                                             <state key="normal" title="配送中(0)">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -99,11 +102,11 @@
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pw7-6U-nzY" userLabel="separator14">
-                                            <rect key="frame" x="721" y="10" width="1" height="30"/>
+                                            <rect key="frame" x="599" y="10" width="1" height="30"/>
                                             <animations/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ss-Fd-skv">
-                                            <rect key="frame" x="724" y="0.0" width="176" height="48"/>
+                                            <rect key="frame" x="602" y="0.0" width="146" height="48"/>
                                             <animations/>
                                             <state key="normal" title="已完成(0)">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -112,10 +115,25 @@
                                                 <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="9FM-80-pmI"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9i-Mp-uRB">
+                                            <rect key="frame" x="753" y="0.0" width="145" height="48"/>
+                                            <animations/>
+                                            <state key="normal" title="已取消(0)">
+                                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="optionButtonAction:" destination="-1" eventType="touchUpInside" id="UZx-UF-pJs"/>
+                                            </connections>
+                                        </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IVw-6D-NZe" userLabel="separator15">
+                                            <rect key="frame" x="750" y="10" width="1" height="30"/>
+                                            <animations/>
+                                        </imageView>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="s9i-Mp-uRB" secondAttribute="trailing" constant="2" id="1Dl-Jl-6UM"/>
                                         <constraint firstItem="xYh-Bj-NHj" firstAttribute="top" secondItem="Tac-8s-NXK" secondAttribute="top" id="1nN-zn-d3x"/>
                                         <constraint firstAttribute="width" constant="900" id="30X-ZP-8pq"/>
                                         <constraint firstItem="xYh-Bj-NHj" firstAttribute="width" secondItem="szn-Ir-wIL" secondAttribute="width" id="5v2-9r-Ob4"/>
@@ -129,6 +147,7 @@
                                         <constraint firstItem="ihb-yH-Z3B" firstAttribute="leading" secondItem="xYh-Bj-NHj" secondAttribute="trailing" constant="2" id="D6R-un-H5G"/>
                                         <constraint firstItem="Pw7-6U-nzY" firstAttribute="centerY" secondItem="Tac-8s-NXK" secondAttribute="centerY" id="DGi-EC-VRR"/>
                                         <constraint firstItem="Dkh-0Q-Q2s" firstAttribute="centerY" secondItem="Tac-8s-NXK" secondAttribute="centerY" id="DLD-WS-RJn"/>
+                                        <constraint firstItem="IVw-6D-NZe" firstAttribute="leading" secondItem="7Ss-Fd-skv" secondAttribute="trailing" constant="2" id="E84-BW-2To"/>
                                         <constraint firstItem="ihb-yH-Z3B" firstAttribute="width" secondItem="nBe-iu-oGS" secondAttribute="width" id="K6x-IZ-KAq"/>
                                         <constraint firstAttribute="bottom" secondItem="hhW-tG-ehI" secondAttribute="bottom" constant="2" id="NP8-Mp-1px"/>
                                         <constraint firstItem="ihb-yH-Z3B" firstAttribute="height" secondItem="nBe-iu-oGS" secondAttribute="height" id="NRG-aQ-PCa"/>
@@ -141,21 +160,29 @@
                                         <constraint firstAttribute="bottom" secondItem="7Ss-Fd-skv" secondAttribute="bottom" constant="2" id="VNr-1M-oSu"/>
                                         <constraint firstItem="szn-Ir-wIL" firstAttribute="leading" secondItem="Tac-8s-NXK" secondAttribute="leading" id="a4a-1D-Pu7"/>
                                         <constraint firstItem="szn-Ir-wIL" firstAttribute="top" secondItem="Tac-8s-NXK" secondAttribute="top" id="aey-gm-Pje"/>
+                                        <constraint firstAttribute="bottom" secondItem="s9i-Mp-uRB" secondAttribute="bottom" constant="2" id="bQl-jw-0NF"/>
+                                        <constraint firstItem="s9i-Mp-uRB" firstAttribute="top" secondItem="Tac-8s-NXK" secondAttribute="top" id="bWS-i6-eZC"/>
+                                        <constraint firstItem="s9i-Mp-uRB" firstAttribute="width" secondItem="szn-Ir-wIL" secondAttribute="width" id="cXS-uW-97a"/>
+                                        <constraint firstItem="IVw-6D-NZe" firstAttribute="height" secondItem="nBe-iu-oGS" secondAttribute="height" id="cve-Vv-dRe"/>
                                         <constraint firstItem="Pw7-6U-nzY" firstAttribute="width" secondItem="nBe-iu-oGS" secondAttribute="width" id="cvj-JY-Sh2"/>
                                         <constraint firstItem="hhW-tG-ehI" firstAttribute="leading" secondItem="ihb-yH-Z3B" secondAttribute="trailing" constant="2" id="dDJ-Md-JTA"/>
+                                        <constraint firstItem="IVw-6D-NZe" firstAttribute="centerY" secondItem="Tac-8s-NXK" secondAttribute="centerY" id="deC-AX-dag"/>
                                         <constraint firstItem="Pw7-6U-nzY" firstAttribute="leading" secondItem="hhW-tG-ehI" secondAttribute="trailing" constant="2" id="fJ0-4t-wf1"/>
                                         <constraint firstItem="aq2-Nc-afL" firstAttribute="leading" secondItem="nBe-iu-oGS" secondAttribute="trailing" constant="2" id="gkB-N9-bGb"/>
                                         <constraint firstItem="Dkh-0Q-Q2s" firstAttribute="height" secondItem="nBe-iu-oGS" secondAttribute="height" id="i3A-8N-ZgA"/>
                                         <constraint firstItem="hhW-tG-ehI" firstAttribute="width" secondItem="szn-Ir-wIL" secondAttribute="width" id="k5t-Ag-uLC"/>
+                                        <constraint firstItem="s9i-Mp-uRB" firstAttribute="leading" secondItem="IVw-6D-NZe" secondAttribute="trailing" constant="2" id="kXW-0d-gQx"/>
                                         <constraint firstAttribute="bottom" secondItem="xYh-Bj-NHj" secondAttribute="bottom" constant="2" id="m7r-j8-7PC"/>
                                         <constraint firstItem="aq2-Nc-afL" firstAttribute="top" secondItem="Tac-8s-NXK" secondAttribute="top" id="nEI-7x-qM7"/>
                                         <constraint firstItem="Dkh-0Q-Q2s" firstAttribute="width" secondItem="nBe-iu-oGS" secondAttribute="width" id="plb-O7-mTb"/>
                                         <constraint firstItem="aq2-Nc-afL" firstAttribute="width" secondItem="szn-Ir-wIL" secondAttribute="width" id="tT3-ra-acc"/>
+                                        <constraint firstItem="IVw-6D-NZe" firstAttribute="width" secondItem="nBe-iu-oGS" secondAttribute="width" id="xLv-mu-fQ7"/>
                                         <constraint firstAttribute="bottom" secondItem="szn-Ir-wIL" secondAttribute="bottom" constant="2" id="zwH-LV-x06"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="QBo-Og-21v"/>
+                                            <exclude reference="BOu-9h-Tc7"/>
                                         </mask>
                                     </variation>
                                 </view>
@@ -177,7 +204,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="900" height="486"/>
                                     <subviews>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kco-io-q7D" userLabel="table1">
-                                            <rect key="frame" x="0.0" y="0.0" width="180" height="486"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="486"/>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <connections>
@@ -186,7 +213,7 @@
                                             </connections>
                                         </tableView>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DuA-ka-YE7" userLabel="table2">
-                                            <rect key="frame" x="180" y="0.0" width="180" height="486"/>
+                                            <rect key="frame" x="150" y="0.0" width="150" height="486"/>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <connections>
@@ -195,7 +222,7 @@
                                             </connections>
                                         </tableView>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Soq-hm-OYP" userLabel="table3">
-                                            <rect key="frame" x="360" y="0.0" width="180" height="486"/>
+                                            <rect key="frame" x="300" y="0.0" width="150" height="486"/>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <connections>
@@ -204,7 +231,7 @@
                                             </connections>
                                         </tableView>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Yai-sa-Zy0" userLabel="table4">
-                                            <rect key="frame" x="540" y="0.0" width="180" height="486"/>
+                                            <rect key="frame" x="450" y="0.0" width="150" height="486"/>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <connections>
@@ -213,12 +240,21 @@
                                             </connections>
                                         </tableView>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SK0-1G-hlR" userLabel="table5">
-                                            <rect key="frame" x="720" y="0.0" width="180" height="486"/>
+                                            <rect key="frame" x="600" y="0.0" width="150" height="486"/>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <outlet property="dataSource" destination="-1" id="3aS-c5-06r"/>
                                                 <outlet property="delegate" destination="-1" id="F3h-ui-BpX"/>
+                                            </connections>
+                                        </tableView>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lQ4-u0-Z1c" userLabel="table6">
+                                            <rect key="frame" x="750" y="0.0" width="150" height="486"/>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <outlet property="dataSource" destination="-1" id="T5N-hq-5yH"/>
+                                                <outlet property="delegate" destination="-1" id="yhc-0f-gOq"/>
                                             </connections>
                                         </tableView>
                                     </subviews>
@@ -229,8 +265,10 @@
                                         <constraint firstItem="DuA-ka-YE7" firstAttribute="leading" secondItem="kco-io-q7D" secondAttribute="trailing" id="2H6-ID-tqR"/>
                                         <constraint firstItem="Soq-hm-OYP" firstAttribute="top" secondItem="4jS-Eh-FDC" secondAttribute="top" id="61d-CH-NHi"/>
                                         <constraint firstItem="Yai-sa-Zy0" firstAttribute="leading" secondItem="Soq-hm-OYP" secondAttribute="trailing" id="EgY-iN-wQX"/>
+                                        <constraint firstItem="lQ4-u0-Z1c" firstAttribute="width" secondItem="kco-io-q7D" secondAttribute="width" id="FCY-Ad-vhH"/>
                                         <constraint firstItem="kco-io-q7D" firstAttribute="leading" secondItem="4jS-Eh-FDC" secondAttribute="leading" id="GKW-Vv-Hmk"/>
                                         <constraint firstAttribute="bottom" secondItem="SK0-1G-hlR" secondAttribute="bottom" id="Hdl-nA-WAC"/>
+                                        <constraint firstItem="lQ4-u0-Z1c" firstAttribute="top" secondItem="4jS-Eh-FDC" secondAttribute="top" id="Hkd-ip-Rve"/>
                                         <constraint firstItem="DuA-ka-YE7" firstAttribute="width" secondItem="kco-io-q7D" secondAttribute="width" id="Jg4-Zi-NSp"/>
                                         <constraint firstAttribute="width" constant="900" id="L4c-aU-XR9"/>
                                         <constraint firstAttribute="bottom" secondItem="kco-io-q7D" secondAttribute="bottom" id="SX2-4Y-ZFU"/>
@@ -242,15 +280,19 @@
                                         <constraint firstAttribute="bottom" secondItem="Yai-sa-Zy0" secondAttribute="bottom" id="ZUY-EB-TAN"/>
                                         <constraint firstItem="DuA-ka-YE7" firstAttribute="top" secondItem="4jS-Eh-FDC" secondAttribute="top" id="Zmj-i1-6tE"/>
                                         <constraint firstItem="Soq-hm-OYP" firstAttribute="leading" secondItem="DuA-ka-YE7" secondAttribute="trailing" id="gg6-4f-ebq"/>
+                                        <constraint firstItem="lQ4-u0-Z1c" firstAttribute="leading" secondItem="SK0-1G-hlR" secondAttribute="trailing" id="hoT-Fl-ZD0"/>
                                         <constraint firstItem="Yai-sa-Zy0" firstAttribute="top" secondItem="4jS-Eh-FDC" secondAttribute="top" id="jTR-SZ-O0i"/>
                                         <constraint firstAttribute="trailing" secondItem="Soq-hm-OYP" secondAttribute="trailing" id="k0i-8f-j8i"/>
                                         <constraint firstItem="Yai-sa-Zy0" firstAttribute="width" secondItem="kco-io-q7D" secondAttribute="width" id="qWY-jK-pBU"/>
                                         <constraint firstAttribute="trailing" secondItem="SK0-1G-hlR" secondAttribute="trailing" id="uAP-VP-VdN"/>
                                         <constraint firstItem="SK0-1G-hlR" firstAttribute="width" secondItem="kco-io-q7D" secondAttribute="width" id="xog-rG-YFp"/>
+                                        <constraint firstAttribute="bottom" secondItem="lQ4-u0-Z1c" secondAttribute="bottom" id="yse-go-5lm"/>
+                                        <constraint firstAttribute="trailing" secondItem="lQ4-u0-Z1c" secondAttribute="trailing" id="yua-R0-8uA"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="k0i-8f-j8i"/>
+                                            <exclude reference="uAP-VP-VdN"/>
                                         </mask>
                                     </variation>
                                 </view>

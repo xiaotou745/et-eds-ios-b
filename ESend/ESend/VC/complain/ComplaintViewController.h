@@ -7,11 +7,11 @@
 //
 
 #import "BaseViewController.h"
-#import "SupermanOrderModel.h"
+#import "SSOrderDetailModel.h"
 
 @interface ComplaintViewController : BaseViewController
 
-@property (nonatomic, strong) SupermanOrderModel *orderModel;
+@property (nonatomic, strong) SSOrderDetailModel *orderModel;
 
 @property (nonatomic,copy) void (^callBackBlock)(void);
 

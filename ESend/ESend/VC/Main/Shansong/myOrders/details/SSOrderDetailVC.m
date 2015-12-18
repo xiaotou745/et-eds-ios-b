@@ -15,6 +15,7 @@
 #import "SSpayViewController.h"
 #import "Tools.h"
 #import "UIAlertView+Blocks.h"
+#import "ComplaintViewController.h"
 
 #define SSOrderDetailVCCancelTitle @"取消任务"
 #define SSOrderDetailVCGoPayTitle @"去支付"
@@ -98,7 +99,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.titleLabel.text = @"订单详情";
+    
+    [self.rightBtn addTarget:self action:@selector(clickComplaint) forControlEvents:UIControlEventTouchUpInside];
+    //[self.rightBtn setFrame:CGRectMake(MainWidth - 12 - 75, OffsetBarHeight + 6, 75, 32)];
+    [self.rightBtn setTitle:@"投诉" forState:UIControlStateNormal];
+    [self.rightBtn setTitle:@"已投诉" forState:UIControlStateDisabled];
+    [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    self.rightBtn.hidden = NO;
+    
     _orderMainScroller.hidden = YES;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     [self getORderDetail];
 }
 
@@ -137,10 +151,6 @@
 
 #pragma mark - 取消订单
 - (void)cancelOrder{
-    /*
-     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认要取消订单吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-     [alertView show];
-     */
     //
     [UIAlertView showAlertViewWithTitle:nil message:@"确认要取消订单吗" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] onDismiss:^(NSInteger buttonIndex) {
         MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
@@ -174,6 +184,12 @@
     _orderInfo = orderInfo;
     NSLog(@"%@",orderInfo);
     _orderMainScroller.hidden = NO;
+    // 导航条
+    if (1 == orderInfo.iscomplain) {
+        self.rightBtn.enabled = NO;
+    }else{
+        self.rightBtn.enabled = YES;
+    }
     // 取货码
     if (orderInfo.status == SSMyOrderStatusUngrab || orderInfo.status == SSMyOrderStatusOntaking) {
         self.orderTakecode.text = [NSString stringWithFormat:@"取货码: %@",orderInfo.pickupcode]; //30
@@ -336,6 +352,17 @@
         NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",sender.currentTitle];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }
+}
+
+
+#pragma mark - 投诉界面
+- (void)clickComplaint{
+    ComplaintViewController *vc = [[ComplaintViewController alloc] initWithNibName:@"ComplaintViewController" bundle:nil];
+    vc.orderModel = self.orderInfo;
+    vc.callBackBlock = ^{
+        self.rightBtn.enabled = NO;
+    };
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

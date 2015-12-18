@@ -193,6 +193,10 @@
 		689CA49A1C23EB8200D9073E /* NSString+SSDateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4981C23EB8200D9073E /* NSString+SSDateFormat.m */; };
 		689CA4A11C24182F00D9073E /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4A01C24182F00D9073E /* UIAlertView+Blocks.m */; };
 		689CA4A21C24182F00D9073E /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4A01C24182F00D9073E /* UIAlertView+Blocks.m */; };
+		689CA4A61C243A9E00D9073E /* SSOrderOnDeliveryingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4A41C243A9E00D9073E /* SSOrderOnDeliveryingCell.m */; };
+		689CA4A71C243A9E00D9073E /* SSOrderOnDeliveryingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4A41C243A9E00D9073E /* SSOrderOnDeliveryingCell.m */; };
+		689CA4A81C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA4A51C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib */; };
+		689CA4A91C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA4A51C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib */; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; };
@@ -822,6 +826,9 @@
 		689CA4981C23EB8200D9073E /* NSString+SSDateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SSDateFormat.m"; sourceTree = "<group>"; };
 		689CA49F1C24182F00D9073E /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 		689CA4A01C24182F00D9073E /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
+		689CA4A31C243A9E00D9073E /* SSOrderOnDeliveryingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderOnDeliveryingCell.h; sourceTree = "<group>"; };
+		689CA4A41C243A9E00D9073E /* SSOrderOnDeliveryingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderOnDeliveryingCell.m; sourceTree = "<group>"; };
+		689CA4A51C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderOnDeliveryingCell.xib; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -1569,6 +1576,9 @@
 				689CA48C1C2268E500D9073E /* SSOrderUngrabCell.h */,
 				689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */,
 				689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */,
+				689CA4A31C243A9E00D9073E /* SSOrderOnDeliveryingCell.h */,
+				689CA4A41C243A9E00D9073E /* SSOrderOnDeliveryingCell.m */,
+				689CA4A51C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -2726,6 +2736,7 @@
 				686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68AE2BDF1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
 				6801E3C11BC8B1BD00CE13ED /* calendar_indicator_left_normal@2x.png in Resources */,
+				689CA4A91C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib in Resources */,
 				683307A71C20365900AC6601 /* SSOrderDetailVC.xib in Resources */,
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				CF22B0301BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
@@ -2837,6 +2848,7 @@
 				68AE2BDE1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
 				68107CB61C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib in Resources */,
 				F637CF511B437F5700410C24 /* PushConfig.plist in Resources */,
+				689CA4A81C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib in Resources */,
 				689CA4911C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */,
 				E48ECF951B3FBC2F00F09660 /* blue_btn_noSelect@2x.pdf in Resources */,
 				683307911C1FF4F700AC6601 /* SSMyOrdersVC.xib in Resources */,
@@ -2926,6 +2938,7 @@
 				F67D355C1B5664A600083DA4 /* NSString+encrypto.m in Sources */,
 				F67D355D1B5664A600083DA4 /* DataBase.m in Sources */,
 				689CA4901C2268E500D9073E /* SSOrderUngrabCell.m in Sources */,
+				689CA4A71C243A9E00D9073E /* SSOrderOnDeliveryingCell.m in Sources */,
 				F67D355E1B5664A600083DA4 /* CustomTextView.m in Sources */,
 				F67D355F1B5664A600083DA4 /* AFURLRequestSerialization.m in Sources */,
 				68586AA81BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */,
@@ -3172,6 +3185,7 @@
 				F66CA1431B1EEF52006BDDB8 /* DataBase.m in Sources */,
 				F6C6AD7C1B12F42F0007A980 /* CustomTextView.m in Sources */,
 				689CA48F1C2268E500D9073E /* SSOrderUngrabCell.m in Sources */,
+				689CA4A61C243A9E00D9073E /* SSOrderOnDeliveryingCell.m in Sources */,
 				F6C6AD771B12F42F0007A980 /* AFURLRequestSerialization.m in Sources */,
 				F66CA1241B1D9F3F006BDDB8 /* MapViewController.m in Sources */,
 				68586AA71BAE8E6800B26780 /* EDSRiderDeliveryCell.m in Sources */,

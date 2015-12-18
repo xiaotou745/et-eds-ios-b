@@ -258,11 +258,11 @@
 
 #pragma mark - 投诉界面
 - (void)clickComplaint{
-    ComplaintViewController *vc = [[ComplaintViewController alloc] initWithNibName:@"ComplaintViewController" bundle:nil];
-    vc.orderModel = self.orderModel;
-    vc.callBackBlock = ^{
-        self.rightBtn.enabled = NO;
-    };
-    [self.navigationController pushViewController:vc animated:YES];
+//    ComplaintViewController *vc = [[ComplaintViewController alloc] initWithNibName:@"ComplaintViewController" bundle:nil];
+//    vc.orderModel = self.orderModel;
+//    vc.callBackBlock = ^{
+//        self.rightBtn.enabled = NO;
+//    };
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

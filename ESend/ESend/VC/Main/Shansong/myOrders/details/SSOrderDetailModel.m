@@ -63,7 +63,11 @@
         self.clienterid = [[dic objectForKey:@"clienterid"] integerValue];
         self.clienterPhoneNo = [dic objectForKey:@"clienterPhoneNo"];
         self.ordercommission = [[dic objectForKey:@"ordercommission"] doubleValue];
-        self.cancelTime = [dic objectForKey:@"cancelTime"];
+        if (isCanUseObj([dic objectForKey:@"cancelTime"])) {
+            self.cancelTime = [dic objectForKey:@"cancelTime"];
+        }else{
+            self.cancelTime = @"";
+        }
         if (isCanUseObj([dic objectForKey:@"otherCancelReason"])) {
             self.otherCancelReason = [dic objectForKey:@"otherCancelReason"];
         }else{

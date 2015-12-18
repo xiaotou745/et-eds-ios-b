@@ -15,6 +15,7 @@
 #import "SSHttpReqServer.h"
 #import "SSMyOrderModel.h"
 #import "SSOrderUngrabCell.h"
+#import "SSOrderOnDeliveryingCell.h"
 
 /*
  typedef NS_ENUM(NSInteger, SSMyOrderStatus) {
@@ -32,12 +33,14 @@
 #define SS_TABLE_ONTAKING_CELLID        @"SS_TABLE_ONTAKING_CELLID"
 #define SS_TABLE_ONDELIVERING_CELLID    @"SS_TABLE_ONDELIVERING_CELLID"
 #define SS_TABLE_COMPLETED_CELLID       @"SS_TABLE_COMPLETED_CELLID"
+#define SS_TABLE_CANCELED_CELLID       @"SS_TABLE_CANCELED_CELLID"
 
 #define SS_NO_DATA_UNPAY        @"您目前没有待支付的订单!"
 #define SS_NO_DATA_UNGRAB       @"您目前没有待接单的订单!"
 #define SS_NO_DATA_ONTAKING     @"您目前没有待取货的订单!"
 #define SS_NO_DATA_ONDELIVERING @"您目前没有配送中的订单!"
 #define SS_NO_DATA_COMPLETED    @"您目前没有已完成的订单!"
+#define SS_NO_DATA_CANCELED    @"您目前没有已取消的订单!"
 
 #define SS_DEFALT_PAGE_SIZE  15
 
@@ -52,18 +55,21 @@
     UIImageView * _logoImgEmptyOntaking;
     UIImageView * _logoImgEmptyOndelivering;
     UIImageView * _logoImgEmptyCompleted;
+    UIImageView * _logoImgEmptyCanceled;
     
     UILabel * _markedWordsLblUnpay;                 // 订单为空label
     UILabel * _markedWordsLblUngrab;
     UILabel * _markedWordsLblOntaking;
     UILabel * _markedWordsLblOndelivering;
     UILabel * _markedWordsLblCompleted;
+    UILabel * _markedwordsLblCanceled;
     
     NSInteger _currentPageUnpay;                    // 分页页码
     NSInteger _currentPageUngrab;
     NSInteger _currentPageOntaking;                    //
     NSInteger _currentPageOndelivering;
     NSInteger _currentPageCompleted;
+    NSInteger _currentPageCanceled;
     
     AFHTTPRequestOperation * _operationUpperUnpay;    // operation 上拉
     AFHTTPRequestOperation * _operationUpperUngrab;
@@ -77,6 +83,7 @@
 @property (strong, nonatomic) NSMutableArray * datasourceOntaking;
 @property (strong, nonatomic) NSMutableArray * datasourceOndelivering;
 @property (strong, nonatomic) NSMutableArray * datasourceCompleted;
+@property (strong, nonatomic) NSMutableArray * datasourceCanceled;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *optionHeaderScrollerWidth;
 @property (weak, nonatomic) IBOutlet UIScrollView *optionHeaderScroller;
@@ -88,17 +95,20 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableOntaking;
 @property (weak, nonatomic) IBOutlet UITableView *tableOndelivering;
 @property (weak, nonatomic) IBOutlet UITableView *tableCompleted;
+@property (weak, nonatomic) IBOutlet UITableView *tableCanceled;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonUnpay;
 @property (weak, nonatomic) IBOutlet UIButton *buttonUngrab;
 @property (weak, nonatomic) IBOutlet UIButton *buttonOntaking;
 @property (weak, nonatomic) IBOutlet UIButton *buttonOndelivering;
 @property (weak, nonatomic) IBOutlet UIButton *buttonCompleted;
+@property (weak, nonatomic) IBOutlet UIButton *buttonCanceled;
 
 @property (weak, nonatomic) IBOutlet UIImageView *separator11;
 @property (weak, nonatomic) IBOutlet UIImageView *separator12;
 @property (weak, nonatomic) IBOutlet UIImageView *separator13;
 @property (weak, nonatomic) IBOutlet UIImageView *separator14;
+@property (weak, nonatomic) IBOutlet UIImageView *separator15;
 
 @end
 
@@ -118,12 +128,14 @@
     _datasourceUngrab = [[NSMutableArray alloc] initWithCapacity:0];
     _datasourceOntaking = [[NSMutableArray alloc] initWithCapacity:0];
     _datasourceOndelivering = [[NSMutableArray alloc] initWithCapacity:0];
+    _datasourceCanceled = [[NSMutableArray alloc] initWithCapacity:0];
     
     _currentPageUnpay = 1;                    // 分页页码
     _currentPageUngrab = 1;
     _currentPageOntaking = 1;
     _currentPageOndelivering = 1;
     _currentPageCompleted = 1;
+    _currentPageCanceled = 1;
     
     _orderListStatus = SSMyOrderStatusUnpayed;
 }
@@ -131,6 +143,7 @@
 /// 配置界面
 - (void)viewsCustomize{
     [self optionViewsCustomize];
+    [self _configOptionPullRefresh:self.tableCanceled];
     [self _configOptionPullRefresh:self.tableCompleted];
     [self _configOptionPullRefresh:self.tableOndelivering];
     [self _configOptionPullRefresh:self.tableOntaking];
@@ -145,6 +158,7 @@
     self.separator11.backgroundColor =
     self.separator12.backgroundColor =
     self.separator13.backgroundColor =
+    self.separator15.backgroundColor =
     self.separator14.backgroundColor = BackgroundColor;
     
     // optionView  buttons
@@ -153,23 +167,27 @@
     self.buttonOntaking.tag = 3 + SS_ORDERS_BTN_TAG_BASE;
     self.buttonOndelivering.tag = 4 + SS_ORDERS_BTN_TAG_BASE;
     self.buttonCompleted.tag = 5 + SS_ORDERS_BTN_TAG_BASE;
+    self.buttonCanceled.tag = 6 + SS_ORDERS_BTN_TAG_BASE;
     
     [self setOptionButton:self.buttonUnpay count:0];
     [self setOptionButton:self.buttonUngrab count:0];
     [self setOptionButton:self.buttonOntaking count:0];
     [self setOptionButton:self.buttonOndelivering count:0];
     [self setOptionButton:self.buttonCompleted count:0];
+    [self setOptionButton:self.buttonCanceled count:0];
 
     self.buttonUnpay.titleLabel.font =
     self.buttonUngrab.titleLabel.font =
     self.buttonOntaking.titleLabel.font =
     self.buttonOndelivering.titleLabel.font =
+    self.buttonCanceled.titleLabel.font =
     self.buttonCompleted.titleLabel.font = [UIFont systemFontOfSize:BigFontSize];
     self.buttonUnpay.backgroundColor =
-    self.buttonUnpay.backgroundColor =
-    self.buttonUnpay.backgroundColor =
-    self.buttonUnpay.backgroundColor =
-    self.buttonUnpay.backgroundColor = [UIColor whiteColor];
+    self.buttonUngrab.backgroundColor =
+    self.buttonOntaking.backgroundColor =
+    self.buttonOndelivering.backgroundColor =
+    self.buttonCanceled.backgroundColor =
+    self.buttonCompleted.backgroundColor = [UIColor whiteColor];
     
     self.buttonUnpay.enabled = NO;
     // self.TLIR_OptionIndicator.backgroundColor = BlueColor;
@@ -204,8 +222,8 @@
 
 - (void)updateViewConstraints{
     [super updateViewConstraints];
-    self.optionHeaderScrollerWidth.constant = 100 * 5;
-    self.contentScrollerWidth.constant = ScreenWidth * 5;
+    self.optionHeaderScrollerWidth.constant = 100 * 6;
+    self.contentScrollerWidth.constant = ScreenWidth * 6;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -246,6 +264,11 @@
                 [self.tableCompleted.header beginRefreshing];
             }
             break;
+        case SSMyOrderStatusCanceled:
+            if (self.tableCanceled.header.state != MJRefreshHeaderStateRefreshing) {
+                [self.tableCanceled.header beginRefreshing];
+            }
+            break;
         default:
             break;
     }
@@ -265,6 +288,8 @@
         text = [NSString stringWithFormat:@"配送中(%@)",tCount];
     }else if (btn.tag == 5 + SS_ORDERS_BTN_TAG_BASE) {
         text = [NSString stringWithFormat:@"已完成(%@)",tCount];
+    }else if (btn.tag == 6 + SS_ORDERS_BTN_TAG_BASE) {
+        text = [NSString stringWithFormat:@"已取消(%@)",tCount];
     }
     
     NSMutableAttributedString *AttributedString = [[NSMutableAttributedString alloc] initWithString:text];
@@ -298,6 +323,8 @@
     self.tableOndelivering.scrollsToTop = !self.buttonOndelivering.enabled;
     self.buttonCompleted.enabled = (x == ScreenWidth * 4)?NO:YES;
     self.tableCompleted.scrollsToTop = !self.buttonCompleted.enabled;
+    self.buttonCanceled.enabled = (x == ScreenWidth * 5)?NO:YES;
+    self.tableCanceled.scrollsToTop = !self.buttonCompleted.enabled;
     
     if (0 == x) {
         _orderListStatus = SSMyOrderStatusUnpayed;
@@ -309,6 +336,8 @@
         _orderListStatus = SSMyOrderStatusOnDelivering;
     }else if (ScreenWidth * 4 == x){
         _orderListStatus = SSMyOrderStatusCompleted;
+    }else if (ScreenWidth * 5 == x){
+        _orderListStatus = SSMyOrderStatusCanceled;
     }else{
         return;
     }
@@ -318,7 +347,7 @@
 
 - (void)adjustOptionScrollerWithX:(NSNumber *)NumX{
     CGFloat wholeWidth = self.optionHeaderScrollerWidth.constant;
-    CGFloat buttonWidth = wholeWidth/5;
+    CGFloat buttonWidth = wholeWidth/6;
     CGFloat buttonHeight = 50;
     CGRect targetRect = CGRectMake(buttonWidth * [NumX floatValue], 0, buttonWidth, buttonHeight);
     [self.optionHeaderScroller scrollRectToVisible:targetRect animated:YES];
@@ -335,6 +364,7 @@
     self.buttonOntaking.enabled = YES;
     self.buttonOndelivering.enabled = YES;
     self.buttonCompleted.enabled = YES;
+    self.buttonCanceled.enabled = YES;
 }
 
 - (void)_buttonEventWithSender:(UIButton *)sender{
@@ -355,6 +385,8 @@
         return _datasourceOndelivering.count;
     }else if (tableView == self.tableCompleted) {
         return _datasourceCompleted.count;
+    }else if (tableView == self.tableCanceled){
+        return _datasourceCanceled.count;
     }else{
         return 0;
     }
@@ -385,18 +417,25 @@
         cell.datasource = [_datasourceOntaking objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableOndelivering) {
-        SSOrderUngrabCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_ONDELIVERING_CELLID];
+        SSOrderOnDeliveryingCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_ONDELIVERING_CELLID];
         if (nil == cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUngrabCell class]) owner:self options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderOnDeliveryingCell class]) owner:self options:nil] lastObject];
         }
         cell.datasource = [_datasourceOndelivering objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableCompleted) {
-        SSOrderUngrabCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_COMPLETED_CELLID];
+        SSOrderOnDeliveryingCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_COMPLETED_CELLID];
         if (nil == cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderUngrabCell class]) owner:self options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderOnDeliveryingCell class]) owner:self options:nil] lastObject];
         }
         cell.datasource = [_datasourceCompleted objectAtIndex:indexPath.row];
+        return cell;
+    }else if (tableView == self.tableCanceled) {
+        SSOrderOnDeliveryingCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_CANCELED_CELLID];
+        if (nil == cell) {
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderOnDeliveryingCell class]) owner:self options:nil] lastObject];
+        }
+        cell.datasource = [_datasourceCanceled objectAtIndex:indexPath.row];
         return cell;
     }else{
         return 0;
@@ -411,9 +450,11 @@
     }else if (tableView == self.tableOntaking) {
         return 198;
     }else if (tableView == self.tableOndelivering) {
-        return 198;
+        return 153;
     }else if (tableView == self.tableCompleted) {
-        return 198;
+        return 153;
+    }else if (tableView == self.tableCanceled){
+        return 153;
     }else{
         return 0;
     }
@@ -438,6 +479,9 @@
     }else if (tableView == self.tableCompleted) {
         SSMyOrderModel * orderModel = [_datasourceCompleted objectAtIndex:indexPath.row];
         orderId = orderModel.orderId;
+    }else if (tableView == self.tableCanceled) {
+        SSMyOrderModel * orderModel = [_datasourceCanceled objectAtIndex:indexPath.row];
+        orderId = orderModel.orderId;
     }else{
         
     }
@@ -458,6 +502,8 @@
         [self.tableOndelivering.header endRefreshing];
     }else if (status == SSMyOrderStatusCompleted){
         [self.tableCompleted.header endRefreshing];
+    }else if (status == SSMyOrderStatusCanceled){
+        [self.tableCanceled.header endRefreshing];
     }
 }
 
@@ -468,30 +514,42 @@
         [self.tableOntaking.header endRefreshing];
         [self.tableOndelivering.header endRefreshing];
         [self.tableCompleted.header endRefreshing];
+        [self.tableCanceled.header endRefreshing];
     }else if (status == SSMyOrderStatusUngrab){
         _currentPageUngrab = 1;
         [self.tableUnpay.header endRefreshing];
         [self.tableOntaking.header endRefreshing];
         [self.tableOndelivering.header endRefreshing];
         [self.tableCompleted.header endRefreshing];
+        [self.tableCanceled.header endRefreshing];
     }else if (status == SSMyOrderStatusOntaking){
         _currentPageOntaking = 1;
         [self.tableUnpay.header endRefreshing];
         [self.tableUngrab.header endRefreshing];
         [self.tableOndelivering.header endRefreshing];
         [self.tableCompleted.header endRefreshing];
+        [self.tableCanceled.header endRefreshing];
     }else if (status == SSMyOrderStatusOnDelivering){
         _currentPageOndelivering = 1;
         [self.tableUnpay.header endRefreshing];
         [self.tableUngrab.header endRefreshing];
         [self.tableOntaking.header endRefreshing];
         [self.tableCompleted.header endRefreshing];
+        [self.tableCanceled.header endRefreshing];
     }else if (status == SSMyOrderStatusCompleted){
         _currentPageCompleted = 1;
         [self.tableUnpay.header endRefreshing];
         [self.tableUngrab.header endRefreshing];
         [self.tableOntaking.header endRefreshing];
         [self.tableOndelivering.header endRefreshing];
+        [self.tableCanceled.header endRefreshing];
+    }else if (status == SSMyOrderStatusCanceled){
+        _currentPageCanceled = 1;
+        [self.tableUnpay.header endRefreshing];
+        [self.tableUngrab.header endRefreshing];
+        [self.tableOntaking.header endRefreshing];
+        [self.tableOndelivering.header endRefreshing];
+        [self.tableCompleted.header endRefreshing];
     }
 }
 
@@ -506,6 +564,8 @@
         [self.tableOndelivering.footer endRefreshing];
     }else if (status == SSMyOrderStatusCompleted){
         [self.tableCompleted.footer endRefreshing];
+    }else if (status == SSMyOrderStatusCanceled){
+        [self.tableCanceled.footer endRefreshing];
     }
 }
 
@@ -539,12 +599,15 @@
             long onTakingCount = [[result objectForKey:@"deliveryCount"] longValue];
             long onDeliveryingCount = [[result objectForKey:@"takingCount"] longValue];
             long completedCount = [[result objectForKey:@"hadCompleteCount"] longValue];
-            
+            long completedCount22 = [[result objectForKey:@"hadCompleteCount"] longValue];
+
             [self setOptionButton:self.buttonUnpay count:unpayCount];
             [self setOptionButton:self.buttonUngrab count:ungrabCount];
             [self setOptionButton:self.buttonOntaking count:onTakingCount];
             [self setOptionButton:self.buttonOndelivering count:onDeliveryingCount];
             [self setOptionButton:self.buttonCompleted count:completedCount];
+            [self setOptionButton:self.buttonCanceled count:completedCount22];
+            
             NSArray * orderRespModel = [result objectForKey:@"orders"];
             
             if (_orderListStatus == SSMyOrderStatusUnpayed) {
@@ -644,6 +707,25 @@
                     }
                     [_tableCompleted addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
                     _tableCompleted.footer.state = MJRefreshFooterStateIdle;
+                }
+            }else if (_orderListStatus == SSMyOrderStatusCanceled){
+                [_datasourceCanceled removeAllObjects];
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceCanceled addObject:regioinModel];
+                }
+                if (_datasourceCanceled.count == 0) {
+                    [self _showTableEmpty:_tableCanceled];
+                }else{
+                    [self _hideTableEmpty:_tableCanceled];
+                }
+                [_tableCanceled reloadData];
+                if (_datasourceCanceled.count >= SS_DEFALT_PAGE_SIZE) {
+                    if (_tableCanceled.footer) {
+                        [_tableCanceled removeFooter];
+                    }
+                    [_tableCanceled addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(tlir_tableViewFooterRefresh)];
+                    _tableCanceled.footer.state = MJRefreshFooterStateIdle;
                 }
             }
             
@@ -746,6 +828,23 @@
         }
         _markedWordsLblCompleted.text = SS_NO_DATA_COMPLETED;
         [tableV addSubview:_markedWordsLblCompleted];
+    }else if (tableV == self.tableCanceled){
+        if (!_logoImgEmptyCanceled) {
+            _logoImgEmptyCanceled = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 112, 112)];
+            _logoImgEmptyCanceled.backgroundColor = [UIColor clearColor];
+        }
+        _logoImgEmptyCanceled.image = [UIImage imageNamed:@"checkLogo"];
+        _logoImgEmptyCanceled.center = CGPointMake(ScreenWidth/2, (ScreenHeight-50-64)/3);
+        [tableV addSubview:_logoImgEmptyCanceled];
+        if (!_markedwordsLblCanceled) {
+            _markedwordsLblCanceled = [[UILabel alloc] initWithFrame:CGRectMake(0, VIEW_Y_Bottom(_logoImgEmptyCanceled) +Space_Big, ScreenWidth, 30)];
+            _markedwordsLblCanceled.backgroundColor = [UIColor clearColor];
+            _markedwordsLblCanceled.textAlignment = NSTextAlignmentCenter;
+            _markedwordsLblCanceled.textColor     = DeepGrey;
+            _markedwordsLblCanceled.font          = FONT_SIZE(BigFontSize);
+        }
+        _markedwordsLblCanceled.text = SS_NO_DATA_CANCELED;
+        [tableV addSubview:_markedwordsLblCanceled];
     }
 }
 
@@ -785,6 +884,13 @@
         if (_markedWordsLblCompleted) {
             [_markedWordsLblCompleted removeFromSuperview];
         }
+    }else if (tableV == self.tableCanceled){
+        if (_logoImgEmptyCanceled) {
+            [_logoImgEmptyCanceled removeFromSuperview];
+        }
+        if (_markedwordsLblCanceled) {
+            [_markedwordsLblCanceled removeFromSuperview];
+        }
     }
 }
 
@@ -803,6 +909,8 @@
         currentPage = ++_currentPageOndelivering;
     }else if (_orderListStatus == SSMyOrderStatusCompleted) {
         currentPage = ++_currentPageCompleted;
+    }else if (_orderListStatus == SSMyOrderStatusCanceled) {
+        currentPage = ++_currentPageCanceled;
     }
     NSDictionary * paraData = @{
                                 @"businessId":[UserInfo getUserId],//[NSNumber numberWithInt:2125],//[UserInfo getUserId],
@@ -827,12 +935,14 @@
             long onTakingCount = [[result objectForKey:@"deliveryCount"] longValue];
             long onDeliveryingCount = [[result objectForKey:@"takingCount"] longValue];
             long completedCount = [[result objectForKey:@"hadCompleteCount"] longValue];
-            
+            long completedCount22 = [[result objectForKey:@"hadCompleteCount"] longValue];
+
             [self setOptionButton:self.buttonUnpay count:unpayCount];
             [self setOptionButton:self.buttonUngrab count:ungrabCount];
             [self setOptionButton:self.buttonOntaking count:onTakingCount];
             [self setOptionButton:self.buttonOndelivering count:onDeliveryingCount];
             [self setOptionButton:self.buttonCompleted count:completedCount];
+            [self setOptionButton:self.buttonCanceled count:completedCount22];
             NSArray * orderRespModel = [result objectForKey:@"orders"];
             
             if (_orderListStatus == SSMyOrderStatusUnpayed) {
@@ -879,6 +989,15 @@
                 [_tableCompleted reloadData];
                 if ([orderRespModel count] == 0){
                     _tableCompleted.footer.state = MJRefreshFooterStateNoMoreData;
+                }
+            }else if (_orderListStatus == SSMyOrderStatusCanceled){
+                for (NSDictionary * aRespModel in orderRespModel) {
+                    SSMyOrderModel * regioinModel = [[SSMyOrderModel alloc] initWithDic:aRespModel];
+                    [_datasourceCanceled addObject:regioinModel];
+                }
+                [_tableCanceled reloadData];
+                if ([orderRespModel count] == 0){
+                    _tableCanceled.footer.state = MJRefreshFooterStateNoMoreData;
                 }
             }
             
