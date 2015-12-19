@@ -11,9 +11,9 @@
 
 
 typedef NS_ENUM(NSInteger, SSPayMethodType) {
-    SSPayMethodTypeRemainingBalance,
-    SSPayMethodTypeAlipay,
-    SSPayMethodTypeWechatpay,
+    SSPayMethodTypeRemainingBalance = 3,
+    SSPayMethodTypeAlipay = 1,
+    SSPayMethodTypeWechatpay = 2,
 };
 
 #endif /* SSPayMethodTypes_h */

@@ -12,6 +12,7 @@
 #import "SSPayMethodTypes.h"
 
 @interface SSPayMethodModel : BaseModel
+
 @property (nonatomic,assign) SSPayMethodType payType;
 @property (nonatomic,assign) BOOL selected;
 

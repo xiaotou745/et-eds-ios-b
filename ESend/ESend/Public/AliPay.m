@@ -30,7 +30,7 @@
     return resultStr;
 }
 
-+ (void)payWithPrice:(CGFloat)price orderNumber:(NSString*)orderNumber notifyURL:(NSString*)url {
++ (void)payWithPrice:(float)price orderNumber:(NSString*)orderNumber notifyURL:(NSString*)url productName:(NSString *)productName{
     /*============================================================================*/
     /*=======================需要填写商户app申请的===================================*/
     /*============================================================================*/
@@ -63,7 +63,7 @@
     order.partner = partner;
     order.seller = seller;
     order.tradeNO = orderNumber; //订单ID（由商家自行制定）
-    order.productName = @"充值"; //商品标题
+    order.productName = productName; //商品标题
     order.productDescription = [UserInfo getUserId]; //商品描述
     order.amount = [NSString stringWithFormat:@"%.2f",price]; //商品价格
     order.notifyURL =  url; //回调URL

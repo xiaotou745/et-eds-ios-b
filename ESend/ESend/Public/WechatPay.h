@@ -17,7 +17,7 @@
 
 
 /// 微信支付
-+ (void)wechatPayWithPrice:(CGFloat)price orderNo:(NSString*)orderNo notifyURL:(NSString*)url prepayId:(NSString *)prepayId;
++ (void)wechatPayWithPrice:(float)price orderNo:(NSString*)orderNo notifyURL:(NSString*)url prepayId:(NSString *)prepayId;
 
 
 @end

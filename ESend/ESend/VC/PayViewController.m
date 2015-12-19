@@ -186,7 +186,7 @@
                                   };
     [FHQNetWorkingAPI getPayInfo:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
-        [AliPay payWithPrice:price orderNumber:[result getStringWithKey:@"orderNo"] notifyURL:[result getStringWithKey:@"notifyUrl"]];
+        [AliPay payWithPrice:price orderNumber:[result getStringWithKey:@"orderNo"] notifyURL:[result getStringWithKey:@"notifyUrl"] productName:@"充值"];
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
         
     }];

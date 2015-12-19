@@ -132,7 +132,7 @@
     [FHQNetWorkingAPI getPayInfo:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         // NSLog(@"%@",result);
         if (EDSPaymentTypeAlipay == _PayType) {
-            [AliPay payWithPrice:price orderNumber:[result getStringWithKey:@"orderNo"] notifyURL:[result getStringWithKey:@"notifyUrl"]];
+            [AliPay payWithPrice:price orderNumber:[result getStringWithKey:@"orderNo"] notifyURL:[result getStringWithKey:@"notifyUrl"] productName:@"充值"];
         }else if (EDSPaymentTypeWechatPay == _PayType) {
             [WechatPay wechatPayWithPrice:price orderNo:[result getStringWithKey:@"orderNo"] notifyURL:[result getStringWithKey:@"notifyUrl"] prepayId:[result getStringWithKey:@"prepayId"]];
         }

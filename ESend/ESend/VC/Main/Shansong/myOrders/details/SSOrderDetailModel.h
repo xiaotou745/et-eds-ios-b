@@ -50,6 +50,8 @@
 @property (nonatomic,copy) NSString * expectedTakeTime;// 期望那取货时间
 @property (nonatomic,assign) NSInteger orderId;// id
 
+@property (nonatomic,assign) double balancePrice;   // 账户余额
+
 // readonly
 @property (nonatomic,copy,readonly) NSString * orderStatusString;   // 订单状态中文
 @property (nonatomic,copy,readonly) NSString * orderStatusImg;      // 订单状态图片地址

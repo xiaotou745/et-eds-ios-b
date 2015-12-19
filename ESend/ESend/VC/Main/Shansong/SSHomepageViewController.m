@@ -476,6 +476,7 @@
                                 @"taketype":self.api_pick_now?@"0":@"1",
                                 @"takelongitude":@"0",
                                 @"takelatitude":@"0",
+                                @"taketime":self.api_pick_time,
                                 @"recevicename":self.hp_ShouNameTextField.text,
                                 @"recevicephoneno":self.hp_ShouPhoneTextField.text,
                                 @"receviceaddress":[NSString stringWithFormat:@"%@%@",self.api_addr_shou.name,self.api_addr_shou.addition],
@@ -502,6 +503,7 @@
         if (status == 1) {
             // 本地缓存 ,收,发
             // uid  :  address{地址，经度，纬度，姓名，手机}
+            NSDictionary * result = [responseObject objectForKey:@"result"];
             NSDictionary * uInfo = @{
                                         @"userId":[[responseObject objectForKey:@"result"] objectForKey:@"businessId"],
                                     };
@@ -516,10 +518,13 @@
                 self.api_addr_shou.personPhone = self.hp_ShouPhoneTextField.text;
                 [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
             }
-            
-            SSpayViewController * payVC = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
-            [self.navigationController pushViewController:payVC animated:YES];
             // 清空内存？
+            SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
+            svc.orderId = [NSString stringWithFormat:@"%@",[result objectForKey:@"orderId"]];
+            svc.balancePrice = [[result objectForKey:@"balanceprice"] doubleValue];
+            svc.type = 1;
+            svc.tipAmount = self.api_total_fee;
+            [self.navigationController pushViewController:svc animated:YES];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -46,7 +46,7 @@
 
 - (void)awakeFromNib {
     self.separator.backgroundColor = SeparatorLineColor;
-    self.payTypeTitle.textColor = LightGrey;
+    self.payTypeTitle.textColor = DeepGrey;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -173,8 +173,12 @@
 
 #pragma mark - gotopay
 - (void)gotoPay{
-    SSpayViewController * pvc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
-    [self.navigationController pushViewController:pvc animated:YES];
+    SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
+    svc.orderId = [NSString stringWithFormat:@"%ld",_orderInfo.orderId];
+    svc.balancePrice = _orderInfo.balancePrice;
+    svc.type = 2;
+    svc.tipAmount = _orderInfo.amount;
+    [self.navigationController pushViewController:svc animated:YES];
 }
 
 #pragma mark - layoutViews

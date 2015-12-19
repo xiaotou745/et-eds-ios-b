@@ -57,4 +57,30 @@
 + (AFHTTPRequestOperation *)shanSongGetOrderDetails:(NSDictionary *)dict
                                             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/*
+ 1.1.10 发单，抢单（支付宝或微信支付) url:/Pay/CreateFlashPay 胡灵波 POST
+ 参数	描述	允许为空
+ orderId	订单id	否
+ payStyle	付款方式1扫码，其它非扫码	否
+ tipAmount	支付金额	否
+ payType	支付类型 1支付宝,2微信	否
+ */
++ (AFHTTPRequestOperation *)shanSongCreateFlashPay:(NSDictionary *)dict
+                                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/*
+ 1.1.11 发单，抢单(余额支付)
+ url:/order/orderbalancepay 创建人：胡灵波 POST
+ 参数	描述	允许为空
+ orderId	订单id	否
+ orderChildId	子订单id	否
+ businessId	商户id	否
+ type	1发单，2抢单	否
+ tipAmount	抢单时此值不能为空	是
+ */
++ (AFHTTPRequestOperation *)shanSongOrderBalancePay:(NSDictionary *)dict
+                                            success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

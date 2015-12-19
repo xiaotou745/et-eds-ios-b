@@ -16,6 +16,7 @@
 #import "SSMyOrderModel.h"
 #import "SSOrderUngrabCell.h"
 #import "SSOrderOnDeliveryingCell.h"
+#import "SSpayViewController.h"
 
 /*
  typedef NS_ENUM(NSInteger, SSMyOrderStatus) {
@@ -1012,7 +1013,10 @@
 
 #pragma mark - 支付未支付的代理
 - (void)orderUnpayCell:(SSOrderUnpayCell *)cell payWithId:(NSString *)orderId{
-    
+//    SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
+//    svc.orderId = orderId;
+//    svc.type = 2;
+//    [self.navigationController pushViewController:svc animated:YES];
 }
 
 #pragma mark - 加小费

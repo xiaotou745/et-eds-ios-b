@@ -10,6 +10,6 @@
 
 @interface AliPay : NSObject
 
-+ (void)payWithPrice:(CGFloat)price orderNumber:(NSString*)orderNumber notifyURL:(NSString*)url;
++ (void)payWithPrice:(float)price orderNumber:(NSString*)orderNumber notifyURL:(NSString*)url productName:(NSString *)productName;
 
 @end

@@ -99,6 +99,8 @@
             self.expectedTakeTime = @"";
         }
         self.orderId = [[dic objectForKey:@"id"] integerValue];
+        
+        self.balancePrice = [[dic objectForKey:@"balancePrice"] doubleValue];
     }
     return self;
 }

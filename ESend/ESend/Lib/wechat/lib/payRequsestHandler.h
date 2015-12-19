@@ -41,12 +41,12 @@
 // 账号帐户资料
 //更改商户把相关参数后可测试
 
-#define APP_ID          @"wxbb8fb40942327ec6"                       //APPID
-#define APP_SECRET      @"c0cb93c7fb3f7322326b0c853f0cba46"         //appsecret
+#define APP_ID          @"wx5505d0e3b58607a6"                       //APPID
+#define APP_SECRET      @"d4624c36b6795d1d99dcf0547af5443d"         //appsecret
 //商户号，填写商户对应参数
-#define MCH_ID          @"1264102901"
+#define MCH_ID          @"1291102901"
 //商户API密钥，填写相应参数
-#define PARTNER_ID      @"10852AFB8F4044D88F5A24E978BBC053"
+#define PARTNER_ID      @"51c56b886b5be869567dd389b3e5d1d6"
 
 
 //
