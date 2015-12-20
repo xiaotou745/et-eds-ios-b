@@ -23,15 +23,21 @@
 #import "SSpayViewController.h"
 #import "SSMyOrdersVC.h"
 #import "SSPriceTableView.h"
+#import "NSString+evaluatePhoneNumber.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
 #define SS_HPNoShouAddressMsg @"请输入收货地址"
 #define SS_HpNoShouNameMsg @"请输入收件人姓名"
 #define SS_HpNoShouPhoneMsg @"请输入收件人电话"
+#define SS_HpWrongShouPhongMsg @"收件人电话格式不对"
 #define SS_HpNoFaNameMsg @"请输入寄件人姓名"
 #define SS_HpNoFaPhoneMsg @"请输入寄件人电话"
+#define SS_HpWrongFaPhongMsg @"寄件人电话格式不对"
 #define SS_HpNoProductNameMsg @"请输入物品名称"
+#define SS_HpLessProductNameMsg @"物品名称不少于2个字"
+
+#define SS_HpMaxKilo @"重量不能超过500公斤"
 
 #define SS_HpNoMyCellPhoneMsg @"请输入您的手机号"
 #define SS_HpNoMyCodeMsg @"请输入验证码"
@@ -53,6 +59,8 @@
 @property (strong, nonatomic) SSAddressInfo * api_addr_shou;
 @property (assign, nonatomic) BOOL api_addr_fa_hasValue;
 @property (assign, nonatomic) BOOL api_addr_shou_hasValue;
+
+@property (strong,nonatomic) SSAddressInfo * localAddrInfo;
 
 // 公斤
 @property (nonatomic, assign) NSInteger api_kilo;
@@ -118,11 +126,16 @@
     self.navigationController.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     // notify
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongUserLogout) name:LogoutNotifaction object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongAddrAdditionFinishedNotify:) name:ShanSongAddressAdditionFinishedNotify object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kiloTextFieldChanged:) name:UITextFieldTextDidChangeNotification object:nil];
 
+    // 的爱里
+    self.productName.delegate = self;
+    self.remark.delegate = self;
+    //
     self.titleLabel.text = @"E代送";
     [self.leftBtn setImage:[UIImage imageNamed:@"person_icon"] forState:UIControlStateNormal];
     [self.leftBtn addTarget:self action:@selector(clickUserVC) forControlEvents:UIControlEventTouchUpInside];
@@ -156,11 +169,13 @@
     _searcher.delegate = self;
 
     //
-    [self getPriceRule];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    [self getPriceRule];
+
     self.hp_myPhoneCodeBg.hidden = [UserInfo isLogin];
     CGFloat contentHeight = [UserInfo isLogin]?CGRectGetMinY(self.hp_myPhoneCodeBg.frame):CGRectGetMaxY(self.hp_myPhoneCodeBg.frame) + 10;
     self.scrollerHeight.constant = MAX(contentHeight, CGRectGetHeight(self.scroller.frame) + 2);
@@ -202,13 +217,22 @@
 #pragma mark - outlet actions
 - (IBAction)addKilo:(UIButton *)sender {
     [self.kiloTextField resignFirstResponder];
-    self.kiloTextField.text = [NSString stringWithFormat:@"%ld",++self.api_kilo];
+    ++self.api_kilo;
+    if (self.api_kilo > 500) {
+        self.api_kilo = 500;
+        self.kiloTextField.text = [NSString stringWithFormat:@"%ld",self.api_kilo];
+        [Tools showHUD:SS_HpMaxKilo];
+        return;
+    }
+    self.kiloTextField.text = [NSString stringWithFormat:@"%ld",self.api_kilo];
     [self calculateAndDisplayTotalFee];
 }
 
 - (IBAction)minusKilo:(UIButton *)sender {
     [self.kiloTextField resignFirstResponder];
-    if (self.api_kilo == 1) {
+    if (self.api_kilo <= 1) {
+        self.api_kilo = 1;
+        self.kiloTextField.text = [NSString stringWithFormat:@"%ld",self.api_kilo];
         return;
     }
     self.kiloTextField.text = [NSString stringWithFormat:@"%ld",--self.api_kilo];
@@ -317,6 +341,10 @@
         [Tools showHUD:SS_HpNoShouPhoneMsg];
         return;
     }
+    if (![self.hp_ShouPhoneTextField.text rightConsigneeContactInfo]) {
+        [Tools showHUD:SS_HpWrongShouPhongMsg];
+        return;
+    }
     if (self.hp_FaNameTextField.text.length <= 0 || [self.hp_FaNameTextField.text allSpace]) {
         [Tools showHUD:SS_HpNoFaNameMsg];
         return;
@@ -325,8 +353,16 @@
         [Tools showHUD:SS_HpNoFaPhoneMsg];
         return;
     }
+    if (![self.hp_FaPhoneTextField.text rightConsigneeContactInfo]) {
+        [Tools showHUD:SS_HpWrongFaPhongMsg];
+        return;
+    }
     if (self.productName.text.length <= 0 || [self.productName.text allSpace]) {
         [Tools showHUD:SS_HpNoProductNameMsg];
+        return;
+    }
+    if (self.productName.text.length < 2 || [self.productName.text allSpace]) {
+        [Tools showHUD:SS_HpLessProductNameMsg];
         return;
     }
     
@@ -369,7 +405,14 @@
 #pragma mark - UITextFieldDelegate
 - (void)kiloTextFieldChanged:(NSNotification *)notify{
     if (((UITextField *)notify.object) == self.kiloTextField) {
-        self.api_kilo = [((UITextField *)notify.object).text integerValue];
+        NSInteger notifyKilo = [((UITextField *)notify.object).text integerValue];
+        if (notifyKilo > 500) {
+            self.api_kilo = 500;
+            self.kiloTextField.text = [NSString stringWithFormat:@"%ld",self.api_kilo];
+            [Tools showHUD:SS_HpMaxKilo];
+            return;
+        }
+        self.api_kilo = notifyKilo;
         [self calculateAndDisplayTotalFee];
     }
 }
@@ -395,8 +438,8 @@
         BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]));
         CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
         self.api_distance = distance/1000;
-        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.2f",self.api_distance];
-        
+        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
+        // 限制距离？？
         // 计算费用总计;
         [self calculateAndDisplayTotalFee];
     }
@@ -535,6 +578,9 @@
                 [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
             }
             // 清空内存？
+            [self resetShansongData];
+
+            //
             SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
             svc.orderId = [NSString stringWithFormat:@"%@",[result objectForKey:@"orderId"]];
             svc.balancePrice = [[result objectForKey:@"balanceprice"] doubleValue];
@@ -621,7 +667,7 @@
         BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]));
         CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
         self.api_distance = distance/1000;
-        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.2f",self.api_distance];
+        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
         
         // 计算费用总计;
         [self calculateAndDisplayTotalFee];
@@ -665,6 +711,7 @@
         self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@",mapAddr1.name];
         self.hp_FaAddrLabel.textColor = DeepGrey;
         self.api_addr_fa = mapAddr1;
+        self.localAddrInfo = mapAddr1;
         self.api_addr_fa_hasValue = YES;
         
     }else {
@@ -674,18 +721,66 @@
 
 #pragma mark - 价格表
 - (IBAction)showPriceTable:(UIButton *)sender {
-    /*
-     self.oneKM = [[result objectForKey:@"oneKM"] integerValue];
-     self.oneDistributionPrice = [[result objectForKey:@"oneDistributionPrice"] doubleValue];
-     self.masterDistributionPrice = [[result objectForKey:@"masterDistributionPrice"] doubleValue];
-     self.masterKG = [[result objectForKey:@"masterKG"] integerValue];
-     self.masterKM = [[result objectForKey:@"masterKM"] integerValue];
-     self.twoDistributionPrice = [[result objectForKey:@"twoDistributionPrice"] doubleValue];
-     self.twoKG = [[result objectForKey:@"twoKG"] integerValue];
-     */
     SSPriceTableView * priceTable = [[SSPriceTableView alloc] initWithmasterKG:self.masterKG masterKM:self.masterKM masterDistributionPrice:self.masterDistributionPrice oneKM:self.oneKM oneDistributionPrice:self.oneDistributionPrice twoKG:self.twoKG twoDistributionPrice:self.twoDistributionPrice];
     [priceTable showInView:self.view];
 }
 
+
+#pragma mark - 重置数据
+- (void)resetShansongData{
+    self.api_addr_fa = self.localAddrInfo;
+    self.api_addr_fa_hasValue = YES;
+    self.api_addr_shou = nil;
+    self.api_addr_shou_hasValue = NO;
+    self.hp_myPhoneTextField.text = @"";
+    self.hp_FaNameTextField.text = @"";
+    self.hp_FaPhoneTextField.text = @"";
+    self.hp_myVerCodeTextField.text = @"";
+    self.api_pick_now = YES;
+    self.api_pick_time = [self currentDateString ];
+    self.self.hp_ShouNameTextField.text = @"";
+    self.hp_ShouPhoneTextField.text = @"";
+    self.productName.text = @"";
+    self.remark.text = @"";
+    self.api_total_fee = 0;
+    self.api_kilo= 0;
+    self.kiloTextField.text = @"1";
+    self.api_distance = 0;
+    self.hp_distanceLabel.text = @"0";
+    self.hp_FaAddrLabel.text = self.api_addr_fa.name;
+    //            self.hp_FaAddrLabel.textColor = BBC0C7Color;
+    self.hp_ShouAddrLabel.text = @"请输入收货地址";
+    self.hp_ShouAddrLabel.textColor = BBC0C7Color;
+}
+
+- (void)shanSongUserLogout{
+    [self resetShansongData];
+}
+
+
+#pragma mark - UITextFieldDelegate
+/// 字符变化
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([string isEqualToString:@"\n"])
+    {
+        return YES;
+    }
+    
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    // NSLog(@"%@",toBeString);
+    if (textField == self.productName && toBeString.length > 20) {
+        textField.text = [toBeString substringToIndex:20];
+        [Tools showHUD:@"物品名称不能超过20个字"];
+        return NO;
+    }
+    
+    if (textField == self.remark && toBeString.length > 30) {
+        textField.text = [toBeString substringToIndex:20];
+        [Tools showHUD:@"备注不能超过30个字"];
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end

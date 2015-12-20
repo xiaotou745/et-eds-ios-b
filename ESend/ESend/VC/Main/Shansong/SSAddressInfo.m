@@ -62,8 +62,8 @@
     if ([self.name isEqualToString:anAddr.name] &&
         [self.address isEqualToString:anAddr.address] &&
         [self.city isEqualToString:anAddr.city] &&
-        [self.latitude isEqualToString:anAddr.latitude] &&
-        [self.longitude isEqualToString:anAddr.longitude] &&
+//        [self.latitude isEqualToString:anAddr.latitude] &&
+//        [self.longitude isEqualToString:anAddr.longitude] &&
         [self.addition isEqualToString:anAddr.addition] &&
         [self.personPhone isEqualToString:anAddr.personPhone] &&
         [self.personName isEqualToString:anAddr.personName]) {
