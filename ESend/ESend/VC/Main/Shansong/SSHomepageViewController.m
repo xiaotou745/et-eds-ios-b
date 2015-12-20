@@ -22,6 +22,7 @@
 #import "DataArchive.h"
 #import "SSpayViewController.h"
 #import "SSMyOrdersVC.h"
+#import "SSPriceTableView.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
@@ -35,9 +36,12 @@
 #define SS_HpNoMyCellPhoneMsg @"请输入您的手机号"
 #define SS_HpNoMyCodeMsg @"请输入验证码"
 
-@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,SSEditAdderssViewControllerDelegate>{
+@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,SSEditAdderssViewControllerDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>{
     SSAppointmentTimeView * _appointTimeView;
     dispatch_source_t _timer;
+    
+    BMKLocationService *_locService;
+    BMKGeoCodeSearch *_searcher;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *scroller;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollerHeight;
@@ -57,6 +61,7 @@
 // 距离
 @property (nonatomic, assign) double api_distance;
 @property (strong, nonatomic) IBOutlet UILabel *hp_distanceLabel;
+@property (weak, nonatomic) IBOutlet UIButton *hp_priceRuleBtn;
 
 // 姓名,电话
 @property (strong, nonatomic) IBOutlet UITextField *hp_ShouNameTextField;
@@ -139,6 +144,17 @@
     [self.getVerCodeAction setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
     [self.hp_nextBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
     
+    _searcher = [[BMKGeoCodeSearch alloc] init];
+    // 定位，反编码
+    if (!_locService) {
+        //初始化BMKLocationService
+        _locService = [[BMKLocationService alloc]init];
+        _locService.delegate = self;
+    }
+    //启动LocationService
+    [_locService startUserLocationService];
+    _searcher.delegate = self;
+
     //
     [self getPriceRule];
 }
@@ -546,6 +562,8 @@
             self.twoDistributionPrice = [[result objectForKey:@"twoDistributionPrice"] doubleValue];
             self.twoKG = [[result objectForKey:@"twoKG"] integerValue];
             self.gotPriceRule = YES;
+            //
+            self.hp_priceRuleBtn.hidden = NO;
         }else{
             [self getPriceRule];
         }
@@ -609,5 +627,65 @@
         [self calculateAndDisplayTotalFee];
     }
 }
+
+#pragma mark - BMKMapViewDelegate  BMKLocationServiceDelegate
+//实现相关delegate 处理位置信息更新
+//处理位置坐标更新
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+{
+    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
+    [_locService stopUserLocationService];
+    
+    BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[BMKReverseGeoCodeOption alloc] init];
+    reverseGeoCodeSearchOption.reverseGeoPoint = userLocation.location.coordinate;
+    BOOL flag = [_searcher reverseGeoCode:reverseGeoCodeSearchOption];
+    if (flag) {
+        NSLog(@"反geo检索发送成功");
+    } else {
+        NSLog(@"反geo检索发送失败");
+        
+    }
+}
+
+#pragma mark - BMKGeoCodeSearchDelegate
+//接收反向地理编码结果
+-(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
+    if (error == BMK_SEARCH_NO_ERROR) {
+        //在此处理正常结果
+        /*
+         */
+        SSAddressInfo * mapAddr1 = [[SSAddressInfo alloc] init];
+        mapAddr1.name = result.addressDetail.streetName;
+        mapAddr1.address = result.address;
+        mapAddr1.city = result.addressDetail.city;
+        mapAddr1.latitude = [NSString stringWithFormat:@"%f",result.location.latitude];
+        mapAddr1.longitude = [NSString stringWithFormat:@"%f",result.location.longitude];
+        mapAddr1.selected = YES;
+        
+        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@",mapAddr1.name];
+        self.hp_FaAddrLabel.textColor = DeepGrey;
+        self.api_addr_fa = mapAddr1;
+        self.api_addr_fa_hasValue = YES;
+        
+    }else {
+        NSLog(@"抱歉，未找到结果");
+    }
+}
+
+#pragma mark - 价格表
+- (IBAction)showPriceTable:(UIButton *)sender {
+    /*
+     self.oneKM = [[result objectForKey:@"oneKM"] integerValue];
+     self.oneDistributionPrice = [[result objectForKey:@"oneDistributionPrice"] doubleValue];
+     self.masterDistributionPrice = [[result objectForKey:@"masterDistributionPrice"] doubleValue];
+     self.masterKG = [[result objectForKey:@"masterKG"] integerValue];
+     self.masterKM = [[result objectForKey:@"masterKM"] integerValue];
+     self.twoDistributionPrice = [[result objectForKey:@"twoDistributionPrice"] doubleValue];
+     self.twoKG = [[result objectForKey:@"twoKG"] integerValue];
+     */
+    SSPriceTableView * priceTable = [[SSPriceTableView alloc] initWithmasterKG:self.masterKG masterKM:self.masterKM masterDistributionPrice:self.masterDistributionPrice oneKM:self.oneKM oneDistributionPrice:self.oneDistributionPrice twoKG:self.twoKG twoDistributionPrice:self.twoDistributionPrice];
+    [priceTable showInView:self.view];
+}
+
 
 @end

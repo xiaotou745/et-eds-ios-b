@@ -30,6 +30,7 @@
                 <outlet property="hp_pickAppointmentBgView" destination="2hA-8Y-oR3" id="wtn-EW-i0T"/>
                 <outlet property="hp_pickAppointmentImg" destination="fhN-1r-Vs8" id="KRv-3V-Nlb"/>
                 <outlet property="hp_pickAppointmentLabel" destination="D2W-jB-sYH" id="Q9B-fU-BhR"/>
+                <outlet property="hp_priceRuleBtn" destination="euE-Ob-FzV" id="sqW-oj-leG"/>
                 <outlet property="hp_totalFeeLabel" destination="Esl-ZB-6Vd" id="Djd-AX-d5z"/>
                 <outlet property="kiloTextField" destination="NFA-4G-3Y0" id="mKz-fl-Ndu"/>
                 <outlet property="productName" destination="k8s-9z-8Gt" id="DpD-P4-109"/>
@@ -229,11 +230,14 @@
                                             <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euE-Ob-FzV">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euE-Ob-FzV">
                                             <rect key="frame" x="549" y="45" width="39" height="28"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <state key="normal" title="价格表"/>
+                                            <connections>
+                                                <action selector="showPriceTable:" destination="-1" eventType="touchUpInside" id="kus-al-hkQ"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <animations/>

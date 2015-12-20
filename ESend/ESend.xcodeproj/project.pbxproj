@@ -129,6 +129,10 @@
 		685E53B11BBB878E00BE429C /* EDSBillStatisticsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */; };
 		685E53B21BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; };
 		685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */; };
+		6861FC571C26967F009A4EDF /* SSPriceTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6861FC561C26967F009A4EDF /* SSPriceTableView.m */; };
+		6861FC581C26967F009A4EDF /* SSPriceTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6861FC561C26967F009A4EDF /* SSPriceTableView.m */; };
+		6861FC5A1C269699009A4EDF /* SSPriceTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6861FC591C269699009A4EDF /* SSPriceTableView.xib */; };
+		6861FC5B1C269699009A4EDF /* SSPriceTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6861FC591C269699009A4EDF /* SSPriceTableView.xib */; };
 		686630C21C0708EC009293D3 /* SSEditAdderssViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686630C01C0708EC009293D3 /* SSEditAdderssViewController.m */; };
 		686630C31C0708EC009293D3 /* SSEditAdderssViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686630C01C0708EC009293D3 /* SSEditAdderssViewController.m */; };
 		686630C41C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 686630C11C0708EC009293D3 /* SSEditAdderssViewController.xib */; };
@@ -772,6 +776,9 @@
 		685E53AD1BBB878E00BE429C /* EDSBillStatisticsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsVC.h; sourceTree = "<group>"; };
 		685E53AE1BBB878E00BE429C /* EDSBillStatisticsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsVC.m; sourceTree = "<group>"; };
 		685E53AF1BBB878E00BE429C /* EDSBillStatisticsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsVC.xib; sourceTree = "<group>"; };
+		6861FC551C26967F009A4EDF /* SSPriceTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSPriceTableView.h; sourceTree = "<group>"; };
+		6861FC561C26967F009A4EDF /* SSPriceTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSPriceTableView.m; sourceTree = "<group>"; };
+		6861FC591C269699009A4EDF /* SSPriceTableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSPriceTableView.xib; sourceTree = "<group>"; };
 		686630BF1C0708EC009293D3 /* SSEditAdderssViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSEditAdderssViewController.h; sourceTree = "<group>"; };
 		686630C01C0708EC009293D3 /* SSEditAdderssViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSEditAdderssViewController.m; sourceTree = "<group>"; };
 		686630C11C0708EC009293D3 /* SSEditAdderssViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSEditAdderssViewController.xib; sourceTree = "<group>"; };
@@ -1796,6 +1803,9 @@
 				68FE8CC71C05B1FB004BABB4 /* SSHomepageViewController.h */,
 				68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */,
 				68FE8CC91C05B1FB004BABB4 /* SSHomepageViewController.xib */,
+				6861FC551C26967F009A4EDF /* SSPriceTableView.h */,
+				6861FC561C26967F009A4EDF /* SSPriceTableView.m */,
+				6861FC591C269699009A4EDF /* SSPriceTableView.xib */,
 				68EB380D1C101B210046071E /* SSLoginVC.h */,
 				68EB380E1C101B210046071E /* SSLoginVC.m */,
 				686A49921C0EE70600558D5D /* NSString+PhoneFormat.h */,
@@ -2718,6 +2728,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6861FC5B1C269699009A4EDF /* SSPriceTableView.xib in Resources */,
 				F62A73E71B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F67D35F11B5664A600083DA4 /* gray_border_btn_nor@2x.png in Resources */,
 				6867454E1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
@@ -2812,6 +2823,7 @@
 				683307A61C20365900AC6601 /* SSOrderDetailVC.xib in Resources */,
 				CF22B0141BAB2BC7000F19D9 /* EDSHomepageVC.xib in Resources */,
 				F678A7E11B29787E0026DA37 /* alipay_icon@2x.png in Resources */,
+				6861FC5A1C269699009A4EDF /* SSPriceTableView.xib in Resources */,
 				686630C41C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */,
 				6801E3C21BC8B1BD00CE13ED /* calendar_indicator_right_normal@2x.png in Resources */,
 				F6C6AE7C1B1845750007A980 /* blue_btn_pre@2x.png in Resources */,
@@ -3078,6 +3090,7 @@
 				6805570A1BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */,
 				F67D35C11B5664A600083DA4 /* MineCell.m in Sources */,
 				2EA0CA741B842E3F00BBAA63 /* Security.m in Sources */,
+				6861FC581C26967F009A4EDF /* SSPriceTableView.m in Sources */,
 				F67D35C21B5664A600083DA4 /* AFSecurityPolicy.m in Sources */,
 				6807AD6F1BAAB53600238D64 /* SCMessageView.m in Sources */,
 				F67D35C31B5664A600083DA4 /* HelpViewController.m in Sources */,
@@ -3325,6 +3338,7 @@
 				680557091BA660FB00840495 /* EDSFullfillOptionCell.m in Sources */,
 				F6C6AD751B12F42F0007A980 /* AFSecurityPolicy.m in Sources */,
 				2EA0CA731B842E3F00BBAA63 /* Security.m in Sources */,
+				6861FC571C26967F009A4EDF /* SSPriceTableView.m in Sources */,
 				F61C76271B468093009051B9 /* HelpViewController.m in Sources */,
 				6807AD6E1BAAB53600238D64 /* SCMessageView.m in Sources */,
 				F6C6AD701B12F42F0007A980 /* ACETelPrompt.m in Sources */,

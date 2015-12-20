@@ -19,10 +19,24 @@
         self.orderno = [dic objectForKey:@"orderno"];
         if (isCanUseObj([dic objectForKey:@"pickupaddress"])) {
             self.pickupaddress = [dic objectForKey:@"pickupaddress"];
+        }else{
+            self.pickupaddress = @"";
         }
-        self.recevicename = [dic objectForKey:@"recevicename"];
-        self.recevicephoneno = [dic objectForKey:@"recevicephoneno"];
-        self.receviceaddress = [dic objectForKey:@"receviceaddress"];
+        if (isCanUseObj([dic objectForKey:@"recevicename"])) {
+            self.recevicename = [dic objectForKey:@"recevicename"];
+        }else{
+            self.recevicename = @"";
+        }
+        if (isCanUseObj([dic objectForKey:@"recevicephoneno"])) {
+            self.recevicephoneno = [dic objectForKey:@"recevicephoneno"];
+        }else{
+            self.recevicephoneno = @"";
+        }
+        if (isCanUseObj([dic objectForKey:@"receviceaddress"])) {
+            self.receviceaddress = [dic objectForKey:@"receviceaddress"];
+        }else{
+            self.receviceaddress = @"";
+        }
         self.ispay = [[dic objectForKey:@"ispay"] boolValue];
         self.amount = [[dic objectForKey:@"amount"] doubleValue];
         if (isCanUseObj([dic objectForKey:@"remark"])) {
@@ -46,7 +60,11 @@
         }else{
             self.pubname = @"";
         }
-        self.pubphoneno = [dic objectForKey:@"pubphoneno"];
+        if (isCanUseObj([dic objectForKey:@"pubphoneno"])) {
+            self.pubphoneno = [dic objectForKey:@"pubphoneno"];
+        }else{
+            self.pubphoneno = @"";
+        }
         if (isCanUseObj([dic objectForKey:@"pubaddress"])) {
             self.pubaddress = [dic objectForKey:@"pubaddress"];
         }else{
