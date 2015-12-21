@@ -95,6 +95,8 @@
     [self updateCityList];
     //向微信注册
     [WXApi registerApp:APP_ID withDescription:@"EDS_B_SS"];
+    
+    
     return YES;
 }
 
@@ -104,8 +106,10 @@
     }
     
     NSString *dataVersion = [[NSUserDefaults standardUserDefaults] stringForKey:@"Bussiness_Address_Id"];
+    
     NSDictionary *requestData = @{@"version" : isCanUseString(dataVersion) ? dataVersion : @"20150525",
                                   @"UserId" : [UserInfo getUserId]};
+    
     [FHQNetWorkingAPI getCityList:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
@@ -117,6 +121,7 @@
             }
             NSArray *addressList = [[result getDictionaryWithKey:@"Result"] getArrayWithKey:@"AreaModels"];
             [[DataBase shareDataBase] updateCityListData:addressList];
+            // NSLog(@"4434445  %@",[[[result getDictionaryWithKey:@"Result"] getStringWithKey:@"Version"] getStringWithKey:@"Bussiness_Address_Id"]);
             [[NSUserDefaults standardUserDefaults] setObject:[[result getDictionaryWithKey:@"Result"] getStringWithKey:@"Version"] forKey:@"Bussiness_Address_Id"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
@@ -476,6 +481,7 @@
 - (void)loginNotifyAction:(NSNotification *)notify{
     [self setPushTag];
     [self consigneeAddressB];
+    [self updateCityList];
 }
 
 
@@ -496,7 +502,18 @@
     }
 }
 
-
+//- (void)testCityCode{
+//        DataBase * _dataBase = [DataBase shareDataBase];
+//
+//    NSString * dis = @"福鼎市";
+//    NSString * city = @"宁德市";
+//    OriginModel *origin = [_dataBase getDistrictWithName:dis city:city];
+//    NSLog(@"%@",origin);
+//    if (origin.idCode == 0) {
+//        [Tools showHUD:@"该地区暂未开通"];
+//        return;
+//    }
+//}
 
 
 @end

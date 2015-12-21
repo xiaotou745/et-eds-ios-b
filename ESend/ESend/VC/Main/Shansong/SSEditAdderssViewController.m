@@ -172,6 +172,7 @@
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSAdressCell class]) owner:self options:nil] lastObject];
         }
+        cell.cellStyle = SSAdressCellStylePOI;
         cell.addressInfo = [_POIs objectAtIndex:indexPath.row];
         [cell hideDeleteBtn];
         return cell;
@@ -181,6 +182,7 @@
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSAdressCell class]) owner:self options:nil] lastObject];
         }
+        cell.cellStyle = SSAdressCellStyleHistory;
         cell.addressInfo = [_historyAddrs objectAtIndex:indexPath.row];
         cell.delegate = self;
         return cell;
@@ -244,6 +246,9 @@
 
 - (IBAction)mapAddrAction:(UIButton *)sender {
     SSMapAddrViewController * mavc = [[SSMapAddrViewController alloc] initWithNibName:NSStringFromClass([SSMapAddrViewController class]) bundle:nil Type:self.type];
+    if (self.addrInfo) {
+        mavc.addrInfo = self.addrInfo;
+    }
     [self.navigationController pushViewController:mavc animated:YES];
 }
 

@@ -10,10 +10,12 @@
 #import "UserInfo.h"
 #import "FHQNetWorkingAPI.h"
 #import "OrderDetailViewController.h"
+#import "SSOrderDetailVC.h"
 
 @interface ExpensesDetailVC ()
 {
     NSInteger _withwardId;
+    NSInteger _platform;
 }
 @property (strong, nonatomic) IBOutlet UIView *FirstBlock;
 @property (strong, nonatomic) IBOutlet UILabel *expenseStatus;
@@ -99,6 +101,7 @@
     NSString * remark = _detailInfo[@"remark"];
     NSString * noDesc = _detailInfo[@"noDesc"];
     NSInteger isOrder = [_detailInfo[@"isOrder"] integerValue];
+    _platform = [_detailInfo[@"platform"] integerValue];
     
     if (!isCanUseString(relationNo)) {
         relationNo = @"--";
@@ -141,76 +144,85 @@
 
 
 - (void)EdTapAction:(UITapGestureRecognizer *)sender{
-    NSDictionary *requestData = @{@"OrderId"    : [NSNumber numberWithInteger:_withwardId],
-                                  @"BusinessId" : [UserInfo getUserId],
-                                  @"version"    : @"1.0"};
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    [FHQNetWorkingAPI getOrderDetail:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+    if (_platform == 3) {
+        //
+        SSOrderDetailVC * odvc = [[SSOrderDetailVC alloc] initWithNibName:@"SSOrderDetailVC" bundle:nil];
+        odvc.orderId = [NSString stringWithFormat:@"%ld",_withwardId];
+        [self.navigationController pushViewController:odvc animated:YES];
         
-        // NSDictionary * dic = (NSDictionary *)result;
-        SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
-        //
-        order.remark = [[result getStringWithKey:@"Remark"] isEqual:@""] ? @"无" : [result getStringWithKey:@"Remark"] ;
-        //order.remark = [result getStringWithKey:@"Remark"];
-        order.isPay = [[result objectForKey:@"IsPay"] boolValue];
-        order.Landline = [result getStringWithKey:@"Landline"];
-        order.totalAmount = [result getDoubleWithKey:@"TotalAmount"];
-        order.pubDate = [result getStringWithKey:@"PubDate"];
-        order.orderFrom = [result getIntegerWithKey:@"OrderFrom"];
-        order.receviceCity = [result getStringWithKey:@"receviceCity"];
-        order.orderCount = [result getIntegerWithKey:@"OrderCount"];
-        // NeedUploadCount 无用
-        // order.mealsSettleMode 无用
-        // 经纬度 无用
-        order.businessId = [result getIntegerWithKey:@"businessId"];
-        // distance_OrderBy 无用
-        order.receiveAddress = [result getStringWithKey:@"ReceviceAddress"];
-        // OneKeyPubOrder 一键发单 - 没有用到
-        // order.originalOrderNo 第三方订单号
-        order.businessName = [result getStringWithKey:@"businessName"];
-        // Payment 无用
-        order.IsComplain = [result getIntegerWithKey:@"IsComplain"];
-        // order.distance
-        order.ClienterId = [result getIntegerWithKey:@"ClienterId"];
-        order.orderStatus = [result getIntegerWithKey:@"Status"];
-        // IsExistsUnFinish
-        order.bussinessPhone = [result getStringWithKey:@"businessPhone"];
-        // ClienterPhoneNo
-        order.bussinessPhone2 = [result getStringWithKey:@"businessPhone2"];
-        order.orderNumber = [result getStringWithKey:@"OrderNo"];
-        // GrabTime
-        order.receivePhone = [result getStringWithKey:@"RecevicePhoneNo"];
-        // GroupId
-        // OrderCommission
-        // Invoice
-        // pickUpCity
-        //
-        order.pickupAddress = [result getStringWithKey:@"PickUpAddress"];
-        order.totalDeliverPrce = [result getDoubleWithKey:@"TotalDistribSubsidy"];
-        // ClienterName
-        [order.childOrderList removeAllObjects];
-        for (NSDictionary *subDic in [result getArrayWithKey:@"listOrderChild"]) {
-            ChildOrderModel *childOrder = [[ChildOrderModel alloc] initWithDic:subDic];
-            [order.childOrderList addObject:childOrder];
-        }
-        // IsAllowCashPay
-        // IsModifyTicket
-        // distanceB2R
-        // BusinessAddress
-        order.amount = [result getDoubleWithKey:@"Amount"];
-        order.orderId = [NSString stringWithFormat:@"%ld",[result getIntegerWithKey:@"Id"]];
-        // PickupCode
-        // HadUploadCount
-        order.receiveName = [result getStringWithKey:@"ReceviceName"];
+    }else{
+        NSDictionary *requestData = @{@"OrderId"    : [NSNumber numberWithInteger:_withwardId],
+                                      @"BusinessId" : [UserInfo getUserId],
+                                      @"version"    : @"1.0"};
+        MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+        [FHQNetWorkingAPI getOrderDetail:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
+            
+            // NSDictionary * dic = (NSDictionary *)result;
+            SupermanOrderModel * order = [[SupermanOrderModel alloc] init];
+            //
+            order.remark = [[result getStringWithKey:@"Remark"] isEqual:@""] ? @"无" : [result getStringWithKey:@"Remark"] ;
+            //order.remark = [result getStringWithKey:@"Remark"];
+            order.isPay = [[result objectForKey:@"IsPay"] boolValue];
+            order.Landline = [result getStringWithKey:@"Landline"];
+            order.totalAmount = [result getDoubleWithKey:@"TotalAmount"];
+            order.pubDate = [result getStringWithKey:@"PubDate"];
+            order.orderFrom = [result getIntegerWithKey:@"OrderFrom"];
+            order.receviceCity = [result getStringWithKey:@"receviceCity"];
+            order.orderCount = [result getIntegerWithKey:@"OrderCount"];
+            // NeedUploadCount 无用
+            // order.mealsSettleMode 无用
+            // 经纬度 无用
+            order.businessId = [result getIntegerWithKey:@"businessId"];
+            // distance_OrderBy 无用
+            order.receiveAddress = [result getStringWithKey:@"ReceviceAddress"];
+            // OneKeyPubOrder 一键发单 - 没有用到
+            // order.originalOrderNo 第三方订单号
+            order.businessName = [result getStringWithKey:@"businessName"];
+            // Payment 无用
+            order.IsComplain = [result getIntegerWithKey:@"IsComplain"];
+            // order.distance
+            order.ClienterId = [result getIntegerWithKey:@"ClienterId"];
+            order.orderStatus = [result getIntegerWithKey:@"Status"];
+            // IsExistsUnFinish
+            order.bussinessPhone = [result getStringWithKey:@"businessPhone"];
+            // ClienterPhoneNo
+            order.bussinessPhone2 = [result getStringWithKey:@"businessPhone2"];
+            order.orderNumber = [result getStringWithKey:@"OrderNo"];
+            // GrabTime
+            order.receivePhone = [result getStringWithKey:@"RecevicePhoneNo"];
+            // GroupId
+            // OrderCommission
+            // Invoice
+            // pickUpCity
+            //
+            order.pickupAddress = [result getStringWithKey:@"PickUpAddress"];
+            order.totalDeliverPrce = [result getDoubleWithKey:@"TotalDistribSubsidy"];
+            // ClienterName
+            [order.childOrderList removeAllObjects];
+            for (NSDictionary *subDic in [result getArrayWithKey:@"listOrderChild"]) {
+                ChildOrderModel *childOrder = [[ChildOrderModel alloc] initWithDic:subDic];
+                [order.childOrderList addObject:childOrder];
+            }
+            // IsAllowCashPay
+            // IsModifyTicket
+            // distanceB2R
+            // BusinessAddress
+            order.amount = [result getDoubleWithKey:@"Amount"];
+            order.orderId = [NSString stringWithFormat:@"%ld",[result getIntegerWithKey:@"Id"]];
+            // PickupCode
+            // HadUploadCount
+            order.receiveName = [result getStringWithKey:@"ReceviceName"];
+            
+            //
+            OrderDetailViewController *vc = [[OrderDetailViewController alloc] init];
+            vc.orderModel = order;
+            [self.navigationController pushViewController:vc animated:YES];
+            [Tools hiddenProgress:HUD];
+        } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+            [Tools hiddenProgress:HUD];
+        }];
+    }
 
-        //
-        OrderDetailViewController *vc = [[OrderDetailViewController alloc] init];
-        vc.orderModel = order;
-        [self.navigationController pushViewController:vc animated:YES];
-        [Tools hiddenProgress:HUD];
-    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        [Tools hiddenProgress:HUD];
-    }];
 
 }
 

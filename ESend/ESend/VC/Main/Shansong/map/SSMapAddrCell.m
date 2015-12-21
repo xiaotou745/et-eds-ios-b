@@ -27,7 +27,7 @@
     self.upperSeparator.backgroundColor = _addrInfo.selected?BlueColor:SeparatorLineColor;
     self.bottomSeparator.backgroundColor = _addrInfo.selected?BlueColor:SeparatorLineColor;
     self.addressName.text = _addrInfo.name;
-    self.addressDetail.text = [NSString stringWithFormat:@"%@ %@",_addrInfo.city,_addrInfo.address];
+    self.addressDetail.text = [NSString stringWithFormat:@"%@",_addrInfo.address];
 
 }
 @end

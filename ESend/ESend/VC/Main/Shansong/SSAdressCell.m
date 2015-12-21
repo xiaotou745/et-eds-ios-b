@@ -29,8 +29,14 @@
 
 - (void)setAddressInfo:(SSAddressInfo *)addressInfo{
     _addressInfo =  addressInfo;
-    self.AddressName.text = _addressInfo.name;
-    self.AddressDetail.text = [NSString stringWithFormat:@"%@ %@",_addressInfo.personName,_addressInfo.personPhone];
+    if (self.cellStyle == SSAdressCellStyleHistory) {
+        self.AddressName.text = _addressInfo.name;
+        self.AddressDetail.text = [NSString stringWithFormat:@"%@ %@",_addressInfo.personName,_addressInfo.personPhone];
+    }else if (self.cellStyle == SSAdressCellStylePOI){
+        self.AddressName.text = _addressInfo.name;
+        self.AddressDetail.text = _addressInfo.address;
+    }
+
 }
 
 - (IBAction)deleteCell:(UIButton *)sender {

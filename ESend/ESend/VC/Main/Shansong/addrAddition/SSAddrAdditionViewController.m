@@ -39,7 +39,7 @@
         self.titleLabel.text = @"补充收货地址";
     }
     self.typeImg.image = [SSEditorTypeTransformer imageWithEditorType:self.type];
-    self.addressContent.text = self.addrInfo.name;
+    self.addressContent.text = [NSString stringWithFormat:@"%@(%@)",self.addrInfo.name,self.addrInfo.address];
     [self.confirmBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
     
 }
@@ -58,7 +58,7 @@
 //        [Tools showHUD:[NSString stringWithFormat:@"请%@",self.titleLabel.text]];
 //        return;
 //    }
-    self.addrInfo.addition = self.addrAdditioinTF.text;
+    self.addrInfo.addition = isCanUseString(self.addrAdditioinTF.text)?self.addrAdditioinTF.text:@"";
     NSDictionary * notifyInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.addrInfo,NotifyInfoKey,[NSNumber numberWithInteger:self.type],NotifyTypeKey, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:ShanSongAddressAdditionFinishedNotify object:nil userInfo:notifyInfo];
     

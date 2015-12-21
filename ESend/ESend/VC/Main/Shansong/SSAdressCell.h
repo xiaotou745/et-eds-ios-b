@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SSAddressInfo.h"
 
+typedef NS_ENUM(NSInteger, SSAdressCellStyle) {
+    SSAdressCellStyleHistory,
+    SSAdressCellStylePOI
+};
+
 @class SSAdressCell;
 
 @protocol SSAdressCellDelegate <NSObject>
@@ -23,6 +28,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *AddressDetail;
 @property (strong, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *deleteBtnWidth;
+
+@property (nonatomic,assign) SSAdressCellStyle cellStyle;
 
 @property (strong, nonatomic) SSAddressInfo * addressInfo;
 

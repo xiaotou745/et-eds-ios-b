@@ -38,6 +38,9 @@
         if (isCanUseObj([dic objectForKey:@"weight"])) {
             self.weight = [[dic objectForKey:@"weight"] doubleValue];
         }
+        if (isCanUseObj([dic objectForKey:@"totalAmount"])) {
+            self.totalAmount = [[dic objectForKey:@"totalAmount"] doubleValue];
+        }
     }
     return self;
 }

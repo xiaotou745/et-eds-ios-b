@@ -38,9 +38,18 @@
 #define SS_HpLessProductNameMsg @"物品名称不少于2个字"
 
 #define SS_HpMaxKilo @"重量不能超过500公斤"
+#define SS_HpMinKilo @"重量不少于1公斤"
+
+#define SS_HpMaxDistance @"距离不能超过500公里"
 
 #define SS_HpNoMyCellPhoneMsg @"请输入您的手机号"
 #define SS_HpNoMyCodeMsg @"请输入验证码"
+
+#define SS_HpFaNameMaxLengh @"寄件人姓名不能超过10个字"
+#define SS_HpShouNameMaxLengh @"收件人姓名不能超过10个字"
+
+#define SS_HpFaNameMinLengh @"寄件人姓名不能少于2个字"
+#define SS_HpShouNameMinLengh @"收件人姓名不能少于2个字"
 
 @interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,SSEditAdderssViewControllerDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>{
     SSAppointmentTimeView * _appointTimeView;
@@ -233,6 +242,7 @@
     if (self.api_kilo <= 1) {
         self.api_kilo = 1;
         self.kiloTextField.text = [NSString stringWithFormat:@"%ld",self.api_kilo];
+        [Tools showHUD:SS_HpMinKilo];
         return;
     }
     self.kiloTextField.text = [NSString stringWithFormat:@"%ld",--self.api_kilo];
@@ -292,7 +302,7 @@
     
     [SSHttpReqServer businesssendcode:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-        if (200 == status) {
+        if (1 == status) {
             
             if (!_timer) {
                 _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
@@ -333,28 +343,41 @@
         [Tools showHUD:SS_HPNoShouAddressMsg];
         return;
     }
-    if (self.hp_ShouNameTextField.text.length <= 0 || [self.hp_ShouNameTextField.text allSpace]) {
-        [Tools showHUD:SS_HpNoShouNameMsg];
+    // 重量
+    if (self.api_distance > 500) {
+        [Tools showHUD:SS_HpMaxDistance];
         return;
     }
-    if (self.hp_ShouPhoneTextField.text.length <= 0 || [self.hp_ShouPhoneTextField.text allSpace]) {
-        [Tools showHUD:SS_HpNoShouPhoneMsg];
-        return;
-    }
-    if (![self.hp_ShouPhoneTextField.text rightConsigneeContactInfo]) {
-        [Tools showHUD:SS_HpWrongShouPhongMsg];
-        return;
-    }
-    if (self.hp_FaNameTextField.text.length <= 0 || [self.hp_FaNameTextField.text allSpace]) {
+    if (self.hp_ShouNameTextField.text.length <= 0 || [self.hp_ShouNameTextField.text allSpace]) { // 寄件人
         [Tools showHUD:SS_HpNoFaNameMsg];
         return;
     }
-    if (self.hp_FaPhoneTextField.text.length <= 0 || [self.hp_FaPhoneTextField.text allSpace]) {
+    if (self.hp_ShouNameTextField.text.length < 2) { // 寄件人
+        [Tools showHUD:SS_HpFaNameMinLengh];
+        return;
+    }
+    if (self.hp_ShouPhoneTextField.text.length <= 0 || [self.hp_ShouPhoneTextField.text allSpace]) { // 寄件人
         [Tools showHUD:SS_HpNoFaPhoneMsg];
         return;
     }
-    if (![self.hp_FaPhoneTextField.text rightConsigneeContactInfo]) {
+    if (![self.hp_ShouPhoneTextField.text rightConsigneeContactInfo]) {// 寄件人
         [Tools showHUD:SS_HpWrongFaPhongMsg];
+        return;
+    }
+    if (self.hp_FaNameTextField.text.length <= 0 || [self.hp_FaNameTextField.text allSpace]) { // 收件人
+        [Tools showHUD:SS_HpNoShouNameMsg];
+        return;
+    }
+    if (self.hp_FaNameTextField.text.length < 2) { // 收件人
+        [Tools showHUD:SS_HpShouNameMinLengh];
+        return;
+    }
+    if (self.hp_FaPhoneTextField.text.length <= 0 || [self.hp_FaPhoneTextField.text allSpace]) { // 收件人
+        [Tools showHUD:SS_HpNoShouPhoneMsg];
+        return;
+    }
+    if (![self.hp_FaPhoneTextField.text rightConsigneeContactInfo]) { // 收件人
+        [Tools showHUD:SS_HpWrongShouPhongMsg];
         return;
     }
     if (self.productName.text.length <= 0 || [self.productName.text allSpace]) {
@@ -382,7 +405,17 @@
 
 #pragma mark -
 - (IBAction)editAddress:(UIButton *)sender {
-    SSEditAdderssViewController * eavc = [[SSEditAdderssViewController alloc] initWithNibName:NSStringFromClass([SSEditAdderssViewController class]) bundle:nil Type:[SSEditorTypeTransformer typeWithEditorTitleStr:sender.currentTitle]];
+    SSAddressEditorType type = [SSEditorTypeTransformer typeWithEditorTitleStr:sender.currentTitle];
+    SSEditAdderssViewController * eavc = [[SSEditAdderssViewController alloc] initWithNibName:NSStringFromClass([SSEditAdderssViewController class]) bundle:nil Type:type];
+    if (type == SSAddressEditorTypeFa) {
+        if (self.api_addr_fa_hasValue) {
+            eavc.addrInfo = self.api_addr_fa;
+        }
+    }else if (type == SSAddressEditorTypeShou){
+        if (self.api_addr_shou_hasValue) {
+            eavc.addrInfo = self.api_addr_shou;
+        }
+    }
     eavc.delegate = self;
     [self.navigationController pushViewController:eavc animated:YES];
 }
@@ -404,7 +437,9 @@
 
 #pragma mark - UITextFieldDelegate
 - (void)kiloTextFieldChanged:(NSNotification *)notify{
-    if (((UITextField *)notify.object) == self.kiloTextField) {
+    UITextField * textField = (UITextField *)notify.object;
+    // 公斤
+    if (textField == self.kiloTextField) {
         NSInteger notifyKilo = [((UITextField *)notify.object).text integerValue];
         if (notifyKilo > 500) {
             self.api_kilo = 500;
@@ -412,8 +447,34 @@
             [Tools showHUD:SS_HpMaxKilo];
             return;
         }
+        if (notifyKilo <= 0) {
+            self.api_kilo = 1;
+            self.kiloTextField.text = [NSString stringWithFormat:@"%ld",self.api_kilo];
+            [Tools showHUD:SS_HpMinKilo];
+            return;
+        }
         self.api_kilo = notifyKilo;
         [self calculateAndDisplayTotalFee];
+    }
+    
+    if (textField == self.productName && textField.text.length > 20) {
+        textField.text = [textField.text substringToIndex:20];
+        [Tools showHUD:@"物品名称不能超过20个字"];
+    }
+    
+    if (textField == self.remark && textField.text.length > 30) {
+        textField.text = [textField.text substringToIndex:30];
+        [Tools showHUD:@"备注不能超过30个字"];
+    }
+    
+    if (textField == self.hp_FaNameTextField && textField.text.length > 10) { // 收件人名称
+        textField.text = [textField.text substringToIndex:10];
+        [Tools showHUD:SS_HpShouNameMaxLengh];
+    }
+    
+    if (textField == self.hp_ShouNameTextField && textField.text.length > 10) { // 寄件人名称
+        textField.text = [textField.text substringToIndex:10];
+        [Tools showHUD:SS_HpFaNameMaxLengh];
     }
 }
 
@@ -423,12 +484,12 @@
     SSAddressEditorType addrType = [[info objectForKey:NotifyTypeKey] integerValue];
     SSAddressInfo * addrInfo = [info objectForKey:NotifyInfoKey];
     if (addrType == SSAddressEditorTypeFa) {
-        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@%@",addrInfo.name,addrInfo.addition];
+        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",addrInfo.name,addrInfo.address,addrInfo.addition];
         self.hp_FaAddrLabel.textColor = DeepGrey;
         self.api_addr_fa = addrInfo;
         self.api_addr_fa_hasValue = YES;
     }else if(addrType == SSAddressEditorTypeShou){
-        self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@%@",addrInfo.name,addrInfo.addition];
+        self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",addrInfo.name,addrInfo.address,addrInfo.addition];
         self.hp_ShouAddrLabel.textColor = DeepGrey;
         self.api_addr_shou = addrInfo;
         self.api_addr_shou_hasValue = YES;
@@ -454,10 +515,14 @@
         CFIndex index = ABMultiValueGetIndexForIdentifier(phoneMulti, identifier);
         NSString * phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneMulti, index);
         //NSLog(@"%@",[phone phoneFormat]);
+        
+        NSString * name = (__bridge NSString *)(ABRecordCopyCompositeName(person));
         if (self.phoneType == SSAddressEditorTypeFa) {
             self.hp_FaPhoneTextField.text = [phone phoneFormat];
+            self.hp_FaNameTextField.text = name;
         }else{
             self.hp_ShouPhoneTextField.text = [phone phoneFormat];
+            self.hp_ShouNameTextField.text = name;
         }
     }
 }
@@ -467,11 +532,17 @@
         ABMultiValueRef phoneMulti = ABRecordCopyValue(person, property);
         CFIndex index = ABMultiValueGetIndexForIdentifier(phoneMulti, identifier);
         NSString * phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneMulti, index);
+        
+        NSString * name = (__bridge NSString *)(ABRecordCopyCompositeName(person));
+        //NSLog(@"%@",name);
+        
         //NSLog(@"%@",[phone phoneFormat]);
         if (self.phoneType == SSAddressEditorTypeFa) {
             self.hp_FaPhoneTextField.text = [phone phoneFormat];
+            self.hp_FaNameTextField.text = name;
         }else{
             self.hp_ShouPhoneTextField.text = [phone phoneFormat];
+            self.hp_ShouNameTextField.text = name;
         }
     }
     return NO;
@@ -522,23 +593,25 @@
 
 #pragma mark - API
 - (void)releaseOrder{
+//    NSString * pubaddress = []
+    // ShouAddr
     NSDictionary * paraDict = @{
                                 @"businessid":[UserInfo isLogin]?[UserInfo getUserId]:@"",
                                 @"businessphoneno":self.hp_myPhoneTextField.text,
                                 @"verificationcode":self.hp_myVerCodeTextField.text,
-                                @"pubname":self.hp_FaNameTextField.text,
+                                @"pubname":self.hp_ShouNameTextField.text, // 名称不对，注意
                                 @"islogin":[UserInfo isLogin]?@"true":@"false",
                                 @"publongitude":self.api_addr_fa.longitude,
                                 @"publatitude":self.api_addr_fa.latitude,
-                                @"pubphoneno":self.hp_FaPhoneTextField.text,
-                                @"pubaddress":[NSString stringWithFormat:@"%@%@",self.api_addr_fa.name,self.api_addr_fa.addition],
+                                @"pubphoneno":self.hp_ShouPhoneTextField.text, // 名称不对，注意
+                                @"pubaddress":[NSString stringWithFormat:@"%@(%@)%@",self.api_addr_fa.name,self.api_addr_fa.address,self.api_addr_fa.addition],
                                 @"taketype":self.api_pick_now?@"0":@"1",
                                 @"takelongitude":@"0",
                                 @"takelatitude":@"0",
                                 @"taketime":self.api_pick_time,
-                                @"recevicename":self.hp_ShouNameTextField.text,
-                                @"recevicephoneno":self.hp_ShouPhoneTextField.text,
-                                @"receviceaddress":[NSString stringWithFormat:@"%@%@",self.api_addr_shou.name,self.api_addr_shou.addition],
+                                @"recevicename":self.hp_FaNameTextField.text, // 名称不对，注意
+                                @"recevicephoneno":self.hp_FaPhoneTextField.text, // 名称不对，注意
+                                @"receviceaddress":[NSString stringWithFormat:@"%@(%@)%@",self.api_addr_shou.name,self.api_addr_shou.address,self.api_addr_shou.addition],
                                 @"recevicelongitude":self.api_addr_shou.longitude,
                                 @"recevicelatitude":self.api_addr_shou.latitude,
                                 @"productname":self.productName.text,
@@ -569,17 +642,14 @@
             [UserInfo saveUserInfo:uInfo];
             if ([UserInfo isLogin]) {
                 self.api_addr_fa.uid = [self generateUniqueId];
-                self.api_addr_fa.personName = self.hp_FaNameTextField.text;
-                self.api_addr_fa.personPhone = self.hp_FaPhoneTextField.text;
+                self.api_addr_fa.personName = self.hp_ShouNameTextField.text;
+                self.api_addr_fa.personPhone = self.hp_ShouPhoneTextField.text;
                 [DataArchive storeFaAddress:self.api_addr_fa businessId:[UserInfo getUserId]];
                 self.api_addr_shou.uid = [self generateUniqueId];
-                self.api_addr_shou.personName = self.hp_ShouNameTextField.text;
-                self.api_addr_shou.personPhone = self.hp_ShouPhoneTextField.text;
+                self.api_addr_shou.personName = self.hp_FaNameTextField.text;
+                self.api_addr_shou.personPhone = self.hp_FaPhoneTextField.text;
                 [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
             }
-            // 清空内存？
-            [self resetShansongData];
-
             //
             SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
             svc.orderId = [NSString stringWithFormat:@"%@",[result objectForKey:@"orderId"]];
@@ -587,6 +657,10 @@
             svc.type = 1;
             svc.tipAmount = self.api_total_fee;
             [self.navigationController pushViewController:svc animated:YES];
+            
+            // 清空内存？
+            [self resetShansongData];
+
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -646,21 +720,21 @@
 - (void)editAddressVC:(SSEditAdderssViewController *)vc didSelectHistroyAddr:(SSAddressInfo *)address type:(SSAddressEditorType)type{
     
     if (type == SSAddressEditorTypeFa) {
-        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@%@",address.name,address.addition];
+        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",address.name,address.address,address.addition];
         self.hp_FaAddrLabel.textColor = DeepGrey;
         self.api_addr_fa = address;
         self.api_addr_fa_hasValue = YES;
         //
-        self.hp_FaNameTextField.text = address.personName;
-        self.hp_FaPhoneTextField.text = address.personPhone;
+        self.hp_ShouNameTextField.text = address.personName;
+        self.hp_ShouPhoneTextField.text = address.personPhone;
     }else if (type == SSAddressEditorTypeShou){
-        self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@%@",address.name,address.addition];
+        self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",address.name,address.address,address.addition];
         self.hp_ShouAddrLabel.textColor = DeepGrey;
         self.api_addr_shou = address;
         self.api_addr_shou_hasValue = YES;
         //
-        self.hp_ShouNameTextField.text = address.personName;
-        self.hp_ShouPhoneTextField.text = address.personPhone;
+        self.hp_FaNameTextField.text = address.personName;
+        self.hp_FaPhoneTextField.text = address.personPhone;
     }
     if (self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {
         BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]));
@@ -703,12 +777,13 @@
         SSAddressInfo * mapAddr1 = [[SSAddressInfo alloc] init];
         mapAddr1.name = result.addressDetail.streetName;
         mapAddr1.address = result.address;
+        mapAddr1.addition = @"";
         mapAddr1.city = result.addressDetail.city;
         mapAddr1.latitude = [NSString stringWithFormat:@"%f",result.location.latitude];
         mapAddr1.longitude = [NSString stringWithFormat:@"%f",result.location.longitude];
         mapAddr1.selected = YES;
         
-        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@",mapAddr1.name];
+        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)",mapAddr1.name,mapAddr1.address];
         self.hp_FaAddrLabel.textColor = DeepGrey;
         self.api_addr_fa = mapAddr1;
         self.localAddrInfo = mapAddr1;
@@ -743,7 +818,8 @@
     self.productName.text = @"";
     self.remark.text = @"";
     self.api_total_fee = 0;
-    self.api_kilo= 0;
+    self.hp_totalFeeLabel.text = [NSString stringWithFormat:@"¥ %.2f",self.api_total_fee];
+    self.api_kilo= 1;
     self.kiloTextField.text = @"1";
     self.api_distance = 0;
     self.hp_distanceLabel.text = @"0";
@@ -760,27 +836,27 @@
 
 #pragma mark - UITextFieldDelegate
 /// 字符变化
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if ([string isEqualToString:@"\n"])
-    {
-        return YES;
-    }
-    
-    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    // NSLog(@"%@",toBeString);
-    if (textField == self.productName && toBeString.length > 20) {
-        textField.text = [toBeString substringToIndex:20];
-        [Tools showHUD:@"物品名称不能超过20个字"];
-        return NO;
-    }
-    
-    if (textField == self.remark && toBeString.length > 30) {
-        textField.text = [toBeString substringToIndex:20];
-        [Tools showHUD:@"备注不能超过30个字"];
-        return NO;
-    }
-    
-    return YES;
-}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+//    if ([string isEqualToString:@"\n"])
+//    {
+//        return YES;
+//    }
+//    
+//    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+//    NSLog(@"%@",toBeString);
+//    if (textField == self.productName && toBeString.length > 20) {
+//        textField.text = [toBeString substringToIndex:20];
+//        [Tools showHUD:@"物品名称不能超过20个字"];
+//        return NO;
+//    }
+//    
+//    if (textField == self.remark && toBeString.length > 30) {
+//        textField.text = [toBeString substringToIndex:20];
+//        [Tools showHUD:@"备注不能超过30个字"];
+//        return NO;
+//    }
+//    
+//    return YES;
+//}
 
 @end
