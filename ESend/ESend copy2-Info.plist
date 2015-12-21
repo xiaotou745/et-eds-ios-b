@@ -30,7 +30,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>alipay</string>
+			<string>Aipay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>EDS_B_SS_Aipay</string>
