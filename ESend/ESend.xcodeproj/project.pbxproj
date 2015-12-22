@@ -213,6 +213,8 @@
 		68AE2BE31BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; };
 		68C3D71D1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
 		68C3D71E1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
+		68D1F1571C292D6800027D0A /* NSString+moneyFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D1F1561C292D6800027D0A /* NSString+moneyFormat.m */; };
+		68D1F1581C292D6800027D0A /* NSString+moneyFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D1F1561C292D6800027D0A /* NSString+moneyFormat.m */; };
 		68EB380F1C101B220046071E /* SSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EB380E1C101B210046071E /* SSLoginVC.m */; };
 		68EB38101C101B220046071E /* SSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EB380E1C101B210046071E /* SSLoginVC.m */; };
 		68FE8CCA1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */; };
@@ -846,6 +848,8 @@
 		68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMNavigationTitleView.m; sourceTree = "<group>"; };
 		68C3D71B1BCBA6140081D082 /* UIImage+KmImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KmImg.h"; sourceTree = "<group>"; };
 		68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KmImg.m"; sourceTree = "<group>"; };
+		68D1F1551C292D6800027D0A /* NSString+moneyFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+moneyFormat.h"; sourceTree = "<group>"; };
+		68D1F1561C292D6800027D0A /* NSString+moneyFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+moneyFormat.m"; sourceTree = "<group>"; };
 		68EB380D1C101B210046071E /* SSLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLoginVC.h; sourceTree = "<group>"; };
 		68EB380E1C101B210046071E /* SSLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLoginVC.m; sourceTree = "<group>"; };
 		68EFEE2C1BCCEF8B00CCB4FE /* BS_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BS_Header.h; sourceTree = "<group>"; };
@@ -1646,6 +1650,8 @@
 				68090EA11BA2B248000680D8 /* EDSFullfillMoneyVC.h */,
 				68090EA21BA2B248000680D8 /* EDSFullfillMoneyVC.m */,
 				68090EA31BA2B248000680D8 /* EDSFullfillMoneyVC.xib */,
+				68D1F1551C292D6800027D0A /* NSString+moneyFormat.h */,
+				68D1F1561C292D6800027D0A /* NSString+moneyFormat.m */,
 			);
 			name = FullfillMoney;
 			sourceTree = "<group>";
@@ -3041,6 +3047,7 @@
 				F67D359C1B5664A600083DA4 /* AboutViewController.m in Sources */,
 				686630C91C070B4C009293D3 /* SSEditorTypeTransformer.m in Sources */,
 				F67D359E1B5664A600083DA4 /* SDWebImageDownloaderOperation.m in Sources */,
+				68D1F1581C292D6800027D0A /* NSString+moneyFormat.m in Sources */,
 				F67D359F1B5664A600083DA4 /* UIButton+AFNetworking.m in Sources */,
 				F67D35A01B5664A600083DA4 /* BankTableViewCell.m in Sources */,
 				685E350D1C0C4557001CEABB /* SSMapAddrCell.m in Sources */,
@@ -3289,6 +3296,7 @@
 				F6C6ADAB1B12F42F0007A980 /* SDWebImageDownloaderOperation.m in Sources */,
 				686630C81C070B4C009293D3 /* SSEditorTypeTransformer.m in Sources */,
 				F6C6ADB81B12F42F0007A980 /* UIButton+AFNetworking.m in Sources */,
+				68D1F1571C292D6800027D0A /* NSString+moneyFormat.m in Sources */,
 				F643BB271B2710CF0050E3AE /* BankTableViewCell.m in Sources */,
 				E46C49321B3C4A1300CE0033 /* MDGoodsListCell.m in Sources */,
 				685E350C1C0C4557001CEABB /* SSMapAddrCell.m in Sources */,

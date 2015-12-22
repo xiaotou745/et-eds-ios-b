@@ -244,7 +244,9 @@
     //        PlatForm=1:Android 2 :IOS 默认Android
     //        UserType= 1 骑士 2 商家 默认1骑士
     NSDictionary *requestData = @{@"PlatForm" : @(2),
-                                  @"UserType" : @(2)};
+                                  @"UserType" : @(2),
+                                  @"AppSource":@(2)
+                                  };
     [FHQNetWorkingAPI update:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         //判断版本升级
         NSString * build = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];

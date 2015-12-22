@@ -191,6 +191,7 @@
 }
 
 - (void)pickTimeType:(UITapGestureRecognizer *)tap{
+    [Tools hiddenKeyboard];
     if (tap.view.tag == 1102) {
         self.api_pick_now = NO;
         if (!_appointTimeView) {

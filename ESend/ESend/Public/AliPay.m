@@ -75,7 +75,7 @@
     order.showUrl = @"m.alipay.com";
     
     //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
-    NSString *appScheme = @"EDS_B_SS_Aipay";
+    NSString *appScheme = @"EsendSSAipay";
     
     //将商品信息拼接成字符串
     NSString *orderSpec = [order description];

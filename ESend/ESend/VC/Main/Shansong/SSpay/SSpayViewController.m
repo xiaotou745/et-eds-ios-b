@@ -141,9 +141,12 @@
         [SSHttpReqServer shanSongOrderBalancePay:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [Tools hiddenProgress:HUD];
             NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+            NSString * message = [responseObject objectForKey:@"message"];
             if (status == 1) {
                 [Tools showHUD:@"支付成功"];
                 [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [Tools showHUD:message];
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [Tools hiddenProgress:HUD];

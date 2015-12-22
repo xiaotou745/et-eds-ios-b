@@ -33,7 +33,7 @@
 			<string>Aipay</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>EDS_B_SS_Aipay</string>
+				<string>EsendSSAipay</string>
 			</array>
 		</dict>
 		<dict>

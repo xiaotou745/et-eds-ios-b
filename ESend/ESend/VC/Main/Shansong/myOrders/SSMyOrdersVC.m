@@ -288,9 +288,9 @@
     }else if (btn.tag == 4 + SS_ORDERS_BTN_TAG_BASE) {
         text = [NSString stringWithFormat:@"配送中(%@)",tCount];
     }else if (btn.tag == 5 + SS_ORDERS_BTN_TAG_BASE) {
-        text = [NSString stringWithFormat:@"已完成(%@)",tCount];
+        text = [NSString stringWithFormat:@"已完成"];
     }else if (btn.tag == 6 + SS_ORDERS_BTN_TAG_BASE) {
-        text = [NSString stringWithFormat:@"已取消(%@)",tCount];
+        text = [NSString stringWithFormat:@"已取消"];
     }
     
     NSMutableAttributedString *AttributedString = [[NSMutableAttributedString alloc] initWithString:text];

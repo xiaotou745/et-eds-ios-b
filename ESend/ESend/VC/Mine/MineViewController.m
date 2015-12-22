@@ -82,7 +82,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
     [FHQNetWorkingAPI getSupplierInfo:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
-        _business = result;
+        _business = (NSDictionary *)result;
         
 //        //银行卡信息
 //        NSArray *bankList = [result objectForKey:@"listBFAcount"];

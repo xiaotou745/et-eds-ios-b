@@ -12,10 +12,11 @@
 #import "AliPay.h"
 #import "WechatPay.h"
 #import "UserInfo.h"
+#import "NSString+moneyFormat.h"
 
 #define FFM_CellHeight 55.0f
 
-@interface EDSFullfillMoneyVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface EDSFullfillMoneyVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
     EDSPaymentType _PayType;
 }
@@ -134,7 +135,9 @@
         if (EDSPaymentTypeAlipay == _PayType) {
             [AliPay payWithPrice:price orderNumber:[result getStringWithKey:@"orderNo"] notifyURL:[result getStringWithKey:@"notifyUrl"] productName:@"充值"];
         }else if (EDSPaymentTypeWechatPay == _PayType) {
-            [WechatPay wechatPayWithPrice:price orderNo:[result getStringWithKey:@"orderNo"] notifyURL:[result getStringWithKey:@"notifyUrl"] prepayId:[result getStringWithKey:@"prepayId"]];
+//            [WechatPay wechatPayWithPrice:price orderNo:[result getStringWithKey:@"orderNo"] notifyURL:[result getStringWithKey:@"notifyUrl"] prepayId:[result getStringWithKey:@"prepayId"]];
+            
+            [WechatPay wechatPayWithPrice:[result getDoubleWithKey:@"payAmount"] orderNo:[result getStringWithKey:@"orderNo"] notifyURL:[result getStringWithKey:@"notifyUrl"] prepayId:[result getStringWithKey:@"prepayId"]];
         }
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
         
@@ -206,6 +209,50 @@
 - (void)paySuccess {
     [Tools showHUD:@"充值成功"];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([string isEqualToString:@"\n"])
+    {
+        return YES;
+    }
+    
+    if (range.length == 0) {
+        NSString * currentString = textField.text;
+        NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+        NSLog(@"%@_%@",currentString,toBeString);
+        if ([currentString includesAString:@"."] && [toBeString hasSuffix:@"."]) {
+            if ([currentString hasPrefix:@"."]) {
+                currentString = [@"0" stringByAppendingString:currentString];
+            }
+            textField.text = currentString;
+            return NO;
+        }
+        
+        if ([toBeString includesAString:@"."]) {
+            NSArray * components = [toBeString componentsSeparatedByString:@"."];
+            NSString * intStr = [components objectAtIndex:0];
+            NSString * floatStr = [components objectAtIndex:1];
+            if (floatStr.length > 2) {
+                floatStr = [floatStr substringToIndex:2];
+                NSString * resultStr = [NSString stringWithFormat:@"%@.%@",intStr,floatStr];
+                if ([resultStr hasPrefix:@"."]) {
+                    resultStr = [@"0" stringByAppendingString:resultStr];
+                }
+                textField.text = resultStr;
+                return NO;
+            }
+        }
+        
+        if ([toBeString hasPrefix:@"."]) {
+            toBeString = [@"0" stringByAppendingString:toBeString];
+            textField.text = toBeString;
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 
 @end
