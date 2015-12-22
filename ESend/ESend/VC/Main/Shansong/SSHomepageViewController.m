@@ -57,6 +57,7 @@
     
     BMKLocationService *_locService;
     BMKGeoCodeSearch *_searcher;
+    CLLocationCoordinate2D _currentCoordinate;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *scroller;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollerHeight;
@@ -157,6 +158,7 @@
     
     self.api_distance = 0.0f;
     self.api_kilo = 1;
+    _currentCoordinate = CLLocationCoordinate2DMake(0, 0);
     // tap
     UITapGestureRecognizer * tapNow = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickTimeType:)];
     UITapGestureRecognizer * tapAppointment = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickTimeType:)];
@@ -597,6 +599,8 @@
 - (void)releaseOrder{
 //    NSString * pubaddress = []
     // ShouAddr
+    double currentlongitude = _currentCoordinate.longitude;
+    double currentlatitude = _currentCoordinate.latitude;
     NSDictionary * paraDict = @{
                                 @"businessid":[UserInfo isLogin]?[UserInfo getUserId]:@"",
                                 @"businessphoneno":self.hp_myPhoneTextField.text,
@@ -608,8 +612,8 @@
                                 @"pubphoneno":self.hp_ShouPhoneTextField.text, // 名称不对，注意
                                 @"pubaddress":[NSString stringWithFormat:@"%@(%@)%@",self.api_addr_fa.name,self.api_addr_fa.address,self.api_addr_fa.addition],
                                 @"taketype":self.api_pick_now?@"0":@"1",
-                                @"takelongitude":@"0",
-                                @"takelatitude":@"0",
+                                @"currentlongitude":[NSNumber numberWithDouble:currentlongitude],
+                                @"currentlatitude":[NSNumber numberWithDouble:currentlatitude],
                                 @"taketime":self.api_pick_time,
                                 @"recevicename":self.hp_FaNameTextField.text, // 名称不对，注意
                                 @"recevicephoneno":self.hp_FaPhoneTextField.text, // 名称不对，注意
@@ -757,6 +761,7 @@
 {
     NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     [_locService stopUserLocationService];
+    _currentCoordinate = userLocation.location.coordinate;
     
     BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[BMKReverseGeoCodeOption alloc] init];
     reverseGeoCodeSearchOption.reverseGeoPoint = userLocation.location.coordinate;
