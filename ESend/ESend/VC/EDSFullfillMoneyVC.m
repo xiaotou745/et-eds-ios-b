@@ -127,7 +127,8 @@
                                   @"Businessid" : [UserInfo getUserId],
                                   @"Version"    : APIVersion,
                                   @"PayType"    : @(_PayType),
-                                  @"payAmount"  : [NSNumber numberWithFloat:price]
+                                  @"payAmount"  : [NSNumber numberWithFloat:price],
+                                  @"PlatForm":@"3",
                                   };
     
     [FHQNetWorkingAPI getPayInfo:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {

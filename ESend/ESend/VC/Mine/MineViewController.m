@@ -83,15 +83,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     [FHQNetWorkingAPI getSupplierInfo:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
         _business = (NSDictionary *)result;
-        
-//        //银行卡信息
-//        NSArray *bankList = [result objectForKey:@"listBFAcount"];
-//        if (bankList.count > 0) {
-//            _bank = [[BankModel alloc] initWithDic:bankList[0]];
-//            MineCell *mineCell = (MineCell*)[self.view viewWithTag:1001];
-//            mineCell.contentLabel.text = [NSString stringWithFormat:@"%@ ****%@",_bank.openBank,[_bank.bankCardNumber substringWithRange:NSMakeRange(_bank.bankCardNumber.length - 4, 4)]];
-//        }
-        
+
         _supplierNameLabel.text = [_business getStringWithKey:@"Name"];
         double amountRemain = [result getDoubleWithKey:@"BalancePrice"];
         _balanceLabel.text = [NSString stringWithFormat:@"￥%.2f",amountRemain];
