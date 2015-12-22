@@ -41,6 +41,11 @@
         if (isCanUseObj([dic objectForKey:@"totalAmount"])) {
             self.totalAmount = [[dic objectForKey:@"totalAmount"] doubleValue];
         }
+        
+        if (isCanUseObj([dic objectForKey:@"balancePrice"])) {
+            self.balancePrice = [[dic objectForKey:@"balancePrice"] doubleValue];
+
+        }
     }
     return self;
 }

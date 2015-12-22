@@ -204,7 +204,7 @@
     }
     // 订单号
     self.orderNo.text = orderInfo.orderno;
-    self.orderFrom.text = orderInfo.orderFromString;
+    self.orderFrom.text = orderInfo.platformstr;
     self.orderStatusImg.image = [UIImage imageNamed:orderInfo.orderStatusImg];
     self.orderStatusText.text = orderInfo.orderStatusString;
     

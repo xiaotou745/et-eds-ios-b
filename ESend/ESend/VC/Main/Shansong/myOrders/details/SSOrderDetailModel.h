@@ -51,6 +51,7 @@
 @property (nonatomic,assign) NSInteger orderId;// id
 
 @property (nonatomic,assign) double balancePrice;   // 账户余额
+@property (nonatomic,copy) NSString * platformstr;  // 订单来源
 
 // readonly
 @property (nonatomic,copy,readonly) NSString * orderStatusString;   // 订单状态中文

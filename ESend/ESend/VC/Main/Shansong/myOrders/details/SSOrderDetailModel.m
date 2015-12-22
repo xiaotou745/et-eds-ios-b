@@ -119,6 +119,12 @@
         self.orderId = [[dic objectForKey:@"id"] integerValue];
         
         self.balancePrice = [[dic objectForKey:@"balancePrice"] doubleValue];
+        
+        if (isCanUseObj([dic objectForKey:@"platformstr"])) {
+            self.platformstr = [dic objectForKey:@"platformstr"];
+        }else{
+            self.platformstr = @"";
+        }
     }
     return self;
 }

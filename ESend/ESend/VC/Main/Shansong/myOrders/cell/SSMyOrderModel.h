@@ -25,6 +25,8 @@
 @property (nonatomic,assign) double km;
 @property (nonatomic,assign) double weight;
 
+@property (nonatomic,assign) double balancePrice;
+
 @property (nonatomic,assign)double totalAmount;
 
 @end

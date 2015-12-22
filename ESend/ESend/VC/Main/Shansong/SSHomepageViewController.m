@@ -305,34 +305,35 @@
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
             
-            if (!_timer) {
-                _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
-                dispatch_source_set_timer(_timer, DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
-            }
-            __block int i = 60;
-            __weak typeof(_getVerCodeAction) weakBtn = _getVerCodeAction;
-            dispatch_source_set_event_handler(_timer, ^{
-                if (i == 0) {
-                    dispatch_suspend(_timer);
-                    [weakBtn setTitle:[NSString stringWithFormat:@"获取验证码"] forState:UIControlStateNormal];
-                    weakBtn.enabled = YES;
-                    i = 60;
-                    return ;
-                }
-                [weakBtn setTitle:[NSString stringWithFormat:@"已发送(%d)",i] forState:UIControlStateNormal];
-                weakBtn.enabled = NO;
-                i--;
-            });
-            dispatch_resume(_timer);
-            return ;
             
         }else{
-            NSString * message = [responseObject objectForKey:@"message"];
-            [Tools showHUD:message];
+//            NSString * message = [responseObject objectForKey:@"message"];
+//            [Tools showHUD:message];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
+    
+    if (!_timer) {
+        _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
+        dispatch_source_set_timer(_timer, DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    }
+    __block int i = 60;
+    __weak typeof(_getVerCodeAction) weakBtn = _getVerCodeAction;
+    dispatch_source_set_event_handler(_timer, ^{
+        if (i == 0) {
+            dispatch_suspend(_timer);
+            [weakBtn setTitle:[NSString stringWithFormat:@"获取验证码"] forState:UIControlStateNormal];
+            weakBtn.enabled = YES;
+            i = 60;
+            return ;
+        }
+        [weakBtn setTitle:[NSString stringWithFormat:@"已发送(%d)",i] forState:UIControlStateNormal];
+        weakBtn.enabled = NO;
+        i--;
+    });
+    dispatch_resume(_timer);
+    return ;
 }
 
 - (IBAction)nextStepAction:(UIButton *)sender {
@@ -833,31 +834,5 @@
 - (void)shanSongUserLogout{
     [self resetShansongData];
 }
-
-
-#pragma mark - UITextFieldDelegate
-/// 字符变化
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-//    if ([string isEqualToString:@"\n"])
-//    {
-//        return YES;
-//    }
-//    
-//    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
-//    NSLog(@"%@",toBeString);
-//    if (textField == self.productName && toBeString.length > 20) {
-//        textField.text = [toBeString substringToIndex:20];
-//        [Tools showHUD:@"物品名称不能超过20个字"];
-//        return NO;
-//    }
-//    
-//    if (textField == self.remark && toBeString.length > 30) {
-//        textField.text = [toBeString substringToIndex:20];
-//        [Tools showHUD:@"备注不能超过30个字"];
-//        return NO;
-//    }
-//    
-//    return YES;
-//}
 
 @end

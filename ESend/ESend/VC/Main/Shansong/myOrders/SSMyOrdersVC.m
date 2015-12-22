@@ -77,6 +77,9 @@
     AFHTTPRequestOperation * _operationUpperOntaking;
     AFHTTPRequestOperation * _operationUpperOndelivering;
     AFHTTPRequestOperation * _operationUpperCompleted;
+    
+    NSInteger _ssCancelOrder;                           // 取消时间
+    UILabel * _cancelOrderTime;                          // 取消时间label
 }
 
 @property (strong, nonatomic) NSMutableArray * datasourceUnpay;
@@ -192,6 +195,16 @@
     
     self.buttonUnpay.enabled = NO;
     // self.TLIR_OptionIndicator.backgroundColor = BlueColor;
+    //
+    UIView * unpayTableHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 35)];
+    unpayTableHeader.backgroundColor = [UIColor clearColor];
+    _cancelOrderTime = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, ScreenWidth, 35)];
+    _cancelOrderTime.textColor = RedDefault;
+    _cancelOrderTime.backgroundColor = [UIColor clearColor];
+    _cancelOrderTime.font = [UIFont systemFontOfSize:15];
+    [unpayTableHeader addSubview:_cancelOrderTime];
+    self.tableUnpay.tableHeaderView = unpayTableHeader;
+    
 }
 
 #pragma mark - Config Refresh Setting
@@ -601,7 +614,11 @@
             long onDeliveryingCount = [[result objectForKey:@"takingCount"] longValue];
             long completedCount = [[result objectForKey:@"hadCompleteCount"] longValue];
             long completedCount22 = [[result objectForKey:@"hadCompleteCount"] longValue];
-
+            //
+            _ssCancelOrder = [[result objectForKey:@"ssCancelOrder"] integerValue];
+            _cancelOrderTime.text = [NSString stringWithFormat:@"  注:超过%ld小时未支付订单会自动取消",_ssCancelOrder];
+            _cancelOrderTime.backgroundColor = [UIColor colorWithRed:254/255.0 green:237/255.0 blue:239/255.0 alpha:1];
+            
             [self setOptionButton:self.buttonUnpay count:unpayCount];
             [self setOptionButton:self.buttonUngrab count:ungrabCount];
             [self setOptionButton:self.buttonOntaking count:onTakingCount];
@@ -1015,10 +1032,10 @@
 - (void)orderUnpayCell:(SSOrderUnpayCell *)cell payWithId:(NSString *)orderId{
     SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
     svc.tipAmount = cell.datasource.totalAmount;
+    svc.balancePrice = cell.datasource.balancePrice;
     svc.orderId = orderId;
     svc.type = 2;
     [self.navigationController pushViewController:svc animated:YES];
-    //     svc.balancePrice = _orderInfo.balancePrice;
 }
 
 #pragma mark - 加小费

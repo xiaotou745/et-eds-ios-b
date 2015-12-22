@@ -93,13 +93,8 @@ typedef NS_ENUM(NSInteger, BottomType) {
 //        }
         
         _supplierNameLabel.text = [_business getStringWithKey:@"Name"];
-        
-        double amountRemain = [[result objectForKey:@"BalancePrice"] doubleValue];
-        //double amountCanGet = [[result objectForKey:@"AllowWithdrawPrice"] doubleValue];
-        
+        double amountRemain = [result getDoubleWithKey:@"BalancePrice"];
         _balanceLabel.text = [NSString stringWithFormat:@"￥%.2f",amountRemain];
-        //_withdrawDeposit.text = [NSString stringWithFormat:@"￥%.2f",amountCanGet];
-        
         //是否有新的消息
         if ([result getIntegerWithKey:@"HasMessage"]) {
             _newMessageIcon.hidden = NO;

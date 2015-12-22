@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, ContentLabelType) {
     _orderStatusLabel.textColor = BlueColor;
     [self.contentView addSubview:_orderStatusLabel];
     
-    _orderTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth - 100, 10, 90, 20)];
+    _orderTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth - 160, 10, 150, 20)];
     _orderTimeLabel.text = @"今日16:20";
     _orderTimeLabel.font = [UIFont systemFontOfSize:SmallFontSize];
     _orderTimeLabel.textColor = MiddleGrey;
