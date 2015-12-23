@@ -794,8 +794,35 @@
 
 #pragma mark - 价格表
 - (IBAction)showPriceTable:(UIButton *)sender {
-    SSPriceTableView * priceTable = [[SSPriceTableView alloc] initWithmasterKG:self.masterKG masterKM:self.masterKM masterDistributionPrice:self.masterDistributionPrice oneKM:self.oneKM oneDistributionPrice:self.oneDistributionPrice twoKG:self.twoKG twoDistributionPrice:self.twoDistributionPrice];
-    [priceTable showInView:self.view];
+    //
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    [SSHttpReqServer gettaskdistributionconfigsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            NSDictionary * result = [responseObject objectForKey:@"result"];
+            self.oneKM = [[result objectForKey:@"oneKM"] integerValue];
+            self.oneDistributionPrice = [[result objectForKey:@"oneDistributionPrice"] doubleValue];
+            self.masterDistributionPrice = [[result objectForKey:@"masterDistributionPrice"] doubleValue];
+            self.masterKG = [[result objectForKey:@"masterKG"] integerValue];
+            self.masterKM = [[result objectForKey:@"masterKM"] integerValue];
+            self.twoDistributionPrice = [[result objectForKey:@"twoDistributionPrice"] doubleValue];
+            self.twoKG = [[result objectForKey:@"twoKG"] integerValue];
+            self.gotPriceRule = YES;
+            //
+            self.hp_priceRuleBtn.hidden = NO;
+            //
+            SSPriceTableView * priceTable = [[SSPriceTableView alloc] initWithmasterKG:self.masterKG masterKM:self.masterKM masterDistributionPrice:self.masterDistributionPrice oneKM:self.oneKM oneDistributionPrice:self.oneDistributionPrice twoKG:self.twoKG twoDistributionPrice:self.twoDistributionPrice];
+            [priceTable showInView:self.view];
+            
+        }else{
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+    }];
+    
+
 }
 
 

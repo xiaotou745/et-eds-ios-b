@@ -64,6 +64,10 @@
     
     // viewDidAppear 次数， 第一次（==0）时，接口请求
     NSInteger _viewDidAppearTimes;
+    
+    AFHTTPRequestOperation * _monthOperation;
+    AFHTTPRequestOperation * _dayOperation;
+
 }
 @property (strong, nonatomic) IBOutlet UIView *BS_OptionHeaderView;
 @property (strong, nonatomic) IBOutlet UIView *BS_MidTitleBg;
@@ -402,6 +406,7 @@
 }
 
 - (void)_BS_buttonEventWithSender:(UIButton *)sender{
+    [self cancelHttpOperations];
     [self _enableAllOptionBtns];
     sender.enabled = NO;
 
@@ -419,8 +424,18 @@
     }];
 }
 
+- (void)cancelHttpOperations{
+    if (_dayOperation) {
+        [_dayOperation cancel];
+    }
+    if (_monthOperation) {
+        [_monthOperation cancel];
+    }
+}
+
 /// 日月切换
 - (IBAction)monthDaySwitchAction:(UIButton *)sender {
+    [self cancelHttpOperations];
     // 重置type, typeSub,timeInfo
     _currentType = BS_RecordTypeAll;
     _currentTypeSub = 0;
@@ -526,7 +541,7 @@
     }
 
     
-    AFHTTPRequestOperation * operation = [[self _manager] POST:urlstring parameters:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    _monthOperation = [[self _manager] POST:urlstring parameters:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:waitingProcess];
         
         if (self.BS_TableView.header.state == MJRefreshHeaderStateRefreshing) {
@@ -569,7 +584,7 @@
 
 
     }];
-    return operation;
+    return _monthOperation;
 }
 
 /// 1.1.3商户获取日账单(java必须大小写符合)
@@ -601,7 +616,7 @@
                      };
     }
     
-    AFHTTPRequestOperation * operation = [[self _manager] POST:urlstring parameters:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    _dayOperation = [[self _manager] POST:urlstring parameters:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:waitingProcess];
         if (self.BS_TableView.header.state == MJRefreshHeaderStateRefreshing) {
             [self.BS_TableView.header endRefreshing];
@@ -667,7 +682,7 @@
         }
 
     }];
-    return operation;
+    return _dayOperation;
 }
 
 /// 1.1.4商户获取账单详情(java必须大小写符合)//getbilldetailb

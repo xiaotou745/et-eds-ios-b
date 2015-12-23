@@ -250,10 +250,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
     
     if (tap.view.tag == 1001) { // 订单统计
-        if ([UserInfo getStatus] != UserStatusComplete) {
-            [Tools showHUD:@"您尚未审核通过"];
-            return;
-        }
         EDSOrderStatisticsVC *vc = [[EDSOrderStatisticsVC alloc] initWithNibName:@"EDSOrderStatisticsVC" bundle:nil];
         [self.navigationController pushViewController:vc animated:YES];
         return;

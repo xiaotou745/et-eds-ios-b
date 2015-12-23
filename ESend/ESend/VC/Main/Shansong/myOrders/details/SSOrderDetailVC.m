@@ -113,8 +113,6 @@
     self.rightBtn.hidden = NO;
     
     _orderMainScroller.hidden = YES;
-    [_cancelOrder removeFromSuperview]; _cancelOrder = nil;
-    [_gotoPay removeFromSuperview]; _gotoPay = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -205,6 +203,10 @@
 
 #pragma mark - layoutViews
 - (void)layoutViewsWithData:(SSOrderDetailModel *)orderInfo{
+    
+    [_cancelOrder removeFromSuperview]; _cancelOrder = nil;
+    [_gotoPay removeFromSuperview]; _gotoPay = nil;
+    
     CGFloat scrollerContentHeight = 0;
     CGFloat padding = 10; // padding
     _orderInfo = orderInfo;
@@ -268,7 +270,7 @@
     // 备注
     NSString * remarkStr = isCanUseObj(orderInfo.remark)?orderInfo.remark:@"";
     self.orderRemark.text = remarkStr;    // 高度
-    CGFloat remarkStrHeight = [Tools stringHeight:remarkStr fontSize:SSOrderLabelDefaultFontSize width:labelWidth].height;
+    CGFloat remarkStrHeight = [Tools stringHeight:remarkStr fontSize:SSOrderLabelDefaultFontSize width:labelWidth].height + 10;
     self.orderRemarkHeight.constant = MAX(remarkStrHeight, SSOrderLabelDefaultHeight);
     
     if (remarkStrHeight>SSOrderLabelDefaultHeight) {
