@@ -285,6 +285,7 @@
     NSDictionary *requstData = @{
                                  @"monthInfo" : yearMonth,
                                  @"businessId"  : [UserInfo getUserId],
+                                 @"platform":@"3",
                                  };
     
     if (AES_Security) {

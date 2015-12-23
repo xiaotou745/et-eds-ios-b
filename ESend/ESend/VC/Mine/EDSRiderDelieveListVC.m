@@ -15,6 +15,8 @@
 
 #import "OrderDetailViewController.h"
 
+#import "SSOrderDetailVC.h"
+
 #define Rd_Cell_Id @"Rd_Cell_Id"
 
 
@@ -209,8 +211,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SupermanOrderModel * orderInfo = [_orderList objectAtIndex:indexPath.section];
+    SSOrderDetailVC * odvc = [[SSOrderDetailVC alloc] initWithNibName:@"SSOrderDetailVC" bundle:nil];
+    odvc.orderId = [NSString stringWithFormat:@"%@",orderInfo.orderId];
+    [self.navigationController pushViewController:odvc animated:YES];
     
-    [self getOrderDetail:[_orderList objectAtIndex:indexPath.section] ];
+    // [self getOrderDetail:[_orderList objectAtIndex:indexPath.section] ];
 }
 
 - (void)getOrderDetail:(SupermanOrderModel*)order  {

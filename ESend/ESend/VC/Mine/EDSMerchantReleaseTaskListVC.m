@@ -9,7 +9,7 @@
 #import "EDSMerchantReleaseTaskListVC.h"
 #import "OrdersListTableVIewCell.h"
 #import "FHQNetWorkingAPI.h"
-
+#import "SSOrderDetailVC.h"
 #import "UserInfo.h"
 #import "MJRefresh.h"
 
@@ -201,8 +201,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    [self getOrderDetail:[_MRTLorderList objectAtIndex:indexPath.section] ];
+    SupermanOrderModel * orderInfo = [_MRTLorderList objectAtIndex:indexPath.section];
+    SSOrderDetailVC * odvc = [[SSOrderDetailVC alloc] initWithNibName:@"SSOrderDetailVC" bundle:nil];
+    odvc.orderId = [NSString stringWithFormat:@"%@",orderInfo.orderId];
+    [self.navigationController pushViewController:odvc animated:YES];
+//    [self getOrderDetail:[_MRTLorderList objectAtIndex:indexPath.section] ];
 }
 
 - (void)getOrderDetail:(SupermanOrderModel*)order  {
