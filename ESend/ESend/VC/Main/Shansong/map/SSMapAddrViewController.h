@@ -13,8 +13,6 @@
 
 @interface SSMapAddrViewController : BaseViewController
 
-@property (strong ,nonatomic) SSAddressInfo * addrInfo;
-
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil Type:(SSAddressEditorType)type;
 
 @end

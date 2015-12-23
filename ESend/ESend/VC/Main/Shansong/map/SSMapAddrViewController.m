@@ -76,30 +76,13 @@
     [super viewDidAppear:animated];
     _mapView.showsUserLocation = YES;
     
-    if (self.addrInfo && [self.addrInfo.longitude doubleValue] > 0 && [self.addrInfo.latitude doubleValue] > 0) {
-        double longitude = [self.addrInfo.longitude doubleValue];
-        double latitude = [self.addrInfo.latitude doubleValue];
-        BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[BMKReverseGeoCodeOption alloc] init];
-        reverseGeoCodeSearchOption.reverseGeoPoint = CLLocationCoordinate2DMake(latitude, longitude);
-        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(latitude, longitude) animated:YES];
-        BOOL flag = [_searcher reverseGeoCode:reverseGeoCodeSearchOption];
-        if (flag) {
-            NSLog(@"反geo检索发送成功");
-        } else {
-            NSLog(@"反geo检索发送失败");
-        }
-    }else{
-        if (!_locService) {
-            //初始化BMKLocationService
-            _locService = [[BMKLocationService alloc]init];
-            _locService.delegate = self;
-        }
-        //启动LocationService
-        [_locService startUserLocationService];
+    if (!_locService) {
+        //初始化BMKLocationService
+        _locService = [[BMKLocationService alloc]init];
+        _locService.delegate = self;
     }
-    
-
-
+    //启动LocationService
+    [_locService startUserLocationService];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

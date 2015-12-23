@@ -84,7 +84,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
         NSLog(@"%@",result);
         _business = (NSDictionary *)result;
 
-        _supplierNameLabel.text = [_business getStringWithKey:@"Name"];
+        _supplierNameLabel.text = [_business getStringWithKey:@"PhoneNo"];
         double amountRemain = [result getDoubleWithKey:@"BalancePrice"];
         _balanceLabel.text = [NSString stringWithFormat:@"￥%.2f",amountRemain];
         //是否有新的消息
@@ -151,7 +151,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
     // 店铺名称
     _supplierNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 20, MainWidth - 30 - 60, 25)];
-    _supplierNameLabel.text = [UserInfo getBussinessName];
+    _supplierNameLabel.text = [UserInfo getbussinessPhone];//setbussinessPhone
     _supplierNameLabel.textColor = DeepGrey;
     _supplierNameLabel.font = [UIFont systemFontOfSize:BigFontSize];
     [_topView addSubview:_supplierNameLabel];

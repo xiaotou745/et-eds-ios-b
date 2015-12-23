@@ -411,15 +411,6 @@
 - (IBAction)editAddress:(UIButton *)sender {
     SSAddressEditorType type = [SSEditorTypeTransformer typeWithEditorTitleStr:sender.currentTitle];
     SSEditAdderssViewController * eavc = [[SSEditAdderssViewController alloc] initWithNibName:NSStringFromClass([SSEditAdderssViewController class]) bundle:nil Type:type];
-    if (type == SSAddressEditorTypeFa) {
-        if (self.api_addr_fa_hasValue) {
-            eavc.addrInfo = self.api_addr_fa;
-        }
-    }else if (type == SSAddressEditorTypeShou){
-        if (self.api_addr_shou_hasValue) {
-            eavc.addrInfo = self.api_addr_shou;
-        }
-    }
     eavc.delegate = self;
     [self.navigationController pushViewController:eavc animated:YES];
 }

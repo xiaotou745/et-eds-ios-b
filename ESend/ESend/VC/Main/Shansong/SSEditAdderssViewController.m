@@ -246,9 +246,6 @@
 
 - (IBAction)mapAddrAction:(UIButton *)sender {
     SSMapAddrViewController * mavc = [[SSMapAddrViewController alloc] initWithNibName:NSStringFromClass([SSMapAddrViewController class]) bundle:nil Type:self.type];
-    if (self.addrInfo) {
-        mavc.addrInfo = self.addrInfo;
-    }
     [self.navigationController pushViewController:mavc animated:YES];
 }
 
