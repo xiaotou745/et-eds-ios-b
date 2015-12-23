@@ -70,6 +70,7 @@
                                  @"clienterId": self.clienterId,
                                  @"businessId"  : [UserInfo getUserId],
                                  @"currentPage":[NSNumber numberWithInt:_currentPage],
+                                 @"platform":@"3"
                                  };
     
     
@@ -127,6 +128,7 @@
                                  @"clienterId": self.clienterId,
                                  @"businessId"  : [UserInfo getUserId],
                                  @"currentPage":[NSNumber numberWithInt:_currentPage],
+                                 @"platform":@"3"
                                  };
     
     

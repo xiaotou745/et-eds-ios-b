@@ -83,4 +83,18 @@
 + (AFHTTPRequestOperation *)shanSongOrderBalancePay:(NSDictionary *)dict
                                             success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                             failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/*
+ 1.1.12取消订单
+ url:/order/SSCancelOrder 创建人：胡灵波 POST
+ 参数	描述	允许为空
+ orderId	订单id	否
+ OptUserName	操作人	否
+ OptLog	操作描述	否
+ Remark	备注	否
+ Platform	来源	否
+ */
++ (AFHTTPRequestOperation *)shanSongSSCancelOrder:(NSDictionary *)dict
+                                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

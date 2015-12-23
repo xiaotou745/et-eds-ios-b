@@ -154,4 +154,27 @@
     return operation;
 }
 
+
+/*
+ 1.1.12取消订单
+ url:/order/SSCancelOrder 创建人：胡灵波 POST
+ 参数	描述	允许为空
+ orderId	订单id	否
+ OptUserName	操作人	否
+ OptLog	操作描述	否
+ Remark	备注	否
+ Platform	来源	否
+ */
++ (AFHTTPRequestOperation *)shanSongSSCancelOrder:(NSDictionary *)dict
+                                          success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                          failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@order/SSCancelOrder",OPEN_API_SEVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
 @end

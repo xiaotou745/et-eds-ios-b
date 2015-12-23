@@ -64,6 +64,8 @@
     NSDictionary *requstData = @{
                                  @"dateInfo" : self.dateInfo,
                                  @"businessId"  : [UserInfo getUserId],
+                                 @"currentPage":[NSNumber numberWithInt:_currentPage],
+                                 @"platform":@"3"
                                  };
     
     
@@ -119,6 +121,7 @@
                                  @"dateInfo" : self.dateInfo,
                                  @"businessId"  : [UserInfo getUserId],
                                  @"currentPage":[NSNumber numberWithInt:_currentPage],
+                                 @"platform":@"3"
                                  };
     
     

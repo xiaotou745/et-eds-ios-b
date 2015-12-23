@@ -24,6 +24,10 @@
 #define SSOrderLabelDefaultFontSize 14
 
 @interface SSOrderDetailVC ()
+{
+    UIButton * _cancelOrder;
+    UIButton * _gotoPay;
+}
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollerContentHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollerBottomToBound;         // default == 0, 否则 49; 底部操作区 44
 
@@ -109,6 +113,8 @@
     self.rightBtn.hidden = NO;
     
     _orderMainScroller.hidden = YES;
+    [_cancelOrder removeFromSuperview]; _cancelOrder = nil;
+    [_gotoPay removeFromSuperview]; _gotoPay = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -154,18 +160,34 @@
     //
     [UIAlertView showAlertViewWithTitle:nil message:@"确认要取消订单吗" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] onDismiss:^(NSInteger buttonIndex) {
         MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-        NSDictionary *requsetData = @{@"version"      : APIVersion,
-                                      @"businessId"   : [UserInfo getUserId],
-                                      @"orderId"      : [NSString stringWithFormat:@"%ld",_orderInfo.orderId],
-                                      @"OrderNo"      : _orderInfo.orderno};
-        [FHQNetWorkingAPI cancelOrder:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
-            NSLog(@"%@",result);
+        NSDictionary *paraDict = @{
+                                   @"OptUserName"  : [UserInfo getUserId],
+                                   @"OptLog"       : @"闪送APP取消订单",
+                                   @"orderId"      : [NSString stringWithFormat:@"%ld",(long)_orderInfo.orderId],
+                                   @"Remark"       : @"闪送APP取消订单",
+                                   @"Platform"     : @"5",
+                                   };
+        if (AES_Security) {
+            NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+            NSString * aesString = [Security AesEncrypt:jsonString2];
+            paraDict = @{@"data":aesString,};
+        }
+        [SSHttpReqServer shanSongSSCancelOrder:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [Tools hiddenProgress:HUD];
-            [Tools showHUD:@"任务已取消"];
-            [self.navigationController popViewControllerAnimated:YES];
-        } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
+            NSInteger status = [[responseObject objectForKey:@"Status"] integerValue];
+            NSString * message = [responseObject objectForKey:@"Message"];
+            if (1 == status) {
+                [Tools showHUD:@"任务已取消"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [Tools showHUD:message];
+            }
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [Tools hiddenProgress:HUD];
+
         }];
+        
     } onCancel:^{
         
     }];
@@ -174,7 +196,7 @@
 #pragma mark - gotopay
 - (void)gotoPay{
     SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
-    svc.orderId = [NSString stringWithFormat:@"%ld",_orderInfo.orderId];
+    svc.orderId = [NSString stringWithFormat:@"%ld",(long)_orderInfo.orderId];
     svc.balancePrice = _orderInfo.balancePrice;
     svc.type = 2;
     svc.tipAmount = _orderInfo.amount;
@@ -216,7 +238,7 @@
     self.orderDeliveryFee.textColor = RedDefault;
     self.orderKm.text = [NSString stringWithFormat:@"%.2fkm",orderInfo.km];
     self.orderWeight.text = [NSString stringWithFormat:@"%.2f公斤",orderInfo.weight];
-    NSString * faAddrStr = isCanUseObj(orderInfo.pubaddress)?orderInfo.pubaddress:@"";
+    NSString * faAddrStr = isCanUseObj(orderInfo.pickupaddress)?orderInfo.pickupaddress:@"";
     CGFloat faAddrStrHeight = [Tools stringHeight:faAddrStr fontSize:SSOrderLabelDefaultFontSize width:labelWidth].height;
     self.orderFaAddrHeight.constant = MAX(faAddrStrHeight, SSOrderLabelDefaultHeight);
     self.orderFaAddr.text = faAddrStr;       // 高度
@@ -281,34 +303,34 @@
     if (orderInfo.status == SSMyOrderStatusUnpayed || orderInfo.status == SSMyOrderStatusUngrab) {
         if (orderInfo.status == SSMyOrderStatusUnpayed) { // 取消任务，去支付
             self.scrollerBottomToBound.constant = 60;
-            UIButton * cancelOrder = [[UIButton alloc] initWithFrame:CGRectMake(10, ScreenHeight - 54, (ScreenWidth - 30)/2, 44)];
-            [cancelOrder setTitle:SSOrderDetailVCCancelTitle forState:UIControlStateNormal];
-            [cancelOrder setTitleColor:BlueColor forState:UIControlStateNormal];
-            [cancelOrder setBackgroundColor:[UIColor whiteColor]];
-            cancelOrder.layer.masksToBounds = YES;
-            cancelOrder.layer.borderColor = [BlueColor CGColor];
-            cancelOrder.layer.borderWidth = 1;
-            cancelOrder.layer.cornerRadius = 3;
-            [cancelOrder addTarget:self action:@selector(cancelOrder) forControlEvents:UIControlEventTouchUpInside];
-            [self.view addSubview:cancelOrder];
+            _cancelOrder = [[UIButton alloc] initWithFrame:CGRectMake(10, ScreenHeight - 54, (ScreenWidth - 30)/2, 44)];
+            [_cancelOrder setTitle:SSOrderDetailVCCancelTitle forState:UIControlStateNormal];
+            [_cancelOrder setTitleColor:BlueColor forState:UIControlStateNormal];
+            [_cancelOrder setBackgroundColor:[UIColor whiteColor]];
+            _cancelOrder.layer.masksToBounds = YES;
+            _cancelOrder.layer.borderColor = [BlueColor CGColor];
+            _cancelOrder.layer.borderWidth = 1;
+            _cancelOrder.layer.cornerRadius = 3;
+            [_cancelOrder addTarget:self action:@selector(cancelOrder) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:_cancelOrder];
             
-            UIButton * gotoPay = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth - 10 - (ScreenWidth - 30)/2, ScreenHeight - 54, (ScreenWidth - 30)/2, 44)];
-            [gotoPay setTitle:SSOrderDetailVCGoPayTitle forState:UIControlStateNormal];
-            [gotoPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            gotoPay.layer.masksToBounds = YES;
-            gotoPay.layer.cornerRadius = 3;
-            [gotoPay setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
-            [gotoPay addTarget:self action:@selector(gotoPay) forControlEvents:UIControlEventTouchUpInside];
-            [self.view addSubview:gotoPay];
+            _gotoPay = [[UIButton alloc] initWithFrame:CGRectMake(ScreenWidth - 10 - (ScreenWidth - 30)/2, ScreenHeight - 54, (ScreenWidth - 30)/2, 44)];
+            [_gotoPay setTitle:SSOrderDetailVCGoPayTitle forState:UIControlStateNormal];
+            [_gotoPay setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            _gotoPay.layer.masksToBounds = YES;
+            _gotoPay.layer.cornerRadius = 3;
+            [_gotoPay setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
+            [_gotoPay addTarget:self action:@selector(gotoPay) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:_gotoPay];
         }else{ // 取消任务
             self.scrollerBottomToBound.constant = 49;
-            UIButton * cancelOrder = [[UIButton alloc] initWithFrame:CGRectMake(0, ScreenHeight - 44, ScreenWidth, 44)];
-            [cancelOrder setTitle:SSOrderDetailVCCancelTitle forState:UIControlStateNormal];
-            [cancelOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            _cancelOrder = [[UIButton alloc] initWithFrame:CGRectMake(0, ScreenHeight - 44, ScreenWidth, 44)];
+            [_cancelOrder setTitle:SSOrderDetailVCCancelTitle forState:UIControlStateNormal];
+            [_cancelOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             //[cancelOrder setBackgroundColor:BlueColor];
-            [cancelOrder setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
-            [cancelOrder addTarget:self action:@selector(cancelOrder) forControlEvents:UIControlEventTouchUpInside];
-            [self.view addSubview:cancelOrder];
+            [_cancelOrder setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
+            [_cancelOrder addTarget:self action:@selector(cancelOrder) forControlEvents:UIControlEventTouchUpInside];
+            [self.view addSubview:_cancelOrder];
         }
     }
     
