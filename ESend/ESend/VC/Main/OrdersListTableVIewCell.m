@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, ContentLabelType) {
     _orderTimeLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:_orderTimeLabel];
     
-    NSArray *titleList = @[@"收货人电话", @"收货地址", @"订单数量", @"订单总额"];
+    NSArray *titleList = @[@"收货人电话", @"收货地址", @"订单数量", @"订单金额"];
     
     int i = 0;
     for (NSString *title in titleList) {
