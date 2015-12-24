@@ -136,6 +136,10 @@ typedef NS_ENUM(NSInteger, OrderChannel) {
 /// 已经上传的小票数量 ==
 @property (nonatomic, assign) NSInteger hadUploadCount;
 
+
+// 12.24 增加，订单来源
+@property (nonatomic,copy) NSString * PlatformStr;
+
 // 弃用之
 // - (void)loadData:(NSDictionary*)dic;
 

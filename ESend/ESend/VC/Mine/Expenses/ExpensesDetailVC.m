@@ -167,6 +167,9 @@
             order.totalAmount = [result getDoubleWithKey:@"TotalAmount"];
             order.pubDate = [result getStringWithKey:@"PubDate"];
             order.orderFrom = [result getIntegerWithKey:@"OrderFrom"];
+            
+            order.PlatformStr = [result getStringWithKey:@"PlatformStr"];
+            
             order.receviceCity = [result getStringWithKey:@"receviceCity"];
             order.orderCount = [result getIntegerWithKey:@"OrderCount"];
             // NeedUploadCount 无用

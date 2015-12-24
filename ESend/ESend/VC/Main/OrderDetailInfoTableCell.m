@@ -79,7 +79,7 @@
     
     NSArray *datas = @[data.orderNumber,
                        data.pubDate,
-                       data.orderFromName];
+                       data.PlatformStr];
     for (NSInteger i = 0; i < datas.count; i++) {
         UILabel *label = [_contentLabels objectAtIndex:i];
         label.text = datas[i];
