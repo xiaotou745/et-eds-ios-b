@@ -218,6 +218,9 @@
     }else{
         self.rightBtn.enabled = YES;
     }
+    if (orderInfo.status == SSMyOrderStatusUnpayed) { // 待支付
+        self.rightBtn.hidden = YES;
+    }
     // 取货码
     if (orderInfo.status == SSMyOrderStatusUngrab || orderInfo.status == SSMyOrderStatusOntaking) {
         self.orderTakecode.text = [NSString stringWithFormat:@"取货码: %@",orderInfo.pickupcode]; //30

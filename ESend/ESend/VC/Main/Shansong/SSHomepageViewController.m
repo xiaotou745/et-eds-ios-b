@@ -715,11 +715,11 @@
         if (self.api_distance <= self.masterKM && self.api_kilo <= self.masterKG) {
             self.api_total_fee = self.masterDistributionPrice;
         }else if (self.api_distance <= self.masterKM && self.api_kilo > self.masterKG){
-            self.api_total_fee = self.masterDistributionPrice + ceil(self.api_kilo - self.masterKG) * self.twoDistributionPrice;
+            self.api_total_fee = self.masterDistributionPrice + ceil((self.api_kilo - self.masterKG)/self.twoKG) * self.twoDistributionPrice;
         }else if (self.api_distance > self.masterKM && self.api_kilo <= self.masterKG){
-            self.api_total_fee = self.masterDistributionPrice + ceil(self.api_distance - self.masterKM) * self.oneDistributionPrice;
+            self.api_total_fee = self.masterDistributionPrice + ceil((self.api_distance - self.masterKM)/self.oneKM) * self.oneDistributionPrice;
         }else if (self.api_distance > self.masterKM && self.api_kilo > self.masterKG){
-            self.api_total_fee = self.masterDistributionPrice + ceil(self.api_distance - self.masterKM) * self.oneDistributionPrice + ceil(self.api_kilo - self.masterKG) * self.twoDistributionPrice;
+            self.api_total_fee = self.masterDistributionPrice + ceil((self.api_distance - self.masterKM)/self.oneKM) * self.oneDistributionPrice + ceil((self.api_kilo - self.masterKG)/self.twoKG) * self.twoDistributionPrice;
         }
         self.hp_totalFeeLabel.text = [NSString stringWithFormat:@"¥ %.2f",self.api_total_fee];
     }
