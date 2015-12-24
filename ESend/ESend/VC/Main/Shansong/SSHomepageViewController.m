@@ -58,6 +58,8 @@
     BMKLocationService *_locService;
     BMKGeoCodeSearch *_searcher;
     CLLocationCoordinate2D _currentCoordinate;
+    
+    NSInteger _getPriceRuleCount;
 }
 @property (strong, nonatomic) IBOutlet UIScrollView *scroller;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollerHeight;
@@ -195,6 +197,18 @@
     self.hp_myPhoneCodeBg.hidden = [UserInfo isLogin];
     CGFloat contentHeight = [UserInfo isLogin]?CGRectGetMinY(self.hp_myPhoneCodeBg.frame):CGRectGetMaxY(self.hp_myPhoneCodeBg.frame) + 10;
     self.scrollerHeight.constant = MAX(contentHeight, CGRectGetHeight(self.scroller.frame) + 2);
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+//    if (_locService) {
+//        [_locService stopUserLocationService];
+//        _locService.delegate = nil;
+//    }
+    if (_searcher) {
+        _searcher.delegate = nil;
+    }
+
 }
 
 - (void)pickTimeType:(UITapGestureRecognizer *)tap{
@@ -548,10 +562,6 @@
     }
     return NO;
 }
-//点击取消按钮
--(void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker{
-   // NSLog(@"取消选择.");
-}
 
 #pragma mark 键盘相关处理
 - (void)keyboardWillShow:(NSNotification*)notification {
@@ -673,6 +683,7 @@
 }
 /// 获取计算价格公式
 - (void)getPriceRule{
+    _getPriceRuleCount++;
     [SSHttpReqServer gettaskdistributionconfigsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
@@ -688,10 +699,14 @@
             //
             self.hp_priceRuleBtn.hidden = NO;
         }else{
-            [self getPriceRule];
+            if (_getPriceRuleCount < 5) {
+                [self getPriceRule];
+            }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self getPriceRule];
+        if (_getPriceRuleCount < 5) {
+            [self getPriceRule];
+        }
     }];
 }
 

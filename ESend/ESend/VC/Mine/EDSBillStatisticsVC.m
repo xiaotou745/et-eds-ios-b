@@ -443,7 +443,9 @@
         return;
     }
     
-    [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    if (_bills.count > 0) {
+        [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 
 
     // [self cancelHttpOperations];
@@ -673,7 +675,7 @@
                 [_bills addObject:dayInfo];
             }
             [self.BS_TableView reloadData];
-            if (down) {
+            if (down && _bills.count > 0) {
                 [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
             

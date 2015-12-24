@@ -86,8 +86,8 @@
         }else{
             self.cancelTime = @"";
         }
-        if (isCanUseObj([dic objectForKey:@"otherCancelReason"])) {
-            self.otherCancelReason = [dic objectForKey:@"otherCancelReason"];
+        if (isCanUseObj([dic objectForKey:@"othercancelreason"])) {
+            self.otherCancelReason = [dic objectForKey:@"othercancelreason"];
         }else{
             self.otherCancelReason = @"";
         }

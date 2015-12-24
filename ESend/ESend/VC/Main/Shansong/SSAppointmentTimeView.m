@@ -10,6 +10,9 @@
 #import "NSDate+KMdate.h"
 #import "NSString+KM_String.h"
 
+#define SSAppointToday @"今天"
+#define SSAppointTomorrow @"明天"
+
 @interface SSAppointmentTimeView ()<UIPickerViewDataSource,UIPickerViewDelegate>
 {
     UIView * _mask;
@@ -32,13 +35,8 @@
         
         self.delegate = delegate;
         
-        _dayTimes = [[NSMutableArray alloc] initWithObjects:@"今天",@"明天", nil];
+        _dayTimes = [[NSMutableArray alloc] initWithCapacity:0];
         _hourTimes = [[NSMutableArray alloc] initWithCapacity:0];
-//        NSMutableArray * tomorrowHours = [[NSMutableArray alloc] init];
-//        for (int i =0; i < 24; i++) {
-//            [tomorrowHours addObject:[NSString stringWithFormat:@"%02d",i]];
-//        }
-//        [_hourTimes addObject:tomorrowHours];
         
         _minutes = [[NSMutableArray alloc] initWithCapacity:0];
         for (int i = 0; i <= 55; i = i + 5) {
@@ -46,17 +44,6 @@
         }
         self.datePicker.delegate = self;
         self.datePicker.dataSource = self;
-//        NSDate * date = [NSDate date];
-//        NSTimeZone *zone = [NSTimeZone systemTimeZone];
-//        NSInteger interval = [zone secondsFromGMTForDate: date];
-//        NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
-//        [self.datePicker setMinimumDate:localeDate];
-//        
-//        NSDate * tomorrow = [[NSDate new] addDays:1];
-//        NSString * aString = [[[tomorrow km_toString] componentsSeparatedByString:@" "] firstObject];
-//        NSString * tomorrowString = [aString stringByAppendingString:@" 23:59:59"];
-//        tomorrow = [tomorrowString km_toDate];
-//        [self.datePicker setMaximumDate:tomorrow];
         
     }
     
@@ -74,7 +61,7 @@
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancelPicker)];
     [_mask addGestureRecognizer:tap];
     
-    [self hourTimesWithComponent:0];
+    [self configTimes];
     [self.datePicker reloadAllComponents];
     //
     self.frame = CGRectMake(0, view.frame.size.height, ScreenWidth, self.frame.size.height);
@@ -85,9 +72,6 @@
         _mask.alpha = 0.8f;
     }completion:^(BOOL finished) {
 
-//        if ([self.delegate respondsToSelector:@selector(MNDatePickerDidCompleteShowed:)]) {
-//            [self.delegate MNDatePickerDidCompleteShowed:self];
-//        }
     }];
 }
 
@@ -103,9 +87,6 @@
                          [self removeFromSuperview];
                          
                      }];
-//    if ([self.delegate respondsToSelector:@selector(MNDatePickerDidCancel:)]) {
-//        [self.delegate MNDatePickerDidCancel:self];
-//    }
 }
 
 
@@ -123,7 +104,16 @@
         return;
     }
 
-    NSString * selectedDay = (selectedDayRow == 0)?[[NSDate new] km_todayYYYY_MM_DD]:[[NSDate new] km_tomorrowYYYY_MM_DD];
+    NSString * selectedDay = [[NSDate new] km_todayYYYY_MM_DD];
+    
+    NSString * title = [_dayTimes objectAtIndex:selectedDayRow];
+    if ([title isEqualToString:SSAppointToday]) { // 今天,明天都有,显示今天
+        selectedDay = [[NSDate new] km_todayYYYY_MM_DD];
+    }else if ([title isEqualToString:SSAppointTomorrow]){
+        selectedDay = [[NSDate new] km_tomorrowYYYY_MM_DD];
+    }
+    
+    
     NSString * selectedHour = [_hourTimes objectAtIndex:selectedHourRow];
     NSString * selectedMinute = [_minutes objectAtIndex:selectedMinuteRow];
 
@@ -164,27 +154,51 @@
     }
 }
 
-- (void)hourTimesWithComponent:(NSInteger)component{
+- (void)configTimes{
+    [_dayTimes removeAllObjects];
     [_hourTimes removeAllObjects];
-    if (0 == component) {
-        NSInteger currentHourInt = [[NSDate new] km_hourInt];
-        if (currentHourInt + 2 < 24) {
-            currentHourInt += 2;
-        }
+    NSInteger currentHourInt = [[NSDate new] km_hourInt];
+    if (currentHourInt +2 < 24) {   // 有今天
+        [_dayTimes addObject:SSAppointToday];
+        [_dayTimes addObject:SSAppointTomorrow];
+        currentHourInt += 2;
         for (NSInteger i = currentHourInt; i< 24; i++) {
             [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
         }
-        
-    }else if (1 == component){
-        for (int i =0; i < 24; i++) {
-            [_hourTimes addObject:[NSString stringWithFormat:@"%02d",i]];
+    }else{ // 只有明天
+        [_dayTimes addObject:SSAppointTomorrow];
+        currentHourInt = currentHourInt + 2 - 24;
+        for (NSInteger i = currentHourInt; i< 24; i++) {
+            [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
+        }
+    }
+}
+
+- (void)hourTimesWithRow:(NSInteger)row{
+    [_hourTimes removeAllObjects];
+    NSString * title = [_dayTimes objectAtIndex:row];
+    if ([title isEqualToString:SSAppointToday]) { // 今天,明天都有,显示今天
+        NSInteger currentHourInt = [[NSDate new] km_hourInt];
+        currentHourInt += 2;
+        for (NSInteger i = currentHourInt; i< 24; i++) {
+            [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
+        }
+    }else if ([title isEqualToString:SSAppointTomorrow] && _dayTimes.count == 1){ // 只有明天
+        NSInteger currentHourInt = [[NSDate new] km_hourInt];
+        currentHourInt = (currentHourInt + 3 - 24);
+        for (NSInteger i = currentHourInt; i< 24; i++) {
+            [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
+        }
+    }else if ([title isEqualToString:SSAppointTomorrow] && _dayTimes.count == 2){   // 有明天，有今天，显示明天
+        for (NSInteger i = 0; i< 24; i++) {
+            [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
         }
     }
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     if (component == 0) {
-        [self hourTimesWithComponent:row];
+        [self hourTimesWithRow:row];
         [pickerView reloadComponent:1];
     }
 

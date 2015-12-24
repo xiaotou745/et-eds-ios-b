@@ -64,13 +64,13 @@
     
     NSArray * faAddrs = [DataArchive storedFaAddrsWithBusinessId:[UserInfo getUserId]];
     NSArray * ShouAddrs = [DataArchive storedShouAddrsWithBusinessId:[UserInfo getUserId]];
-    NSLog(@"fff -- %@",faAddrs);
-    for (SSAddressInfo * ind in ShouAddrs) {
-        
-        NSLog(@"sss -- %@",ind);
-        NSLog(@"%@ - %@",ind.uid,ind.name);
-
-    }
+//    NSLog(@"fff -- %@",faAddrs);
+//    for (SSAddressInfo * ind in ShouAddrs) {
+//        
+//        NSLog(@"sss -- %@",ind);
+//        NSLog(@"%@ - %@",ind.uid,ind.name);
+//
+//    }
     
     if (self.type == SSAddressEditorTypeFa) {
         [_historyAddrs addObjectsFromArray:faAddrs];
@@ -109,6 +109,17 @@
     [_locService stopUserLocationService];
 }
 
+//不使用时将delegate设置为 nil
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (_searcher) {
+        _searcher.delegate = nil;
+    }
+    if (_locService) {
+        _locService.delegate = nil;
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -136,10 +147,8 @@
         NSLog(@"抱歉，未找到结果");
     }
 }
-//不使用时将delegate设置为 nil
--(void)viewWillDisappear:(BOOL)animated{
-    _searcher.delegate = nil;
-}
+
+
 
 - (void)displayPOIList{
     if (!_POITable) {

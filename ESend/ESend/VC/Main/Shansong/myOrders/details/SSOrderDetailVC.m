@@ -341,7 +341,11 @@
 
 
 - (void)layoutStatusViewsWithData:(SSOrderDetailModel *)orderInfo{
-    if (orderInfo.status == SSMyOrderStatusCanceled) {
+    if (orderInfo.status == SSMyOrderStatusUngrab) { // 待接单
+        self.rightBtn.hidden = YES;
+    }
+    if (orderInfo.status == SSMyOrderStatusCanceled) { // 取消
+        self.rightBtn.hidden = YES;
         self.orderStatusPubTime.text = [orderInfo.pubdate MMDDHHmmString];
         self.orderStatusGrabTime.text = [orderInfo.grabtime MMDDHHmmString];
         self.orderStatusTakeTime.text = [orderInfo.taketime MMDDHHmmString];
@@ -352,7 +356,8 @@
     self.orderStatusPubTime.textColor =
     self.orderStatusPubText.textColor = BlueColor;
     self.orderStatusPubImg.image = [UIImage imageNamed:@"ss_status_bar_fabu_green"];
-    if (orderInfo.status == SSMyOrderStatusUngrab) {
+    if (orderInfo.status == SSMyOrderStatusUngrab) { // 待支付
+        self.rightBtn.hidden = YES;
         return;
     }
     self.separator41.backgroundColor = BlueColor;
