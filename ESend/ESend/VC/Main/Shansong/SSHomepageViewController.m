@@ -572,9 +572,9 @@
 }
 
 #pragma mark - 日期选择
-- (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSDate *)date{
+- (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSString *)date{
     // NSLog(@"%@ \n %@",date, [date km_simpleToString]);
-    self.api_pick_time = [date km_simpleToString];
+    self.api_pick_time = date;
     self.hp_appointmentLabel.text = self.api_pick_time;
 }
 

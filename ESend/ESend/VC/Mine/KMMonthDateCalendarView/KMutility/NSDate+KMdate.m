@@ -137,5 +137,41 @@
     return result;
 }
 
+- (NSInteger)km_hourInt{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSHourCalendarUnit;
+    comps = [calendar components:unitFlags fromDate:self];
+    return [comps hour];
+}
+
+
+- (NSString *)km_todayYYYY_MM_DD{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *compsDate = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSYearCalendarUnit |
+    NSMonthCalendarUnit |
+    NSDayCalendarUnit;
+    compsDate = [calendar components:unitFlags fromDate:self];
+    NSInteger yearDate=[compsDate year];
+    NSInteger monthDate = [compsDate month];
+    NSInteger dayDate = [compsDate day];
+    return [NSString stringWithFormat:@"%ld-%ld-%ld",yearDate,monthDate,dayDate];
+}
+
+
+- (NSString *)km_tomorrowYYYY_MM_DD{
+    NSDate * tomorrow = [self addDays:1];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *compsDate = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSYearCalendarUnit |
+    NSMonthCalendarUnit |
+    NSDayCalendarUnit;
+    compsDate = [calendar components:unitFlags fromDate:tomorrow];
+    NSInteger yearDate=[compsDate year];
+    NSInteger monthDate = [compsDate month];
+    NSInteger dayDate = [compsDate day];
+    return [NSString stringWithFormat:@"%ld-%ld-%ld",yearDate,monthDate,dayDate];
+}
 
 @end

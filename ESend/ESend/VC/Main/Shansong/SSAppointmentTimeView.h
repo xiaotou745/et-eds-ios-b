@@ -11,7 +11,7 @@
 @protocol SSAppointmentTimeViewDelegate <NSObject>
 
 @optional
-- (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSDate *)date;
+- (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSString *)date;
 
 @end
 
@@ -20,7 +20,7 @@
 @property (weak,nonatomic) id<SSAppointmentTimeViewDelegate>delegate;
 
 @property (strong, nonatomic) IBOutlet UIView *actionBg;
-@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (strong, nonatomic) IBOutlet UIPickerView *datePicker;
 
 
 - (id)initWithDelegate:(id <SSAppointmentTimeViewDelegate>)delegate;

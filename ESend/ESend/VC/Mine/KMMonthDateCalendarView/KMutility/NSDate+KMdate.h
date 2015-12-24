@@ -31,4 +31,9 @@
 
 - (NSString *)km_simpleToString;
 
+- (NSInteger)km_hourInt;
+
+- (NSString *)km_todayYYYY_MM_DD;
+- (NSString *)km_tomorrowYYYY_MM_DD;
+
 @end
