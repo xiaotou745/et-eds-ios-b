@@ -55,17 +55,23 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self configMineUIViews];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    _newMessageIcon.hidden = YES;
+//    [self loadData];
+//
+//}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     _newMessageIcon.hidden = YES;
-    [self loadData];
-
+    [self reqloadData];
 }
 
-- (void)loadData {
+- (void)reqloadData {
     
     NSDictionary *requestData = @{@"BussinessId" : [UserInfo getUserId],
                                   @"version" : @"1.0"};
@@ -81,7 +87,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
     [FHQNetWorkingAPI getSupplierInfo:requestData2 successBlock:^(id result, AFHTTPRequestOperation *operation) {
-        NSLog(@"%@",result);
+        NSLog(@"返回结果 %@",result);
         _business = (NSDictionary *)result;
 
         _supplierNameLabel.text = [_business getStringWithKey:@"PhoneNo"];
@@ -94,23 +100,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
             _newMessageIcon.hidden = YES;
         }
         
-        //用户状态
-        [UserInfo saveStatus:[result getIntegerWithKey:@"Status"]];
-        if ([UserInfo getStatus] != UserStatusComplete) {
-            _userStatusBtn.hidden = NO;
-            _businessFixNote.hidden = YES;
-            [_supplierNameLabel changeFrameWidth:MainWidth - 30 - 110];
-            
-            [_userStatusBtn setTitle:[UserInfo getStatusStr] forState:UIControlStateNormal];
-            [[NSNotificationCenter defaultCenter] postNotificationName:UserStatusChangeToReviewNotification object:nil];
-        } else {
-            _userStatusBtn.hidden = YES;
-            _businessFixNote.hidden = NO;
-            [_supplierNameLabel changeFrameWidth:MainWidth - 30 - 20];
-        }
-        
-        [UserInfo setIsOneKeyPubOrder:@([_business getIntegerWithKey:@"OneKeyPubOrder"])];
-
         //商户名称
         [UserInfo saveBussinessName:[_business getStringWithKey:@"Name"]];
         [UserInfo setbussinessPhone:[_business getStringWithKey:@"PhoneNo"]];
@@ -127,7 +116,7 @@ typedef NS_ENUM(NSInteger, BottomType) {
     
 }
 
-- (void)bulidView {
+- (void)configMineUIViews {
     
     // 导航条
     self.titleLabel.text = @"个人中心";
@@ -196,12 +185,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
     UIButton *recharge = [UIButton buttonWithType:UIButtonTypeCustom];
     recharge.frame  = CGRectMake(FRAME_WIDTH(_topView)/2, CGRectGetMaxY(line.frame), FRAME_WIDTH(_topView)/2, 50);
     [recharge setBackgroundColor:[UIColor clearColor]];
-//    [recharge setTitle:@"充值" forState:UIControlStateNormal];
-//    [recharge setImage:[UIImage imageNamed:@"recharge"] forState:UIControlStateNormal];
-//    [recharge setImage:[UIImage imageNamed:@"recharge"] forState:UIControlStateHighlighted];
-//    [recharge setTitleColor:BlueColor forState:UIControlStateNormal];
-//    recharge.titleEdgeInsets = UIEdgeInsetsMake(20, 0, 0, 0);
-//    recharge.imageEdgeInsets = UIEdgeInsetsMake(0, FRAME_WIDTH(_topView)/2 - 13, 26, FRAME_WIDTH(_topView)/2 - 13);
     [recharge addTarget:self action:@selector(clickRecharge) forControlEvents:UIControlEventTouchUpInside];
     [_topView addSubview:recharge];
     
@@ -277,13 +260,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
 - (void)clickRecharge {
     
-//    if ([UserInfo getStatus] != UserStatusComplete) {
-//        
-//        [Tools showHUD:@"暂时无法进行该操作！"];
-//        
-//        return;
-//    }
-    
     EDSFullfillMoneyVC *vc = [[EDSFullfillMoneyVC alloc] init];
     vc.balancePrice = [[_business objectForKey:@"BalancePrice"] doubleValue];
     [self.navigationController pushViewController:vc animated:YES];
@@ -291,22 +267,11 @@ typedef NS_ENUM(NSInteger, BottomType) {
 
 - (void)clickWithdraw {
     
-    if ([UserInfo getStatus] != UserStatusComplete) {
-        
-        [Tools showHUD:@"暂时无法进行该操作！"];
-        
-        return;
-    }
-    
     NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4006380177"];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     
     return;
     
-//    WithdrewViewController *withdrewVC = [[WithdrewViewController alloc] init];
-//    withdrewVC.bank = _bank;
-//    withdrewVC.allowWithdrawPrice = [_business getFloatWithKey:@"AllowWithdrawPrice"];
-//    [self.navigationController pushViewController:withdrewVC animated:YES];
 }
 
 - (void)showUserInfo {

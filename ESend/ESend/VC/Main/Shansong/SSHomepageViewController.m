@@ -62,6 +62,9 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *scroller;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollerHeight;
 
+// 定位反解码，城市
+@property (nonatomic,copy) NSString * currentCityName;
+
 // 地址
 @property (strong, nonatomic) IBOutlet UILabel *hp_FaAddrLabel;
 @property (strong, nonatomic) IBOutlet UILabel *hp_ShouAddrLabel;
@@ -126,6 +129,8 @@
 @property (assign,nonatomic) NSInteger twoKG;
 @property (assign,nonatomic) double masterDistributionPrice;
 @property (assign,nonatomic) NSInteger masterKG;
+
+
 
 @end
 
@@ -297,11 +302,11 @@
                                 @"type":@"6",
                                 @"messageType":@"0",
                                 };
-//    if (AES_Security) {
-//        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-//        NSString * aesString = [Security AesEncrypt:jsonString2];
-//        paraDict = @{@"data":aesString,};
-//    }
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{@"data":aesString,};
+    }
     
     [SSHttpReqServer businesssendcode:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
@@ -411,6 +416,7 @@
 - (IBAction)editAddress:(UIButton *)sender {
     SSAddressEditorType type = [SSEditorTypeTransformer typeWithEditorTitleStr:sender.currentTitle];
     SSEditAdderssViewController * eavc = [[SSEditAdderssViewController alloc] initWithNibName:NSStringFromClass([SSEditAdderssViewController class]) bundle:nil Type:type];
+    eavc.currentCityName = self.currentCityName;
     eavc.delegate = self;
     [self.navigationController pushViewController:eavc animated:YES];
 }
@@ -777,6 +783,7 @@
         mapAddr1.address = result.address;
         mapAddr1.addition = @"";
         mapAddr1.city = result.addressDetail.city;
+        self.currentCityName = mapAddr1.city;
         mapAddr1.latitude = [NSString stringWithFormat:@"%f",result.location.latitude];
         mapAddr1.longitude = [NSString stringWithFormat:@"%f",result.location.longitude];
         mapAddr1.selected = YES;

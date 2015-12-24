@@ -56,8 +56,8 @@
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
     }];
     
-    [self refreshToken];
-    [self scheduledTimerRefreshToken];
+    // 更新银行列表，需要token
+    [self updateBankCityList];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
@@ -239,80 +239,11 @@
     }];
 }
 
-- (void)checkNewVersion {
-    
-    //        PlatForm=1:Android 2 :IOS 默认Android
-    //        UserType= 1 骑士 2 商家 默认1骑士
-    NSDictionary *requestData = @{@"PlatForm" : @(2),
-                                  @"UserType" : @(2),
-                                  @"AppSource":@(2)
-                                  };
-    [FHQNetWorkingAPI update:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
-        //判断版本升级
-        NSString * build = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-        NSComparisonResult results = [build compare:[result objectForKey:@"Version"]];
-        if (results == NSOrderedAscending) {
-            _downloadUrl = [result objectForKey:@"UpdateUrl"];
-            UIAlertView *updateAlertView = nil;
-            if ([[result objectForKey:@"IsMust"] integerValue] == 1) {
-                updateAlertView = [[UIAlertView alloc] initWithTitle:@"版本升级" message:[result objectForKey:@"Message"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"立刻升级", nil];
-                updateAlertView.tag = 10000;
-            } else {
-                
-                updateAlertView = [[UIAlertView alloc] initWithTitle:@"版本升级" message:[result objectForKey:@"Message"] delegate:self cancelButtonTitle:@"以后提醒我" otherButtonTitles:@"立刻升级", nil];
-                updateAlertView.tag = 10001;
-            }
-            [updateAlertView show];
-        }
-    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        
-    }];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    switch (buttonIndex) {
-        case 0:
-            if (alertView.tag == 10000) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_downloadUrl]];
-                NSLog(@"强制升级");
-                exit(0);
-            } else {
-                NSLog(@"取消");
-            }
-            break;
-        case 1:
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_downloadUrl]];
-            NSLog(@"选择升级");
-            break;
-        default:
-            break;
-    }
-}
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-}
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    // token
-    //[self refreshToken];
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [APService registerDeviceToken:deviceToken];
@@ -374,115 +305,9 @@
 
 
 
-#pragma mark - getToken
-
-- (void)scheduledTimerRefreshToken{
-    [_tokenTimer invalidate];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        _tokenTimer = [NSTimer scheduledTimerWithTimeInterval:90*60 target:self selector:@selector(refreshToken) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] run];
-    });
-}
-
-- (void)refreshToken{
-    if ([UserInfo isLogin]) {
-        NSDictionary * paraDict = @{
-                                    @"ssid":(nil == [UserInfo getUUID])?@"":[UserInfo getUUID],
-                                    @"appkey":(nil == [UserInfo getAppkey])?@"":[UserInfo getAppkey],
-                                    };
-        [FHQNetWorkingAPI getToken:paraDict successBlock:^(id result, AFHTTPRequestOperation *operation) {
-            NSString * token = [NSString stringWithFormat:@"%@",result];
-            [UserInfo saveToken:token];
-            NSString * localtoken = [UserInfo getToken];
-            _getTokenSuccessCount ++;
-            if (1 == _getTokenSuccessCount) { // 第一次通过接口获得token
-                // 更新银行列表，需要token
-                [self updateBankCityList];
-                // 同步发单用户电话号码，需要token
-                [self consigneeAddressB];
-            }
-        } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-            _getTokenCount ++;
-            if (_getTokenCount < 5) {
-                [self refreshToken];
-            }
-        }];
-    }
-}
-
-#pragma mark - 电话联想,24小时同步商户发单历史到本地
-
-- (void)consigneeAddressB{
-    if ([UserInfo isLogin]) {
-        NSString * firstTime = @"2015-01-01 00:00:00";
-        NSDictionary * paraDict = @{
-                                    @"BusinessId":[UserInfo getUserId],
-                                    @"PubDate":firstTime,
-                                    @"Version":APIVersion
-                                    };
-        [FHQNetWorkingAPI consigneeAddress:paraDict successBlock:^(id result, AFHTTPRequestOperation *operation) {
-            NSString * MaxDate = result[@"MaxDate"];
-            NSArray * ConsigneeAdressBDM = result[@"Data"];
-            if (MaxDate) {
-                [UserInfo saveMaxDate:MaxDate];
-            }
-            if (ConsigneeAdressBDM.count > 0) {
-                [self storeConsignees:ConsigneeAdressBDM];
-            }
-        } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        }];
-    }
-}
-
-- (void)storeConsignees:(NSArray *)ConsigneeAdressBDM{
-    /*
-     Id	数据库id
-     PhoneNo	电话号码
-     Address	地址
-     PubDate	订单发布时间
-     */
-    NSString * bid = [UserInfo getUserId];
-    for (NSDictionary * adict in ConsigneeAdressBDM) {
-        NSMutableArray * localConsignees = [NSMutableArray arrayWithArray:[DataArchive storedConsigneesWithShopid:bid]];
-        ConsigneeModel * consignee = [[ConsigneeModel alloc] init];
-        consignee.consigneePhone = adict[@"PhoneNo"];
-        consignee.consigneeAddress = adict[@"Address"];
-        consignee.consigneePubDate = adict[@"PubDate"];
-        consignee.consigneeUserName = adict[@"UserName"];
-        consignee.consigneeId = [NSString stringWithFormat:@"%@",adict[@"Id"]];
-        if (localConsignees.count > 0) {
-            BOOL contain = NO;
-            for (int i = 0; i < localConsignees.count; i ++) {
-                ConsigneeModel * aConsignee = [localConsignees objectAtIndex:i];
-                if ([consignee equalConsignee:aConsignee]) { /// 手机，地址，姓名完全相同
-                    [localConsignees replaceObjectAtIndex:i withObject:consignee];
-                    contain = YES;
-                    break;
-                }
-            }
-            if (!contain) {
-                [localConsignees addObject:consignee];
-            }
-            [DataArchive storeConsignees:localConsignees shopId:bid];
-        }else{
-            [DataArchive storeConsignees:[NSArray arrayWithObjects:consignee, nil] shopId:bid];
-        }
-    }
-}
-
-- (void)scheduledTimerConsigneeAddressB{
-    [_consigneeAddressBTimer invalidate];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        _consigneeAddressBTimer = [NSTimer scheduledTimerWithTimeInterval:24*60*60 target:self selector:@selector(consigneeAddressB) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] run];
-    });
-}
-
-
 #pragma mark - 登录之后的通知
 - (void)loginNotifyAction:(NSNotification *)notify{
     [self setPushTag];
-    [self consigneeAddressB];
     [self updateCityList];
 }
 
@@ -504,18 +329,6 @@
     }
 }
 
-//- (void)testCityCode{
-//        DataBase * _dataBase = [DataBase shareDataBase];
-//
-//    NSString * dis = @"福鼎市";
-//    NSString * city = @"宁德市";
-//    OriginModel *origin = [_dataBase getDistrictWithName:dis city:city];
-//    NSLog(@"%@",origin);
-//    if (origin.idCode == 0) {
-//        [Tools showHUD:@"该地区暂未开通"];
-//        return;
-//    }
-//}
 
 
 @end

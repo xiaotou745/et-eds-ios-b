@@ -90,14 +90,12 @@
 }
 
 - (void)addressTextChanged:(NSNotification *)notify{
-    BMKNearbySearchOption *option = [[BMKNearbySearchOption alloc] init];
+    BMKCitySearchOption *option = [[BMKCitySearchOption alloc] init];
     option.pageIndex = 0;
     option.pageCapacity = 10;
-    option.location = self.locCoordinate;
-    option.radius = 5;
+    option.city = isCanUseString(self.currentCityName)?self.currentCityName:@"北京";
     option.keyword = ((UITextField *)(notify.object)).text;
-    option.sortType = BMK_POI_SORT_BY_DISTANCE;
-    BOOL flag = [_searcher poiSearchNearBy:option];
+    BOOL flag = [_searcher poiSearchInCity:option];
     if(flag){
         NSLog(@"周边检索发送成功");
     }else{

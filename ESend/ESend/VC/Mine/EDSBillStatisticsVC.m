@@ -47,7 +47,7 @@
 
 // #define BillStatisticsAPIHost @"http://10.8.7.253:7178/api-http/services/"
 
-@interface EDSBillStatisticsVC ()<UITableViewDataSource,UITableViewDelegate,KMMonthDateCalendarViewDelegate>
+@interface EDSBillStatisticsVC ()<UITableViewDataSource,UITableViewDelegate,KMMonthDateCalendarViewDelegate,UIScrollViewDelegate>
 {
     NSInteger _currentPage;
     
@@ -67,6 +67,8 @@
     
     AFHTTPRequestOperation * _monthOperation;
     AFHTTPRequestOperation * _dayOperation;
+    
+    BOOL _scrolling;
 
 }
 @property (strong, nonatomic) IBOutlet UIView *BS_OptionHeaderView;
@@ -433,9 +435,18 @@
     }
 }
 
+#pragma mark -日月切换
 /// 日月切换
 - (IBAction)monthDaySwitchAction:(UIButton *)sender {
-    [self cancelHttpOperations];
+    
+    if (self.BS_TableView.footer.state == MJRefreshFooterStateRefreshing || self.BS_TableView.header.state == MJRefreshFooterStateRefreshing) {
+        return;
+    }
+    
+    [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
+
+    // [self cancelHttpOperations];
     // 重置type, typeSub,timeInfo
     
     [_bills removeAllObjects];
@@ -572,7 +583,8 @@
                 [_bills addObject:dayInfo];
             }
             [self.BS_TableView reloadData];
-            
+            [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+
         }else{
             [_calendarView setOutBillAmount:0 inAmount:0];
             [Tools showHUD:message];
@@ -661,6 +673,9 @@
                 [_bills addObject:dayInfo];
             }
             [self.BS_TableView reloadData];
+            if (down) {
+                [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            }
             
             if ([listRecordS count] == 0 && !down) {
                 //_currentPage--;
@@ -835,5 +850,6 @@
         [_emptyBillTextLbl removeFromSuperview];
     }
 }
+
 
 @end

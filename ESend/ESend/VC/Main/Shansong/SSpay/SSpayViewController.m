@@ -158,20 +158,22 @@
                                     @"payType":[NSNumber numberWithInteger:[self selectedPayMethodType]],
                                     @"tipAmount":[NSNumber numberWithDouble:self.tipAmount],
                                     };
-        if (AES_Security) {
-            NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-            NSString * aesString = [Security AesEncrypt:jsonString2];
-            paraDict = @{@"data":aesString,};
-        }
         MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];//
         [SSHttpReqServer shanSongCreateFlashPay:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [Tools hiddenProgress:HUD];
-            NSDictionary * Result = [responseObject objectForKey:@"Result"];
-            if (SSPayMethodTypeAlipay == [self selectedPayMethodType]) {
-                [AliPay payWithPrice:self.tipAmount orderNumber:[Result getStringWithKey:@"orderNo"] notifyURL:[Result getStringWithKey:@"notifyUrl"] productName:@"E代送发货端支付"];
-            }else if (SSPayMethodTypeWechatpay == [self selectedPayMethodType]) {
-                [WechatPay wechatPayWithPrice:self.tipAmount orderNo:[Result getStringWithKey:@"orderNo"] notifyURL:[Result getStringWithKey:@"notifyUrl"] prepayId:[Result getStringWithKey:@"prepayId"]];
+            NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+            NSString * message = [responseObject objectForKey:@"message"];
+            if (status == 1) {
+                NSDictionary * Result = [responseObject objectForKey:@"Result"];
+                if (SSPayMethodTypeAlipay == [self selectedPayMethodType]) {
+                    [AliPay payWithPrice:self.tipAmount orderNumber:[Result getStringWithKey:@"orderNo"] notifyURL:[Result getStringWithKey:@"notifyUrl"] productName:@"E代送发货端支付"];
+                }else if (SSPayMethodTypeWechatpay == [self selectedPayMethodType]) {
+                    [WechatPay wechatPayWithPrice:self.tipAmount orderNo:[Result getStringWithKey:@"orderNo"] notifyURL:[Result getStringWithKey:@"notifyUrl"] prepayId:[Result getStringWithKey:@"prepayId"]];
+                }
+            }else{
+                [Tools showHUD:message];
             }
+
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             [Tools hiddenProgress:HUD];

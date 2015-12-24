@@ -593,7 +593,7 @@
     NSDictionary * paraData = @{
                                 @"businessId":[UserInfo getUserId],//[NSNumber numberWithInt:2125],//[UserInfo getUserId],
                                 @"status":[NSString stringWithFormat:@"%ld",(long)_orderListStatus],
-                                @"platform":@"1,3",//[NSNumber numberWithInteger:1],
+                                @"platform":@"3",//[NSNumber numberWithInteger:1],  // 12月24日，海超说的，只传3
                                 @"currentPage":[NSNumber numberWithInteger:1],
                                 };
     if (AES_Security) {
@@ -933,7 +933,7 @@
     NSDictionary * paraData = @{
                                 @"businessId":[UserInfo getUserId],//[NSNumber numberWithInt:2125],//[UserInfo getUserId],
                                 @"status":[NSString stringWithFormat:@"%ld",(long)_orderListStatus],
-                                @"platform":@"1,3",//[NSNumber numberWithInteger:1],
+                                @"platform":@"3",//[NSNumber numberWithInteger:1],  // 12月24日，海超说的，只传3
                                 @"currentPage":[NSNumber numberWithInteger:currentPage],
                                 };
     if (AES_Security) {

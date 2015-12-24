@@ -51,7 +51,7 @@
 
 - (void)bulidView {
     
-    self.titleLabel.text = @"商户注册";
+    self.titleLabel.text = @"注册";
     
     [self.rightBtn setTitle:@"登录" forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
@@ -123,22 +123,22 @@
     _submitBtn.frame = CGRectMake(10, CGRectGetMaxY(_passwordTF.frame) + 30, MainWidth - 20, 44);
     [_scrollView addSubview:_submitBtn];
     
-    _agreementLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_submitBtn.frame) + 20, MainWidth, 20)];
-    NSString *str = @"确认注册表示已同意E代送商家服务协议";
-    NSMutableAttributedString *mustr = [[NSMutableAttributedString alloc] initWithString:str];
-    [mustr addAttributes:@{NSForegroundColorAttributeName : DeepGrey,
-                           NSFontAttributeName : [UIFont systemFontOfSize:NormalFontSize]
-                           }
-                   range:NSMakeRange(0, str.length)];
-    [mustr addAttributes:@{NSForegroundColorAttributeName : BlueColor}
-                   range:NSMakeRange(9, 9)];
-    _agreementLabel.textAlignment = NSTextAlignmentCenter;
-    _agreementLabel.attributedText = mustr;
-    [_scrollView addSubview:_agreementLabel];
-    
-    UITapGestureRecognizer *tapProtocol = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showProtocol)];
-    _agreementLabel.userInteractionEnabled = YES;
-    [_agreementLabel addGestureRecognizer:tapProtocol];
+//    _agreementLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_submitBtn.frame) + 20, MainWidth, 20)];
+//    NSString *str = @"确认注册表示已同意E代送商家服务协议";
+//    NSMutableAttributedString *mustr = [[NSMutableAttributedString alloc] initWithString:str];
+//    [mustr addAttributes:@{NSForegroundColorAttributeName : DeepGrey,
+//                           NSFontAttributeName : [UIFont systemFontOfSize:NormalFontSize]
+//                           }
+//                   range:NSMakeRange(0, str.length)];
+//    [mustr addAttributes:@{NSForegroundColorAttributeName : BlueColor}
+//                   range:NSMakeRange(9, 9)];
+//    _agreementLabel.textAlignment = NSTextAlignmentCenter;
+//    _agreementLabel.attributedText = mustr;
+//    [_scrollView addSubview:_agreementLabel];
+//    
+//    UITapGestureRecognizer *tapProtocol = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showProtocol)];
+//    _agreementLabel.userInteractionEnabled = YES;
+//    [_agreementLabel addGestureRecognizer:tapProtocol];
     
     _scrollView.contentSize = CGSizeMake(MainWidth, CGRectGetMaxY(_agreementLabel.frame) + 20);
 }

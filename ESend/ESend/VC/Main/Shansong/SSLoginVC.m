@@ -37,7 +37,7 @@
 
 - (void)bulidView {
     
-    self.titleLabel.text = @"E代送商户登录";
+    self.titleLabel.text = @"E代送登录";
     //self.leftBtn.hidden = YES;
     
     _usernameTF = [[self class] createIconTextFieldWithIcon:@"phone_icon" placholder:@"手机号码"];

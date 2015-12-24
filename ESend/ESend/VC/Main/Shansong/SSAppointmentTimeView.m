@@ -41,7 +41,7 @@
 //        [_hourTimes addObject:tomorrowHours];
         
         _minutes = [[NSMutableArray alloc] initWithCapacity:0];
-        for (int i = 0; i <= 60; i = i + 5) {
+        for (int i = 0; i <= 55; i = i + 5) {
             [_minutes addObject:[NSString stringWithFormat:@"%02d",i]];
         }
         self.datePicker.delegate = self;

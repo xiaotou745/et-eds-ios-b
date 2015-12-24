@@ -19,6 +19,8 @@
 
 @interface SSEditAdderssViewController : BaseViewController
 
+@property (nonatomic,copy) NSString * currentCityName;
+
 @property (nonatomic,weak) id<SSEditAdderssViewControllerDelegate>delegate;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil Type:(SSAddressEditorType)type;
 

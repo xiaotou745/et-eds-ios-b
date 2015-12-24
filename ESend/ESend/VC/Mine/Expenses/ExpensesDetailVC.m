@@ -168,7 +168,7 @@
             order.pubDate = [result getStringWithKey:@"PubDate"];
             order.orderFrom = [result getIntegerWithKey:@"OrderFrom"];
             
-            order.PlatformStr = [result getStringWithKey:@"PlatformStr"];
+            order.PlatformStr = [result getStringWithKey:@"PlatFormStr"];
             
             order.receviceCity = [result getStringWithKey:@"receviceCity"];
             order.orderCount = [result getIntegerWithKey:@"OrderCount"];

@@ -238,11 +238,11 @@ fprintf(stderr, "-------\n");                                               \
 
 #if 0
 
-    #define OPEN_API_SEVER @"http://api.edaisong.com/20151022/" //生产
-    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20151022/" //上传图片地址
+    #define OPEN_API_SEVER @"http://api.edaisong.com/20151223/" //生产
+    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20151223/" //上传图片地址
     #define UPDATE_APP_API_SERVER @"http://api.edaisong.com/" // 升级接口
 
-    #define Java_API_SERVER @"http://japi.edaisong.com/20151022/services/" // java服务器-加密
+    #define Java_API_SERVER @"http://japi.edaisong.com/20151223/services/" // java服务器-加密
 
 #elif 0
     #define OPEN_API_SEVER @"http://10.8.10.130:8081/"   //曹赫洋
