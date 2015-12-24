@@ -160,9 +160,9 @@
         MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
         NSDictionary *paraDict = @{
                                    @"OptUserName"  : [UserInfo getUserId],
-                                   @"OptLog"       : @"闪送APP取消订单",
+                                   @"OptLog"       : @"E代送APP取消订单",
                                    @"orderId"      : [NSString stringWithFormat:@"%ld",(long)_orderInfo.orderId],
-                                   @"Remark"       : @"闪送APP取消订单",
+                                   @"Remark"       : @"E代送APP取消订单",
                                    @"Platform"     : @"5",
                                    };
         if (AES_Security) {

@@ -236,7 +236,7 @@ fprintf(stderr, "-------\n");                                               \
 #define ShanSongAddressHistorySelectedNotify @"ShanSongAddressHistorySelectedNotify" // 选择历史地址
 
 
-#if 0
+#if 1
 
     #define OPEN_API_SEVER @"http://api.edaisong.com/20151223/" //生产
     #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20151223/" //上传图片地址
@@ -286,7 +286,7 @@ fprintf(stderr, "-------\n");                                               \
 #endif
 
 /// Java版新接口，是否加密
-#if 0
+#if 1
     #define AES_Security YES   // 加密
 #elif 1
     #define AES_Security NO    // 不加密

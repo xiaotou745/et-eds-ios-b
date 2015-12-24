@@ -161,9 +161,9 @@
         MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];//
         [SSHttpReqServer shanSongCreateFlashPay:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [Tools hiddenProgress:HUD];
-            NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-            NSString * message = [responseObject objectForKey:@"message"];
-            if (status == 1) {
+            NSInteger Status = [[responseObject objectForKey:@"Status"] integerValue];
+            NSString * Message = [responseObject objectForKey:@"Message"];
+            if (Status == 1) {
                 NSDictionary * Result = [responseObject objectForKey:@"Result"];
                 if (SSPayMethodTypeAlipay == [self selectedPayMethodType]) {
                     [AliPay payWithPrice:self.tipAmount orderNumber:[Result getStringWithKey:@"orderNo"] notifyURL:[Result getStringWithKey:@"notifyUrl"] productName:@"E代送发货端支付"];
@@ -171,7 +171,7 @@
                     [WechatPay wechatPayWithPrice:self.tipAmount orderNo:[Result getStringWithKey:@"orderNo"] notifyURL:[Result getStringWithKey:@"notifyUrl"] prepayId:[Result getStringWithKey:@"prepayId"]];
                 }
             }else{
-                [Tools showHUD:message];
+                [Tools showHUD:Message];
             }
 
             
