@@ -343,6 +343,9 @@
 - (void)layoutStatusViewsWithData:(SSOrderDetailModel *)orderInfo{
     if (orderInfo.status == SSMyOrderStatusCanceled) {
         self.orderStatusPubTime.text = [orderInfo.pubdate MMDDHHmmString];
+        self.orderStatusGrabTime.text = [orderInfo.grabtime MMDDHHmmString];
+        self.orderStatusTakeTime.text = [orderInfo.taketime MMDDHHmmString];
+        self.orderStatusCompleteTime.text = [orderInfo.actualdonedate MMDDHHmmString];
         return;
     }
     self.orderStatusPubTime.text = [orderInfo.pubdate MMDDHHmmString];

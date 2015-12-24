@@ -16,4 +16,12 @@
 @property (nonatomic, assign) double outMoney;      // 当天总支出
 @property (nonatomic, assign) NSInteger hasDatas;        // 1:当天有数据 0:当天没有数据
 
+
+@property (nonatomic, assign) NSInteger recordId;
+@property (nonatomic, copy) NSString * relationNo;
+@property (nonatomic, assign) double amount;
+@property (nonatomic, copy) NSString * recordType;
+@property (nonatomic, copy) NSString * operateTime;
+
+
 @end

@@ -437,6 +437,9 @@
 - (IBAction)monthDaySwitchAction:(UIButton *)sender {
     [self cancelHttpOperations];
     // 重置type, typeSub,timeInfo
+    
+    [_bills removeAllObjects];
+    
     _currentType = BS_RecordTypeAll;
     _currentTypeSub = 0;
     _currentDate = [NSDate new];
