@@ -156,7 +156,7 @@
 
     OriginModel *origin = [[OriginModel alloc] init];
     
-    NSString *sql = [NSString stringWithFormat:@"select * from address where name like '%%%@%%' and level = 3 and parent_id = (select id_code from address where name like '%%%@%%' and level = 2)", name, city];
+    NSString *sql = [NSString stringWithFormat:@"select * from address where name like '%%%@%%' and level = 3 and parent_id in (select id_code from address where name like '%%%@%%' and level = 2)", name, city];
     NSLog(@"%@",sql);
     
     FMResultSet *result = [_dataBase executeQuery:sql];

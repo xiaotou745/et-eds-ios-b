@@ -182,12 +182,15 @@ fprintf(stderr, "-------\n");                                               \
 
 #define ShoppingCartChangeNotification @"ShoppingCartChangeNotification"
 
-//注册发出通知
+//选地址发出通知
 #define SelectAddressNotification @"SelectAddressNotification"
 
 //登陆状态变化
 #define LoginNotification @"LoginNotification"
 #define LogoutNotifaction @"LogoutNotifaction"
+
+//注册成功
+#define RegisterSuccessNotifaction @"RegisterSuccessNotifaction"
 
 //订单状态发生变化
 #define OrderStatusChangeNotification @"OrderStatusChangeNotification"

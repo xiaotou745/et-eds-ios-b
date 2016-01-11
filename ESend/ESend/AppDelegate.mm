@@ -68,6 +68,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotifyAction:) name:LoginNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushTag) name:LogoutNotifaction object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registerSuccess:) name:RegisterSuccessNotifaction object:nil];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
@@ -118,13 +119,9 @@
 }
 
 - (void)updateCityList {
-    if (![UserInfo isLogin]) {
-        return;
-    }
-    
     NSString *dataVersion = [[NSUserDefaults standardUserDefaults] stringForKey:@"Bussiness_Address_Id"];
     NSDictionary *requestData = @{@"version" : isCanUseString(dataVersion) ? dataVersion : @"20150525",
-                                  @"UserId" : [UserInfo getUserId]};
+                                  @"UserId" : @""};
     [FHQNetWorkingAPI getCityList:requestData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
     } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
@@ -551,8 +548,14 @@
 
 #pragma mark - 登录之后的通知
 - (void)loginNotifyAction:(NSNotification *)notify{
+    [self updateCityList];
     [self setPushTag];
     [self consigneeAddressB];
+}
+
+#pragma mark - 注册成功之后的通知
+- (void)registerSuccess:(NSNotification*)notify{
+    [self updateCityList];
 }
 
 

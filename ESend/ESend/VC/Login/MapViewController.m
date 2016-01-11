@@ -146,6 +146,7 @@
       
       if (!isCanUseString(result.addressDetail.city)) {
           [Tools showHUD:@"该地区暂未开通"];
+          self.rightBtn.enabled = YES;
           return;
       }
       
@@ -153,6 +154,7 @@
       NSLog(@"%@",origin);
       if (origin.idCode == 0) {
           [Tools showHUD:@"该地区暂未开通"];
+          self.rightBtn.enabled = YES;
           return;
       }
       

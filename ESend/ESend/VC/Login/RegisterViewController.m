@@ -222,7 +222,7 @@
             NSLog(@"%@",error.userInfo);
             [UserInfo saveUserInfo:@{@"userId"  : [[error.userInfo objectForKey:@"Result"] getStringWithKey:@"userId"],
                                      @"phoneNo" : _usernameTF.text}];
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:RegisterSuccessNotifaction object:nil];
             PrefectInfoViewController *vc = [[PrefectInfoViewController alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
         }
