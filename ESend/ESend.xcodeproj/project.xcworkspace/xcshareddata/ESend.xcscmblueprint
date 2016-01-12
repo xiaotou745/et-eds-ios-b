@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "47221C89E2D17AFF1C86A3F44D6CB9A1C004F8E1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "14C5AAA7E518C53EC029E3A3CA25B58ACC00BA2F" : 0,
+    "47221C89E2D17AFF1C86A3F44D6CB9A1C004F8E1" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "2AC45D69-475B-4AC5-AF8C-5DC38328322A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "14C5AAA7E518C53EC029E3A3CA25B58ACC00BA2F" : "..\/eds\/edaisong_iosapp",
+    "47221C89E2D17AFF1C86A3F44D6CB9A1C004F8E1" : "edaisong_ios_b"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ESend",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ESend\/ESend.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/10.8.8.5:8118\/ets\/edaisong_iosapp.git\/",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "14C5AAA7E518C53EC029E3A3CA25B58ACC00BA2F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "ssh:\/\/10.8.8.5:8118\/ets\/edaisong_ios_b",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "47221C89E2D17AFF1C86A3F44D6CB9A1C004F8E1"
+    }
+  ]
+}
