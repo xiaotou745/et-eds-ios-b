@@ -74,6 +74,14 @@
 @property (strong, nonatomic) SSAddressInfo * api_addr_shou;
 @property (assign, nonatomic) BOOL api_addr_fa_hasValue;
 @property (assign, nonatomic) BOOL api_addr_shou_hasValue;
+@property (weak, nonatomic) IBOutlet UILabel *hp_FaAddrMark;
+@property (weak, nonatomic) IBOutlet UILabel *hp_FaPhoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hp_FaNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hp_FaAddrPalceholder;
+@property (weak, nonatomic) IBOutlet UILabel *hp_ShouAddrMark;
+@property (weak, nonatomic) IBOutlet UILabel *hp_ShouPhoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hp_ShouNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hp_ShouAddrPalceholder;
 
 @property (strong,nonatomic) SSAddressInfo * localAddrInfo;
 
@@ -86,11 +94,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *hp_distanceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *hp_priceRuleBtn;
 
-// 姓名,电话
-@property (strong, nonatomic) IBOutlet UITextField *hp_ShouNameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *hp_ShouPhoneTextField;
-@property (strong, nonatomic) IBOutlet UITextField *hp_FaNameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *hp_FaPhoneTextField;
 @property (assign,nonatomic) SSAddressEditorType phoneType;
 
 // 取货时间
@@ -371,38 +374,38 @@
         [Tools showHUD:SS_HpMaxDistance];
         return;
     }
-    if (self.hp_ShouNameTextField.text.length <= 0 || [self.hp_ShouNameTextField.text allSpace]) { // 寄件人
-        [Tools showHUD:SS_HpNoFaNameMsg];
-        return;
-    }
-    if (self.hp_ShouNameTextField.text.length < 2) { // 寄件人
-        [Tools showHUD:SS_HpFaNameMinLengh];
-        return;
-    }
-    if (self.hp_ShouPhoneTextField.text.length <= 0 || [self.hp_ShouPhoneTextField.text allSpace]) { // 寄件人
-        [Tools showHUD:SS_HpNoFaPhoneMsg];
-        return;
-    }
-    if (![self.hp_ShouPhoneTextField.text rightConsigneeContactInfo]) {// 寄件人
-        [Tools showHUD:SS_HpWrongFaPhongMsg];
-        return;
-    }
-    if (self.hp_FaNameTextField.text.length <= 0 || [self.hp_FaNameTextField.text allSpace]) { // 收件人
-        [Tools showHUD:SS_HpNoShouNameMsg];
-        return;
-    }
-    if (self.hp_FaNameTextField.text.length < 2) { // 收件人
-        [Tools showHUD:SS_HpShouNameMinLengh];
-        return;
-    }
-    if (self.hp_FaPhoneTextField.text.length <= 0 || [self.hp_FaPhoneTextField.text allSpace]) { // 收件人
-        [Tools showHUD:SS_HpNoShouPhoneMsg];
-        return;
-    }
-    if (![self.hp_FaPhoneTextField.text rightConsigneeContactInfo]) { // 收件人
-        [Tools showHUD:SS_HpWrongShouPhongMsg];
-        return;
-    }
+//    if (self.hp_ShouNameTextField.text.length <= 0 || [self.hp_ShouNameTextField.text allSpace]) { // 寄件人
+//        [Tools showHUD:SS_HpNoFaNameMsg];
+//        return;
+//    }
+//    if (self.hp_ShouNameTextField.text.length < 2) { // 寄件人
+//        [Tools showHUD:SS_HpFaNameMinLengh];
+//        return;
+//    }
+//    if (self.hp_ShouPhoneTextField.text.length <= 0 || [self.hp_ShouPhoneTextField.text allSpace]) { // 寄件人
+//        [Tools showHUD:SS_HpNoFaPhoneMsg];
+//        return;
+//    }
+//    if (![self.hp_ShouPhoneTextField.text rightConsigneeContactInfo]) {// 寄件人
+//        [Tools showHUD:SS_HpWrongFaPhongMsg];
+//        return;
+//    }
+//    if (self.hp_FaNameTextField.text.length <= 0 || [self.hp_FaNameTextField.text allSpace]) { // 收件人
+//        [Tools showHUD:SS_HpNoShouNameMsg];
+//        return;
+//    }
+//    if (self.hp_FaNameTextField.text.length < 2) { // 收件人
+//        [Tools showHUD:SS_HpShouNameMinLengh];
+//        return;
+//    }
+//    if (self.hp_FaPhoneTextField.text.length <= 0 || [self.hp_FaPhoneTextField.text allSpace]) { // 收件人
+//        [Tools showHUD:SS_HpNoShouPhoneMsg];
+//        return;
+//    }
+//    if (![self.hp_FaPhoneTextField.text rightConsigneeContactInfo]) { // 收件人
+//        [Tools showHUD:SS_HpWrongShouPhongMsg];
+//        return;
+//    }
     if (self.productName.text.length <= 0 || [self.productName.text allSpace]) {
         [Tools showHUD:SS_HpNoProductNameMsg];
         return;
@@ -482,15 +485,15 @@
         [Tools showHUD:@"备注不能超过30个字"];
     }
     
-    if (textField == self.hp_FaNameTextField && textField.text.length > 10) { // 收件人名称
-        textField.text = [textField.text substringToIndex:10];
-        [Tools showHUD:SS_HpShouNameMaxLengh];
-    }
-    
-    if (textField == self.hp_ShouNameTextField && textField.text.length > 10) { // 寄件人名称
-        textField.text = [textField.text substringToIndex:10];
-        [Tools showHUD:SS_HpFaNameMaxLengh];
-    }
+//    if (textField == self.hp_FaNameTextField && textField.text.length > 10) { // 收件人名称
+//        textField.text = [textField.text substringToIndex:10];
+//        [Tools showHUD:SS_HpShouNameMaxLengh];
+//    }
+//    
+//    if (textField == self.hp_ShouNameTextField && textField.text.length > 10) { // 寄件人名称
+//        textField.text = [textField.text substringToIndex:10];
+//        [Tools showHUD:SS_HpFaNameMaxLengh];
+//    }
 }
 
 #pragma mark - nofitys

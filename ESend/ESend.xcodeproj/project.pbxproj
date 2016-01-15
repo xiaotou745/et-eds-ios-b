@@ -201,6 +201,10 @@
 		689CA4A71C243A9E00D9073E /* SSOrderOnDeliveryingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA4A41C243A9E00D9073E /* SSOrderOnDeliveryingCell.m */; };
 		689CA4A81C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA4A51C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib */; };
 		689CA4A91C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA4A51C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib */; };
+		689E962D1C48F274006CEAB8 /* SSAddrInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 689E962B1C48F274006CEAB8 /* SSAddrInfoVC.m */; };
+		689E962E1C48F274006CEAB8 /* SSAddrInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 689E962B1C48F274006CEAB8 /* SSAddrInfoVC.m */; };
+		689E962F1C48F274006CEAB8 /* SSAddrInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689E962C1C48F274006CEAB8 /* SSAddrInfoVC.xib */; };
+		689E96301C48F274006CEAB8 /* SSAddrInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689E962C1C48F274006CEAB8 /* SSAddrInfoVC.xib */; };
 		68AE2BD51BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD61BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */; };
 		68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */; };
@@ -838,6 +842,9 @@
 		689CA4A31C243A9E00D9073E /* SSOrderOnDeliveryingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderOnDeliveryingCell.h; sourceTree = "<group>"; };
 		689CA4A41C243A9E00D9073E /* SSOrderOnDeliveryingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderOnDeliveryingCell.m; sourceTree = "<group>"; };
 		689CA4A51C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderOnDeliveryingCell.xib; sourceTree = "<group>"; };
+		689E962A1C48F274006CEAB8 /* SSAddrInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAddrInfoVC.h; sourceTree = "<group>"; };
+		689E962B1C48F274006CEAB8 /* SSAddrInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAddrInfoVC.m; sourceTree = "<group>"; };
+		689E962C1C48F274006CEAB8 /* SSAddrInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSAddrInfoVC.xib; sourceTree = "<group>"; };
 		68AE2BD21BC8E93A00E8149C /* EDSBillStatisticsMonthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSBillStatisticsMonthCell.h; sourceTree = "<group>"; };
 		68AE2BD31BC8E93A00E8149C /* EDSBillStatisticsMonthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDSBillStatisticsMonthCell.m; sourceTree = "<group>"; };
 		68AE2BD41BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsMonthCell.xib; sourceTree = "<group>"; };
@@ -1775,6 +1782,16 @@
 			path = SSpay;
 			sourceTree = "<group>";
 		};
+		689E96291C48F17E006CEAB8 /* 收发货信息 */ = {
+			isa = PBXGroup;
+			children = (
+				689E962A1C48F274006CEAB8 /* SSAddrInfoVC.h */,
+				689E962B1C48F274006CEAB8 /* SSAddrInfoVC.m */,
+				689E962C1C48F274006CEAB8 /* SSAddrInfoVC.xib */,
+			);
+			path = "收发货信息";
+			sourceTree = "<group>";
+		};
 		68AE2BD11BC8E88D00E8149C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1800,6 +1817,7 @@
 		68FE8CC61C05B1C6004BABB4 /* Shansong */ = {
 			isa = PBXGroup;
 			children = (
+				689E96291C48F17E006CEAB8 /* 收发货信息 */,
 				6833078B1C1FF4DC00AC6601 /* myOrders */,
 				688F5C0F1C12D03E0031ADE4 /* SSpay */,
 				687ED1181C0D403300728E65 /* addrAddition */,
@@ -2737,6 +2755,7 @@
 				6861FC5B1C269699009A4EDF /* SSPriceTableView.xib in Resources */,
 				F62A73E71B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F67D35F11B5664A600083DA4 /* gray_border_btn_nor@2x.png in Resources */,
+				689E96301C48F274006CEAB8 /* SSAddrInfoVC.xib in Resources */,
 				6867454E1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
 				68753F301C085BBC00418E7B /* SSAdressCell.xib in Resources */,
 				F62A73EF1B5CCA84001632B5 /* 2@3x.png in Resources */,
@@ -2840,6 +2859,7 @@
 				F62A73EA1B5CCA84001632B5 /* 2@1x.png in Resources */,
 				F6C6AE751B18386C0007A980 /* phone_icon@2x.png in Resources */,
 				685E35071C0C177B001CEABB /* SSMapAddrViewController.xib in Resources */,
+				689E962F1C48F274006CEAB8 /* SSAddrInfoVC.xib in Resources */,
 				686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68580C931BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
@@ -2917,6 +2937,7 @@
 				F67D35411B5664A600083DA4 /* RDVTabBar.m in Sources */,
 				689CA4961C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */,
 				F67D35421B5664A600083DA4 /* SDWebImagePrefetcher.m in Sources */,
+				689E962E1C48F274006CEAB8 /* SSAddrInfoVC.m in Sources */,
 				F67D35431B5664A600083DA4 /* MD5DataSigner.m in Sources */,
 				686A49951C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */,
 				68580CA81BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */,
@@ -3166,6 +3187,7 @@
 				F6C6ADA21B12F42F0007A980 /* RDVTabBar.m in Sources */,
 				689CA4951C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */,
 				F6C6ADAD1B12F42F0007A980 /* SDWebImagePrefetcher.m in Sources */,
+				689E962D1C48F274006CEAB8 /* SSAddrInfoVC.m in Sources */,
 				F6441B511B3D470100EA3C9D /* MD5DataSigner.m in Sources */,
 				686A49941C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */,
 				68580CA71BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */,
