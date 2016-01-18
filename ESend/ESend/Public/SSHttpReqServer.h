@@ -97,4 +97,12 @@
 + (AFHTTPRequestOperation *)shanSongSSCancelOrder:(NSDictionary *)dict
                                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/*
+ 1.1.7 获取小费
+ url:/order/getordertipdetails 胡灵波
+ */
++ (AFHTTPRequestOperation *)shanSongGetOrderTipDetails:(NSDictionary *)dict
+                                               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

@@ -177,4 +177,20 @@
     return operation;
 }
 
+/*
+ 1.1.7 获取小费
+ url:/order/getordertipdetails 胡灵波
+ */
++ (AFHTTPRequestOperation *)shanSongGetOrderTipDetails:(NSDictionary *)dict
+                                               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@order/getordertipdetails",OPEN_API_SEVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
 @end

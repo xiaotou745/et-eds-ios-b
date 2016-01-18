@@ -8,6 +8,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSAddrInfoVC">
             <connections>
+                <outlet property="aiAddrAdtion" destination="hyQ-FI-gN1" id="MR7-WG-Wfm"/>
+                <outlet property="aiAddrPersonName" destination="5xi-LP-3hZ" id="cYs-ux-TKe"/>
+                <outlet property="aiAddrPhone" destination="cJZ-bO-7Gb" id="Sty-lt-9Xp"/>
+                <outlet property="aiAddrText" destination="eKC-fm-xqC" id="NGV-Q1-KKl"/>
+                <outlet property="aiAddrTypeImg" destination="U8b-8g-yhf" id="iHY-OB-YOV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,18 +37,22 @@
                                                 <constraint firstAttribute="height" constant="0.5" id="HdN-5f-P6Q"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U8b-8g-yhf">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_fa" translatesAutoresizingMaskIntoConstraints="NO" id="U8b-8g-yhf">
                                             <rect key="frame" x="12" y="13" width="26" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="26" id="LTu-Hi-QSh"/>
                                                 <constraint firstAttribute="width" secondItem="U8b-8g-yhf" secondAttribute="height" id="Wen-3V-jMW"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKC-fm-xqC">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKC-fm-xqC">
                                             <rect key="frame" x="43" y="5" width="545" height="42"/>
+                                            <gestureRecognizers/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="9TM-en-H2E" appends="YES" id="q8O-yq-E7G"/>
+                                            </connections>
                                         </label>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请补充楼号,小区号等详细信息" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hyQ-FI-gN1">
                                             <rect key="frame" x="43" y="61" width="545" height="36"/>
@@ -77,7 +86,7 @@
                                     <rect key="frame" x="0.0" y="115" width="600" height="90"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sPD-Nc-xVd" userLabel="separator21">
-                                            <rect key="frame" x="12" y="45" width="588" height="0.0"/>
+                                            <rect key="frame" x="12" y="45" width="588" height="1"/>
                                             <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="8" id="3zC-KK-9ov"/>
@@ -89,11 +98,14 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="收货人电话" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cJZ-bO-7Gb">
-                                            <rect key="frame" x="19" y="8" width="97" height="30"/>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="收货人电话" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cJZ-bO-7Gb">
+                                            <rect key="frame" x="12" y="8" width="531" height="30"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="AXm-bz-i1n"/>
+                                            </connections>
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOa-mh-BuE">
                                             <rect key="frame" x="548" y="3" width="40" height="40"/>
@@ -104,13 +116,44 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <inset key="imageEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" image="ss_release_contacts"/>
+                                            <connections>
+                                                <action selector="aiAddrPhoneChoosingAction:" destination="-1" eventType="touchUpInside" id="Tuc-Vx-lyk"/>
+                                            </connections>
+                                        </button>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="收货人姓名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5xi-LP-3hZ">
+                                            <rect key="frame" x="12" y="54" width="481" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Fhz-5n-3pw"/>
+                                            </constraints>
+                                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="-1" id="wQG-bd-qQq"/>
+                                            </connections>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ShS-cJ-4q0">
+                                            <rect key="frame" x="498" y="54" width="90" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="XNz-2V-ecI"/>
+                                                <constraint firstAttribute="width" constant="90" id="oST-kn-D5N"/>
+                                            </constraints>
+                                            <state key="normal" image="ss_man"/>
+                                            <connections>
+                                                <action selector="aiGenderChoosingAction:" destination="-1" eventType="touchUpInside" id="PXv-j4-MJH"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="cJZ-bO-7Gb" firstAttribute="top" secondItem="sq8-Mo-oBD" secondAttribute="top" constant="8" id="1I8-pK-9yn"/>
+                                        <constraint firstAttribute="trailing" secondItem="ShS-cJ-4q0" secondAttribute="trailing" constant="12" id="6Hi-MI-9JG"/>
+                                        <constraint firstItem="ShS-cJ-4q0" firstAttribute="centerY" secondItem="5xi-LP-3hZ" secondAttribute="centerY" id="7AH-mD-BdW"/>
                                         <constraint firstAttribute="height" constant="90" id="9fO-Sa-oko"/>
                                         <constraint firstItem="sPD-Nc-xVd" firstAttribute="leading" secondItem="sq8-Mo-oBD" secondAttribute="leading" constant="12" id="COb-1H-isM"/>
+                                        <constraint firstItem="ShS-cJ-4q0" firstAttribute="top" secondItem="sPD-Nc-xVd" secondAttribute="bottom" constant="8" id="ICX-L8-Wby"/>
+                                        <constraint firstItem="ShS-cJ-4q0" firstAttribute="leading" secondItem="5xi-LP-3hZ" secondAttribute="trailing" constant="5" id="J7M-Qh-9RI"/>
+                                        <constraint firstItem="5xi-LP-3hZ" firstAttribute="leading" secondItem="sq8-Mo-oBD" secondAttribute="leading" constant="12" id="JAJ-II-9bT"/>
                                         <constraint firstAttribute="trailing" secondItem="HOa-mh-BuE" secondAttribute="trailing" constant="12" id="Leb-o4-R3y"/>
                                         <constraint firstItem="HOa-mh-BuE" firstAttribute="leading" secondItem="cJZ-bO-7Gb" secondAttribute="trailing" constant="5" id="dj4-g8-wd2"/>
                                         <constraint firstItem="HOa-mh-BuE" firstAttribute="centerY" secondItem="cJZ-bO-7Gb" secondAttribute="centerY" id="dpH-RO-v7P"/>
@@ -153,8 +196,15 @@
                 <constraint firstItem="qEb-K9-cSM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="hPH-jA-gcG"/>
             </constraints>
         </view>
+        <tapGestureRecognizer id="9TM-en-H2E">
+            <connections>
+                <action selector="aiAddrTextEditorAction:" destination="-1" id="Ppl-ke-rDY"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="ss_man" width="90" height="30"/>
         <image name="ss_release_contacts" width="20" height="20"/>
+        <image name="ss_release_fa" width="26" height="26"/>
     </resources>
 </document>

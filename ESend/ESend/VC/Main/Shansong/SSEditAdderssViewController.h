@@ -13,7 +13,7 @@
 @class SSEditAdderssViewController;
 @protocol SSEditAdderssViewControllerDelegate <NSObject>
 
-@required
+@optional
 - (void)editAddressVC:(SSEditAdderssViewController *)vc didSelectHistroyAddr:(SSAddressInfo *)address type:(SSAddressEditorType)type;
 @end
 

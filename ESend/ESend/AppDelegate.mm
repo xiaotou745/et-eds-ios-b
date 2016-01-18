@@ -52,49 +52,48 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //
-    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-    }];
+//    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+//    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//    }];
     
-    // 更新银行列表，需要token
-    [self updateBankCityList];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotifyAction:) name:LoginNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushTag) name:LogoutNotifaction object:nil];
-    
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+//    // 更新银行列表，需要token
+//    [self updateBankCityList];
+//    
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginNotifyAction:) name:LoginNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setPushTag) name:LogoutNotifaction object:nil];
+//    
+//    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     
-    _mapManager = [[BMKMapManager alloc]init]; 
-    BOOL ret = [_mapManager start:BaiduLbsKey  generalDelegate:nil];
-    if (!ret) {
-        CLog(@"map start fail");
-    }
+//    _mapManager = [[BMKMapManager alloc]init]; 
+//    BOOL ret = [_mapManager start:BaiduLbsKey  generalDelegate:nil];
+//    if (!ret) {
+//        CLog(@"map start fail");
+//    }
     
-    SSHomepageViewController * takeOrderVC = [[SSHomepageViewController alloc] initWithNibName:NSStringFromClass([SSHomepageViewController class]) bundle:nil];
-    _rootNav = [[UINavigationController alloc] initWithRootViewController:takeOrderVC];
-    _rootNav.navigationBarHidden = YES;
-    self.window.rootViewController = _rootNav;
+//    SSHomepageViewController * takeOrderVC = [[SSHomepageViewController alloc] initWithNibName:NSStringFromClass([SSHomepageViewController class]) bundle:nil];
+//    _rootNav = [[UINavigationController alloc] initWithRootViewController:takeOrderVC];
+//    _rootNav.navigationBarHidden = YES;
+//    self.window.rootViewController = _rootNav;
     
     // [self showWelcomeLoginAnimated:NO];
-    [self setupJpush:launchOptions];
-    [self setPushTag];
     
-//    [MobClick setLogEnabled:YES];
-//    [MobClick startWithAppkey:@"55962f3267e58ef3fc001ad7" reportPolicy:REALTIME channelId:@"appstore"];
-    //处理推送
-    if ([launchOptions objectForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"]) {
-        NSDictionary *data = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-        [self pushNotificationView:data];
-    }
-
-    [self updateCityList];
-    //向微信注册
-    [WXApi registerApp:APP_ID withDescription:@"EDS_B_SS"];
+//    [self setupJpush:launchOptions];
+//    [self setPushTag];
+//    
+//    //处理推送
+//    if ([launchOptions objectForKey:@"UIApplicationLaunchOptionsRemoteNotificationKey"]) {
+//        NSDictionary *data = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+//        [self pushNotificationView:data];
+//    }
+//
+//    [self updateCityList];
+//    //向微信注册
+//    [WXApi registerApp:APP_ID withDescription:@"EDS_B_SS"];
     
     
     return YES;

@@ -7,7 +7,6 @@
 //
 
 #import "SSHomepageViewController.h"
-#import "SSEditAdderssViewController.h"
 #import "MineViewController.h"
 #import <AddressBookUI/AddressBookUI.h>
 #import <AddressBook/AddressBook.h>
@@ -24,16 +23,12 @@
 #import "SSMyOrdersVC.h"
 #import "SSPriceTableView.h"
 #import "NSString+evaluatePhoneNumber.h"
+#import "SSAddrInfoVC.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
 #define SS_HPNoShouAddressMsg @"请输入收货地址"
-#define SS_HpNoShouNameMsg @"请输入收件人姓名"
-#define SS_HpNoShouPhoneMsg @"请输入收件人电话"
-#define SS_HpWrongShouPhongMsg @"收件人电话格式不对"
-#define SS_HpNoFaNameMsg @"请输入寄件人姓名"
-#define SS_HpNoFaPhoneMsg @"请输入寄件人电话"
-#define SS_HpWrongFaPhongMsg @"寄件人电话格式不对"
+
 #define SS_HpNoProductNameMsg @"请输入物品名称"
 #define SS_HpLessProductNameMsg @"物品名称不少于2个字"
 
@@ -45,13 +40,7 @@
 #define SS_HpNoMyCellPhoneMsg @"请输入您的手机号"
 #define SS_HpNoMyCodeMsg @"请输入验证码"
 
-#define SS_HpFaNameMaxLengh @"寄件人姓名不能超过10个字"
-#define SS_HpShouNameMaxLengh @"收件人姓名不能超过10个字"
-
-#define SS_HpFaNameMinLengh @"寄件人姓名不能少于2个字"
-#define SS_HpShouNameMinLengh @"收件人姓名不能少于2个字"
-
-@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,SSEditAdderssViewControllerDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>{
+@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>{
     SSAppointmentTimeView * _appointTimeView;
     dispatch_source_t _timer;
     
@@ -83,6 +72,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *hp_ShouNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *hp_ShouAddrPalceholder;
 
+
+#warning 之后废弃之
 @property (strong,nonatomic) SSAddressInfo * localAddrInfo;
 
 // 公斤
@@ -94,21 +85,15 @@
 @property (strong, nonatomic) IBOutlet UILabel *hp_distanceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *hp_priceRuleBtn;
 
-@property (assign,nonatomic) SSAddressEditorType phoneType;
+// 小费
+@property (nonatomic, assign) double api_tip;
+@property (weak, nonatomic) IBOutlet UIButton *hp_tipBtn;
 
 // 取货时间
 @property (nonatomic,assign) BOOL api_pick_now;
 @property (nonatomic,copy) NSString * api_pick_time;
-@property (strong, nonatomic) IBOutlet UIImageView *hp_PickNowImg;
-@property (strong, nonatomic) IBOutlet UILabel *hp_PickNowLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *hp_pickAppointmentImg;
-@property (strong, nonatomic) IBOutlet UILabel *hp_pickAppointmentLabel;
-@property (strong, nonatomic) IBOutlet UIView *hp_PickNowBgView;
-@property (strong, nonatomic) IBOutlet UIView *hp_pickAppointmentBgView;
-
-@property (strong, nonatomic) IBOutlet UIView *hp_appointmentBg;
-@property (strong, nonatomic) IBOutlet UILabel *hp_appointmentLabel;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *hp_appointmentHeight;
+@property (weak, nonatomic) IBOutlet UIButton *hp_pickTimeBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hp_pickTimeBtnWidth;
 
 // 名称 备注
 @property (strong, nonatomic) IBOutlet UITextField *productName;
@@ -169,11 +154,6 @@
     self.api_distance = 0.0f;
     self.api_kilo = 1;
     _currentCoordinate = CLLocationCoordinate2DMake(0, 0);
-    // tap
-    UITapGestureRecognizer * tapNow = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickTimeType:)];
-    UITapGestureRecognizer * tapAppointment = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickTimeType:)];
-    [self.hp_PickNowBgView addGestureRecognizer:tapNow];
-    [self.hp_pickAppointmentBgView addGestureRecognizer:tapAppointment];
     //
     [self.getVerCodeAction setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
     [self.hp_nextBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
@@ -204,48 +184,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    if (_locService) {
-//        [_locService stopUserLocationService];
-//        _locService.delegate = nil;
-//    }
     if (_searcher) {
         _searcher.delegate = nil;
     }
 
-}
-
-- (void)pickTimeType:(UITapGestureRecognizer *)tap{
-    [Tools hiddenKeyboard];
-    if (tap.view.tag == 1102) {
-        self.api_pick_now = NO;
-        if (!_appointTimeView) {
-            _appointTimeView = [[SSAppointmentTimeView alloc] initWithDelegate:self];
-        }
-        [_appointTimeView showInView:self.view];
-    }else if (tap.view.tag == 1101){
-        self.api_pick_now = YES;
-    }
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(updateUIForKeypath:) withObject:keyPath waitUntilDone:NO];
-    } else {
-        [self updateUIForKeypath:keyPath];
-    }
-}
-
-- (void)updateUIForKeypath:(NSString *)keyPath {
-    if ([keyPath isEqualToString:@"api_pick_now"]) {
-        self.hp_PickNowImg.highlighted = self.api_pick_now;
-        self.hp_pickAppointmentImg.highlighted = !self.api_pick_now;
-        self.hp_PickNowLabel.textColor = self.api_pick_now?DeepGrey:BBC0C7Color;
-        self.hp_pickAppointmentLabel.textColor = self.api_pick_now?BBC0C7Color:DeepGrey;
-        //
-        self.hp_appointmentBg.hidden = self.api_pick_now;
-        self.hp_appointmentHeight.constant = self.api_pick_now?0:30;
-        self.scrollerHeight.constant += self.api_pick_now?-30:+30;
-    }
 }
 
 #pragma mark - outlet actions
@@ -273,18 +215,11 @@
     self.kiloTextField.text = [NSString stringWithFormat:@"%ld",--self.api_kilo];
     [self calculateAndDisplayTotalFee];
 }
-
-- (IBAction)shouPhoneAction:(UIButton *)sender {
-    self.phoneType = SSAddressEditorTypeShou;
-    ABPeoplePickerNavigationController *picker =[[ABPeoplePickerNavigationController alloc] init];
-    picker.peoplePickerDelegate = self;
-    [self presentViewController:picker animated:YES completion:^{}];
+- (IBAction)selectTips:(UIButton *)sender {
+    NSLog(@"%s",__func__);
 }
-- (IBAction)faPhoneAction:(UIButton *)sender {
-    self.phoneType = SSAddressEditorTypeFa;
-    ABPeoplePickerNavigationController *picker =[[ABPeoplePickerNavigationController alloc] init];
-    picker.peoplePickerDelegate = self;
-    [self presentViewController:picker animated:YES completion:^{}];
+- (IBAction)selectPickTime:(UIButton *)sender {
+    NSLog(@"%s",__func__);
 }
 
 - (void)clickMyOrders{
@@ -374,38 +309,6 @@
         [Tools showHUD:SS_HpMaxDistance];
         return;
     }
-//    if (self.hp_ShouNameTextField.text.length <= 0 || [self.hp_ShouNameTextField.text allSpace]) { // 寄件人
-//        [Tools showHUD:SS_HpNoFaNameMsg];
-//        return;
-//    }
-//    if (self.hp_ShouNameTextField.text.length < 2) { // 寄件人
-//        [Tools showHUD:SS_HpFaNameMinLengh];
-//        return;
-//    }
-//    if (self.hp_ShouPhoneTextField.text.length <= 0 || [self.hp_ShouPhoneTextField.text allSpace]) { // 寄件人
-//        [Tools showHUD:SS_HpNoFaPhoneMsg];
-//        return;
-//    }
-//    if (![self.hp_ShouPhoneTextField.text rightConsigneeContactInfo]) {// 寄件人
-//        [Tools showHUD:SS_HpWrongFaPhongMsg];
-//        return;
-//    }
-//    if (self.hp_FaNameTextField.text.length <= 0 || [self.hp_FaNameTextField.text allSpace]) { // 收件人
-//        [Tools showHUD:SS_HpNoShouNameMsg];
-//        return;
-//    }
-//    if (self.hp_FaNameTextField.text.length < 2) { // 收件人
-//        [Tools showHUD:SS_HpShouNameMinLengh];
-//        return;
-//    }
-//    if (self.hp_FaPhoneTextField.text.length <= 0 || [self.hp_FaPhoneTextField.text allSpace]) { // 收件人
-//        [Tools showHUD:SS_HpNoShouPhoneMsg];
-//        return;
-//    }
-//    if (![self.hp_FaPhoneTextField.text rightConsigneeContactInfo]) { // 收件人
-//        [Tools showHUD:SS_HpWrongShouPhongMsg];
-//        return;
-//    }
     if (self.productName.text.length <= 0 || [self.productName.text allSpace]) {
         [Tools showHUD:SS_HpNoProductNameMsg];
         return;
@@ -432,10 +335,9 @@
 #pragma mark -
 - (IBAction)editAddress:(UIButton *)sender {
     SSAddressEditorType type = [SSEditorTypeTransformer typeWithEditorTitleStr:sender.currentTitle];
-    SSEditAdderssViewController * eavc = [[SSEditAdderssViewController alloc] initWithNibName:NSStringFromClass([SSEditAdderssViewController class]) bundle:nil Type:type];
-    eavc.currentCityName = self.currentCityName;
-    eavc.delegate = self;
-    [self.navigationController pushViewController:eavc animated:YES];
+    SSAddrInfoVC * aivc = [[SSAddrInfoVC alloc] initWithNibName:@"SSAddrInfoVC" bundle:nil];
+    aivc.addrType = type;
+    [self.navigationController pushViewController:aivc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -484,16 +386,6 @@
         textField.text = [textField.text substringToIndex:30];
         [Tools showHUD:@"备注不能超过30个字"];
     }
-    
-//    if (textField == self.hp_FaNameTextField && textField.text.length > 10) { // 收件人名称
-//        textField.text = [textField.text substringToIndex:10];
-//        [Tools showHUD:SS_HpShouNameMaxLengh];
-//    }
-//    
-//    if (textField == self.hp_ShouNameTextField && textField.text.length > 10) { // 寄件人名称
-//        textField.text = [textField.text substringToIndex:10];
-//        [Tools showHUD:SS_HpFaNameMaxLengh];
-//    }
 }
 
 #pragma mark - nofitys
@@ -524,48 +416,6 @@
     }
 }
 
-
-#pragma mark - ABPeoplePickerNavigationControllerDelegate
-//选择属性之后，注意如果上面的代理方法实现后此方法不会被调用
--(void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker didSelectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
-    if (person && property == kABPersonPhoneProperty) {
-        ABMultiValueRef phoneMulti = ABRecordCopyValue(person, property);
-        CFIndex index = ABMultiValueGetIndexForIdentifier(phoneMulti, identifier);
-        NSString * phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneMulti, index);
-        //NSLog(@"%@",[phone phoneFormat]);
-        
-        NSString * name = (__bridge NSString *)(ABRecordCopyCompositeName(person));
-        if (self.phoneType == SSAddressEditorTypeFa) {
-            self.hp_FaPhoneTextField.text = [phone phoneFormat];
-            self.hp_FaNameTextField.text = name;
-        }else{
-            self.hp_ShouPhoneTextField.text = [phone phoneFormat];
-            self.hp_ShouNameTextField.text = name;
-        }
-    }
-}
-
-- (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
-    if (person && property == kABPersonPhoneProperty) {
-        ABMultiValueRef phoneMulti = ABRecordCopyValue(person, property);
-        CFIndex index = ABMultiValueGetIndexForIdentifier(phoneMulti, identifier);
-        NSString * phone = (__bridge NSString *)ABMultiValueCopyValueAtIndex(phoneMulti, index);
-        
-        NSString * name = (__bridge NSString *)(ABRecordCopyCompositeName(person));
-        //NSLog(@"%@",name);
-        
-        //NSLog(@"%@",[phone phoneFormat]);
-        if (self.phoneType == SSAddressEditorTypeFa) {
-            self.hp_FaPhoneTextField.text = [phone phoneFormat];
-            self.hp_FaNameTextField.text = name;
-        }else{
-            self.hp_ShouPhoneTextField.text = [phone phoneFormat];
-            self.hp_ShouNameTextField.text = name;
-        }
-    }
-    return NO;
-}
-
 #pragma mark 键盘相关处理
 - (void)keyboardWillShow:(NSNotification*)notification {
     
@@ -594,7 +444,7 @@
 - (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSString *)date{
     // NSLog(@"%@ \n %@",date, [date km_simpleToString]);
     self.api_pick_time = date;
-    self.hp_appointmentLabel.text = self.api_pick_time;
+    // self.hp_appointmentLabel.text = self.api_pick_time;
 }
 
 - (NSString *)currentDateString{
@@ -615,18 +465,18 @@
                                 @"businessid":[UserInfo isLogin]?[UserInfo getUserId]:@"",
                                 @"businessphoneno":self.hp_myPhoneTextField.text,
                                 @"verificationcode":self.hp_myVerCodeTextField.text,
-                                @"pubname":self.hp_ShouNameTextField.text, // 名称不对，注意
+                                //@"pubname":self.hp_ShouNameTextField.text, // 名称不对，注意
                                 @"islogin":[UserInfo isLogin]?@"true":@"false",
                                 @"publongitude":self.api_addr_fa.longitude,
                                 @"publatitude":self.api_addr_fa.latitude,
-                                @"pubphoneno":self.hp_ShouPhoneTextField.text, // 名称不对，注意
+                                //@"pubphoneno":self.hp_ShouPhoneTextField.text, // 名称不对，注意
                                 @"pubaddress":[NSString stringWithFormat:@"%@(%@)%@",self.api_addr_fa.name,self.api_addr_fa.address,self.api_addr_fa.addition],
                                 @"taketype":self.api_pick_now?@"0":@"1",
                                 @"currentlongitude":[NSNumber numberWithDouble:currentlongitude],
                                 @"currentlatitude":[NSNumber numberWithDouble:currentlatitude],
                                 @"taketime":self.api_pick_time,
-                                @"recevicename":self.hp_FaNameTextField.text, // 名称不对，注意
-                                @"recevicephoneno":self.hp_FaPhoneTextField.text, // 名称不对，注意
+                                //@"recevicename":self.hp_FaNameTextField.text, // 名称不对，注意
+                                //@"recevicephoneno":self.hp_FaPhoneTextField.text, // 名称不对，注意
                                 @"receviceaddress":[NSString stringWithFormat:@"%@(%@)%@",self.api_addr_shou.name,self.api_addr_shou.address,self.api_addr_shou.addition],
                                 @"recevicelongitude":self.api_addr_shou.longitude,
                                 @"recevicelatitude":self.api_addr_shou.latitude,
@@ -658,12 +508,12 @@
             [UserInfo saveUserInfo:uInfo];
             if ([UserInfo isLogin]) {
                 self.api_addr_fa.uid = [self generateUniqueId];
-                self.api_addr_fa.personName = self.hp_ShouNameTextField.text;
-                self.api_addr_fa.personPhone = self.hp_ShouPhoneTextField.text;
+                //self.api_addr_fa.personName = self.hp_ShouNameTextField.text;
+                //self.api_addr_fa.personPhone = self.hp_ShouPhoneTextField.text;
                 [DataArchive storeFaAddress:self.api_addr_fa businessId:[UserInfo getUserId]];
                 self.api_addr_shou.uid = [self generateUniqueId];
-                self.api_addr_shou.personName = self.hp_FaNameTextField.text;
-                self.api_addr_shou.personPhone = self.hp_FaPhoneTextField.text;
+                //self.api_addr_shou.personName = self.hp_FaNameTextField.text;
+                //self.api_addr_shou.personPhone = self.hp_FaPhoneTextField.text;
                 [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
             }
             //
@@ -738,36 +588,36 @@
 }
 
 #pragma mark - SSEditAdderssViewControllerDelegate
-- (void)editAddressVC:(SSEditAdderssViewController *)vc didSelectHistroyAddr:(SSAddressInfo *)address type:(SSAddressEditorType)type{
-    
-    if (type == SSAddressEditorTypeFa) {
-        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",address.name,address.address,address.addition];
-        self.hp_FaAddrLabel.textColor = DeepGrey;
-        self.api_addr_fa = address;
-        self.api_addr_fa_hasValue = YES;
-        //
-        self.hp_ShouNameTextField.text = address.personName;
-        self.hp_ShouPhoneTextField.text = address.personPhone;
-    }else if (type == SSAddressEditorTypeShou){
-        self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",address.name,address.address,address.addition];
-        self.hp_ShouAddrLabel.textColor = DeepGrey;
-        self.api_addr_shou = address;
-        self.api_addr_shou_hasValue = YES;
-        //
-        self.hp_FaNameTextField.text = address.personName;
-        self.hp_FaPhoneTextField.text = address.personPhone;
-    }
-    if (self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {
-        BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]));
-        BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]));
-        CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
-        self.api_distance = distance/1000;
-        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
-        
-        // 计算费用总计;
-        [self calculateAndDisplayTotalFee];
-    }
-}
+//- (void)editAddressVC:(SSEditAdderssViewController *)vc didSelectHistroyAddr:(SSAddressInfo *)address type:(SSAddressEditorType)type{
+//    
+//    if (type == SSAddressEditorTypeFa) {
+//        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",address.name,address.address,address.addition];
+//        self.hp_FaAddrLabel.textColor = DeepGrey;
+//        self.api_addr_fa = address;
+//        self.api_addr_fa_hasValue = YES;
+//        //
+//        self.hp_ShouNameTextField.text = address.personName;
+//        self.hp_ShouPhoneTextField.text = address.personPhone;
+//    }else if (type == SSAddressEditorTypeShou){
+//        self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",address.name,address.address,address.addition];
+//        self.hp_ShouAddrLabel.textColor = DeepGrey;
+//        self.api_addr_shou = address;
+//        self.api_addr_shou_hasValue = YES;
+//        //
+//        self.hp_FaNameTextField.text = address.personName;
+//        self.hp_FaPhoneTextField.text = address.personPhone;
+//    }
+//    if (self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {
+//        BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]));
+//        BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]));
+//        CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
+//        self.api_distance = distance/1000;
+//        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
+//        
+//        // 计算费用总计;
+//        [self calculateAndDisplayTotalFee];
+//    }
+//}
 
 #pragma mark - BMKMapViewDelegate  BMKLocationServiceDelegate
 //实现相关delegate 处理位置信息更新
@@ -858,13 +708,9 @@
     self.api_addr_shou = nil;
     self.api_addr_shou_hasValue = NO;
     self.hp_myPhoneTextField.text = @"";
-    self.hp_FaNameTextField.text = @"";
-    self.hp_FaPhoneTextField.text = @"";
     self.hp_myVerCodeTextField.text = @"";
     self.api_pick_now = YES;
     self.api_pick_time = [self currentDateString ];
-    self.self.hp_ShouNameTextField.text = @"";
-    self.hp_ShouPhoneTextField.text = @"";
     self.productName.text = @"";
     self.remark.text = @"";
     self.api_total_fee = 0;
