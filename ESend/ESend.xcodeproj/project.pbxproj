@@ -211,6 +211,10 @@
 		68AE2BDF1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AE2BDB1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib */; };
 		68AE2BE21BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; };
 		68AE2BE31BC9161600E8149C /* KMNavigationTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */; };
+		68C31EE61C4CF99000AE8B14 /* SSAddrInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C31EE41C4CF99000AE8B14 /* SSAddrInfoVC.m */; };
+		68C31EE71C4CF99000AE8B14 /* SSAddrInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C31EE41C4CF99000AE8B14 /* SSAddrInfoVC.m */; };
+		68C31EE81C4CF99000AE8B14 /* SSAddrInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C31EE51C4CF99000AE8B14 /* SSAddrInfoVC.xib */; };
+		68C31EE91C4CF99000AE8B14 /* SSAddrInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68C31EE51C4CF99000AE8B14 /* SSAddrInfoVC.xib */; };
 		68C3D71D1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
 		68C3D71E1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
 		68D1F1571C292D6800027D0A /* NSString+moneyFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D1F1561C292D6800027D0A /* NSString+moneyFormat.m */; };
@@ -846,6 +850,9 @@
 		68AE2BDB1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EDSBillStatisticsDayCell.xib; sourceTree = "<group>"; };
 		68AE2BE01BC9161600E8149C /* KMNavigationTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMNavigationTitleView.h; sourceTree = "<group>"; };
 		68AE2BE11BC9161600E8149C /* KMNavigationTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMNavigationTitleView.m; sourceTree = "<group>"; };
+		68C31EE31C4CF99000AE8B14 /* SSAddrInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSAddrInfoVC.h; sourceTree = "<group>"; };
+		68C31EE41C4CF99000AE8B14 /* SSAddrInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSAddrInfoVC.m; sourceTree = "<group>"; };
+		68C31EE51C4CF99000AE8B14 /* SSAddrInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSAddrInfoVC.xib; sourceTree = "<group>"; };
 		68C3D71B1BCBA6140081D082 /* UIImage+KmImg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KmImg.h"; sourceTree = "<group>"; };
 		68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KmImg.m"; sourceTree = "<group>"; };
 		68D1F1551C292D6800027D0A /* NSString+moneyFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+moneyFormat.h"; sourceTree = "<group>"; };
@@ -1797,9 +1804,20 @@
 			name = KMTitleView;
 			sourceTree = "<group>";
 		};
+		68C31EE21C4CF97E00AE8B14 /* 地址信息 */ = {
+			isa = PBXGroup;
+			children = (
+				68C31EE31C4CF99000AE8B14 /* SSAddrInfoVC.h */,
+				68C31EE41C4CF99000AE8B14 /* SSAddrInfoVC.m */,
+				68C31EE51C4CF99000AE8B14 /* SSAddrInfoVC.xib */,
+			);
+			path = "地址信息";
+			sourceTree = "<group>";
+		};
 		68FE8CC61C05B1C6004BABB4 /* Shansong */ = {
 			isa = PBXGroup;
 			children = (
+				68C31EE21C4CF97E00AE8B14 /* 地址信息 */,
 				6833078B1C1FF4DC00AC6601 /* myOrders */,
 				688F5C0F1C12D03E0031ADE4 /* SSpay */,
 				687ED1181C0D403300728E65 /* addrAddition */,
@@ -2737,6 +2755,7 @@
 				6861FC5B1C269699009A4EDF /* SSPriceTableView.xib in Resources */,
 				F62A73E71B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F67D35F11B5664A600083DA4 /* gray_border_btn_nor@2x.png in Resources */,
+				68C31EE91C4CF99000AE8B14 /* SSAddrInfoVC.xib in Resources */,
 				6867454E1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
 				68753F301C085BBC00418E7B /* SSAdressCell.xib in Resources */,
 				F62A73EF1B5CCA84001632B5 /* 2@3x.png in Resources */,
@@ -2840,6 +2859,7 @@
 				F62A73EA1B5CCA84001632B5 /* 2@1x.png in Resources */,
 				F6C6AE751B18386C0007A980 /* phone_icon@2x.png in Resources */,
 				685E35071C0C177B001CEABB /* SSMapAddrViewController.xib in Resources */,
+				68C31EE81C4CF99000AE8B14 /* SSAddrInfoVC.xib in Resources */,
 				686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				68580C931BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
@@ -2917,6 +2937,7 @@
 				F67D35411B5664A600083DA4 /* RDVTabBar.m in Sources */,
 				689CA4961C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */,
 				F67D35421B5664A600083DA4 /* SDWebImagePrefetcher.m in Sources */,
+				68C31EE71C4CF99000AE8B14 /* SSAddrInfoVC.m in Sources */,
 				F67D35431B5664A600083DA4 /* MD5DataSigner.m in Sources */,
 				686A49951C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */,
 				68580CA81BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */,
@@ -3166,6 +3187,7 @@
 				F6C6ADA21B12F42F0007A980 /* RDVTabBar.m in Sources */,
 				689CA4951C22EF9C00D9073E /* SSOrderDetailModel.m in Sources */,
 				F6C6ADAD1B12F42F0007A980 /* SDWebImagePrefetcher.m in Sources */,
+				68C31EE61C4CF99000AE8B14 /* SSAddrInfoVC.m in Sources */,
 				F6441B511B3D470100EA3C9D /* MD5DataSigner.m in Sources */,
 				686A49941C0EE70600558D5D /* NSString+PhoneFormat.m in Sources */,
 				68580CA71BA840070082C18C /* EDSRiderDelieveListVC.m in Sources */,
