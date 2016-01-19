@@ -21,7 +21,7 @@
 @property (nonatomic,copy) NSString * addition;
 
 @property (nonatomic,assign) BOOL selected;
-
+@property (nonatomic,assign) BOOL genderIsWoman;
 
 @property (nonatomic,copy) NSString * personName;
 @property (nonatomic,copy) NSString * personPhone;

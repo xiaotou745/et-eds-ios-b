@@ -7,7 +7,7 @@
 //
 
 #import "SSMapAddrViewController.h"
-#import "SSAddrAdditionViewController.h"
+#import "SSAddrInfoVC.h"
 
 @interface SSMapAddrViewController ()<BMKMapViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,UITableViewDataSource,UITableViewDelegate>
 {
@@ -63,8 +63,15 @@
 
 - (void)clickConform{
     SSAddressInfo * info = [self selectedMapAddr];
-    SSAddrAdditionViewController * aavc = [[SSAddrAdditionViewController alloc] initWithNibName:NSStringFromClass([SSAddrAdditionViewController class]) bundle:nil Type:self.type Addr:info];
-    [self.navigationController pushViewController:aavc animated:YES];
+    NSDictionary * notifyInfo = [NSDictionary dictionaryWithObjectsAndKeys:info,NotifyInfoKey,[NSNumber numberWithInteger:-1],NotifyTypeKey, nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ShanSongAddressMapPOISectedNotify object:nil userInfo:notifyInfo];
+    
+    for (int i = 0; i<self.navigationController.viewControllers.count; i++) {
+        id aVc = [self.navigationController.viewControllers objectAtIndex:i];
+        if ([aVc isKindOfClass:[SSAddrInfoVC class]]) {
+            [self.navigationController popToViewController:aVc animated:YES];
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

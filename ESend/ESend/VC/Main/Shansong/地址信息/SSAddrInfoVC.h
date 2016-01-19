@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 #import "SSEditorTypeTransformer.h"
+#import "SSAddressInfo.h"
 
 @interface SSAddrInfoVC : BaseViewController
 
@@ -15,5 +16,6 @@
 @property (nonatomic,assign) SSAddressEditorType addrType;
 // 非必填
 @property (nonatomic,copy) NSString * currentCityName;
-
+// 可带入地址
+@property (nonatomic,strong) SSAddressInfo * addrInfo;
 @end

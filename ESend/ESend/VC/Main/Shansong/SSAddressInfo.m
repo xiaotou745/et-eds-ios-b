@@ -34,6 +34,7 @@
     [aCoder encodeObject:_longitude forKey:@"longitude"];
     [aCoder encodeObject:_addition forKey:@"addition"];
     [aCoder encodeObject:[NSNumber numberWithBool:_selected] forKey:@"selected"];
+    [aCoder encodeObject:[NSNumber numberWithBool:_genderIsWoman] forKey:@"genderIsWoman"];
     //
     [aCoder encodeObject:_personName forKey:@"personName"];
     [aCoder encodeObject:_personPhone forKey:@"personPhone"];
@@ -52,6 +53,7 @@
         _selected = [[aDecoder decodeObjectForKey:@"selected"] boolValue];
         _personName = [aDecoder decodeObjectForKey:@"personName"];
         _personPhone = [aDecoder decodeObjectForKey:@"personPhone"];
+        _genderIsWoman = [[aDecoder decodeObjectForKey:@"genderIsWoman"] boolValue];
     }
     
     return  self;

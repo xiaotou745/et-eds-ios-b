@@ -7,7 +7,7 @@
 //
 
 #import "SSHomepageViewController.h"
-#import "SSEditAdderssViewController.h"
+#import "SSAddrInfoVC.h"
 #import "MineViewController.h"
 #import <AddressBookUI/AddressBookUI.h>
 #import <AddressBook/AddressBook.h>
@@ -51,7 +51,7 @@
 #define SS_HpFaNameMinLengh @"寄件人姓名不能少于2个字"
 #define SS_HpShouNameMinLengh @"收件人姓名不能少于2个字"
 
-@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,SSEditAdderssViewControllerDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate>{
+@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate>{
     SSAppointmentTimeView * _appointTimeView;
     dispatch_source_t _timer;
     
@@ -74,6 +74,14 @@
 @property (strong, nonatomic) SSAddressInfo * api_addr_shou;
 @property (assign, nonatomic) BOOL api_addr_fa_hasValue;
 @property (assign, nonatomic) BOOL api_addr_shou_hasValue;
+@property (weak, nonatomic) IBOutlet UILabel *hp_FaAddrMarker;
+@property (weak, nonatomic) IBOutlet UILabel *hp_ShouAddrMarker;
+@property (weak, nonatomic) IBOutlet UILabel *hp_FaAddrPhoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hp_ShouAddrPhoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hp_FaAddrPersonNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hp_ShouAddrPersonNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *hp_FaAddrPlaceholder;
+@property (weak, nonatomic) IBOutlet UILabel *hp_ShouAddrPlaceholder;
 
 @property (strong,nonatomic) SSAddressInfo * localAddrInfo;
 
@@ -133,10 +141,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongUserLogout) name:LogoutNotifaction object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongAddrAdditionFinishedNotify:) name:ShanSongAddressAdditionFinishedNotify object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kiloTextFieldChanged:) name:UITextFieldTextDidChangeNotification object:nil];
-
-    // 的爱里
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongAddrAdditionFinishedNotify:) name:ShanSongAddressAdditionFinishedNotify object:nil];
+    // KVO
+    [self registerForKVO];
+    // delegate
     self.productName.delegate = self;
     self.remark.delegate = self;
     //
@@ -149,25 +158,63 @@
     self.api_pick_now = YES;
     self.api_pick_time = [self currentDateString];
     
-    self.api_distance = 0.0f;
     self.api_kilo = 1;
     _currentCoordinate = CLLocationCoordinate2DMake(0, 0);
     //
     [self.getVerCodeAction setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
     [self.hp_nextBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
     
-//    _searcher = [[BMKGeoCodeSearch alloc] init];
-//    // 定位，反编码
-//    if (!_locService) {
-//        //初始化BMKLocationService
-//        _locService = [[BMKLocationService alloc]init];
-//        _locService.delegate = self;
-//    }
-//    //启动LocationService
-//    [_locService startUserLocationService];
-//    _searcher.delegate = self;
-
+    _searcher = [[BMKGeoCodeSearch alloc] init];
+    // 定位，反编码
+    if (!_locService) {
+        //初始化BMKLocationService
+        _locService = [[BMKLocationService alloc]init];
+        _locService.delegate = self;
+    }
+    //启动LocationService
+    [_locService startUserLocationService];
+    _searcher.delegate = self;
     //
+}
+
+#pragma mark - KVO
+- (void)registerForKVO {
+    for (NSString *keyPath in [self observableKeypaths]) {
+        [self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
+    }
+}
+
+- (void)unregisterFromKVO {
+    for (NSString *keyPath in [self observableKeypaths]) {
+        [self removeObserver:self forKeyPath:keyPath];
+    }
+}
+
+- (NSArray *)observableKeypaths {
+    return [NSArray arrayWithObjects:@"api_addr_fa_hasValue", @"api_addr_shou_hasValue",@"api_distance", nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (![NSThread isMainThread]) {
+        [self performSelectorOnMainThread:@selector(updateUIForKeypath:) withObject:keyPath waitUntilDone:NO];
+    } else {
+        [self updateUIForKeypath:keyPath];
+    }
+}
+
+- (void)updateUIForKeypath:(NSString *)keyPath {
+    if ([keyPath isEqualToString:@"api_addr_fa_hasValue"]) {
+        self.hp_FaAddrMarker.text = self.api_addr_fa_hasValue?@"更改":@"添加";
+        self.hp_FaAddrPlaceholder.hidden = self.api_addr_fa_hasValue;
+    }
+    if ([keyPath isEqualToString:@"api_addr_shou_hasValue"]) {
+        self.hp_ShouAddrMarker.text = self.api_addr_shou_hasValue?@"更改":@"添加";
+        self.hp_ShouAddrPlaceholder.hidden= self.api_addr_shou_hasValue;
+    }
+    if ([keyPath isEqualToString:@"api_distance"]) {// 距离
+        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
+        [self calculateAndDisplayTotalFee];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -190,6 +237,10 @@
         _searcher.delegate = nil;
     }
 
+}
+
+- (void)dealloc{
+    [self unregisterFromKVO];
 }
 
 - (void)pickTimeType:(UITapGestureRecognizer *)tap{
@@ -345,10 +396,16 @@
 #pragma mark -
 - (IBAction)editAddress:(UIButton *)sender {
     SSAddressEditorType type = [SSEditorTypeTransformer typeWithEditorTitleStr:sender.currentTitle];
-    SSEditAdderssViewController * eavc = [[SSEditAdderssViewController alloc] initWithNibName:NSStringFromClass([SSEditAdderssViewController class]) bundle:nil Type:type];
-    eavc.currentCityName = self.currentCityName;
-    eavc.delegate = self;
-    [self.navigationController pushViewController:eavc animated:YES];
+    SSAddrInfoVC * aivc = [[SSAddrInfoVC alloc] init];
+    aivc.addrType = type;
+    aivc.currentCityName = self.currentCityName;
+    if (type == SSAddressEditorTypeFa && self.api_addr_fa_hasValue) {
+        aivc.addrInfo = self.api_addr_fa;
+    }
+    if (type == SSAddressEditorTypeShou && self.api_addr_shou_hasValue) {
+        aivc.addrInfo = self.api_addr_shou;
+    }
+    [self.navigationController pushViewController:aivc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -409,21 +466,20 @@
         self.hp_FaAddrLabel.textColor = DeepGrey;
         self.api_addr_fa = addrInfo;
         self.api_addr_fa_hasValue = YES;
+        self.hp_FaAddrPhoneLabel.text = addrInfo.personPhone;
+        self.hp_FaAddrPersonNameLabel.text = [addrInfo.personName stringByAppendingString:addrInfo.genderIsWoman?@"女士":@"先生"];
     }else if(addrType == SSAddressEditorTypeShou){
         self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",addrInfo.name,addrInfo.address,addrInfo.addition];
         self.hp_ShouAddrLabel.textColor = DeepGrey;
         self.api_addr_shou = addrInfo;
         self.api_addr_shou_hasValue = YES;
+        self.hp_ShouAddrPhoneLabel.text = addrInfo.personPhone;
+        self.hp_ShouAddrPersonNameLabel.text = [addrInfo.personName stringByAppendingString:addrInfo.genderIsWoman?@"女士":@"先生"];
     }
     if (self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {
-        BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]));
-        BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]));
-        CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
-        self.api_distance = distance/1000;
-        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
-        // 限制距离？？
-        // 计算费用总计;
-        [self calculateAndDisplayTotalFee];
+        CLLocationCoordinate2D pa = CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]);
+        CLLocationCoordinate2D pb = CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]);
+        [self calculateNavigationDistanceBetweenPointA:pa pointB:pb];
     }
 }
 
@@ -589,47 +645,6 @@
     }
 }
 
-#pragma mark - general uid
-- (NSString *)generateUniqueId{
-    CFUUIDRef uuidRef =CFUUIDCreate(NULL);
-    CFStringRef uuidStringRef =CFUUIDCreateString(NULL, uuidRef);
-    CFRelease(uuidRef);
-    NSString *uniqueId = (__bridge NSString *)uuidStringRef;
-    return uniqueId;
-}
-
-#pragma mark - SSEditAdderssViewControllerDelegate
-- (void)editAddressVC:(SSEditAdderssViewController *)vc didSelectHistroyAddr:(SSAddressInfo *)address type:(SSAddressEditorType)type{
-    
-//    if (type == SSAddressEditorTypeFa) {
-//        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",address.name,address.address,address.addition];
-//        self.hp_FaAddrLabel.textColor = DeepGrey;
-//        self.api_addr_fa = address;
-//        self.api_addr_fa_hasValue = YES;
-//        //
-//        self.hp_ShouNameTextField.text = address.personName;
-//        self.hp_ShouPhoneTextField.text = address.personPhone;
-//    }else if (type == SSAddressEditorTypeShou){
-//        self.hp_ShouAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",address.name,address.address,address.addition];
-//        self.hp_ShouAddrLabel.textColor = DeepGrey;
-//        self.api_addr_shou = address;
-//        self.api_addr_shou_hasValue = YES;
-//        //
-//        self.hp_FaNameTextField.text = address.personName;
-//        self.hp_FaPhoneTextField.text = address.personPhone;
-//    }
-    if (self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {
-        BMKMapPoint point1 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]));
-        BMKMapPoint point2 = BMKMapPointForCoordinate(CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]));
-        CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
-        self.api_distance = distance/1000;
-        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
-        
-        // 计算费用总计;
-        [self calculateAndDisplayTotalFee];
-    }
-}
-
 #pragma mark - BMKMapViewDelegate  BMKLocationServiceDelegate
 //实现相关delegate 处理位置信息更新
 //处理位置坐标更新
@@ -654,25 +669,7 @@
 //接收反向地理编码结果
 -(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
     if (error == BMK_SEARCH_NO_ERROR) {
-        //在此处理正常结果
-        /*
-         */
-        SSAddressInfo * mapAddr1 = [[SSAddressInfo alloc] init];
-        mapAddr1.name = result.addressDetail.streetName;
-        mapAddr1.address = result.address;
-        mapAddr1.addition = @"";
-        mapAddr1.city = result.addressDetail.city;
-        self.currentCityName = mapAddr1.city;
-        mapAddr1.latitude = [NSString stringWithFormat:@"%f",result.location.latitude];
-        mapAddr1.longitude = [NSString stringWithFormat:@"%f",result.location.longitude];
-        mapAddr1.selected = YES;
-        
-        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)",mapAddr1.name,mapAddr1.address];
-        self.hp_FaAddrLabel.textColor = DeepGrey;
-        self.api_addr_fa = mapAddr1;
-        self.localAddrInfo = mapAddr1;
-        self.api_addr_fa_hasValue = YES;
-        
+        self.currentCityName = result.addressDetail.city;
     }else {
         NSLog(@"抱歉，未找到结果");
     }
@@ -744,4 +741,46 @@
     [self resetShansongData];
 }
 
+
+
+#pragma mark - 两点测距离
+// 导航距离
+- (void)calculateNavigationDistanceBetweenPointA:(CLLocationCoordinate2D)pa pointB:(CLLocationCoordinate2D)pb{
+    BMKPlanNode* pickNode = [[BMKPlanNode alloc]init];
+    pickNode.pt = pa;
+    BMKPlanNode* receiveNode = [[BMKPlanNode alloc]init];
+    receiveNode.pt = pb;
+    BMKWalkingRoutePlanOption *meToPickWalkingRouteSearchOption = [[BMKWalkingRoutePlanOption alloc]init];
+    meToPickWalkingRouteSearchOption.from = pickNode;
+    meToPickWalkingRouteSearchOption.to = receiveNode;
+    BMKRouteSearch * routeSearch = [[BMKRouteSearch alloc] init];
+    routeSearch.delegate = self;
+    BOOL flag = [routeSearch walkingSearch:meToPickWalkingRouteSearchOption];
+    if(flag){
+        NSLog(@"me to pick walk检索发送成功");
+    }else{
+        NSLog(@"me to pick walk检索发送失败");
+        [self calculateStraightDistanceBetweenPA:pa pB:pb];
+    }
+}
+
+#pragma mark - 地图路径规划
+- (void)onGetWalkingRouteResult:(BMKRouteSearch*)searcher result:(BMKWalkingRouteResult*)result errorCode:(BMKSearchErrorCode)error{
+    if (error == BMK_SEARCH_NO_ERROR) {
+        BMKWalkingRouteLine* plan = (BMKWalkingRouteLine*)[result.routes objectAtIndex:0];
+        self.api_distance = plan.distance/1000;
+    }else{
+        CLLocationCoordinate2D pa = CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]);
+        CLLocationCoordinate2D pb = CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]);
+        [self calculateStraightDistanceBetweenPA:pa pB:pb];
+    }
+}
+
+// 直线距离
+- (void)calculateStraightDistanceBetweenPA:(CLLocationCoordinate2D)pa pB:(CLLocationCoordinate2D)pb{
+    BMKMapPoint point1 = BMKMapPointForCoordinate(pa);
+    BMKMapPoint point2 = BMKMapPointForCoordinate(pb);
+    CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
+    self.api_distance = distance/1000;
+}
 @end

@@ -9,6 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SSAddrInfoVC">
             <connections>
                 <outlet property="aiAddrAdtion" destination="hyQ-FI-gN1" id="MR7-WG-Wfm"/>
+                <outlet property="aiAddrPersonGender" destination="ShS-cJ-4q0" id="ycq-tB-9CV"/>
                 <outlet property="aiAddrPersonName" destination="5xi-LP-3hZ" id="cYs-ux-TKe"/>
                 <outlet property="aiAddrPhone" destination="cJZ-bO-7Gb" id="Sty-lt-9Xp"/>
                 <outlet property="aiAddrText" destination="eKC-fm-xqC" id="NGV-Q1-KKl"/>
@@ -48,7 +49,7 @@
                                             <rect key="frame" x="43" y="5" width="545" height="42"/>
                                             <gestureRecognizers/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                             <connections>
                                                 <outletCollection property="gestureRecognizers" destination="9TM-en-H2E" appends="YES" id="q8O-yq-E7G"/>
@@ -102,7 +103,7 @@
                                             <rect key="frame" x="12" y="8" width="531" height="30"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="AXm-bz-i1n"/>
                                             </connections>
@@ -164,7 +165,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="rSq-uf-CoY" firstAttribute="leading" secondItem="SKn-Rr-co1" secondAttribute="leading" id="8Ab-GL-y1K"/>
                                 <constraint firstAttribute="trailing" secondItem="sq8-Mo-oBD" secondAttribute="trailing" id="8jc-oR-WXm"/>
@@ -176,6 +177,7 @@
                             </constraints>
                         </view>
                     </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="SKn-Rr-co1" firstAttribute="centerX" secondItem="qEb-K9-cSM" secondAttribute="centerX" id="0N4-w4-lv0"/>
                         <constraint firstItem="SKn-Rr-co1" firstAttribute="leading" secondItem="qEb-K9-cSM" secondAttribute="leading" id="5pH-d0-3mw"/>

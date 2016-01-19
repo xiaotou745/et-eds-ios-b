@@ -237,10 +237,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == _POITable) {
         SSAddressInfo *info = [_POIs objectAtIndex:indexPath.row];
-        // NSLog(@"%@",a);
-        // [_POITable removeFromSuperview];
-        SSAddrAdditionViewController * aavc = [[SSAddrAdditionViewController alloc] initWithNibName:NSStringFromClass([SSAddrAdditionViewController class]) bundle:nil Type:self.type Addr:info];
-        [self.navigationController pushViewController:aavc animated:YES];
+        if ([self.delegate respondsToSelector:@selector(editAddressVC:disSelectPOIAddr:)]) {
+            [self.delegate editAddressVC:self disSelectPOIAddr:info];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
     }else if (tableView == self.historyTable){
         SSAddressInfo *info = [_historyAddrs objectAtIndex:indexPath.row];
         if ([self.delegate respondsToSelector:@selector(editAddressVC:didSelectHistroyAddr:type:)]) {

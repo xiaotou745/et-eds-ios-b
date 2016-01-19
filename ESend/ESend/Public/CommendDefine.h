@@ -235,6 +235,8 @@ fprintf(stderr, "-------\n");                                               \
 #define ShanSongAddressAdditionFinishedNotify @"ShanSongAddressAdditionFinishedNotify" // 补充地址完成
 #define ShanSongAddressHistorySelectedNotify @"ShanSongAddressHistorySelectedNotify" // 选择历史地址
 
+// 闪送地图
+#define ShanSongAddressMapPOISectedNotify @"ShanSongAddressMapPOISectedNotify" // 地图选择地址
 
 #if 1
 
