@@ -10,13 +10,7 @@
 
 @interface SSPriceTableView : UIView
 
-- (id)initWithmasterKG:(NSInteger)masterKG
-              masterKM:(NSInteger)masterKM
-masterDistributionPrice:(double)masterDistributionPrice
-                 oneKM:(NSInteger)oneKM
-  oneDistributionPrice:(double)oneDistributionPrice
-                 twoKG:(NSInteger)twoKG
-  twoDistributionPrice:(double)twoDistributionPrice;
+- (id)initWithRemark:(NSString *)remark;
 
 - (void)showInView:(UIView *)view;
 @end

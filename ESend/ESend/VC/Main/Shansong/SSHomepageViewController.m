@@ -119,15 +119,7 @@
 
 // 价格规则
 @property (assign,nonatomic) BOOL gotPriceRule;
-@property (assign,nonatomic) NSInteger oneKM;
-@property (assign,nonatomic) NSInteger masterKM;
-@property (assign,nonatomic) double oneDistributionPrice;
-@property (assign,nonatomic) double twoDistributionPrice;
-@property (assign,nonatomic) NSInteger twoKG;
-@property (assign,nonatomic) double masterDistributionPrice;
-@property (assign,nonatomic) NSInteger masterKG;
-
-
+@property (nonatomic,strong) NSArray * priceRuleList;
 
 @end
 
@@ -191,7 +183,7 @@
 }
 
 - (NSArray *)observableKeypaths {
-    return [NSArray arrayWithObjects:@"api_addr_fa_hasValue", @"api_addr_shou_hasValue",@"api_distance", nil];
+    return [NSArray arrayWithObjects:@"api_addr_fa_hasValue", @"api_addr_shou_hasValue",@"api_distance",@"api_total_fee", nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -215,13 +207,14 @@
         self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
         [self calculateAndDisplayTotalFee];
     }
+    if ([keyPath isEqualToString:@"api_total_fee"]) {// 总价
+        self.hp_totalFeeLabel.text = [NSString stringWithFormat:@"¥ %.2f",self.api_total_fee];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
     [self getPriceRule];
-
     self.hp_myPhoneCodeBg.hidden = [UserInfo isLogin];
     CGFloat contentHeight = [UserInfo isLogin]?CGRectGetMinY(self.hp_myPhoneCodeBg.frame):CGRectGetMaxY(self.hp_myPhoneCodeBg.frame) + 10;
     self.scrollerHeight.constant = MAX(contentHeight, CGRectGetHeight(self.scroller.frame) + 2);
@@ -236,7 +229,6 @@
     if (_searcher) {
         _searcher.delegate = nil;
     }
-
 }
 
 - (void)dealloc{
@@ -607,14 +599,7 @@
     [SSHttpReqServer gettaskdistributionconfigsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
-            NSDictionary * result = [responseObject objectForKey:@"result"];
-            self.oneKM = [[result objectForKey:@"oneKM"] integerValue];
-            self.oneDistributionPrice = [[result objectForKey:@"oneDistributionPrice"] doubleValue];
-            self.masterDistributionPrice = [[result objectForKey:@"masterDistributionPrice"] doubleValue];
-            self.masterKG = [[result objectForKey:@"masterKG"] integerValue];
-            self.masterKM = [[result objectForKey:@"masterKM"] integerValue];
-            self.twoDistributionPrice = [[result objectForKey:@"twoDistributionPrice"] doubleValue];
-            self.twoKG = [[result objectForKey:@"twoKG"] integerValue];
+            self.priceRuleList = [responseObject objectForKey:@"result"];
             self.gotPriceRule = YES;
             //
             self.hp_priceRuleBtn.hidden = NO;
@@ -632,24 +617,49 @@
 
 - (void)calculateAndDisplayTotalFee{
     if (self.gotPriceRule && self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {// 获得计算规则，发收地理位置,重量(填)，距离（算）
-        if (self.api_distance <= self.masterKM && self.api_kilo <= self.masterKG) {
-            self.api_total_fee = self.masterDistributionPrice;
-        }else if (self.api_distance <= self.masterKM && self.api_kilo > self.masterKG){
-            self.api_total_fee = self.masterDistributionPrice + ceil((self.api_kilo - self.masterKG)/self.twoKG) * self.twoDistributionPrice;
-        }else if (self.api_distance > self.masterKM && self.api_kilo <= self.masterKG){
-            self.api_total_fee = self.masterDistributionPrice + ceil((self.api_distance - self.masterKM)/self.oneKM) * self.oneDistributionPrice;
-        }else if (self.api_distance > self.masterKM && self.api_kilo > self.masterKG){
-            self.api_total_fee = self.masterDistributionPrice + ceil((self.api_distance - self.masterKM)/self.oneKM) * self.oneDistributionPrice + ceil((self.api_kilo - self.masterKG)/self.twoKG) * self.twoDistributionPrice;
-        }
-        self.hp_totalFeeLabel.text = [NSString stringWithFormat:@"¥ %.2f",self.api_total_fee];
+        self.api_total_fee = [self totalFeeWithPriceList:self.priceRuleList km:self.api_distance kg:self.api_kilo];
     }
+}
+
+- (double)totalFeeWithPriceList:(NSArray *)list km:(double)km kg:(NSInteger)kg{
+    double cost=0;
+    if (list==nil)
+        return cost;
+    double baseKM = [list[0][@"kM"] doubleValue];
+    double baseKG = [list[0][@"kG"] doubleValue];
+    double baseDistributionPrice = [list[0][@"distributionPrice"] doubleValue];
+    NSLog(@"baseKM:%f KG:%f DP:%f",baseKM,baseKG,baseDistributionPrice);
+    double kmDistributionPrice=0.0;
+    for (int i = 1; i < list.count; i++){
+        double currKM = [list[i][@"kM"] doubleValue];
+        double currDistributionPrice = [list[i][@"distributionPrice"] doubleValue];
+        int currSteps = [list[i][@"steps"] intValue];
+        if(currKM>baseKM && km>currKM){//获取第一个符合的值
+            kmDistributionPrice = currDistributionPrice*ceil((km-currKM)/currSteps);
+            break;
+        }
+    }
+    NSLog(@"kmDP:%f",kmDistributionPrice);
+    double kgDistributionPrice=0.0;
+    for (int i = 1; i < list.count; i++){
+        double currKG = [list[i][@"kG"] doubleValue];
+        double currDistributionPrice = [list[i][@"distributionPrice"] doubleValue];
+        int currSteps = [list[i][@"steps"] intValue];
+        if(currKG>baseKG && kg>currKG){//获取第一个符合的值
+            kmDistributionPrice = currDistributionPrice*ceil((kg-currKG)/currSteps);
+            break;
+        }
+    }
+    NSLog(@"kgDP:%f",kgDistributionPrice);
+    cost=baseDistributionPrice + kmDistributionPrice + kgDistributionPrice;
+    NSLog(@"C:%f",cost);
+    return cost;
 }
 
 #pragma mark - BMKMapViewDelegate  BMKLocationServiceDelegate
 //实现相关delegate 处理位置信息更新
 //处理位置坐标更新
-- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
-{
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation{
     NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     [_locService stopUserLocationService];
     _currentCoordinate = userLocation.location.coordinate;
@@ -677,35 +687,23 @@
 
 #pragma mark - 价格表
 - (IBAction)showPriceTable:(UIButton *)sender {
-    //
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
     [SSHttpReqServer gettaskdistributionconfigsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:HUD];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
-            NSDictionary * result = [responseObject objectForKey:@"result"];
-            self.oneKM = [[result objectForKey:@"oneKM"] integerValue];
-            self.oneDistributionPrice = [[result objectForKey:@"oneDistributionPrice"] doubleValue];
-            self.masterDistributionPrice = [[result objectForKey:@"masterDistributionPrice"] doubleValue];
-            self.masterKG = [[result objectForKey:@"masterKG"] integerValue];
-            self.masterKM = [[result objectForKey:@"masterKM"] integerValue];
-            self.twoDistributionPrice = [[result objectForKey:@"twoDistributionPrice"] doubleValue];
-            self.twoKG = [[result objectForKey:@"twoKG"] integerValue];
+            NSArray * result = [responseObject objectForKey:@"result"];
+            self.priceRuleList = result;
+            NSString * remark = result[0][@"remark"];
             self.gotPriceRule = YES;
-            //
             self.hp_priceRuleBtn.hidden = NO;
             //
-            SSPriceTableView * priceTable = [[SSPriceTableView alloc] initWithmasterKG:self.masterKG masterKM:self.masterKM masterDistributionPrice:self.masterDistributionPrice oneKM:self.oneKM oneDistributionPrice:self.oneDistributionPrice twoKG:self.twoKG twoDistributionPrice:self.twoDistributionPrice];
+            SSPriceTableView * priceTable = [[SSPriceTableView alloc] initWithRemark:remark];
             [priceTable showInView:self.view];
-            
-        }else{
-            
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
     }];
-    
-
 }
 
 

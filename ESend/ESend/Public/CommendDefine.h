@@ -238,7 +238,7 @@ fprintf(stderr, "-------\n");                                               \
 // 闪送地图
 #define ShanSongAddressMapPOISectedNotify @"ShanSongAddressMapPOISectedNotify" // 地图选择地址
 
-#if 1
+#if 0
 
     #define OPEN_API_SEVER @"http://api.edaisong.com/20151223/" //生产
     #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20151223/" //上传图片地址

@@ -20,13 +20,7 @@
 @implementation SSPriceTableView
 
 
-- (id)initWithmasterKG:(NSInteger)masterKG
-              masterKM:(NSInteger)masterKM
-masterDistributionPrice:(double)masterDistributionPrice
-                 oneKM:(NSInteger)oneKM
-  oneDistributionPrice:(double)oneDistributionPrice
-                 twoKG:(NSInteger)twoKG
-  twoDistributionPrice:(double)twoDistributionPrice{
+- (id)initWithRemark:(NSString *)remark{
     if (self = [super init]) {
         self.frame = CGRectMake((ScreenWidth - PriceTableWidth)/2, (ScreenHeight-PriceTableHeight)/2, PriceTableWidth, PriceTableHeight);
         self.backgroundColor = [UIColor whiteColor];
@@ -38,7 +32,7 @@ masterDistributionPrice:(double)masterDistributionPrice
         title.font = [UIFont systemFontOfSize:16];
         title.textColor = DeepGrey;
         [self addSubview:title];
-        UIImageView * line = [[UIImageView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(title.frame), PriceTableWidth - 20, 0.5f)];
+        UILabel * line = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(title.frame), PriceTableWidth - 20, 0.5f)];
         line.backgroundColor = SeparatorLineColor;
         [self addSubview:line];
         // 30 * 30
@@ -47,57 +41,14 @@ masterDistributionPrice:(double)masterDistributionPrice
         [cancelbtn addTarget:self action:@selector(cancelClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cancelbtn];
         
-        NSString * Ltext1 = [NSString stringWithFormat:@"%ld公里以内 %ld公斤以下",(long)masterKM,(long)masterKG];
-        NSString * Ltext2 = [NSString stringWithFormat:@"超过%ld公里 每增加%ld公里",(long)masterKM,(long)oneKM];
-        NSString * Ltext3 = [NSString stringWithFormat:@"超过%ld公斤 每增加%ld公斤",(long)masterKG,(long)twoKG];
-        NSString * Rtext1 = [NSString stringWithFormat:@"%.2f元",masterDistributionPrice];
-        NSString * Rtext2 = [NSString stringWithFormat:@"增加%.2f元",oneDistributionPrice];
-        NSString * Rtext3 = [NSString stringWithFormat:@"增加%.2f元",twoDistributionPrice];
-        NSArray * Ltexts = [NSArray arrayWithObjects:Ltext1,Ltext2,Ltext3, nil];
-        NSArray * Rtexts = [NSArray arrayWithObjects:Rtext1,Rtext2,Rtext3, nil];
-        //
-        for (int i = 0; i <3; i++) {
-            UIImageView * aIv = [self leadingImg];
-            aIv.frame = CGRectMake(10, 77 + i * 30, 8, 8);
-            aIv.layer.masksToBounds = YES;
-            aIv.layer.cornerRadius = 4;
-            [self addSubview:aIv];
-            
-            UILabel * aL = [self deepGrayLabel];
-            aL.frame = CGRectMake(23, 68 + i * 30, 170, 25);
-            aL.text = [Ltexts objectAtIndex:i];
-            [self addSubview:aL];
-            
-            UILabel * aR = [self blueLabel];
-            aR.frame = CGRectMake(185, 68 + i * 30, 80, 25);
-            aR.text = [Rtexts objectAtIndex:i];
-            [self addSubview:aR];
-        }
+        UITextView * textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 58, self.frame.size.width-10, 105)];
+        textView.font = [UIFont systemFontOfSize:16];
+        textView.text = remark;
+        textView.editable = NO;
+        textView.textColor = DeepGrey;
+        [self addSubview:textView];
     }
     return self;
-}
-
-- (UILabel *)deepGrayLabel{
-    UILabel * aLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    aLabel.font = [UIFont systemFontOfSize:14];
-    aLabel.textColor = DeepGrey;
-    aLabel.textAlignment = NSTextAlignmentLeft;
-    return aLabel;
-}
-
-- (UILabel *)blueLabel{
-    UILabel * aLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-    aLabel.font = [UIFont systemFontOfSize:14];
-    aLabel.textColor = BlueColor;
-    aLabel.textAlignment = NSTextAlignmentRight;
-    return aLabel;
-}
-
-- (UIImageView *)leadingImg{
-    UIImageView * lI = [[UIImageView alloc] initWithFrame:CGRectZero];
-    lI.layer.borderWidth = 2;
-    lI.layer.borderColor = [SeparatorLineColor CGColor];
-    return lI;
 }
 
 - (void)showInView:(UIView *)view{
