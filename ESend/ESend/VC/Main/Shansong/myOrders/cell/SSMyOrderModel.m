@@ -38,13 +38,19 @@
         if (isCanUseObj([dic objectForKey:@"weight"])) {
             self.weight = [[dic objectForKey:@"weight"] doubleValue];
         }
-        if (isCanUseObj([dic objectForKey:@"totalAmount"])) {
-            self.totalAmount = [[dic objectForKey:@"totalAmount"] doubleValue];
+        if (isCanUseObj([dic objectForKey:@"amountAndTip"])) {
+            self.amountAndTip = [[dic objectForKey:@"amountAndTip"] doubleValue];
         }
         
         if (isCanUseObj([dic objectForKey:@"balancePrice"])) {
             self.balancePrice = [[dic objectForKey:@"balancePrice"] doubleValue];
 
+        }
+        if (isCanUseObj([dic objectForKey:@"receivecode"])) {
+            self.receivecode = [dic objectForKey:@"receivecode"];
+        }
+        if (isCanUseObj([dic objectForKey:@"isReceiveCode"])) {
+            self.isReceiveCode = [[dic objectForKey:@"isReceiveCode"] longValue];
         }
     }
     return self;

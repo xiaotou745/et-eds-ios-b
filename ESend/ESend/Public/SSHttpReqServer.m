@@ -177,4 +177,38 @@
     return operation;
 }
 
+
+/*
+ 1.1.7 获取小费
+ url:/order/getordertipdetails 胡灵波
+ POST
+ */
++ (AFHTTPRequestOperation *)getOrderTipDetailSsuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@order/getordertipdetails",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
+
+/*
+ 1.1.13更新下单人是否收到验证码
+ url:/order/getreceivecode 创建人：胡灵波 POST
+ 参数	描述	允许为空
+ orderId	订单id	否
+ */
++ (AFHTTPRequestOperation *)getReceiveCode:(NSDictionary *)dict
+                                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
+    NSString * URLString = [NSString stringWithFormat:@"%@order/getreceivecode",Java_API_SERVER];
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:dict success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success(operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(operation,error);
+    }];
+    return operation;
+}
 @end

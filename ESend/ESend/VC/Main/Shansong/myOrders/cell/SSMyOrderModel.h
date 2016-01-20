@@ -26,7 +26,9 @@
 @property (nonatomic,assign) double weight;
 
 @property (nonatomic,assign) double balancePrice;
+@property (nonatomic,assign)double amountAndTip;
 
-@property (nonatomic,assign)double totalAmount;
+@property (nonatomic,copy) NSString * receivecode;
+@property (nonatomic,assign) long isReceiveCode;    // 0 没有， 1，获得
 
 @end

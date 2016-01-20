@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -20,14 +20,12 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w0O-Md-zlc">
                                 <rect key="frame" x="10" y="35" width="300" height="1"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="EMd-XI-bF6"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_fa" translatesAutoresizingMaskIntoConstraints="NO" id="UMD-aj-orT">
                                 <rect key="frame" x="10" y="51" width="26" height="26"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="26" id="Nsa-aq-7Ak"/>
                                     <constraint firstAttribute="width" secondItem="UMD-aj-orT" secondAttribute="height" id="RAE-dU-lwm"/>
@@ -35,7 +33,6 @@
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_release_shou" translatesAutoresizingMaskIntoConstraints="NO" id="DBV-LU-p2m">
                                 <rect key="frame" x="10" y="101" width="26" height="26"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="DBV-LU-p2m" secondAttribute="height" id="T3u-by-4V9"/>
                                     <constraint firstAttribute="width" constant="26" id="nYW-6W-ZCp"/>
@@ -43,7 +40,6 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ll2-u7-yXJ">
                                 <rect key="frame" x="41" y="41" width="194" height="45"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="hhV-CA-l6s"/>
                                 </constraints>
@@ -53,7 +49,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hEN-ui-t7n">
                                 <rect key="frame" x="41" y="91" width="177" height="45"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Ihf-Wp-pS1"/>
                                 </constraints>
@@ -63,7 +58,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuz-16-Wn7">
                                 <rect key="frame" x="240" y="53" width="70" height="21"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="hdo-a3-qxY"/>
                                     <constraint firstAttribute="width" constant="70" id="iQm-3T-kEf"/>
@@ -74,7 +68,6 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHr-Sp-uf0">
                                 <rect key="frame" x="223" y="103" width="87" height="21"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="87" id="9wk-zc-jjv"/>
                                     <constraint firstAttribute="height" constant="21" id="ouC-MY-O4I"/>
@@ -85,14 +78,12 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xML-qJ-76G">
                                 <rect key="frame" x="10" y="141" width="300" height="1"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="n3K-v5-E0s"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDq-c4-ylK">
                                 <rect key="frame" x="10" y="0.0" width="300" height="35"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="YAk-a9-P2b"/>
                                 </constraints>
@@ -101,7 +92,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="yuz-16-Wn7" secondAttribute="trailing" constant="10" id="9tT-wd-YTF"/>
@@ -130,7 +120,6 @@
                         </constraints>
                     </view>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="qhS-x4-CmE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="09S-ip-CG5"/>
                     <constraint firstAttribute="bottom" secondItem="qhS-x4-CmE" secondAttribute="bottom" id="1Mr-xq-X0B"/>
@@ -138,7 +127,6 @@
                     <constraint firstAttribute="trailing" secondItem="qhS-x4-CmE" secondAttribute="trailing" id="rYi-or-apt"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="cellCommission" destination="yuz-16-Wn7" id="IET-u9-Haz"/>
                 <outlet property="cellFaAddr" destination="Ll2-u7-yXJ" id="Chc-QI-uxs"/>

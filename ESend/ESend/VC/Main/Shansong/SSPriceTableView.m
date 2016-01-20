@@ -37,7 +37,7 @@
         [self addSubview:line];
         // 30 * 30
         UIButton * cancelbtn = [[UIButton alloc] initWithFrame:CGRectMake(PriceTableWidth - 10 - 30, 10, 30, 30)];
-        [cancelbtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        [cancelbtn setImage:[UIImage imageNamed:@"ss_addr_delete"] forState:UIControlStateNormal];
         [cancelbtn addTarget:self action:@selector(cancelClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:cancelbtn];
         

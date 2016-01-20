@@ -17,6 +17,8 @@
 #import "SSOrderUngrabCell.h"
 #import "SSOrderOnDeliveryingCell.h"
 #import "SSpayViewController.h"
+#import "SSTipSelectionView.h"
+#import "SSOrderOndeliveringV2Cell.h"
 
 /*
  typedef NS_ENUM(NSInteger, SSMyOrderStatus) {
@@ -45,7 +47,7 @@
 
 #define SS_DEFALT_PAGE_SIZE  15
 
-@interface SSMyOrdersVC ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,SSOrderUnpayCellDelegate,SSOrderUngrabCellDelegate>
+@interface SSMyOrdersVC ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,SSOrderUnpayCellDelegate,SSOrderUngrabCellDelegate,SSTipSelectionViewDelegate,SSOrderOndeliveringV2CellDelegate>
 {
     SSMyOrderStatus _orderListStatus;           // 当前订单状态
     
@@ -113,6 +115,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *separator13;
 @property (weak, nonatomic) IBOutlet UIImageView *separator14;
 @property (weak, nonatomic) IBOutlet UIImageView *separator15;
+//    // 加小费
+@property (nonatomic,assign) double balancePrice;   //账户余额
+@property (nonatomic,copy) NSString * tipOrderId;   // 加小费的  订单id
 
 @end
 
@@ -431,10 +436,11 @@
         cell.datasource = [_datasourceOntaking objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableOndelivering) {
-        SSOrderOnDeliveryingCell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_ONDELIVERING_CELLID];
+        SSOrderOndeliveringV2Cell * cell = [tableView dequeueReusableCellWithIdentifier:SS_TABLE_ONDELIVERING_CELLID];
         if (nil == cell) {
-            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderOnDeliveryingCell class]) owner:self options:nil] lastObject];
+            cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSOrderOndeliveringV2Cell class]) owner:self options:nil] lastObject];
         }
+        cell.delegate = self;
         cell.datasource = [_datasourceOndelivering objectAtIndex:indexPath.row];
         return cell;
     }else if (tableView == self.tableCompleted) {
@@ -464,7 +470,7 @@
     }else if (tableView == self.tableOntaking) {
         return 198;
     }else if (tableView == self.tableOndelivering) {
-        return 153;
+        return 198;
     }else if (tableView == self.tableCompleted) {
         return 153;
     }else if (tableView == self.tableCanceled){
@@ -1031,7 +1037,7 @@
 #pragma mark - 支付未支付的代理
 - (void)orderUnpayCell:(SSOrderUnpayCell *)cell payWithId:(NSString *)orderId{
     SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
-    svc.tipAmount = cell.datasource.totalAmount;
+    svc.tipAmount = cell.datasource.amountAndTip;
     svc.balancePrice = cell.datasource.balancePrice;
     svc.orderId = orderId;
     svc.type = 2;
@@ -1039,9 +1045,62 @@
 }
 
 #pragma mark - 加小费
-- (void)orderUngrabCell:(SSOrderUngrabCell *)cell payXiaoFeeWithId:(NSString *)orderId{
-    
+- (void)orderUngrabCell:(SSOrderUngrabCell *)cell payXiaoFeeWithId:(NSString *)orderId balancePrice:(double)balancePrice{
+    self.tipOrderId = orderId;
+    self.balancePrice = balancePrice;
+    [SSHttpReqServer getOrderTipDetailSsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            NSDictionary * result = [responseObject objectForKey:@"result"];
+            NSArray * tiplist = [result objectForKey:@"list"];
+            NSMutableArray * tipAmoutObjs = [NSMutableArray array];
+            for (NSDictionary * tipModel in tiplist) {
+                double amount = [[tipModel objectForKey:@"amount"] doubleValue];
+                NSNumber * amoutObj = [NSNumber numberWithDouble:amount];
+                [tipAmoutObjs addObject:amoutObj];
+            }
+            SSTipSelectionView * tipSelectView = [[SSTipSelectionView alloc] initWithDelegate:self tips:tipAmoutObjs];
+            [tipSelectView showInView:self.view];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
 }
 
+#pragma mark - SSTipSelectionViewDelegate小费回调
+- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip{
+    SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
+    svc.orderId = self.tipOrderId;
+    svc.balancePrice = self.balancePrice;
+    svc.type = 1;
+    svc.tipAmount = tip;
+    [self.navigationController pushViewController:svc animated:YES];
+}
+
+#pragma mark - SSOrderOndeliveringV2CellDelegate 获取收货码回调
+- (void)SSOrderOndeliveringV2Cell:(SSOrderOndeliveringV2Cell *)cell getReceiveCodeWithOrder:(SSMyOrderModel *)order{
+    NSString * orderId = [NSString stringWithFormat:@"%ld",(long)order.orderId];
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    NSDictionary * paraData = @{
+                                @"orderId":orderId,
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraData = @{@"data":aesString,};
+    }
+    [SSHttpReqServer getReceiveCode:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        NSString * message = [responseObject objectForKey:@"message"];
+        if (1 == status) {
+            order.isReceiveCode = [[responseObject objectForKey:@"result"] longValue];
+            cell.datasource = order;
+        }else{
+            [Tools showHUD:message];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+    }];
+}
 
 @end

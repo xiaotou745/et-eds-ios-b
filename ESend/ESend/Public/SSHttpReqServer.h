@@ -97,4 +97,21 @@
 + (AFHTTPRequestOperation *)shanSongSSCancelOrder:(NSDictionary *)dict
                                           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+/*
+ 1.1.7 获取小费
+ url:/order/getordertipdetails 胡灵波
+ POST
+ */
++ (AFHTTPRequestOperation *)getOrderTipDetailSsuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/*
+ 1.1.13更新下单人是否收到验证码
+ url:/order/getreceivecode 创建人：胡灵波 POST
+ 参数	描述	允许为空
+ orderId	订单id	否
+ */
++ (AFHTTPRequestOperation *)getReceiveCode:(NSDictionary *)dict
+                                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end

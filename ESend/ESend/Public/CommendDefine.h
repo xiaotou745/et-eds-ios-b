@@ -288,7 +288,7 @@ fprintf(stderr, "-------\n");                                               \
 #endif
 
 /// Java版新接口，是否加密
-#if 1
+#if 0
     #define AES_Security YES   // 加密
 #elif 1
     #define AES_Security NO    // 不加密

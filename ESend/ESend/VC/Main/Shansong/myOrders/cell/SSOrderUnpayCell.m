@@ -46,9 +46,9 @@
 - (void)setDatasource:(SSMyOrderModel *)datasource{
     _datasource = datasource;
     self.cellTime.text = _datasource.pubDate;
-    self.cellCommission.text = [NSString stringWithFormat:@"¥%.2f",_datasource.orderCommission];
+    self.cellCommission.text = [NSString stringWithFormat:@"¥%.2f",_datasource.amountAndTip];
     self.cellFaAddr.text = _datasource.pickUpAddress;
     self.cellShouAddr.text = _datasource.receviceAddress;
-    self.cellKmKilo.text = [NSString stringWithFormat:@"%.0f公斤/%.0fkm",_datasource.weight,_datasource.km];
+    self.cellKmKilo.text = [NSString stringWithFormat:@"%.0f公斤/%.1fkm",_datasource.weight,_datasource.km];
 }
 @end

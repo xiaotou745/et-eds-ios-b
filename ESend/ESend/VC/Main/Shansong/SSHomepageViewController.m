@@ -24,16 +24,16 @@
 #import "SSMyOrdersVC.h"
 #import "SSPriceTableView.h"
 #import "NSString+evaluatePhoneNumber.h"
+#import "SSTipSelectionView.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
 #define SS_HPNoShouAddressMsg @"请输入收货地址"
-#define SS_HpNoShouNameMsg @"请输入收件人姓名"
-#define SS_HpNoShouPhoneMsg @"请输入收件人电话"
-#define SS_HpWrongShouPhongMsg @"收件人电话格式不对"
-#define SS_HpNoFaNameMsg @"请输入寄件人姓名"
-#define SS_HpNoFaPhoneMsg @"请输入寄件人电话"
-#define SS_HpWrongFaPhongMsg @"寄件人电话格式不对"
+//#define SS_HpNoShouNameMsg @"请输入收件人姓名"
+//#define SS_HpNoShouPhoneMsg @"请输入收件人电话"
+//#define SS_HpWrongShouPhongMsg @"收件人电话格式不对"
+//#define SS_HpNoFaPhoneMsg @"请输入寄件人电话"
+//#define SS_HpWrongFaPhongMsg @"寄件人电话格式不对"
 #define SS_HpNoProductNameMsg @"请输入物品名称"
 #define SS_HpLessProductNameMsg @"物品名称不少于2个字"
 
@@ -45,13 +45,13 @@
 #define SS_HpNoMyCellPhoneMsg @"请输入您的手机号"
 #define SS_HpNoMyCodeMsg @"请输入验证码"
 
-#define SS_HpFaNameMaxLengh @"寄件人姓名不能超过10个字"
-#define SS_HpShouNameMaxLengh @"收件人姓名不能超过10个字"
+//#define SS_HpFaNameMaxLengh @"寄件人姓名不能超过10个字"
+//#define SS_HpShouNameMaxLengh @"收件人姓名不能超过10个字"
+//
+//#define SS_HpFaNameMinLengh @"寄件人姓名不能少于2个字"
+//#define SS_HpShouNameMinLengh @"收件人姓名不能少于2个字"
 
-#define SS_HpFaNameMinLengh @"寄件人姓名不能少于2个字"
-#define SS_HpShouNameMinLengh @"收件人姓名不能少于2个字"
-
-@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate>{
+@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate,SSTipSelectionViewDelegate>{
     SSAppointmentTimeView * _appointTimeView;
     dispatch_source_t _timer;
     
@@ -84,39 +84,34 @@
 @property (weak, nonatomic) IBOutlet UILabel *hp_ShouAddrPlaceholder;
 
 @property (strong,nonatomic) SSAddressInfo * localAddrInfo;
-
 // 公斤
 @property (nonatomic, assign) NSInteger api_kilo;
 @property (strong, nonatomic) IBOutlet UITextField *kiloTextField;
-
 // 距离
 @property (nonatomic, assign) double api_distance;
 @property (strong, nonatomic) IBOutlet UILabel *hp_distanceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *hp_priceRuleBtn;
-
+// 小费
+@property (weak, nonatomic) IBOutlet UIButton *tipSelectionBtn;
+@property (nonatomic,assign) double api_tip;
 // 取货时间
 @property (nonatomic,assign) BOOL api_pick_now;
 @property (nonatomic,copy) NSString * api_pick_time;
-
 @property (strong, nonatomic) IBOutlet UIView *hp_appointmentBg;
 @property (strong, nonatomic) IBOutlet UILabel *hp_appointmentLabel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *hp_appointmentHeight;
-
 // 名称 备注
 @property (strong, nonatomic) IBOutlet UITextField *productName;
 @property (strong, nonatomic) IBOutlet UITextField *remark;
-
 // 手机号，验证码
 @property (strong, nonatomic) IBOutlet UIView *hp_myPhoneCodeBg;
 @property (strong, nonatomic) IBOutlet UIButton *getVerCodeAction;
 @property (strong, nonatomic) IBOutlet UITextField *hp_myPhoneTextField;
 @property (strong, nonatomic) IBOutlet UITextField *hp_myVerCodeTextField;
 ///
-
 @property (strong, nonatomic) IBOutlet UIButton *hp_nextBtn;
 @property (strong, nonatomic) IBOutlet UILabel *hp_totalFeeLabel;
 @property (assign,nonatomic) double api_total_fee;
-
 // 价格规则
 @property (assign,nonatomic) BOOL gotPriceRule;
 @property (nonatomic,strong) NSArray * priceRuleList;
@@ -124,7 +119,6 @@
 @end
 
 @implementation SSHomepageViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.delegate = self;
@@ -157,16 +151,12 @@
     [self.hp_nextBtn setBackgroundSmallImageNor:@"blue_btn_nor" smallImagePre:@"blue_btn_pre" smallImageDis:nil];
     
     _searcher = [[BMKGeoCodeSearch alloc] init];
-    // 定位，反编码
     if (!_locService) {
-        //初始化BMKLocationService
         _locService = [[BMKLocationService alloc]init];
         _locService.delegate = self;
     }
-    //启动LocationService
     [_locService startUserLocationService];
     _searcher.delegate = self;
-    //
 }
 
 #pragma mark - KVO
@@ -183,7 +173,7 @@
 }
 
 - (NSArray *)observableKeypaths {
-    return [NSArray arrayWithObjects:@"api_addr_fa_hasValue", @"api_addr_shou_hasValue",@"api_distance",@"api_total_fee", nil];
+    return [NSArray arrayWithObjects:@"api_addr_fa_hasValue", @"api_addr_shou_hasValue",@"api_distance",@"api_total_fee",@"api_tip", nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -209,6 +199,10 @@
     }
     if ([keyPath isEqualToString:@"api_total_fee"]) {// 总价
         self.hp_totalFeeLabel.text = [NSString stringWithFormat:@"¥ %.2f",self.api_total_fee];
+    }
+    if ([keyPath isEqualToString:@"api_tip"]) { // 小费
+        [self.tipSelectionBtn setTitle:[NSString stringWithFormat:@"%.2f元",self.api_tip] forState:UIControlStateNormal];
+        [self calculateAndDisplayTotalFee];
     }
 }
 
@@ -275,6 +269,26 @@
     [self calculateAndDisplayTotalFee];
 }
 
+- (IBAction)tipSelectionAction:(UIButton *)sender {
+    [SSHttpReqServer getOrderTipDetailSsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            NSDictionary * result = [responseObject objectForKey:@"result"];
+            NSArray * tiplist = [result objectForKey:@"list"];
+            NSMutableArray * tipAmoutObjs = [NSMutableArray array];
+            for (NSDictionary * tipModel in tiplist) {
+                double amount = [[tipModel objectForKey:@"amount"] doubleValue];
+                NSNumber * amoutObj = [NSNumber numberWithDouble:amount];
+                [tipAmoutObjs addObject:amoutObj];
+            }
+            SSTipSelectionView * tipSelectView = [[SSTipSelectionView alloc] initWithDelegate:self tips:tipAmoutObjs];
+            [tipSelectView showInView:self.view];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
+
+
 - (void)clickMyOrders{
     if ([UserInfo isLogin]) {
         SSMyOrdersVC *vc = [[SSMyOrdersVC alloc] initWithNibName:NSStringFromClass([SSMyOrdersVC class]) bundle:nil];
@@ -290,18 +304,15 @@
         MineViewController *vc = [[MineViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }else{
-
         SSLoginVC * welcomeVC = [[SSLoginVC alloc] init];
         [self.navigationController pushViewController:welcomeVC animated:YES];
     }
 }
 - (IBAction)getVerCodeBtnAction:(UIButton *)sender {
-    
     if (![_hp_myPhoneTextField.text isRightPhoneNumberFormat]) {
         [Tools showHUD:SS_HPWrongPhoneNumberMsg];
         return;
     }
-    
     NSDictionary * paraDict = @{
                                 @"phoneNo":_hp_myPhoneTextField.text,
                                 @"type":@"6",
@@ -314,16 +325,8 @@
     }
     
     [SSHttpReqServer businesssendcode:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-        if (1 == status) {
-            
-            
-        }else{
-//            NSString * message = [responseObject objectForKey:@"message"];
-//            [Tools showHUD:message];
-        }
+        [[responseObject objectForKey:@"status"] integerValue];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
     
     if (!_timer) {
@@ -370,7 +373,6 @@
         [Tools showHUD:SS_HpLessProductNameMsg];
         return;
     }
-    
     if (![UserInfo isLogin]) {
         if (self.hp_myPhoneTextField.text.length <= 0 || [self.hp_myPhoneTextField.text allSpace]) {
             [Tools showHUD:SS_HpNoMyCellPhoneMsg];
@@ -381,7 +383,6 @@
             return;
         }
     }
-    
     [self releaseOrder];
 }
 
@@ -402,9 +403,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark - UINavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -418,7 +417,6 @@
 #pragma mark - UITextFieldDelegate
 - (void)kiloTextFieldChanged:(NSNotification *)notify{
     UITextField * textField = (UITextField *)notify.object;
-    // 公斤
     if (textField == self.kiloTextField) {
         NSInteger notifyKilo = [((UITextField *)notify.object).text integerValue];
         if (notifyKilo > 500) {
@@ -436,12 +434,10 @@
         self.api_kilo = notifyKilo;
         [self calculateAndDisplayTotalFee];
     }
-    
     if (textField == self.productName && textField.text.length > 20) {
         textField.text = [textField.text substringToIndex:20];
         [Tools showHUD:@"物品名称不能超过20个字"];
     }
-    
     if (textField == self.remark && textField.text.length > 30) {
         textField.text = [textField.text substringToIndex:30];
         [Tools showHUD:@"备注不能超过30个字"];
@@ -477,7 +473,6 @@
 
 #pragma mark 键盘相关处理
 - (void)keyboardWillShow:(NSNotification*)notification {
-    
     NSDictionary *userInfo = [notification userInfo];
     CGRect keyboardRect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     [UIView animateWithDuration:[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]
@@ -489,13 +484,10 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification {
-    
     NSDictionary *userInfo = [notification userInfo];
     [UIView animateWithDuration:[[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]
                      animations:^{
-                         
                          [_scroller changeFrameHeight:ScreenHeight - 64 - 44 ];
-                         
                      }];
 }
 
@@ -582,15 +574,11 @@
             svc.type = 1;
             svc.tipAmount = self.api_total_fee;
             [self.navigationController pushViewController:svc animated:YES];
-            
             // 清空内存？
             [self resetShansongData];
-
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
-
     }];
 }
 /// 获取计算价格公式
@@ -601,7 +589,6 @@
         if (1 == status) {
             self.priceRuleList = [responseObject objectForKey:@"result"];
             self.gotPriceRule = YES;
-            //
             self.hp_priceRuleBtn.hidden = NO;
         }else{
             if (_getPriceRuleCount < 5) {
@@ -616,8 +603,11 @@
 }
 
 - (void)calculateAndDisplayTotalFee{
-    if (self.gotPriceRule && self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {// 获得计算规则，发收地理位置,重量(填)，距离（算）
-        self.api_total_fee = [self totalFeeWithPriceList:self.priceRuleList km:self.api_distance kg:self.api_kilo];
+//    if (self.gotPriceRule && self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {// 获得计算规则，发收地理位置,重量(填)，距离（算）
+//        self.api_total_fee = [self totalFeeWithPriceList:self.priceRuleList km:self.api_distance kg:self.api_kilo] + self.api_tip;
+//    }
+    if (self.gotPriceRule) {
+        self.api_total_fee = [self totalFeeWithPriceList:self.priceRuleList km:self.api_distance kg:self.api_kilo] + self.api_tip;
     }
 }
 
@@ -628,7 +618,6 @@
     double baseKM = [list[0][@"kM"] doubleValue];
     double baseKG = [list[0][@"kG"] doubleValue];
     double baseDistributionPrice = [list[0][@"distributionPrice"] doubleValue];
-    NSLog(@"baseKM:%f KG:%f DP:%f",baseKM,baseKG,baseDistributionPrice);
     double kmDistributionPrice=0.0;
     for (int i = 1; i < list.count; i++){
         double currKM = [list[i][@"kM"] doubleValue];
@@ -639,7 +628,6 @@
             break;
         }
     }
-    NSLog(@"kmDP:%f",kmDistributionPrice);
     double kgDistributionPrice=0.0;
     for (int i = 1; i < list.count; i++){
         double currKG = [list[i][@"kG"] doubleValue];
@@ -650,9 +638,7 @@
             break;
         }
     }
-    NSLog(@"kgDP:%f",kgDistributionPrice);
     cost=baseDistributionPrice + kmDistributionPrice + kgDistributionPrice;
-    NSLog(@"C:%f",cost);
     return cost;
 }
 
@@ -660,10 +646,8 @@
 //实现相关delegate 处理位置信息更新
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation{
-    NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     [_locService stopUserLocationService];
     _currentCoordinate = userLocation.location.coordinate;
-    
     BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[BMKReverseGeoCodeOption alloc] init];
     reverseGeoCodeSearchOption.reverseGeoPoint = userLocation.location.coordinate;
     BOOL flag = [_searcher reverseGeoCode:reverseGeoCodeSearchOption];
@@ -671,7 +655,6 @@
         NSLog(@"反geo检索发送成功");
     } else {
         NSLog(@"反geo检索发送失败");
-        
     }
 }
 
@@ -739,8 +722,6 @@
     [self resetShansongData];
 }
 
-
-
 #pragma mark - 两点测距离
 // 导航距离
 - (void)calculateNavigationDistanceBetweenPointA:(CLLocationCoordinate2D)pa pointB:(CLLocationCoordinate2D)pb{
@@ -780,5 +761,10 @@
     BMKMapPoint point2 = BMKMapPointForCoordinate(pb);
     CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
     self.api_distance = distance/1000;
+}
+
+#pragma mark - SSTipSelectionViewDelegate小费回调
+- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip{
+    self.api_tip = tip;
 }
 @end

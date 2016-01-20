@@ -40,8 +40,8 @@
     self.cellTime.text = _datasource.pubDate;
     self.cellFaAddr.text = _datasource.pickUpAddress;
     self.cellShouAddr.text = _datasource.receviceAddress;
-    self.cellCommission.text = [NSString stringWithFormat:@"¥%.2f",_datasource.orderCommission];
-    self.cellKmKilo.text = [NSString stringWithFormat:@"%.0f公斤/%.0fkm",_datasource.weight,_datasource.km];
+    self.cellCommission.text = [NSString stringWithFormat:@"¥%.2f",_datasource.amountAndTip];
+    self.cellKmKilo.text = [NSString stringWithFormat:@"%.0f公斤/%.1fkm",_datasource.weight,_datasource.km];
 }
 
 @end

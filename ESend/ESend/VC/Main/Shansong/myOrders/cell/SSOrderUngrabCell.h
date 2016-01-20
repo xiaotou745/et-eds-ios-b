@@ -15,7 +15,7 @@
 @protocol SSOrderUngrabCellDelegate <NSObject>
 
 @optional
-- (void)orderUngrabCell:(SSOrderUngrabCell *)cell payXiaoFeeWithId:(NSString *)orderId;
+- (void)orderUngrabCell:(SSOrderUngrabCell *)cell payXiaoFeeWithId:(NSString *)orderId balancePrice:(double)balancePrice;
 
 @end
 
