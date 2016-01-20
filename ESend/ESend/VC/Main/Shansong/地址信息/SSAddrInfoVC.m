@@ -198,6 +198,9 @@
     self.addrInfo.personPhone = self.aiAddrPhone.text;
     self.addrInfo.personName = self.aiAddrPersonName.text;
     self.addrInfo.genderIsWoman = _genderIsWoman;
+    if (!isCanUseString(self.addrInfo.uid)) {
+        self.addrInfo.uid = [self generateUniqueId];
+    }
     NSDictionary * notifyInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.addrInfo,NotifyInfoKey,[NSNumber numberWithInteger:self.addrType],NotifyTypeKey, nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:ShanSongAddressAdditionFinishedNotify object:nil userInfo:notifyInfo];
     

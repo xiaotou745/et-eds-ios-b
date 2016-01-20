@@ -67,7 +67,10 @@
 // 物品名称,取货时间，备注
 @property (weak, nonatomic) IBOutlet UILabel *orderProductName;
 @property (weak, nonatomic) IBOutlet UILabel *orderTakeTime;
+@property (weak, nonatomic) IBOutlet UILabel *orderPayMethod;
 @property (weak, nonatomic) IBOutlet UILabel *orderRemark;
+@property (weak, nonatomic) IBOutlet UILabel *orderPayMethodFix;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *orderRemarkTop; // 5, 35
 // 订单状态，--
 @property (weak, nonatomic) IBOutlet UIView *orderStatusBg;
 @property (weak, nonatomic) IBOutlet UIImageView *orderStatusPubImg;
@@ -270,6 +273,17 @@
     }
     self.orderProductName.text = orderInfo.productname;
     self.orderTakeTime.text = (orderInfo.taketype == 0)?@"立即取货":[NSString stringWithFormat:@"预约取货/%@",orderInfo.expectedTakeTime];
+    // 支付方式
+    if (orderInfo.status == SSMyOrderStatusUnpayed) {
+        self.orderPayMethodFix.hidden = YES;
+        self.orderPayMethod.hidden = YES;
+        self.orderRemarkTop.constant = 5;
+    }else{
+        self.orderPayMethodFix.hidden = NO;
+        self.orderPayMethod.hidden = NO;
+        self.orderRemarkTop.constant = 35;
+        self.orderPayMethod.text = orderInfo.paymentstr;
+    }
     // 备注
     NSString * remarkStr = isCanUseObj(orderInfo.remark)?orderInfo.remark:@"";
     self.orderRemark.text = remarkStr;    // 高度
@@ -285,7 +299,7 @@
     if (faAddrStrHeight>SSOrderLabelDefaultHeight) {
         self.orderContentHeight.constant += faAddrStrHeight - SSOrderLabelDefaultHeight;
     }
-    scrollerContentHeight += self.orderContentHeight.constant + padding;// default 321;
+    scrollerContentHeight += self.orderContentHeight.constant + padding;// default 340;
     
     // 订单状态 待支付没有，其他均有, 高度~~
     if (orderInfo.status == SSMyOrderStatusUnpayed) {

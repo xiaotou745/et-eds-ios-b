@@ -125,6 +125,11 @@
         }else{
             self.platformstr = @"";
         }
+        if (isCanUseObj([dic objectForKey:@"paymentstr"])) {
+            self.paymentstr = [dic objectForKey:@"paymentstr"];
+        }else{
+            self.paymentstr = @"";
+        }
     }
     return self;
 }

@@ -31,7 +31,8 @@
     _addressInfo =  addressInfo;
     if (self.cellStyle == SSAdressCellStyleHistory) {
         self.AddressName.text = _addressInfo.name;
-        self.AddressDetail.text = [NSString stringWithFormat:@"%@ %@",_addressInfo.personName,_addressInfo.personPhone];
+        NSString * sex = _addressInfo.genderIsWoman?@"女士":@"先生";
+        self.AddressDetail.text = [NSString stringWithFormat:@"%@%@ %@",_addressInfo.personName,sex,_addressInfo.personPhone];
     }else if (self.cellStyle == SSAdressCellStylePOI){
         self.AddressName.text = _addressInfo.name;
         self.AddressDetail.text = _addressInfo.address;

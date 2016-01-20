@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -18,28 +18,24 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Egl-an-zcj">
                         <rect key="frame" x="0.0" y="54" width="320" height="0.0"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="4qK-LF-6sy"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AIk-qv-9CL">
                         <rect key="frame" x="12" y="27" width="254" height="26"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.73333333333333328" green="0.75294117647058822" blue="0.7803921568627451" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvg-Xo-c7z">
                         <rect key="frame" x="12" y="0.0" width="254" height="27"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bxJ-fK-YT0">
                         <rect key="frame" x="276" y="5" width="44" height="44"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="3wo-2A-Wzd"/>
                             <constraint firstAttribute="width" secondItem="bxJ-fK-YT0" secondAttribute="height" multiplier="1:1" id="Vqd-SV-goe"/>
@@ -51,7 +47,6 @@
                         </connections>
                     </button>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="AIk-qv-9CL" firstAttribute="top" secondItem="qvg-Xo-c7z" secondAttribute="bottom" id="3Xg-kb-tD3"/>
                     <constraint firstItem="Egl-an-zcj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="7Tw-4T-9ZA"/>
@@ -74,7 +69,6 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="AddressDetail" destination="AIk-qv-9CL" id="OXB-cI-NaX"/>
                 <outlet property="AddressName" destination="qvg-Xo-c7z" id="kXd-ca-ec2"/>

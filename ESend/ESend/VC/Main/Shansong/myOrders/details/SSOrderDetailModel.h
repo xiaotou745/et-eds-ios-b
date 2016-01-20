@@ -53,6 +53,8 @@
 @property (nonatomic,assign) double balancePrice;   // 账户余额
 @property (nonatomic,copy) NSString * platformstr;  // 订单来源
 
+@property (nonatomic,copy) NSString * paymentstr;   //支付方式str
+
 // readonly
 @property (nonatomic,copy,readonly) NSString * orderStatusString;   // 订单状态中文
 @property (nonatomic,copy,readonly) NSString * orderStatusImg;      // 订单状态图片地址

@@ -13,6 +13,7 @@
 #import "UserInfo.h"
 #import "AliPay.h"
 #import "WechatPay.h"
+#import "UIAlertView+Blocks.h"
 
 #define SSPayMethodTableCellHeight 45
 
@@ -214,6 +215,13 @@
         }
     }
     return theType;
+}
+
+- (void)back{
+    [UIAlertView showAlertViewWithTitle:nil message:@"订单还没有支付,确认返回吗?" cancelButtonTitle:@"确定" otherButtonTitles:@[@"继续支付"] onDismiss:^(NSInteger buttonIndex) {
+    } onCancel:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
 }
 
 #pragma mark - 支付回调

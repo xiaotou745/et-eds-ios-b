@@ -83,7 +83,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *hp_FaAddrPlaceholder;
 @property (weak, nonatomic) IBOutlet UILabel *hp_ShouAddrPlaceholder;
 
-@property (strong,nonatomic) SSAddressInfo * localAddrInfo;
 // 公斤
 @property (nonatomic, assign) NSInteger api_kilo;
 @property (strong, nonatomic) IBOutlet UITextField *kiloTextField;
@@ -516,18 +515,18 @@
                                 @"businessid":[UserInfo isLogin]?[UserInfo getUserId]:@"",
                                 @"businessphoneno":self.hp_myPhoneTextField.text,
                                 @"verificationcode":self.hp_myVerCodeTextField.text,
-                                //@"pubname":self.hp_ShouNameTextField.text, // 名称不对，注意
+                                @"pubname":self.hp_FaAddrPersonNameLabel.text,
                                 @"islogin":[UserInfo isLogin]?@"true":@"false",
                                 @"publongitude":self.api_addr_fa.longitude,
                                 @"publatitude":self.api_addr_fa.latitude,
-                                //@"pubphoneno":self.hp_ShouPhoneTextField.text, // 名称不对，注意
+                                @"pubphoneno":self.hp_FaAddrPhoneLabel.text,
                                 @"pubaddress":[NSString stringWithFormat:@"%@(%@)%@",self.api_addr_fa.name,self.api_addr_fa.address,self.api_addr_fa.addition],
                                 @"taketype":self.api_pick_now?@"0":@"1",
                                 @"currentlongitude":[NSNumber numberWithDouble:currentlongitude],
                                 @"currentlatitude":[NSNumber numberWithDouble:currentlatitude],
                                 @"taketime":self.api_pick_time,
-                                //@"recevicename":self.hp_FaNameTextField.text, // 名称不对，注意
-                                //@"recevicephoneno":self.hp_FaPhoneTextField.text, // 名称不对，注意
+                                @"recevicename":self.hp_ShouAddrPersonNameLabel.text,
+                                @"recevicephoneno":self.hp_ShouAddrPhoneLabel.text,
                                 @"receviceaddress":[NSString stringWithFormat:@"%@(%@)%@",self.api_addr_shou.name,self.api_addr_shou.address,self.api_addr_shou.addition],
                                 @"recevicelongitude":self.api_addr_shou.longitude,
                                 @"recevicelatitude":self.api_addr_shou.latitude,
@@ -536,6 +535,7 @@
                                 @"amount":[NSNumber numberWithDouble:self.api_total_fee],
                                 @"weight":[NSNumber numberWithInteger:self.api_kilo],
                                 @"km":[NSNumber numberWithDouble:self.api_distance],
+                                @"tipamount":[NSNumber numberWithDouble:self.api_tip],
                                 };
     if (AES_Security) {
         NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
@@ -558,14 +558,8 @@
                                     };
             [UserInfo saveUserInfo:uInfo];
             if ([UserInfo isLogin]) {
-//                self.api_addr_fa.uid = [self generateUniqueId];
-//                self.api_addr_fa.personName = self.hp_ShouNameTextField.text;
-//                self.api_addr_fa.personPhone = self.hp_ShouPhoneTextField.text;
-//                [DataArchive storeFaAddress:self.api_addr_fa businessId:[UserInfo getUserId]];
-//                self.api_addr_shou.uid = [self generateUniqueId];
-//                self.api_addr_shou.personName = self.hp_FaNameTextField.text;
-//                self.api_addr_shou.personPhone = self.hp_FaPhoneTextField.text;
-//                [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
+                [DataArchive storeFaAddress:self.api_addr_fa businessId:[UserInfo getUserId]];
+                [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
             }
             //
             SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
@@ -692,33 +686,39 @@
 
 #pragma mark - 重置数据
 - (void)resetShansongData{
-    self.api_addr_fa = self.localAddrInfo;
-    self.api_addr_fa_hasValue = YES;
+    
     self.api_addr_shou = nil;
     self.api_addr_shou_hasValue = NO;
-    self.hp_myPhoneTextField.text = @"";
-//    self.hp_FaNameTextField.text = @"";
-//    self.hp_FaPhoneTextField.text = @"";
-    self.hp_myVerCodeTextField.text = @"";
-    self.api_pick_now = YES;
-    self.api_pick_time = [self currentDateString ];
-//    self.self.hp_ShouNameTextField.text = @"";
-//    self.hp_ShouPhoneTextField.text = @"";
-    self.productName.text = @"";
-    self.remark.text = @"";
-    self.api_total_fee = 0;
-    self.hp_totalFeeLabel.text = [NSString stringWithFormat:@"¥ %.2f",self.api_total_fee];
+    self.hp_ShouAddrLabel.text = @"";
+    self.hp_ShouAddrPersonNameLabel.text = @"";
+    self.hp_ShouAddrPhoneLabel.text = @"";
+    
     self.api_kilo= 1;
     self.kiloTextField.text = @"1";
+
     self.api_distance = 0;
     self.hp_distanceLabel.text = @"0";
-    self.hp_FaAddrLabel.text = self.api_addr_fa.name;
-    //            self.hp_FaAddrLabel.textColor = BBC0C7Color;
-    self.hp_ShouAddrLabel.text = @"请输入收货地址";
-    self.hp_ShouAddrLabel.textColor = BBC0C7Color;
+    
+    self.api_tip = 0;
+    self.api_pick_now = YES;
+    self.api_pick_time = [self currentDateString ];
+    
+    self.productName.text = @"";
+    self.remark.text = @"";
+    
+    self.api_total_fee = 0;
+
+    self.hp_myVerCodeTextField.text = @"";
 }
 
 - (void)shanSongUserLogout{
+    
+    self.api_addr_fa = nil;
+    self.api_addr_fa_hasValue = NO;
+    self.hp_FaAddrLabel.text = @"";
+    self.hp_FaAddrPersonNameLabel.text = @"";
+    self.hp_FaAddrPhoneLabel.text = @"";
+    
     [self resetShansongData];
 }
 
