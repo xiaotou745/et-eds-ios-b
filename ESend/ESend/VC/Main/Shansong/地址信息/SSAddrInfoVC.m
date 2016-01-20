@@ -281,6 +281,19 @@
     self.aiAddrText.textColor = DeepGrey;
 }
 
+- (void)editAddressVC:(SSEditAdderssViewController *)vc didSelectHistroyAddr:(SSAddressInfo *)address type:(SSAddressEditorType)type{
+    self.addrInfo = address;
+    _has_addr_value = YES;
+    self.aiAddrText.text = [NSString stringWithFormat:@"%@(%@)",_addrInfo.name,_addrInfo.address];
+    self.aiAddrText.textColor = DeepGrey;
+    self.aiAddrAdtion.text = _addrInfo.addition;
+    self.aiAddrPhone.text = _addrInfo.personPhone;
+    self.aiAddrPersonName.text = _addrInfo.personName;
+    _genderIsWoman = _addrInfo.genderIsWoman;
+    NSString * imgName = _genderIsWoman?@"ss_woman":@"ss_man";
+    [self.aiAddrPersonGender setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
+}
+
 #pragma mark - 地图选择通知
 - (void)ssAddrMapPOINotify:(NSNotification *)notify{
     NSDictionary * info = notify.userInfo;

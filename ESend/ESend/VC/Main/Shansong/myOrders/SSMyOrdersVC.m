@@ -118,6 +118,7 @@
 //    // 加小费
 @property (nonatomic,assign) double balancePrice;   //账户余额
 @property (nonatomic,copy) NSString * tipOrderId;   // 加小费的  订单id
+@property (nonatomic,copy) NSString * pickupCode;   // 取货码
 
 @end
 
@@ -1046,6 +1047,7 @@
 
 #pragma mark - 加小费
 - (void)orderUngrabCell:(SSOrderUngrabCell *)cell payXiaoFeeWithId:(NSString *)orderId balancePrice:(double)balancePrice{
+    self.pickupCode = cell.datasource.pickupCode;
     self.tipOrderId = orderId;
     self.balancePrice = balancePrice;
     [SSHttpReqServer getOrderTipDetailSsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1086,8 +1088,9 @@
             SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
             svc.orderId = self.tipOrderId;
             svc.balancePrice = self.balancePrice;
-            svc.type = 1;
+            svc.type = 2;
             svc.tipAmount = tip;
+            svc.pickupcode = self.pickupCode;
             [self.navigationController pushViewController:svc animated:YES];
         }else{
             [Tools showHUD:@"该订单不能加小费"];

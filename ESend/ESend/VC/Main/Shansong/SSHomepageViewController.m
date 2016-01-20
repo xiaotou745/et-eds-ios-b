@@ -156,6 +156,17 @@
     }
     [_locService startUserLocationService];
     _searcher.delegate = self;
+    
+    if ([UserInfo isLogin]){
+        NSArray * faAddrs = [DataArchive storedFaAddrsWithBusinessId:[UserInfo getUserId]];
+        SSAddressInfo * lastAddr = [faAddrs lastObject];
+        self.api_addr_fa = lastAddr;
+        self.api_addr_fa_hasValue = YES;
+        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",lastAddr.name,lastAddr.address,lastAddr.addition];
+        self.hp_FaAddrLabel.textColor = DeepGrey;
+        self.hp_FaAddrPhoneLabel.text = lastAddr.personPhone;
+        self.hp_FaAddrPersonNameLabel.text = [lastAddr.personName stringByAppendingString:lastAddr.genderIsWoman?@"女士":@"先生"];
+    }
 }
 
 #pragma mark - KVO
@@ -548,7 +559,6 @@
         
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         NSString * message = [responseObject objectForKey:@"message"];
-        [Tools showHUD:message];
         if (status == 1) {
             // 本地缓存 ,收,发
             // uid  :  address{地址，经度，纬度，姓名，手机}
@@ -562,14 +572,18 @@
                 [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
             }
             //
+            NSString * pickupCode = [NSString stringWithFormat:@"%@",[result objectForKey:@"pickupcode"]];
             SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
             svc.orderId = [NSString stringWithFormat:@"%@",[result objectForKey:@"orderId"]];
             svc.balancePrice = [[result objectForKey:@"balanceprice"] doubleValue];
             svc.type = 1;
+            svc.pickupcode = pickupCode;
             svc.tipAmount = self.api_total_fee;
             [self.navigationController pushViewController:svc animated:YES];
             // 清空内存？
             [self resetShansongData];
+        }else{
+            [Tools showHUD:message];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];

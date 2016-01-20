@@ -14,6 +14,9 @@
 #import "AliPay.h"
 #import "WechatPay.h"
 #import "UIAlertView+Blocks.h"
+#import "CustomIOSAlertView.h"
+#import "AppDelegate.h"
+#import "SSMyOrdersVC.h"
 
 #define SSPayMethodTableCellHeight 45
 
@@ -22,6 +25,7 @@
     SSRemainingBalanceModel * _remainBalance;
     SSPayMethodModel * _alipay;
     SSPayMethodModel * _wechatPay;
+    CustomIOSAlertView * _alertView;
 }
 @property (weak, nonatomic) IBOutlet UIView *payInfoBgView;
 @property (weak, nonatomic) IBOutlet UILabel *payTotalLabel;
@@ -144,8 +148,7 @@
             NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
             NSString * message = [responseObject objectForKey:@"message"];
             if (status == 1) {
-                [Tools showHUD:@"支付成功"];
-                [self.navigationController popViewControllerAnimated:YES];
+                [self showPaySuccessAlertWithCode:self.pickupcode];
             }else{
                 [Tools showHUD:message];
             }
@@ -227,8 +230,81 @@
 #pragma mark - 支付回调
 #pragma mark - 通知回调
 - (void)ssPaySuccess {
-    [Tools showHUD:@"支付成功"];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self showPaySuccessAlertWithCode:self.pickupcode];
+}
+
+
+#pragma mark - 支付成功弹出
+- (void)showPaySuccessAlertWithCode:(NSString *)code{
+    if (!_alertView) {
+        _alertView = [[CustomIOSAlertView alloc] init];
+    }
+    [_alertView setContainerView:[self createShouHuoMaAlertWithMa:code]];
+    [_alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"确定", @"我的订单", nil]];
+    __block SSpayViewController * blockSelf = self;
+    [_alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        if (1 == buttonIndex) {// 我的订单
+            AppDelegate * appdel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            UINavigationController * navc = (UINavigationController*)appdel.window.rootViewController;
+            SSMyOrdersVC * umvc = [[SSMyOrdersVC alloc] initWithNibName:@"SSMyOrdersVC" bundle:nil];
+            NSMutableArray * navArray = [[NSMutableArray alloc] initWithCapacity:0];
+            [navArray addObject:[navc.viewControllers firstObject]];
+            [navArray addObject:umvc];
+            [navc setViewControllers:navArray animated:YES];
+        }else{
+            [blockSelf.navigationController popViewControllerAnimated:YES];
+        }
+        [alertView close];
+    }];
+    [_alertView setUseMotionEffects:true];
+    [_alertView show];
+}
+
+
+- (UIView *)createShouHuoMaAlertWithMa:(NSString *)code{
+    // 40
+    UIView *demoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 240)];
+    demoView.userInteractionEnabled = YES;
+    UIImageView * gouImg = [[UIImageView alloc] initWithFrame:CGRectMake(290/2-15, 10, 30, 30)];
+    gouImg.image = [UIImage imageNamed:@"ss_detail_completed"];
+    [demoView addSubview:gouImg];
+    
+    UILabel * quhuoFix = [[UILabel alloc] initWithFrame:CGRectMake(10, 45, 290-20, 25)];
+    quhuoFix.text = @"支付成功";
+    quhuoFix.textAlignment = NSTextAlignmentCenter;
+    quhuoFix.textColor = DeepGrey;
+    quhuoFix.font = [UIFont systemFontOfSize:BigFontSize];
+    [demoView addSubview:quhuoFix];
+    
+    UILabel * grayWarning = [[UILabel alloc] initWithFrame:CGRectMake(0, 75, 60, 25)];
+    grayWarning.text = @"取货码:";
+    grayWarning.textAlignment = NSTextAlignmentRight;
+    grayWarning.font = [UIFont systemFontOfSize:14];
+    grayWarning.textColor = DeepGrey;
+    [demoView addSubview:grayWarning];
+    
+    UILabel * blueCode = [[UILabel alloc] initWithFrame:CGRectMake(65, 75, 150, 25)];
+    blueCode.text = code;
+    blueCode.font = [UIFont systemFontOfSize:14];
+    blueCode.textColor = BlueColor;
+    [demoView addSubview:blueCode];
+    
+    UILabel * grayNote = [[UILabel alloc] initWithFrame:CGRectMake(0, 105, 60, 25)];
+    grayNote.text = @"提示:";
+    grayNote.textAlignment = NSTextAlignmentRight;
+    grayNote.font = [UIFont systemFontOfSize:14];
+    grayNote.textColor = DeepGrey;
+    [demoView addSubview:grayNote];
+    
+    UILabel * grayNote2 = [[UILabel alloc] initWithFrame:CGRectMake(65, 105, 220, 25)];
+    grayNote2.text = @"进入我的订单也可以查看取货码";
+    grayNote2.font = [UIFont systemFontOfSize:14];
+    grayNote2.textColor = DeepGrey;
+    [demoView addSubview:grayNote2];
+    
+    [demoView setFrame:CGRectMake(0, 0, 290, CGRectGetMaxY(grayNote.frame) + 10)];
+    return demoView;
+    
 }
 
 @end

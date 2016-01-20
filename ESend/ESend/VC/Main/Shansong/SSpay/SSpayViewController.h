@@ -15,4 +15,6 @@
 @property (nonatomic,assign) double tipAmount;  // 支付金额
 @property (nonatomic,assign) double balancePrice;  // 账户余额
 
+@property (nonatomic,copy) NSString * pickupcode;
+
 @end
