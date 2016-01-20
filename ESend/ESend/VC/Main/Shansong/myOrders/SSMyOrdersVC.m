@@ -1068,12 +1068,34 @@
 
 #pragma mark - SSTipSelectionViewDelegate小费回调
 - (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip{
-    SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
-    svc.orderId = self.tipOrderId;
-    svc.balancePrice = self.balancePrice;
-    svc.type = 1;
-    svc.tipAmount = tip;
-    [self.navigationController pushViewController:svc animated:YES];
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    NSDictionary * paraData = @{
+                                @"orderId":self.tipOrderId,
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraData = @{@"data":aesString,};
+    }
+    __weak typeof (self) weakSelf = self;
+    [SSHttpReqServer getOrderStatus:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        NSInteger orderStatus = [responseObject[@"result"][@"status"] integerValue];
+        if (1 == status && 0 == orderStatus) {
+            SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
+            svc.orderId = self.tipOrderId;
+            svc.balancePrice = self.balancePrice;
+            svc.type = 1;
+            svc.tipAmount = tip;
+            [self.navigationController pushViewController:svc animated:YES];
+        }else{
+            [Tools showHUD:@"该订单不能加小费"];
+            [weakSelf beginRefresh];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+    }];
 }
 
 #pragma mark - SSOrderOndeliveringV2CellDelegate 获取收货码回调

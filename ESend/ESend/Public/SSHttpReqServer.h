@@ -114,4 +114,14 @@
 + (AFHTTPRequestOperation *)getReceiveCode:(NSDictionary *)dict
                                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+/*
+ 1.1.14获取订单状态
+ url:/order/getorderstatus 创建人：胡灵波 post 参数
+ 参数	描述	允许为空
+ orderId	订单id	否
+ */
++ (AFHTTPRequestOperation *)getOrderStatus:(NSDictionary *)dict
+                                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end
