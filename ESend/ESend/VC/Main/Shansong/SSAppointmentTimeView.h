@@ -11,7 +11,7 @@
 @protocol SSAppointmentTimeViewDelegate <NSObject>
 
 @optional
-- (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSString *)date;
+- (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSString *)date rightNow:(BOOL)rightNow;
 
 @end
 

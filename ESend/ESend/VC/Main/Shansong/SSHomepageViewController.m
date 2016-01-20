@@ -25,15 +25,12 @@
 #import "SSPriceTableView.h"
 #import "NSString+evaluatePhoneNumber.h"
 #import "SSTipSelectionView.h"
+#import "NSString+stringSizes.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
 #define SS_HPNoShouAddressMsg @"请输入收货地址"
-//#define SS_HpNoShouNameMsg @"请输入收件人姓名"
-//#define SS_HpNoShouPhoneMsg @"请输入收件人电话"
-//#define SS_HpWrongShouPhongMsg @"收件人电话格式不对"
-//#define SS_HpNoFaPhoneMsg @"请输入寄件人电话"
-//#define SS_HpWrongFaPhongMsg @"寄件人电话格式不对"
+
 #define SS_HpNoProductNameMsg @"请输入物品名称"
 #define SS_HpLessProductNameMsg @"物品名称不少于2个字"
 
@@ -45,14 +42,7 @@
 #define SS_HpNoMyCellPhoneMsg @"请输入您的手机号"
 #define SS_HpNoMyCodeMsg @"请输入验证码"
 
-//#define SS_HpFaNameMaxLengh @"寄件人姓名不能超过10个字"
-//#define SS_HpShouNameMaxLengh @"收件人姓名不能超过10个字"
-//
-//#define SS_HpFaNameMinLengh @"寄件人姓名不能少于2个字"
-//#define SS_HpShouNameMinLengh @"收件人姓名不能少于2个字"
-
 @interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate,SSTipSelectionViewDelegate>{
-    SSAppointmentTimeView * _appointTimeView;
     dispatch_source_t _timer;
     
     BMKLocationService *_locService;
@@ -96,9 +86,9 @@
 // 取货时间
 @property (nonatomic,assign) BOOL api_pick_now;
 @property (nonatomic,copy) NSString * api_pick_time;
-@property (strong, nonatomic) IBOutlet UIView *hp_appointmentBg;
-@property (strong, nonatomic) IBOutlet UILabel *hp_appointmentLabel;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *hp_appointmentHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *hp_timePickBtnWidth;
+@property (weak, nonatomic) IBOutlet UIButton *hp_timePickBtn;
+
 // 名称 备注
 @property (strong, nonatomic) IBOutlet UITextField *productName;
 @property (strong, nonatomic) IBOutlet UITextField *remark;
@@ -239,20 +229,6 @@
     [self unregisterFromKVO];
 }
 
-- (void)pickTimeType:(UITapGestureRecognizer *)tap{
-    [Tools hiddenKeyboard];
-    if (tap.view.tag == 1102) {
-        self.api_pick_now = NO;
-        if (!_appointTimeView) {
-            _appointTimeView = [[SSAppointmentTimeView alloc] initWithDelegate:self];
-        }
-        [_appointTimeView showInView:self.view];
-    }else if (tap.view.tag == 1101){
-        self.api_pick_now = YES;
-    }
-}
-
-
 #pragma mark - outlet actions
 - (IBAction)addKilo:(UIButton *)sender {
     [self.kiloTextField resignFirstResponder];
@@ -280,6 +256,7 @@
 }
 
 - (IBAction)tipSelectionAction:(UIButton *)sender {
+    [Tools hiddenKeyboard];
     [SSHttpReqServer getOrderTipDetailSsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
@@ -298,8 +275,14 @@
     }];
 }
 
+- (IBAction)timePickBtnAction:(UIButton *)sender {
+    [Tools hiddenKeyboard];
+    SSAppointmentTimeView * atv = [[SSAppointmentTimeView alloc] initWithDelegate:self];
+    [atv showInView:self.view];
+}
 
 - (void)clickMyOrders{
+    [Tools hiddenKeyboard];
     if ([UserInfo isLogin]) {
         SSMyOrdersVC *vc = [[SSMyOrdersVC alloc] initWithNibName:NSStringFromClass([SSMyOrdersVC class]) bundle:nil];
         [self.navigationController pushViewController:vc animated:YES];
@@ -319,6 +302,7 @@
     }
 }
 - (IBAction)getVerCodeBtnAction:(UIButton *)sender {
+    [Tools hiddenKeyboard];
     if (![_hp_myPhoneTextField.text isRightPhoneNumberFormat]) {
         [Tools showHUD:SS_HPWrongPhoneNumberMsg];
         return;
@@ -362,6 +346,7 @@
 }
 
 - (IBAction)nextStepAction:(UIButton *)sender {
+    [Tools hiddenKeyboard];
     if (!self.api_addr_fa_hasValue) {
         [Tools showHUD:SS_HPNoFaAddressMsg];
         return;
@@ -398,6 +383,7 @@
 
 #pragma mark -
 - (IBAction)editAddress:(UIButton *)sender {
+    [Tools hiddenKeyboard];
     SSAddressEditorType type = [SSEditorTypeTransformer typeWithEditorTitleStr:sender.currentTitle];
     SSAddrInfoVC * aivc = [[SSAddrInfoVC alloc] init];
     aivc.addrType = type;
@@ -454,6 +440,11 @@
     }
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 #pragma mark - nofitys
 - (void)shanSongAddrAdditionFinishedNotify:(NSNotification *)notify{
     NSDictionary * info = notify.userInfo;
@@ -502,10 +493,20 @@
 }
 
 #pragma mark - 日期选择
-- (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSString *)date{
-    // NSLog(@"%@ \n %@",date, [date km_simpleToString]);
-    self.api_pick_time = date;
-    self.hp_appointmentLabel.text = self.api_pick_time;
+- (void)SSAppointmentTimeView:(SSAppointmentTimeView*)view selectedDate:(NSString *)date rightNow:(BOOL)rightNow{
+    self.api_pick_now = rightNow;
+    NSString * dateStr = nil;
+    if (rightNow) {
+        self.api_pick_time = [self currentDateString];
+        dateStr = @"立即取货";
+    }else{
+        self.api_pick_time = date;
+        dateStr = self.api_pick_time;
+    }
+    [self.hp_timePickBtn setTitle:dateStr forState:UIControlStateNormal];
+    CGFloat dateStrWidth = [dateStr stringSizeWidthWithFontSize:14 height:20];
+    NSLog(@"str width %f",dateStrWidth);
+    self.hp_timePickBtnWidth.constant = dateStrWidth + 25;
 }
 
 - (NSString *)currentDateString{
@@ -715,8 +716,12 @@
     
     self.api_tip = 0;
     self.api_pick_now = YES;
-    self.api_pick_time = [self currentDateString ];
-    
+    self.api_pick_time = [self currentDateString];
+    NSString * dateStr = @"立即取货";
+    [self.hp_timePickBtn setTitle:dateStr forState:UIControlStateNormal];
+    CGFloat dateStrWidth = [dateStr stringSizeWidthWithFontSize:14 height:20];
+    self.hp_timePickBtnWidth.constant = dateStrWidth + 25;
+    //
     self.productName.text = @"";
     self.remark.text = @"";
     

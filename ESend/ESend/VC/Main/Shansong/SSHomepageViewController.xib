@@ -25,6 +25,8 @@
                 <outlet property="hp_myVerCodeTextField" destination="YYI-Hl-raN" id="GyG-NT-Fdv"/>
                 <outlet property="hp_nextBtn" destination="u2Y-gM-Tah" id="6iM-44-ab6"/>
                 <outlet property="hp_priceRuleBtn" destination="euE-Ob-FzV" id="sqW-oj-leG"/>
+                <outlet property="hp_timePickBtn" destination="eZ6-PI-UdX" id="gWP-aZ-WUe"/>
+                <outlet property="hp_timePickBtnWidth" destination="euI-hs-wH6" id="vlS-le-QdD"/>
                 <outlet property="hp_totalFeeLabel" destination="Esl-ZB-6Vd" id="Djd-AX-d5z"/>
                 <outlet property="kiloTextField" destination="NFA-4G-3Y0" id="mKz-fl-Ndu"/>
                 <outlet property="productName" destination="k8s-9z-8Gt" id="DpD-P4-109"/>
@@ -414,15 +416,40 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZ6-PI-UdX">
+                                            <rect key="frame" x="82" y="7" width="67" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="HDh-tK-gbR"/>
+                                                <constraint firstAttribute="width" constant="67" id="euI-hs-wH6"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="立即取货">
+                                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="timePickBtnAction:" destination="-1" eventType="touchUpInside" id="eV4-MA-tK4"/>
+                                            </connections>
+                                        </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ss_triangle_down" translatesAutoresizingMaskIntoConstraints="NO" id="3uJ-Ql-vtN">
+                                            <rect key="frame" x="149" y="18" width="8" height="8"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="8" id="9am-2R-Oly"/>
+                                                <constraint firstAttribute="height" constant="8" id="bgb-hp-ZHL"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="3DP-iE-vQm" firstAttribute="leading" secondItem="ohD-zY-WW5" secondAttribute="leading" constant="12" id="Ktw-VL-YCA"/>
                                         <constraint firstItem="3DP-iE-vQm" firstAttribute="leading" secondItem="ohD-zY-WW5" secondAttribute="leading" constant="12" id="Uq1-a8-GP1"/>
+                                        <constraint firstItem="3uJ-Ql-vtN" firstAttribute="centerY" secondItem="ohD-zY-WW5" secondAttribute="centerY" id="ZH0-dN-xAd"/>
+                                        <constraint firstItem="eZ6-PI-UdX" firstAttribute="centerY" secondItem="ohD-zY-WW5" secondAttribute="centerY" id="afd-up-VBV"/>
                                         <constraint firstItem="3DP-iE-vQm" firstAttribute="leading" secondItem="ohD-zY-WW5" secondAttribute="leading" constant="12" id="ayv-TM-yUr"/>
                                         <constraint firstItem="3DP-iE-vQm" firstAttribute="height" secondItem="ohD-zY-WW5" secondAttribute="height" id="i5V-q0-RMx"/>
+                                        <constraint firstItem="3uJ-Ql-vtN" firstAttribute="leading" secondItem="eZ6-PI-UdX" secondAttribute="trailing" id="iK9-r3-hvf"/>
                                         <constraint firstAttribute="height" constant="44" id="kTl-5I-spS"/>
                                         <constraint firstItem="3DP-iE-vQm" firstAttribute="centerY" secondItem="ohD-zY-WW5" secondAttribute="centerY" id="t9E-eq-7CL"/>
+                                        <constraint firstItem="eZ6-PI-UdX" firstAttribute="leading" secondItem="3DP-iE-vQm" secondAttribute="trailing" id="vQL-sw-4jx"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
@@ -454,7 +481,7 @@
                                             <rect key="frame" x="87" y="0.0" width="501" height="44"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="RRK-bj-OuL"/>
                                             </connections>
@@ -463,7 +490,7 @@
                                             <rect key="frame" x="87" y="44" width="501" height="44"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="9RZ-zw-3PQ"/>
                                             </connections>
@@ -529,7 +556,7 @@
                                             </constraints>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="asB-NO-hqL"/>
                                             </connections>
@@ -541,7 +568,7 @@
                                             </constraints>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" keyboardType="alphabet"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="alphabet" returnKeyType="done"/>
                                             <connections>
                                                 <outlet property="delegate" destination="-1" id="t5f-Yb-Dtr"/>
                                             </connections>

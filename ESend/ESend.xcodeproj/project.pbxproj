@@ -195,6 +195,8 @@
 		6893B58E1C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6893B58B1C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.m */; };
 		6893B58F1C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6893B58C1C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.xib */; };
 		6893B5901C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6893B58C1C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.xib */; };
+		6893B59A1C4F8A6100E9E964 /* NSString+stringSizes.m in Sources */ = {isa = PBXBuildFile; fileRef = 6893B5991C4F8A6100E9E964 /* NSString+stringSizes.m */; };
+		6893B59B1C4F8A6100E9E964 /* NSString+stringSizes.m in Sources */ = {isa = PBXBuildFile; fileRef = 6893B5991C4F8A6100E9E964 /* NSString+stringSizes.m */; };
 		689CA48F1C2268E500D9073E /* SSOrderUngrabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */; };
 		689CA4901C2268E500D9073E /* SSOrderUngrabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */; };
 		689CA4911C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */; };
@@ -844,6 +846,8 @@
 		6893B58A1C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderOndeliveringV2Cell.h; sourceTree = "<group>"; };
 		6893B58B1C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderOndeliveringV2Cell.m; sourceTree = "<group>"; };
 		6893B58C1C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderOndeliveringV2Cell.xib; sourceTree = "<group>"; };
+		6893B5981C4F8A6100E9E964 /* NSString+stringSizes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+stringSizes.h"; sourceTree = "<group>"; };
+		6893B5991C4F8A6100E9E964 /* NSString+stringSizes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+stringSizes.m"; sourceTree = "<group>"; };
 		689CA48C1C2268E500D9073E /* SSOrderUngrabCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSOrderUngrabCell.h; sourceTree = "<group>"; };
 		689CA48D1C2268E500D9073E /* SSOrderUngrabCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSOrderUngrabCell.m; sourceTree = "<group>"; };
 		689CA48E1C2268E500D9073E /* SSOrderUngrabCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSOrderUngrabCell.xib; sourceTree = "<group>"; };
@@ -2354,6 +2358,8 @@
 				F6C6AD051B12F42E0007A980 /* PlaceholderTextView.m */,
 				689CA49F1C24182F00D9073E /* UIAlertView+Blocks.h */,
 				689CA4A01C24182F00D9073E /* UIAlertView+Blocks.m */,
+				6893B5981C4F8A6100E9E964 /* NSString+stringSizes.h */,
+				6893B5991C4F8A6100E9E964 /* NSString+stringSizes.m */,
 				2EA0CA701B842E3F00BBAA63 /* IOS */,
 			);
 			path = Lib;
@@ -3123,6 +3129,7 @@
 				F67D35B21B5664A600083DA4 /* UIImage+MultiFormat.m in Sources */,
 				F67D35B31B5664A600083DA4 /* MDSenderInfoCell.m in Sources */,
 				F67D35B51B5664A600083DA4 /* SubOrderModel.m in Sources */,
+				6893B59B1C4F8A6100E9E964 /* NSString+stringSizes.m in Sources */,
 				6801E3BF1BC8B1BD00CE13ED /* UIColor+KMhexColor.m in Sources */,
 				F67D35B71B5664A600083DA4 /* MJPhoto.m in Sources */,
 				CF22B0341BAB4A61000F19D9 /* MJRefreshConst.m in Sources */,
@@ -3375,6 +3382,7 @@
 				E46C49291B3C48CE00CE0033 /* MDSenderInfoCell.m in Sources */,
 				F6188A7F1B2182310033E58B /* SubOrderModel.m in Sources */,
 				F6C6AD8C1B12F42F0007A980 /* MJPhoto.m in Sources */,
+				6893B59A1C4F8A6100E9E964 /* NSString+stringSizes.m in Sources */,
 				6801E3BE1BC8B1BD00CE13ED /* UIColor+KMhexColor.m in Sources */,
 				F6C6AD9D1B12F42F0007A980 /* MPNotificationView.m in Sources */,
 				CF22B0331BAB4A61000F19D9 /* MJRefreshConst.m in Sources */,
