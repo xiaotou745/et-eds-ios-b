@@ -505,6 +505,7 @@
     }
     [self.hp_timePickBtn setTitle:dateStr forState:UIControlStateNormal];
     CGFloat dateStrWidth = [dateStr stringSizeWidthWithFontSize:14 height:20];
+    NSLog(@"%@",self.api_pick_now?@"yes":@"no");
     NSLog(@"str width %f",dateStrWidth);
     self.hp_timePickBtnWidth.constant = dateStrWidth + 25;
 }

@@ -170,14 +170,14 @@
         [_hourTimes addObject:SSTimeGetNow];
         currentHourInt += 2;
         for (NSInteger i = currentHourInt; i< 24; i++) {
-            [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
+            [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",(long)i]];
         }
     }else{ // 只有明天
         [_dayTimes addObject:SSAppointTomorrow];
         currentHourInt = currentHourInt + 2 - 24;
         [_hourTimes addObject:SSTimeGetNow];
         for (NSInteger i = currentHourInt; i< 24; i++) {
-            [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
+            [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",(long)i]];
         }
     }
     
@@ -192,7 +192,7 @@
             currentHourInt += 2;
             [_hourTimes addObject:SSTimeGetNow];
             for (NSInteger i = currentHourInt; i< 24; i++) {
-                [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
+                [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",(long)i]];
             }
             [pickerView reloadComponent:1];
             NSInteger selectedHourRow = [pickerView selectedRowInComponent:1];
@@ -200,9 +200,18 @@
                 [_minutes removeAllObjects];
                 [pickerView reloadComponent:2];
             }else{
+                [_minutes removeAllObjects];
                 if (_minutes.count == 0) {
-                    for (int i = 0; i <= 55; i = i + 5) {
-                        [_minutes addObject:[NSString stringWithFormat:@"%02d",i]];
+                    if (selectedHourRow == 1) {// 数字时间第一行
+                        NSInteger currentMinuteInt = [[NSDate new] km_MinuteInt];
+                        int startPoint = (int)(ceil(currentMinuteInt/5)*5);
+                        for (int i = startPoint; i<=55; i = i + 5) {
+                            [_minutes addObject:[NSString stringWithFormat:@"%02d",i]];
+                        }
+                    }else{
+                        for (int i = 0; i <= 55; i = i + 5) {
+                            [_minutes addObject:[NSString stringWithFormat:@"%02d",i]];
+                        }
                     }
                 }
                 [pickerView reloadComponent:2];
@@ -213,16 +222,17 @@
             currentHourInt = (currentHourInt + 3 - 24);
             [_hourTimes addObject:SSTimeGetNow];
             for (NSInteger i = currentHourInt; i< 24; i++) {
-                [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
+                [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",(long)i]];
             }
             [pickerView reloadComponent:1];
             [_minutes removeAllObjects];
             [pickerView reloadComponent:2];
         }else if ([title isEqualToString:SSAppointTomorrow] && _dayTimes.count == 2){   // 有明天，有今天，显示明天
             for (NSInteger i = 0; i< 24; i++) {
-                [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",i]];
+                [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",(long)i]];
             }
             [pickerView reloadComponent:1];
+            [_minutes removeAllObjects];
             if (_minutes.count == 0) {
                 for (int i = 0; i <= 55; i = i + 5) {
                     [_minutes addObject:[NSString stringWithFormat:@"%02d",i]];
@@ -231,17 +241,39 @@
             }
         }
     }
+    
     if (component == 1) {
         if ([[_hourTimes objectAtIndex:row] isEqualToString:SSTimeGetNow]) {
             [_minutes removeAllObjects];
             [pickerView reloadComponent:2];
         }else{
-            if (_minutes.count == 0) {
+            [_minutes removeAllObjects];
+            NSInteger selectedHourRow = [pickerView selectedRowInComponent:1];
+            NSInteger selectedDayRow = [pickerView selectedRowInComponent:0];
+            NSString * title = [_dayTimes objectAtIndex:selectedDayRow];
+            if (selectedHourRow == 1 && [title isEqualToString:SSAppointToday]) {// 数字时间第一行,且今天
+                NSInteger currentMinuteInt = [[NSDate new] km_MinuteInt];
+                double x = (double)currentMinuteInt/5;
+                double cei = ceil(x);
+                double cei5 = 5*cei;
+                int cei5int = (int)cei5;
+                int startPoint = cei5int;
+                //int startPoint = (int)(ceil(currentMinuteInt/5)*5);
+                if (startPoint <= 55) {
+                    for (int i = startPoint; i<=55; i = i + 5) {
+                        [_minutes addObject:[NSString stringWithFormat:@"%02d",i]];
+                    }
+                }else{
+                    for (int i = 0; i <= 55; i = i + 5) {
+                        [_minutes addObject:[NSString stringWithFormat:@"%02d",i]];
+                    }
+                }
+            }else{
                 for (int i = 0; i <= 55; i = i + 5) {
                     [_minutes addObject:[NSString stringWithFormat:@"%02d",i]];
                 }
-                [pickerView reloadComponent:2];
             }
+            [pickerView reloadComponent:2];
         }
     }
 }

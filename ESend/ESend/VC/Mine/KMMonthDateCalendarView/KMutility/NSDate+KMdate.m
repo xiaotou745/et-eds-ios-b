@@ -145,6 +145,14 @@
     return [comps hour];
 }
 
+- (NSInteger)km_MinuteInt{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSMinuteCalendarUnit;
+    comps = [calendar components:unitFlags fromDate:self];
+    return [comps minute];
+}
+
 
 - (NSString *)km_todayYYYY_MM_DD{
     NSCalendar *calendar = [NSCalendar currentCalendar];
