@@ -445,6 +445,9 @@
 
 #pragma mark - SSTipSelectionViewDelegate小费回调
 - (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip{
+    if (tip <= 0) {
+        return;
+    }
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
     NSDictionary * paraData = @{
                                 @"orderId":self.orderId,

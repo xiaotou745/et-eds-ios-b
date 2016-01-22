@@ -118,6 +118,7 @@
     [[NSNotificationCenter defaultCenter ] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kiloTextFieldChanged:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongAddrAdditionFinishedNotify:) name:ShanSongAddressAdditionFinishedNotify object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shanSongUserLogin) name:LoginNotification object:nil];
     // KVO
     [self registerForKVO];
     // delegate
@@ -149,13 +150,15 @@
     
     if ([UserInfo isLogin]){
         NSArray * faAddrs = [DataArchive storedFaAddrsWithBusinessId:[UserInfo getUserId]];
-        SSAddressInfo * lastAddr = [faAddrs lastObject];
-        self.api_addr_fa = lastAddr;
-        self.api_addr_fa_hasValue = YES;
-        self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",lastAddr.name,lastAddr.address,lastAddr.addition];
-        self.hp_FaAddrLabel.textColor = DeepGrey;
-        self.hp_FaAddrPhoneLabel.text = lastAddr.personPhone;
-        self.hp_FaAddrPersonNameLabel.text = [lastAddr.personName stringByAppendingString:lastAddr.genderIsWoman?@"女士":@"先生"];
+        if (faAddrs.count >= 1) {
+            SSAddressInfo * lastAddr = [faAddrs lastObject];
+            self.api_addr_fa = lastAddr;
+            self.api_addr_fa_hasValue = YES;
+            self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",lastAddr.name,lastAddr.address,lastAddr.addition];
+            self.hp_FaAddrLabel.textColor = DeepGrey;
+            self.hp_FaAddrPhoneLabel.text = lastAddr.personPhone;
+            self.hp_FaAddrPersonNameLabel.text = [lastAddr.personName stringByAppendingString:lastAddr.genderIsWoman?@"女士":@"先生"];
+        }
     }
 }
 
@@ -501,13 +504,17 @@
         dateStr = @"立即取货";
     }else{
         self.api_pick_time = date;
-        dateStr = self.api_pick_time;
+        dateStr = [self.api_pick_time substringWithRange:NSMakeRange(0, self.api_pick_time.length - 3)];
     }
     [self.hp_timePickBtn setTitle:dateStr forState:UIControlStateNormal];
     CGFloat dateStrWidth = [dateStr stringSizeWidthWithFontSize:14 height:20];
     NSLog(@"%@",self.api_pick_now?@"yes":@"no");
     NSLog(@"str width %f",dateStrWidth);
     self.hp_timePickBtnWidth.constant = dateStrWidth + 25;
+    
+    
+//    UIAlertView * av = [[UIAlertView alloc] initWithTitle:self.api_pick_now?@"Yes":@"No" message:dateStr delegate:nil cancelButtonTitle:@"cancel" otherButtonTitles:nil, nil];
+//    [av show];
 }
 
 - (NSString *)currentDateString{
@@ -786,5 +793,23 @@
 #pragma mark - SSTipSelectionViewDelegate小费回调
 - (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip{
     self.api_tip = tip;
+}
+
+
+
+#pragma mark - 登录之后的通知
+- (void)shanSongUserLogin{
+    if ([UserInfo isLogin]){
+        NSArray * faAddrs = [DataArchive storedFaAddrsWithBusinessId:[UserInfo getUserId]];
+        if (faAddrs.count >= 1) {
+            SSAddressInfo * lastAddr = [faAddrs lastObject];
+            self.api_addr_fa = lastAddr;
+            self.api_addr_fa_hasValue = YES;
+            self.hp_FaAddrLabel.text = [NSString stringWithFormat:@"%@(%@)%@",lastAddr.name,lastAddr.address,lastAddr.addition];
+            self.hp_FaAddrLabel.textColor = DeepGrey;
+            self.hp_FaAddrPhoneLabel.text = lastAddr.personPhone;
+            self.hp_FaAddrPersonNameLabel.text = [lastAddr.personName stringByAppendingString:lastAddr.genderIsWoman?@"女士":@"先生"];
+        }
+    }
 }
 @end
