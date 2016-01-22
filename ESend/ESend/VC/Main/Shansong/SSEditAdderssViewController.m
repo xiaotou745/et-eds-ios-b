@@ -200,9 +200,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _POITable) {
-        return 55;
+        return 60;
     }else if (tableView == self.historyTable){
-        return 55;
+        return 60;
     }else{
         return 0;
     }

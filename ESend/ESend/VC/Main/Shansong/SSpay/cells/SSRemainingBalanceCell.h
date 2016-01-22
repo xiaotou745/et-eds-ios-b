@@ -15,6 +15,7 @@
 @property (nonatomic,assign) SSPayMethodType payType;
 @property (nonatomic,assign) double remainingBalance;
 @property (nonatomic,assign) BOOL selected;
+@property (nonatomic,assign) BOOL enable;
 
 @end
 

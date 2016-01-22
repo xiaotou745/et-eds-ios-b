@@ -3668,7 +3668,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "74d48306-1ec8-45a2-8bfd-b98cf99429d7";
+				PROVISIONING_PROFILE = "615bacb9-c1af-477c-8adf-2d9d328fe2ee";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
@@ -3678,8 +3678,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Edaisong Network Technology (Beijing) Co.,Ltd. (A5RCNZLAR6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Qiao Song (K8X74FRV4K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Qiao Song (K8X74FRV4K)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3713,7 +3713,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
-				PROVISIONING_PROFILE = "87e90e2f-e045-4f2e-a751-a43e547f6f97";
+				PROVISIONING_PROFILE = "615bacb9-c1af-477c-8adf-2d9d328fe2ee";
 				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;

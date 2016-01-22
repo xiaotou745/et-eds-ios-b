@@ -16,6 +16,7 @@
 #import "Tools.h"
 #import "UIAlertView+Blocks.h"
 #import "ComplaintViewController.h"
+#import "SSTipSelectionView.h"
 
 #define SSOrderDetailVCCancelTitle @"取消任务"
 #define SSOrderDetailVCGoPayTitle @"去支付"
@@ -23,7 +24,7 @@
 #define SSOrderLabelDefaultHeight 25
 #define SSOrderLabelDefaultFontSize 14
 
-@interface SSOrderDetailVC ()
+@interface SSOrderDetailVC ()<SSTipSelectionViewDelegate>
 {
     UIButton * _cancelOrder;
     UIButton * _gotoPay;
@@ -51,7 +52,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *orderDeliveryFee;
 @property (weak, nonatomic) IBOutlet UILabel *orderKm;
 @property (weak, nonatomic) IBOutlet UILabel *orderWeight;
-
+// 加小费
+@property (weak, nonatomic) IBOutlet UIImageView *orderTipImg;
+@property (weak, nonatomic) IBOutlet UIButton *orderTipBtn;
 // 发货信息
 @property (weak, nonatomic) IBOutlet UILabel *orderFaAddr;
 @property (weak, nonatomic) IBOutlet UILabel *orderFaName;
@@ -242,7 +245,7 @@
     
     CGFloat labelWidth = ScreenWidth - 90;
     // content 涉及到高度变化
-    self.orderDeliveryFee.text = [NSString stringWithFormat:@"¥%.2f",orderInfo.ordercommission];
+    self.orderDeliveryFee.text = [NSString stringWithFormat:@"¥%.2f",orderInfo.amountAndTip];
     self.orderDeliveryFee.textColor = RedDefault;
     self.orderKm.text = [NSString stringWithFormat:@"%.2fkm",orderInfo.km];
     self.orderWeight.text = [NSString stringWithFormat:@"%.2f公斤",orderInfo.weight];
@@ -360,6 +363,8 @@
 - (void)layoutStatusViewsWithData:(SSOrderDetailModel *)orderInfo{
     if (orderInfo.status == SSMyOrderStatusUngrab) { // 待接单
         self.rightBtn.hidden = YES;
+        self.orderTipImg.hidden = NO;
+        self.orderTipBtn.enabled = YES;
     }
     if (orderInfo.status == SSMyOrderStatusCanceled) { // 取消
         self.rightBtn.hidden = YES;
@@ -418,5 +423,56 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - 加小费
+- (IBAction)orderTipAddingAct:(UIButton *)sender {
+    [SSHttpReqServer getOrderTipDetailSsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        if (1 == status) {
+            NSDictionary * result = [responseObject objectForKey:@"result"];
+            NSArray * tiplist = [result objectForKey:@"list"];
+            NSMutableArray * tipAmoutObjs = [NSMutableArray array];
+            for (NSDictionary * tipModel in tiplist) {
+                double amount = [[tipModel objectForKey:@"amount"] doubleValue];
+                NSNumber * amoutObj = [NSNumber numberWithDouble:amount];
+                [tipAmoutObjs addObject:amoutObj];
+            }
+            SSTipSelectionView * tipSelectView = [[SSTipSelectionView alloc] initWithDelegate:self tips:tipAmoutObjs];
+            [tipSelectView showInView:self.view];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
+
+#pragma mark - SSTipSelectionViewDelegate小费回调
+- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip{
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    NSDictionary * paraData = @{
+                                @"orderId":self.orderId,
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraData = @{@"data":aesString,};
+    }
+//    __weak typeof (self) weakSelf = self;
+    [SSHttpReqServer getOrderStatus:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [Tools hiddenProgress:HUD];
+        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+        NSInteger orderStatus = [responseObject[@"result"][@"status"] integerValue];
+        if (1 == status && 0 == orderStatus) {
+            SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
+            svc.orderId = self.orderId;
+            svc.balancePrice = self.orderInfo.balancePrice;
+            svc.type = 2;
+            svc.tipAmount = tip;
+            svc.pickupcode = self.orderInfo.pickupcode;
+            [self.navigationController pushViewController:svc animated:YES];
+        }else{
+            [Tools showHUD:@"该订单不能加小费"];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [Tools hiddenProgress:HUD];
+    }];
+}
 
 @end

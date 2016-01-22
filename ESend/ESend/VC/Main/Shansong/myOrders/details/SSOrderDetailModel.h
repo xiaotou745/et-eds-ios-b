@@ -55,6 +55,8 @@
 
 @property (nonatomic,copy) NSString * paymentstr;   //支付方式str
 
+@property (nonatomic,assign) double amountAndTip;   // 总额，带小费
+
 // readonly
 @property (nonatomic,copy,readonly) NSString * orderStatusString;   // 订单状态中文
 @property (nonatomic,copy,readonly) NSString * orderStatusImg;      // 订单状态图片地址

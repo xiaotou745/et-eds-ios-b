@@ -25,7 +25,6 @@
     SSRemainingBalanceModel * _remainBalance;
     SSPayMethodModel * _alipay;
     SSPayMethodModel * _wechatPay;
-    CustomIOSAlertView * _alertView;
 }
 @property (weak, nonatomic) IBOutlet UIView *payInfoBgView;
 @property (weak, nonatomic) IBOutlet UILabel *payTotalLabel;
@@ -44,8 +43,8 @@
     // Do any additional setup after loading the view from its nib.
     self.titleLabel.text = @"确认支付";
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ssPaySuccess) name:AliPaySuccessNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ssPaySuccess) name:WechatPaySuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ssPaySuccess:) name:AliPaySuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ssPaySuccess:) name:WechatPaySuccessNotification object:nil];
     
     [self customizeViews];
 }
@@ -59,12 +58,21 @@
     _remainBalance.payType = SSPayMethodTypeRemainingBalance;
     _remainBalance.selected = YES;
     _remainBalance.remainingBalance = self.balancePrice;
+    if (self.tipAmount > self.balancePrice) {
+        _remainBalance.enable = NO;
+    }else{
+        _remainBalance.enable = YES;
+    }
     NSArray * balanceArray = [NSArray arrayWithObjects:_remainBalance, nil];
     [_payMethodArray addObject:balanceArray];
     //
     _alipay = [[SSPayMethodModel alloc] init];
     _alipay.payType = SSPayMethodTypeAlipay;
-    _alipay.selected = NO;
+    if (self.tipAmount > self.balancePrice) {
+        _alipay.selected = YES;
+    }else{
+        _alipay.selected = NO;
+    }
     _wechatPay = [[SSPayMethodModel alloc] init];
     _wechatPay.payType = SSPayMethodTypeWechatpay;
     _wechatPay.selected = NO;
@@ -223,22 +231,25 @@
 - (void)back{
     [UIAlertView showAlertViewWithTitle:nil message:@"订单还没有支付,确认返回吗?" cancelButtonTitle:@"确定" otherButtonTitles:@[@"继续支付"] onDismiss:^(NSInteger buttonIndex) {
     } onCancel:^{
+        self.pickupcode = nil;
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
 #pragma mark - 支付回调
 #pragma mark - 通知回调
-- (void)ssPaySuccess {
+- (void)ssPaySuccess:(NSNotification *)notify {
+    //NSLog(@"%@",notify);
     [self showPaySuccessAlertWithCode:self.pickupcode];
 }
 
 
 #pragma mark - 支付成功弹出
 - (void)showPaySuccessAlertWithCode:(NSString *)code{
-    if (!_alertView) {
-        _alertView = [[CustomIOSAlertView alloc] init];
+    if (nil == code) {
+        return;
     }
+    CustomIOSAlertView * _alertView = [[CustomIOSAlertView alloc] init];
     [_alertView setContainerView:[self createShouHuoMaAlertWithMa:code]];
     [_alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"确定", @"我的订单", nil]];
     __block SSpayViewController * blockSelf = self;
@@ -247,6 +258,7 @@
             AppDelegate * appdel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             UINavigationController * navc = (UINavigationController*)appdel.window.rootViewController;
             SSMyOrdersVC * umvc = [[SSMyOrdersVC alloc] initWithNibName:@"SSMyOrdersVC" bundle:nil];
+            umvc.toSSMyOrderStatusUngrab = YES;
             NSMutableArray * navArray = [[NSMutableArray alloc] initWithCapacity:0];
             [navArray addObject:[navc.viewControllers firstObject]];
             [navArray addObject:umvc];

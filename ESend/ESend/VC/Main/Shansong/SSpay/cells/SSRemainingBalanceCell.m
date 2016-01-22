@@ -31,6 +31,8 @@
 - (void)setDataSource:(SSRemainingBalanceModel *)dataSource{
     _dataSource = dataSource;
     self.remainingBalance.text = [NSString stringWithFormat:@"账户余额: ¥%.2f",_dataSource.remainingBalance];
+    self.selectionMarker.hidden = !dataSource.enable;
+    self.selectionStyle = dataSource.enable?UITableViewCellSelectionStyleDefault:UITableViewCellSelectionStyleNone;
     self.selectionMarker.image = _dataSource.selected?[UIImage imageNamed:@"ss_release_selected"]:[UIImage imageNamed:@"ss_release_normal"];
 }
 @end

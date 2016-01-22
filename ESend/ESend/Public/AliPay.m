@@ -92,7 +92,7 @@
                        orderSpec, signedString, @"RSA"];
         
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
+            NSLog(@"alipay.m === reslut = %@",resultDic);
             if ([resultDic getIntegerWithKey:@"resultStatus"] == 9000) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:AliPaySuccessNotification object:nil];
             } else {

@@ -130,6 +130,7 @@
         }else{
             self.paymentstr = @"";
         }
+        self.amountAndTip = [[dic objectForKey:@"amountAndTip"] doubleValue];
     }
     return self;
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -17,14 +17,12 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Shr-yH-NG1">
                         <rect key="frame" x="10" y="0.0" width="280" height="44"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Jb-Qz-ZKt">
                         <rect key="frame" x="10" y="44" width="310" height="0.0"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.5" id="H3F-k2-7EU"/>
@@ -32,14 +30,12 @@
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Zv-60-2zB">
                         <rect key="frame" x="290" y="12" width="20" height="20"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="OXJ-vh-PBz"/>
                             <constraint firstAttribute="width" secondItem="8Zv-60-2zB" secondAttribute="height" id="UtB-3b-gHV"/>
                         </constraints>
                     </imageView>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="8Jb-Qz-ZKt" firstAttribute="top" secondItem="Shr-yH-NG1" secondAttribute="bottom" id="6eU-NS-zci"/>
                     <constraint firstItem="8Zv-60-2zB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KFE-Jz-qVL"/>
@@ -52,7 +48,6 @@
                     <constraint firstItem="8Zv-60-2zB" firstAttribute="leading" secondItem="Shr-yH-NG1" secondAttribute="trailing" id="iqh-Iz-Q4c"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="remainingBalance" destination="Shr-yH-NG1" id="krE-ls-L78"/>
                 <outlet property="selectionMarker" destination="8Zv-60-2zB" id="WiK-Of-L32"/>

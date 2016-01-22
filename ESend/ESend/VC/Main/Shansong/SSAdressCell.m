@@ -30,7 +30,7 @@
 - (void)setAddressInfo:(SSAddressInfo *)addressInfo{
     _addressInfo =  addressInfo;
     if (self.cellStyle == SSAdressCellStyleHistory) {
-        self.AddressName.text = _addressInfo.name;
+        self.AddressName.text = [NSString stringWithFormat:@"%@(%@)",_addressInfo.name,_addressInfo.address];
         NSString * sex = _addressInfo.genderIsWoman?@"女士":@"先生";
         self.AddressDetail.text = [NSString stringWithFormat:@"%@%@ %@",_addressInfo.personName,sex,_addressInfo.personPhone];
     }else if (self.cellStyle == SSAdressCellStylePOI){

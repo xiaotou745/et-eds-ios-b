@@ -8,7 +8,6 @@
 
 #import "SSMyOrdersVC.h"
 #import "SSOrderUnpayCell.h"
-#import "SSMyOrderStatus.h"
 #import "MJRefresh.h"
 #import "UserInfo.h"
 #import "SSOrderDetailVC.h"
@@ -19,6 +18,7 @@
 #import "SSpayViewController.h"
 #import "SSTipSelectionView.h"
 #import "SSOrderOndeliveringV2Cell.h"
+#import "CustomIOSAlertView.h"
 
 /*
  typedef NS_ENUM(NSInteger, SSMyOrderStatus) {
@@ -48,9 +48,7 @@
 #define SS_DEFALT_PAGE_SIZE  15
 
 @interface SSMyOrdersVC ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,SSOrderUnpayCellDelegate,SSOrderUngrabCellDelegate,SSTipSelectionViewDelegate,SSOrderOndeliveringV2CellDelegate>
-{
-    SSMyOrderStatus _orderListStatus;           // 当前订单状态
-    
+{    
     AFHTTPRequestOperation *_operation;         // 下拉
 
     UIImageView * _logoImgEmptyUnpay;               // 订单为空的
@@ -253,6 +251,11 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    if (self.toSSMyOrderStatusUngrab) {
+        [self _buttonEventWithSender:self.buttonUngrab];
+        self.toSSMyOrderStatusUngrab = NO;
+        return;
+    }
     [self beginRefresh];
 }
 
@@ -1103,29 +1106,92 @@
 
 #pragma mark - SSOrderOndeliveringV2CellDelegate 获取收货码回调
 - (void)SSOrderOndeliveringV2Cell:(SSOrderOndeliveringV2Cell *)cell getReceiveCodeWithOrder:(SSMyOrderModel *)order{
-    NSString * orderId = [NSString stringWithFormat:@"%ld",(long)order.orderId];
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    NSDictionary * paraData = @{
-                                @"orderId":orderId,
-                                };
-    if (AES_Security) {
-        NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
-        NSString * aesString = [Security AesEncrypt:jsonString2];
-        paraData = @{@"data":aesString,};
-    }
-    [SSHttpReqServer getReceiveCode:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [Tools hiddenProgress:HUD];
-        NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
-        NSString * message = [responseObject objectForKey:@"message"];
-        if (1 == status) {
-            order.isReceiveCode = [[responseObject objectForKey:@"result"] longValue];
-            cell.datasource = order;
-        }else{
-            [Tools showHUD:message];
+    // 弹框先
+    CustomIOSAlertView *_alertView = [[CustomIOSAlertView alloc] init];
+    [_alertView setContainerView:[self createConfirmGetReceiveCodeAlert]];
+    [_alertView setButtonTitles:[NSMutableArray arrayWithObjects:@"关闭", @"确认获取", nil]];
+    __block SSMyOrdersVC * blockSelf = self;
+    [_alertView setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+        if (1 == buttonIndex) {
+            NSString * orderId = [NSString stringWithFormat:@"%ld",(long)order.orderId];
+            MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+            NSDictionary * paraData = @{
+                                        @"orderId":orderId,
+                                        };
+            if (AES_Security) {
+                NSString * jsonString2 = [Security JsonStringWithDictionary:paraData];
+                NSString * aesString = [Security AesEncrypt:jsonString2];
+                paraData = @{@"data":aesString,};
+            }
+            [SSHttpReqServer getReceiveCode:paraData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                [Tools hiddenProgress:HUD];
+                NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
+                NSString * message = [responseObject objectForKey:@"message"];
+                if (1 == status) {
+                    order.isReceiveCode = [[responseObject objectForKey:@"result"] longValue];
+                    cell.datasource = order;
+                    // 弹框显示收货码
+                    CustomIOSAlertView *receiveCodeAlert = [[CustomIOSAlertView alloc] init];
+                    [receiveCodeAlert setContainerView:[self createReceiveAlertCode:order.receivecode]];
+                    [receiveCodeAlert setButtonTitles:[NSMutableArray arrayWithObjects:@"确定", nil]];
+                    [receiveCodeAlert setOnButtonTouchUpInside:^(CustomIOSAlertView *alertView, int buttonIndex) {
+                        [alertView close];
+                    }];
+                    [receiveCodeAlert setUseMotionEffects:true];
+                    [receiveCodeAlert show];
+                    // end
+                }else{
+                    [Tools showHUD:message];
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [Tools hiddenProgress:HUD];
+            }];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [Tools hiddenProgress:HUD];
+        [alertView close];
     }];
+    [_alertView setUseMotionEffects:true];
+    [_alertView show];
 }
 
+
+#pragma mark - 配送中弹框
+/// 确认要获取
+- (UIView *)createConfirmGetReceiveCodeAlert{
+    NSString * alertContent = @"如果骑士送达，收货人没有收到收货码时，再获取收货码告知骑士，非上述情况，请勿操作！";// 10 + x + 1
+    NSMutableAttributedString * mas = [[NSMutableAttributedString alloc] initWithString:alertContent];
+    [mas addAttribute:NSForegroundColorAttributeName value:DeepGrey range:NSMakeRange(0,mas.length)];
+    [mas addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0,mas.length)];
+    //[mas addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(19, 10)];
+    [mas addAttribute:NSForegroundColorAttributeName value:BlueColor range:NSMakeRange(19,10)];
+    
+    UIView *demoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    UILabel * quhuoFix = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, 250, 80)];
+    quhuoFix.attributedText = mas;
+    quhuoFix.numberOfLines = 0;
+    [demoView addSubview:quhuoFix];
+    
+    [demoView setFrame:CGRectMake(0, 0, 290, CGRectGetMaxY(quhuoFix.frame) + 10)];
+    return demoView;
+}
+
+/// 您的收货码是:
+- (UIView *)createReceiveAlertCode:(NSString *)code{
+    NSString * alertContent = [NSString stringWithFormat:@"您的收货码是：%@",code];// 10 + x + 1
+    NSMutableAttributedString * mas = [[NSMutableAttributedString alloc] initWithString:alertContent];
+    [mas addAttribute:NSForegroundColorAttributeName value:DeepGrey range:NSMakeRange(0,mas.length)];
+    [mas addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16] range:NSMakeRange(0,mas.length)];
+    [mas addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18] range:NSMakeRange(7, mas.length - 7)];
+    [mas addAttribute:NSForegroundColorAttributeName value:BlueColor range:NSMakeRange(7,mas.length-7)];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init] ;
+    [paragraphStyle setAlignment:NSTextAlignmentCenter];
+    [mas addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0,mas.length)];
+    
+    UIView *demoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 290, 200)];
+    UILabel * quhuoFix = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 270, 40)];
+    quhuoFix.attributedText = mas;
+    [demoView addSubview:quhuoFix];
+    
+    [demoView setFrame:CGRectMake(0, 0, 290, CGRectGetMaxY(quhuoFix.frame) + 10)];
+    return demoView;
+}
 @end
