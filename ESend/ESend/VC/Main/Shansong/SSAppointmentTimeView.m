@@ -163,18 +163,18 @@
     [_dayTimes removeAllObjects];
     [_hourTimes removeAllObjects];
     NSInteger currentHourInt = [[NSDate new] km_hourInt];
-    if (currentHourInt +2 < 24) {   // 有今天
+    if (currentHourInt +1 < 24) {   // 有今天
         [_dayTimes addObject:SSAppointToday];
         [_dayTimes addObject:SSAppointTomorrow];
         //
         [_hourTimes addObject:SSTimeGetNow];
-        currentHourInt += 2;
+        currentHourInt += 1;
         for (NSInteger i = currentHourInt; i< 24; i++) {
             [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",(long)i]];
         }
     }else{ // 只有明天
         [_dayTimes addObject:SSAppointTomorrow];
-        currentHourInt = currentHourInt + 2 - 24;
+        currentHourInt = currentHourInt + 1 - 24;
         [_hourTimes addObject:SSTimeGetNow];
         for (NSInteger i = currentHourInt; i< 24; i++) {
             [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",(long)i]];
@@ -189,7 +189,7 @@
         NSString * title = [_dayTimes objectAtIndex:row];
         if ([title isEqualToString:SSAppointToday]) { // 今天,明天都有,显示今天
             NSInteger currentHourInt = [[NSDate new] km_hourInt];
-            currentHourInt += 2;
+            currentHourInt += 1;
             [_hourTimes addObject:SSTimeGetNow];
             for (NSInteger i = currentHourInt; i< 24; i++) {
                 [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",(long)i]];
@@ -219,7 +219,7 @@
 
         }else if ([title isEqualToString:SSAppointTomorrow] && _dayTimes.count == 1){ // 只有明天
             NSInteger currentHourInt = [[NSDate new] km_hourInt];
-            currentHourInt = (currentHourInt + 3 - 24);
+            currentHourInt = (currentHourInt + 2 - 24);
             [_hourTimes addObject:SSTimeGetNow];
             for (NSInteger i = currentHourInt; i< 24; i++) {
                 [_hourTimes addObject:[NSString stringWithFormat:@"%02ld",(long)i]];
