@@ -232,6 +232,9 @@
     [UIAlertView showAlertViewWithTitle:nil message:@"订单还没有支付,确认返回吗?" cancelButtonTitle:@"确定" otherButtonTitles:@[@"继续支付"] onDismiss:^(NSInteger buttonIndex) {
     } onCancel:^{
         self.pickupcode = nil;
+        self.orderId = nil;
+        self.tipAmount = 0;
+        self.balancePrice = 0;
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }

@@ -160,6 +160,8 @@
             self.hp_FaAddrPersonNameLabel.text = [lastAddr.personName stringByAppendingString:lastAddr.genderIsWoman?@"女士":@"先生"];
         }
     }
+    // 计算价格公式
+    [self getPriceRule];
 }
 
 #pragma mark - KVO
@@ -211,7 +213,6 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self getPriceRule];
     self.hp_myPhoneCodeBg.hidden = [UserInfo isLogin];
     CGFloat contentHeight = [UserInfo isLogin]?CGRectGetMinY(self.hp_myPhoneCodeBg.frame):CGRectGetMaxY(self.hp_myPhoneCodeBg.frame) + 10;
     self.scrollerHeight.constant = MAX(contentHeight, CGRectGetHeight(self.scroller.frame) + 2);
@@ -552,7 +553,7 @@
                                 @"recevicelatitude":self.api_addr_shou.latitude,
                                 @"productname":self.productName.text,
                                 @"remark":(self.remark.text == nil)?@"":self.remark.text,
-                                @"amount":[NSNumber numberWithDouble:self.api_total_fee],
+                                @"amount":[NSNumber numberWithDouble:self.api_total_fee - self.api_tip],
                                 @"weight":[NSNumber numberWithInteger:self.api_kilo],
                                 @"km":[NSNumber numberWithDouble:self.api_distance],
                                 @"tipamount":[NSNumber numberWithDouble:self.api_tip],
@@ -607,6 +608,7 @@
             self.priceRuleList = [responseObject objectForKey:@"result"];
             self.gotPriceRule = YES;
             self.hp_priceRuleBtn.hidden = NO;
+            [self calculateAndDisplayTotalFee];
         }else{
             if (_getPriceRuleCount < 5) {
                 [self getPriceRule];
@@ -698,6 +700,8 @@
             self.gotPriceRule = YES;
             self.hp_priceRuleBtn.hidden = NO;
             //
+            [self calculateAndDisplayTotalFee];
+            
             SSPriceTableView * priceTable = [[SSPriceTableView alloc] initWithRemark:remark];
             [priceTable showInView:self.view];
         }

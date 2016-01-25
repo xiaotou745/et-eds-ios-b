@@ -171,11 +171,11 @@
                                    @"Remark"       : @"E代送APP取消订单",
                                    @"Platform"     : @"5",
                                    };
-        if (AES_Security) {
-            NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
-            NSString * aesString = [Security AesEncrypt:jsonString2];
-            paraDict = @{@"data":aesString,};
-        }
+        // 必须加密
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{@"data":aesString,};
+        
         [SSHttpReqServer shanSongSSCancelOrder:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
             [Tools hiddenProgress:HUD];
             NSInteger status = [[responseObject objectForKey:@"Status"] integerValue];
