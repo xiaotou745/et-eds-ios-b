@@ -198,11 +198,11 @@
 }
 
 #pragma mark - gotopay
-- (void)gotoPay{
+- (void)gotoPay{// 支付未支付的订单
     SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
     svc.orderId = [NSString stringWithFormat:@"%ld",(long)_orderInfo.orderId];
     svc.balancePrice = _orderInfo.balancePrice;
-    svc.type = 2;
+    svc.type = 1;
     svc.tipAmount = _orderInfo.amount;
     svc.pickupcode = _orderInfo.pickupcode;
     [self.navigationController pushViewController:svc animated:YES];

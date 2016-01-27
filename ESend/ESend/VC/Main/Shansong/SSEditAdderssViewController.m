@@ -160,9 +160,14 @@
         _POITable.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         _POITable.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
-    _POITable.hidden = NO;
-    [self.view addSubview:_POITable];
-    [_POITable reloadData];
+    if (self.addressTextField.text.length > 0) {
+        _POITable.hidden = NO;
+        [self.view addSubview:_POITable];
+        [_POITable reloadData];
+    }else{
+        _POITable.hidden = YES;
+        [_POITable reloadData];
+    }
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate

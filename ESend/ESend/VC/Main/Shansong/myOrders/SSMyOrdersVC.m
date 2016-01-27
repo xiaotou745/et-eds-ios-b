@@ -1044,7 +1044,7 @@
     svc.tipAmount = cell.datasource.amountAndTip;
     svc.balancePrice = cell.datasource.balancePrice;
     svc.orderId = orderId;
-    svc.type = 2;
+    svc.type = 1;
     svc.pickupcode =cell.datasource.pickupCode;
     [self.navigationController pushViewController:svc animated:YES];
 }
