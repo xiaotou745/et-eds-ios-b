@@ -199,14 +199,18 @@
         self.hp_ShouAddrPlaceholder.hidden= self.api_addr_shou_hasValue;
     }
     if ([keyPath isEqualToString:@"api_distance"]) {// 距离
-        self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
+        if (self.api_distance <= 0.1) {
+            self.hp_distanceLabel.text = [NSString stringWithFormat:@"0.1"];
+        }else{
+            self.hp_distanceLabel.text = [NSString stringWithFormat:@"%.1f",self.api_distance];
+        }
         [self calculateAndDisplayTotalFee];
     }
     if ([keyPath isEqualToString:@"api_total_fee"]) {// 总价
         self.hp_totalFeeLabel.text = [NSString stringWithFormat:@"¥ %.2f",self.api_total_fee];
     }
     if ([keyPath isEqualToString:@"api_tip"]) { // 小费
-        [self.tipSelectionBtn setTitle:[NSString stringWithFormat:@"%.2f元",self.api_tip] forState:UIControlStateNormal];
+        [self.tipSelectionBtn setTitle:[NSString stringWithFormat:@"%.0f元",self.api_tip] forState:UIControlStateNormal];
         [self calculateAndDisplayTotalFee];
     }
 }
@@ -642,7 +646,7 @@
         double currKM = [list[i][@"kM"] doubleValue];
         double currDistributionPrice = [list[i][@"distributionPrice"] doubleValue];
         int currSteps = [list[i][@"steps"] intValue];
-        if(currKM>baseKM && km>currKM){//获取第一个符合的值
+        if(currKM>=baseKM && km>currKM){//获取第一个符合的值
             kmDistributionPrice = currDistributionPrice*ceil((km-currKM)/currSteps);
             break;
         }
@@ -652,8 +656,8 @@
         double currKG = [list[i][@"kG"] doubleValue];
         double currDistributionPrice = [list[i][@"distributionPrice"] doubleValue];
         int currSteps = [list[i][@"steps"] intValue];
-        if(currKG>baseKG && kg>currKG){//获取第一个符合的值
-            kmDistributionPrice = currDistributionPrice*ceil((kg-currKG)/currSteps);
+        if(currKG>=baseKG && kg>currKG){//获取第一个符合的值
+            kgDistributionPrice = currDistributionPrice*ceil((kg-currKG)/currSteps);
             break;
         }
     }
@@ -795,8 +799,8 @@
 }
 
 #pragma mark - SSTipSelectionViewDelegate小费回调
-- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip{
-    self.api_tip = tip;
+- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(NSNumber *)tip{
+    self.api_tip = [tip doubleValue];
 }
 
 

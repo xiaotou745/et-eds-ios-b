@@ -58,13 +58,6 @@ typedef NS_ENUM(NSInteger, BottomType) {
     [self configMineUIViews];
 }
 
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//    _newMessageIcon.hidden = YES;
-//    [self loadData];
-//
-//}
-
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     _newMessageIcon.hidden = YES;

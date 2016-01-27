@@ -12,7 +12,7 @@
 
 @protocol SSTipSelectionViewDelegate <NSObject>
 @optional
-- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip;
+- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(NSNumber*)tip;
 @end
 
 @interface SSTipSelectionView : UIView

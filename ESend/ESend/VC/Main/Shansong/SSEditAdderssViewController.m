@@ -64,13 +64,6 @@
     
     NSArray * faAddrs = [DataArchive storedFaAddrsWithBusinessId:[UserInfo getUserId]];
     NSArray * ShouAddrs = [DataArchive storedShouAddrsWithBusinessId:[UserInfo getUserId]];
-//    NSLog(@"fff -- %@",faAddrs);
-//    for (SSAddressInfo * ind in ShouAddrs) {
-//        
-//        NSLog(@"sss -- %@",ind);
-//        NSLog(@"%@ - %@",ind.uid,ind.name);
-//
-//    }
     
     if (self.type == SSAddressEditorTypeFa) {
         [_historyAddrs addObjectsFromArray:faAddrs];
@@ -95,12 +88,19 @@
     option.pageCapacity = 10;
     option.city = isCanUseString(self.currentCityName)?self.currentCityName:@"北京";
     option.keyword = ((UITextField *)(notify.object)).text;
-    BOOL flag = [_searcher poiSearchInCity:option];
-    if(flag){
-        NSLog(@"周边检索发送成功");
+    if (option.keyword.length > 0) {
+        BOOL flag = [_searcher poiSearchInCity:option];
+        if(flag){
+            NSLog(@"周边检索发送成功");
+        }else{
+            NSLog(@"周边检索发送失败");
+            [Tools showHUD:@"未找到结果"];
+        }
     }else{
-        NSLog(@"周边检索发送失败");
+        // 显示历史地址
+        _POITable.hidden = YES;
     }
+
 }
 
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
@@ -144,6 +144,8 @@
         // result.cityList;
         NSLog(@"起始点有歧义");
     } else {
+        [Tools showHUD:@"未找到结果"];
+
         NSLog(@"抱歉，未找到结果");
     }
 }
@@ -158,6 +160,7 @@
         _POITable.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         _POITable.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
+    _POITable.hidden = NO;
     [self.view addSubview:_POITable];
     [_POITable reloadData];
 }

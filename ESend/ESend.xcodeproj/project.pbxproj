@@ -3665,7 +3665,10 @@
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
 					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
 				PROVISIONING_PROFILE = "615bacb9-c1af-477c-8adf-2d9d328fe2ee";
@@ -3710,7 +3713,10 @@
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
 					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
 				PROVISIONING_PROFILE = "615bacb9-c1af-477c-8adf-2d9d328fe2ee";
@@ -3755,7 +3761,10 @@
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
 					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
 				PROVISIONING_PROFILE = "74d48306-1ec8-45a2-8bfd-b98cf99429d7";
@@ -3800,7 +3809,10 @@
 					"$(PROJECT_DIR)/ESend/Lib/UMAnalytics_Sdk_3.5.8",
 					"$(PROJECT_DIR)/ESend/Lib/wechat/SDKExport",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.edaisong.b.shansong;
 				PRODUCT_NAME = "ESend copy";
 				PROVISIONING_PROFILE = "74d48306-1ec8-45a2-8bfd-b98cf99429d7";

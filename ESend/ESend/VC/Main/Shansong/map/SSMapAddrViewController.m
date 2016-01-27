@@ -104,6 +104,9 @@
 
 #pragma mark - BMKMapViewDelegate  BMKLocationServiceDelegate
 //实现相关delegate 处理位置信息更新
+- (void)didFailToLocateUserWithError:(NSError *)error{
+    [Tools showHUD:@"自动定位失败！请手动选择"];
+}
 //处理位置坐标更新
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
@@ -146,41 +149,23 @@
     if (error == BMK_SEARCH_NO_ERROR) {
         //在此处理正常结果
         [_addressList removeAllObjects];
-        /*
-         @property (nonatomic,copy) NSString * name;
-         @property (nonatomic,copy) NSString * uid;
-         @property (nonatomic,copy) NSString * address;
-         @property (nonatomic,copy) NSString * city;
-         @property (nonatomic,assign) CLLocationCoordinate2D coordinate;
-         
-         @property (nonatomic,copy) NSString * addition;
-         */
-        SSAddressInfo * mapAddr1 = [[SSAddressInfo alloc] init];
-        mapAddr1.name = result.addressDetail.streetName;
-        mapAddr1.address = result.address;
-        mapAddr1.city = result.addressDetail.city;
-        mapAddr1.latitude = [NSString stringWithFormat:@"%f",result.location.latitude];
-        mapAddr1.longitude = [NSString stringWithFormat:@"%f",result.location.longitude];
-        mapAddr1.selected = YES;
-        [_addressList addObject:mapAddr1];
         
-        for (BMKPoiInfo * info in result.poiList) {
-            //NSLog(@"%f,%f",info.pt.latitude,info.pt.longitude);
+        for (int i = 0; i < result.poiList.count; i++) {
+            BMKPoiInfo * info = [result.poiList objectAtIndex:i];
             SSAddressInfo * mapAddr = [[SSAddressInfo alloc] initWithBMKPoiInfo:info];
-            mapAddr.selected = NO;
+            mapAddr.selected = (i == 0);
             [_addressList addObject:mapAddr];
         }
         
         [self.addressTableView reloadData];
-        [self.addressTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         
         if (_addressList.count > 0) {
             self.rightBtn.hidden = NO;
+            [self.addressTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
         
     }else {
         [Tools showHUD:@"未找到结果"];
-        NSLog(@"抱歉，未找到结果");
     }
 }
 

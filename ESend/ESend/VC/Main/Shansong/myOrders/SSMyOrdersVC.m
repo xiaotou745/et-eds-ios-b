@@ -1045,6 +1045,7 @@
     svc.balancePrice = cell.datasource.balancePrice;
     svc.orderId = orderId;
     svc.type = 2;
+    svc.pickupcode =cell.datasource.pickupCode;
     [self.navigationController pushViewController:svc animated:YES];
 }
 
@@ -1072,7 +1073,7 @@
 }
 
 #pragma mark - SSTipSelectionViewDelegate小费回调
-- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip{
+- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(NSNumber*)tip{
     if (tip <= 0) {
         return;
     }
@@ -1095,7 +1096,7 @@
             svc.orderId = self.tipOrderId;
             svc.balancePrice = self.balancePrice;
             svc.type = 2;
-            svc.tipAmount = tip;
+            svc.tipAmount = [tip doubleValue];
             svc.pickupcode = self.pickupCode;
             [self.navigationController pushViewController:svc animated:YES];
         }else{

@@ -238,13 +238,13 @@ fprintf(stderr, "-------\n");                                               \
 // 闪送地图
 #define ShanSongAddressMapPOISectedNotify @"ShanSongAddressMapPOISectedNotify" // 地图选择地址
 
-#if 0
+#if 1
 
-    #define OPEN_API_SEVER @"http://api.edaisong.com/20151223/" //生产
-    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20151223/" //上传图片地址
+    #define OPEN_API_SEVER @"http://api.edaisong.com/20160120/" //生产
+    #define UPLOAD_IMAGE_API_SERVER @"http://upload.edaisong.com/20160120/" //上传图片地址
     #define UPDATE_APP_API_SERVER @"http://api.edaisong.com/" // 升级接口
 
-    #define Java_API_SERVER @"http://japi.edaisong.com/20151223/services/" // java服务器-加密
+    #define Java_API_SERVER @"http://japi.edaisong.com/20160120/services/" // java服务器-加密
 
 #elif 0
     #define OPEN_API_SEVER @"http://10.8.10.130:8081/"   //曹赫洋
@@ -288,7 +288,7 @@ fprintf(stderr, "-------\n");                                               \
 #endif
 
 /// Java版新接口，是否加密
-#if 0
+#if 1
     #define AES_Security YES   // 加密
 #elif 1
     #define AES_Security NO    // 不加密

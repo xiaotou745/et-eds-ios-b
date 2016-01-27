@@ -56,7 +56,7 @@
         return;
     }
 
-    double selectedTipAmout = [[_dataSource objectAtIndex:selectedTip] doubleValue];
+    NSNumber * selectedTipAmout = [_dataSource objectAtIndex:selectedTip];
     
     if ([self.delegate respondsToSelector:@selector(SSTipSelectionView:selectedTip:)]) {
         [self.delegate SSTipSelectionView:self selectedTip:selectedTipAmout];
@@ -85,7 +85,7 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    return [NSString stringWithFormat:@"%.2f元",[_dataSource[row] doubleValue]];
+    return [NSString stringWithFormat:@"%@元",_dataSource[row]];
 }
 
 @end

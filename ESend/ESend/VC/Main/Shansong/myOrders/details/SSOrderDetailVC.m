@@ -204,6 +204,7 @@
     svc.balancePrice = _orderInfo.balancePrice;
     svc.type = 2;
     svc.tipAmount = _orderInfo.amount;
+    svc.pickupcode = _orderInfo.pickupcode;
     [self.navigationController pushViewController:svc animated:YES];
 }
 
@@ -361,6 +362,10 @@
 
 
 - (void)layoutStatusViewsWithData:(SSOrderDetailModel *)orderInfo{
+    self.rightBtn.hidden = NO;
+    self.orderTipImg.hidden = YES;
+    self.orderTipBtn.enabled = NO;
+    
     if (orderInfo.status == SSMyOrderStatusUngrab) { // 待接单
         self.rightBtn.hidden = YES;
         self.orderTipImg.hidden = NO;
@@ -444,7 +449,7 @@
 }
 
 #pragma mark - SSTipSelectionViewDelegate小费回调
-- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(double)tip{
+- (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(NSNumber *)tip{
     if (tip <= 0) {
         return;
     }
@@ -467,11 +472,13 @@
             svc.orderId = self.orderId;
             svc.balancePrice = self.orderInfo.balancePrice;
             svc.type = 2;
-            svc.tipAmount = tip;
+            svc.tipAmount = [tip doubleValue];
             svc.pickupcode = self.orderInfo.pickupcode;
             [self.navigationController pushViewController:svc animated:YES];
         }else{
             [Tools showHUD:@"该订单不能加小费"];
+            // 刷新
+            [self getORderDetail];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [Tools hiddenProgress:HUD];
