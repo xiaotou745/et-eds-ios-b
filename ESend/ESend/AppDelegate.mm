@@ -55,8 +55,7 @@
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
     }];
-    
-    // 更新银行列表，需要token
+    // 更新银行列表
     [self updateBankCityList];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
@@ -80,7 +79,6 @@
     _rootNav.navigationBarHidden = YES;
     self.window.rootViewController = _rootNav;
     
-    // [self showWelcomeLoginAnimated:NO];
     [self setupJpush:launchOptions];
     [self setPushTag];
     
@@ -95,8 +93,6 @@
     [self updateCityList];
     //向微信注册
     [WXApi registerApp:APP_ID withDescription:@"EDS_B_SS"];
-    
-    
     return YES;
 }
 

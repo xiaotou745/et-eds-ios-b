@@ -229,6 +229,7 @@
 		68C3D71E1BCBA6140081D082 /* UIImage+KmImg.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */; };
 		68D1F1571C292D6800027D0A /* NSString+moneyFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D1F1561C292D6800027D0A /* NSString+moneyFormat.m */; };
 		68D1F1581C292D6800027D0A /* NSString+moneyFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 68D1F1561C292D6800027D0A /* NSString+moneyFormat.m */; };
+		68D3DFD41C7578A000FB5BF7 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D3DFD31C7578A000FB5BF7 /* LocalAuthentication.framework */; };
 		68EB380F1C101B220046071E /* SSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EB380E1C101B210046071E /* SSLoginVC.m */; };
 		68EB38101C101B220046071E /* SSLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 68EB380E1C101B210046071E /* SSLoginVC.m */; };
 		68FE8CCA1C05B1FB004BABB4 /* SSHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FE8CC81C05B1FB004BABB4 /* SSHomepageViewController.m */; };
@@ -875,6 +876,7 @@
 		68C3D71C1BCBA6140081D082 /* UIImage+KmImg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KmImg.m"; sourceTree = "<group>"; };
 		68D1F1551C292D6800027D0A /* NSString+moneyFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+moneyFormat.h"; sourceTree = "<group>"; };
 		68D1F1561C292D6800027D0A /* NSString+moneyFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+moneyFormat.m"; sourceTree = "<group>"; };
+		68D3DFD31C7578A000FB5BF7 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		68EB380D1C101B210046071E /* SSLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSLoginVC.h; sourceTree = "<group>"; };
 		68EB380E1C101B210046071E /* SSLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSLoginVC.m; sourceTree = "<group>"; };
 		68EFEE2C1BCCEF8B00CCB4FE /* BS_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BS_Header.h; sourceTree = "<group>"; };
@@ -1377,6 +1379,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68D3DFD41C7578A000FB5BF7 /* LocalAuthentication.framework in Frameworks */,
 				686A49911C0ED93700558D5D /* AddressBookUI.framework in Frameworks */,
 				686A498F1C0ED93100558D5D /* AddressBook.framework in Frameworks */,
 				F67D35DD1B5664A600083DA4 /* CoreTelephony.framework in Frameworks */,
@@ -1752,6 +1755,7 @@
 		686745671BA98ED4005F59D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				68D3DFD31C7578A000FB5BF7 /* LocalAuthentication.framework */,
 				686A49901C0ED93700558D5D /* AddressBookUI.framework */,
 				686A498E1C0ED93100558D5D /* AddressBook.framework */,
 				F637CF4E1B437F1D00410C24 /* CoreTelephony.framework */,
