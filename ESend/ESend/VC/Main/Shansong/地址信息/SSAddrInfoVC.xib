@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -144,12 +144,23 @@
                                                 <action selector="aiGenderChoosingAction:" destination="-1" eventType="touchUpInside" id="PXv-j4-MJH"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzt-1v-Fbu" userLabel="电话联想">
+                                            <rect key="frame" x="12" y="8" width="531" height="30"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="2H5-OK-wmg"/>
+                                            </constraints>
+                                            <connections>
+                                                <action selector="editPhoneNumber:" destination="-1" eventType="touchUpInside" id="ZaA-5c-d0E"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="cJZ-bO-7Gb" firstAttribute="top" secondItem="sq8-Mo-oBD" secondAttribute="top" constant="8" id="1I8-pK-9yn"/>
                                         <constraint firstAttribute="trailing" secondItem="ShS-cJ-4q0" secondAttribute="trailing" constant="12" id="6Hi-MI-9JG"/>
                                         <constraint firstItem="ShS-cJ-4q0" firstAttribute="centerY" secondItem="5xi-LP-3hZ" secondAttribute="centerY" id="7AH-mD-BdW"/>
+                                        <constraint firstItem="Fzt-1v-Fbu" firstAttribute="leading" secondItem="sq8-Mo-oBD" secondAttribute="leading" constant="12" id="9Qs-99-GQq"/>
                                         <constraint firstAttribute="height" constant="90" id="9fO-Sa-oko"/>
                                         <constraint firstItem="sPD-Nc-xVd" firstAttribute="leading" secondItem="sq8-Mo-oBD" secondAttribute="leading" constant="12" id="COb-1H-isM"/>
                                         <constraint firstItem="ShS-cJ-4q0" firstAttribute="top" secondItem="sPD-Nc-xVd" secondAttribute="bottom" constant="8" id="ICX-L8-Wby"/>
@@ -159,9 +170,11 @@
                                         <constraint firstItem="HOa-mh-BuE" firstAttribute="leading" secondItem="cJZ-bO-7Gb" secondAttribute="trailing" constant="5" id="dj4-g8-wd2"/>
                                         <constraint firstItem="HOa-mh-BuE" firstAttribute="centerY" secondItem="cJZ-bO-7Gb" secondAttribute="centerY" id="dpH-RO-v7P"/>
                                         <constraint firstAttribute="trailing" secondItem="sPD-Nc-xVd" secondAttribute="trailing" id="hqJ-QC-EWk"/>
+                                        <constraint firstItem="HOa-mh-BuE" firstAttribute="leading" secondItem="Fzt-1v-Fbu" secondAttribute="trailing" constant="5" id="qdv-am-6es"/>
                                         <constraint firstItem="cJZ-bO-7Gb" firstAttribute="leading" secondItem="sq8-Mo-oBD" secondAttribute="leading" constant="12" id="sKz-z3-R24"/>
                                         <constraint firstItem="sPD-Nc-xVd" firstAttribute="top" secondItem="cJZ-bO-7Gb" secondAttribute="bottom" constant="7" id="teB-x5-IcB"/>
                                         <constraint firstItem="sPD-Nc-xVd" firstAttribute="centerY" secondItem="sq8-Mo-oBD" secondAttribute="centerY" id="uFq-PC-sf5"/>
+                                        <constraint firstItem="Fzt-1v-Fbu" firstAttribute="top" secondItem="sq8-Mo-oBD" secondAttribute="top" constant="8" id="yD3-PI-GW6"/>
                                     </constraints>
                                 </view>
                             </subviews>

@@ -13,6 +13,9 @@
 #import "NSString+PhoneFormat.h"
 #import "NSString+allSpace.h"
 #import "NSString+evaluatePhoneNumber.h"
+#import "SSAdressCell.h"
+#import "UserInfo.h"
+#import "DataArchive.h"
 
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
 #define SS_HPNoShouAddressMsg @"请输入收货地址"
@@ -33,12 +36,17 @@
 #define SS_HpShouNameMinLengh @"收货人姓名不能少于2个字"
 
 
-@interface SSAddrInfoVC ()<ABPeoplePickerNavigationControllerDelegate,UITextFieldDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,SSEditAdderssViewControllerDelegate>
+@interface SSAddrInfoVC ()<ABPeoplePickerNavigationControllerDelegate,UITextFieldDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,SSEditAdderssViewControllerDelegate,UITableViewDataSource,UITableViewDelegate,SSAdressCellDelegate>
 {
     BOOL _genderIsWoman;
     BMKLocationService *_locService;
     BMKGeoCodeSearch *_searcher;
     BOOL _has_addr_value;
+    // 电话联想
+    UIView * _bgv;
+    UIView * _mask2;
+    UITextField * _phoneTF2;
+    UITableView * _consigneeHistoryTV;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *aiAddrTypeImg;
 @property (weak, nonatomic) IBOutlet UILabel *aiAddrText;
@@ -47,12 +55,26 @@
 @property (weak, nonatomic) IBOutlet UITextField *aiAddrPersonName;
 @property (weak, nonatomic) IBOutlet UIButton *aiAddrPersonGender;
 
+@property (nonatomic,strong) NSMutableArray * consigneeArrayForDisplay;
+@property (nonatomic,strong) NSMutableArray * consigneeArray;
 @end
 
 @implementation SSAddrInfoVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // init
+    _consigneeArray = [[NSMutableArray alloc] initWithCapacity:0];
+    _consigneeArrayForDisplay = [[NSMutableArray alloc] initWithCapacity:0];
+    NSArray * localConsignees = nil;
+    if (self.addrType == SSAddressEditorTypeFa) {
+        localConsignees = [DataArchive storedFaAddrsWithBusinessId:[UserInfo getUserId]];
+    }else{
+        localConsignees = [DataArchive storedShouAddrsWithBusinessId:[UserInfo getUserId]];
+    }
+    [_consigneeArray addObjectsFromArray:localConsignees];
+
+    // notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(aiAddrInfoTextFieldChanged:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(ssAddrMapPOINotify:) name:ShanSongAddressMapPOISectedNotify object:nil];
     // nav
@@ -305,4 +327,162 @@
     self.aiAddrText.textColor = DeepGrey;
 }
 
+- (IBAction)editPhoneNumber:(id)sender {
+    [self showPhoneNumberSearchViews];
+}
+#pragma mark 电话联想功能
+- (void)showPhoneNumberSearchViews{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    
+    _bgv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 64)];
+    _bgv.backgroundColor = [UIColor whiteColor];
+    _bgv.layer.borderWidth = 0.5f;
+    _bgv.layer.borderColor = [MiddleGrey CGColor];
+    [self.view addSubview:_bgv];
+    
+    _mask2 = [[UIView alloc] initWithFrame:CGRectMake(0, 64, MainWidth, MainHeight - 44)];
+    _mask2.backgroundColor = [UIColor colorWithHexString:@"e8e8e8"];
+    _mask2.alpha = 1.0f;
+    [self.view addSubview:_mask2];
+    //
+    _phoneTF2 = [[UITextField alloc] initWithFrame:CGRectMake(10, 20, MainWidth - 20 - 100, 44)];
+    _phoneTF2.backgroundColor = [UIColor whiteColor];
+    _phoneTF2.font = [UIFont systemFontOfSize:NormalFontSize];
+    _phoneTF2.textColor = DeepGrey;
+    _phoneTF2.placeholder = self.aiAddrPhone.placeholder;
+    _phoneTF2.text = self.aiAddrPhone.text;
+    _phoneTF2.clearButtonMode = UITextFieldViewModeAlways;
+    _phoneTF2.keyboardType = UIKeyboardTypeNumberPad;
+    _phoneTF2.delegate = self;
+    [_phoneTF2 becomeFirstResponder];
+    [_bgv addSubview:_phoneTF2];
+    
+    UIButton * _okbtn = [[UIButton alloc] initWithFrame:CGRectMake(10 + _phoneTF2.frame.size.width, 24, 49, 36)];
+    _okbtn.layer.borderWidth = 0.5;
+    _okbtn.layer.borderColor = [MiddleGrey CGColor];
+    _okbtn.layer.cornerRadius = 2;
+    _okbtn.layer.masksToBounds = YES;
+    [_okbtn addTarget:self action:@selector(_okbtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_okbtn setTitle:@"确 定" forState:UIControlStateNormal];
+    [_okbtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _okbtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_bgv addSubview:_okbtn];
+    
+    UIButton * _cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(_okbtn.frame.origin.x + 51, 24, 49, 36)];
+    _cancelBtn.layer.borderWidth = 0.5;
+    _cancelBtn.layer.borderColor = [MiddleGrey CGColor];
+    _cancelBtn.layer.cornerRadius = 2;
+    _cancelBtn.layer.masksToBounds = YES;
+    [_cancelBtn addTarget:self action:@selector(_cancelAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_cancelBtn setTitle:@"取 消" forState:UIControlStateNormal];
+    _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [_bgv addSubview:_cancelBtn];
+    
+    // table
+    _consigneeHistoryTV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, MainHeight - 44) style:UITableViewStylePlain];
+    _consigneeHistoryTV.dataSource = self;
+    _consigneeHistoryTV.delegate = self;
+    _consigneeHistoryTV.backgroundColor = [UIColor clearColor];
+    _consigneeHistoryTV.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    _consigneeHistoryTV.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_mask2 addSubview:_consigneeHistoryTV];
+}
+
+- (void)_okbtnAction:(id)sender{
+    
+    if ([_phoneTF2.text rightConsigneeContactInfo]) {
+        self.aiAddrPhone.text = _phoneTF2.text;
+        [self _cancelAction:nil];
+    }else{
+        [Tools showHUD:@"请输入正确的手机或座机号"];
+    }
+    
+    
+}
+
+- (void)_cancelAction:(id)sender{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [_consigneeArrayForDisplay removeAllObjects];
+    
+    [_bgv removeFromSuperview];
+    _bgv = nil;
+    [_mask2 removeFromSuperview];
+    _mask2 = nil;
+}
+
+#pragma mark - UITextFieldDelegate
+/// 字符变化
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    if ([string isEqualToString:@"\n"]){
+        return YES;
+    }
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    // NSLog(@"%@",toBeString);
+    if (textField == _phoneTF2 && toBeString.length >= 3) {
+        // 手机号，超过3级以上，联想
+        [_consigneeArrayForDisplay removeAllObjects];
+        for (SSAddressInfo * aConsignee in _consigneeArray) {
+            if ([aConsignee.personPhone includesAString:toBeString]) {
+                [_consigneeArrayForDisplay addObject:aConsignee];
+            }
+        }
+        [_consigneeHistoryTV reloadData];
+    }
+    return YES;
+}
+
+#pragma mark - UITableViewDataSource,UITableViewDelegate
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString * EAhistoryTableCellId = @"AIhistoryTableCellId";
+    SSAdressCell * cell = [tableView dequeueReusableCellWithIdentifier:EAhistoryTableCellId];
+    if (nil == cell) {
+        cell = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([SSAdressCell class]) owner:self options:nil] lastObject];
+    }
+    cell.cellStyle = SSAdressCellStyleHistory;
+    cell.addressInfo = [_consigneeArrayForDisplay objectAtIndex:indexPath.row];
+    cell.delegate = self;
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _consigneeArrayForDisplay.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 60;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == _consigneeHistoryTV) {
+        SSAddressInfo * address = [_consigneeArrayForDisplay objectAtIndex:indexPath.row];
+        self.addrInfo = address;
+        _has_addr_value = YES;
+        self.aiAddrText.text = [NSString stringWithFormat:@"%@(%@)",_addrInfo.name,_addrInfo.address];
+        self.aiAddrText.textColor = DeepGrey;
+        self.aiAddrAdtion.text = _addrInfo.addition;
+        self.aiAddrPhone.text = _addrInfo.personPhone;
+        self.aiAddrPersonName.text = _addrInfo.personName;
+        _genderIsWoman = _addrInfo.genderIsWoman;
+        NSString * imgName = _genderIsWoman?@"ss_woman":@"ss_man";
+        [self.aiAddrPersonGender setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
+        [self _cancelAction:nil];
+    }
+}
+
+#pragma mark - SSAdressCellDelegate
+- (void)deleteAddressWithId:(NSString *)uid{
+    for (SSAddressInfo * addrInfo in _consigneeArrayForDisplay) {
+        if ([addrInfo.uid isEqualToString:uid]) {
+            [_consigneeArrayForDisplay removeObject:addrInfo];
+            break;
+        }
+    }
+    [_consigneeHistoryTV reloadData];
+    if (self.addrType == SSAddressEditorTypeFa) {
+        [DataArchive deleteFaAddrWithId:uid bid:[UserInfo getUserId]];
+    }else if (self.addrType == SSAddressEditorTypeShou){
+        [DataArchive deleteShouAddrWithId:uid bid:[UserInfo getUserId]];
+    }
+}
 @end

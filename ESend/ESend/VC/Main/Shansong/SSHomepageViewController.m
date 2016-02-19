@@ -368,14 +368,15 @@
         [Tools showHUD:SS_HpMaxDistance];
         return;
     }
-    if (self.productName.text.length <= 0 || [self.productName.text allSpace]) {
-        [Tools showHUD:SS_HpNoProductNameMsg];
-        return;
-    }
-    if (self.productName.text.length < 2 || [self.productName.text allSpace]) {
-        [Tools showHUD:SS_HpLessProductNameMsg];
-        return;
-    }
+    // 物品名称改为选填
+//    if (self.productName.text.length <= 0 || [self.productName.text allSpace]) {
+//        [Tools showHUD:SS_HpNoProductNameMsg];
+//        return;
+//    }
+//    if (self.productName.text.length < 2 || [self.productName.text allSpace]) {
+//        [Tools showHUD:SS_HpLessProductNameMsg];
+//        return;
+//    }
     if (![UserInfo isLogin]) {
         if (self.hp_myPhoneTextField.text.length <= 0 || [self.hp_myPhoneTextField.text allSpace]) {
             [Tools showHUD:SS_HpNoMyCellPhoneMsg];
@@ -555,7 +556,7 @@
                                 @"receviceaddress":[NSString stringWithFormat:@"%@(%@)%@",self.api_addr_shou.name,self.api_addr_shou.address,self.api_addr_shou.addition],
                                 @"recevicelongitude":self.api_addr_shou.longitude,
                                 @"recevicelatitude":self.api_addr_shou.latitude,
-                                @"productname":self.productName.text,
+                                @"productname":(self.productName.text == nil)?@"":self.productName.text,
                                 @"remark":(self.remark.text == nil)?@"":self.remark.text,
                                 @"amount":[NSNumber numberWithDouble:self.api_total_fee - self.api_tip],
                                 @"weight":[NSNumber numberWithInteger:self.api_kilo],
