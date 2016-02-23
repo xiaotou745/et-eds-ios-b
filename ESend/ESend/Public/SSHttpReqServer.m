@@ -46,11 +46,14 @@
 /*
  1.1.3 获取任务配送费配置
  url:/common/gettaskdistributionconfig POST
+ 参数	描述	允许为空
+ businessId	商户Id	否
  */
-+ (AFHTTPRequestOperation *)gettaskdistributionconfigsuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                                                     failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
++ (AFHTTPRequestOperation *)gettaskdistributionconfigParam:(NSDictionary *)param
+                                                   success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure{
     NSString * URLString = [NSString stringWithFormat:@"%@common/gettaskdistributionconfig",Java_API_SERVER];
-    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    AFHTTPRequestOperation * operation = [[self _manager] POST:URLString parameters:param success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success(operation,responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(operation,error);

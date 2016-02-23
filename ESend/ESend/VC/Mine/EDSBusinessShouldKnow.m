@@ -8,6 +8,7 @@
 
 #import "EDSBusinessShouldKnow.h"
 #import "SSHttpReqServer.h"
+#import "UserInfo.h"
 
 @interface EDSBusinessShouldKnow ()<UIWebViewDelegate>
 {
@@ -25,7 +26,15 @@
     self.titleLabel.text = @"价格表";
     
     _HUD = [Tools showProgressWithTitle:@""];
-    [SSHttpReqServer gettaskdistributionconfigsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary * paraDict = @{
+                                @"businessId":[UserInfo isLogin]?[UserInfo getUserId]:@"0",
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{@"data":aesString,};
+    }
+    [SSHttpReqServer gettaskdistributionconfigParam:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:_HUD];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {

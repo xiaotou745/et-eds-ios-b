@@ -210,7 +210,8 @@
         self.hp_totalFeeLabel.text = [NSString stringWithFormat:@"¥ %.2f",self.api_total_fee];
     }
     if ([keyPath isEqualToString:@"api_tip"]) { // 小费
-        [self.tipSelectionBtn setTitle:[NSString stringWithFormat:@"%.0f元",self.api_tip] forState:UIControlStateNormal];
+        NSNumber * tipNumber = [NSNumber numberWithDouble:self.api_tip];
+        [self.tipSelectionBtn setTitle:[NSString stringWithFormat:@"%@元",tipNumber] forState:UIControlStateNormal];
         [self calculateAndDisplayTotalFee];
     }
 }
@@ -607,7 +608,15 @@
 /// 获取计算价格公式
 - (void)getPriceRule{
     _getPriceRuleCount++;
-    [SSHttpReqServer gettaskdistributionconfigsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary * paraDict = @{
+                                @"businessId":[UserInfo isLogin]?[UserInfo getUserId]:@"0",
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{@"data":aesString,};
+    }
+    [SSHttpReqServer gettaskdistributionconfigParam:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
             self.priceRuleList = [responseObject objectForKey:@"result"];
@@ -695,13 +704,21 @@
 #pragma mark - 价格表
 - (IBAction)showPriceTable:(UIButton *)sender {
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    [SSHttpReqServer gettaskdistributionconfigsuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary * paraDict = @{
+                                @"businessId":[UserInfo isLogin]?[UserInfo getUserId]:@"0",
+                                };
+    if (AES_Security) {
+        NSString * jsonString2 = [Security JsonStringWithDictionary:paraDict];
+        NSString * aesString = [Security AesEncrypt:jsonString2];
+        paraDict = @{@"data":aesString,};
+    }
+    [SSHttpReqServer gettaskdistributionconfigParam:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:HUD];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
             NSArray * result = [responseObject objectForKey:@"result"];
             self.priceRuleList = result;
-            NSString * remark = result[0][@"remark"];
+            NSString * remark = responseObject[@"message"];
             self.gotPriceRule = YES;
             self.hp_priceRuleBtn.hidden = NO;
             //
