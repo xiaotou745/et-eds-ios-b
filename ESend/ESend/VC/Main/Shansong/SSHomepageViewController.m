@@ -26,6 +26,7 @@
 #import "NSString+evaluatePhoneNumber.h"
 #import "SSTipSelectionView.h"
 #import "NSString+stringSizes.h"
+#import "UIAlertView+Blocks.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
@@ -41,6 +42,10 @@
 
 #define SS_HpNoMyCellPhoneMsg @"请输入您的手机号"
 #define SS_HpNoMyCodeMsg @"请输入验证码"
+
+#define SS_HpFaShouSamePhoneMsg @"发货收货电话不能相同"
+
+#define SS_PriceConfigChangedMsg(amount) [NSString stringWithFormat:@"该账号已设置计费规则，实际配送费为%@元，点击确认跳转至支付页面,点关闭停留在下单页面",amount]
 
 @interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate,SSTipSelectionViewDelegate>{
     dispatch_source_t _timer;
@@ -104,6 +109,8 @@
 // 价格规则
 @property (assign,nonatomic) BOOL gotPriceRule;
 @property (nonatomic,strong) NSArray * priceRuleList;
+/// 后台返回的总价格，以此为准
+@property (assign, nonatomic) double api_server_amount;
 
 @end
 
@@ -378,6 +385,10 @@
 //        [Tools showHUD:SS_HpLessProductNameMsg];
 //        return;
 //    }
+    if ([self.api_addr_fa.personPhone compare:self.api_addr_shou.personPhone] == NSOrderedSame) {
+        [Tools showHUD:SS_HpFaShouSamePhoneMsg];
+        return;
+    }
     if (![UserInfo isLogin]) {
         if (self.hp_myPhoneTextField.text.length <= 0 || [self.hp_myPhoneTextField.text allSpace]) {
             [Tools showHUD:SS_HpNoMyCellPhoneMsg];
@@ -576,28 +587,42 @@
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         NSString * message = [responseObject objectForKey:@"message"];
         if (status == 1) {
-            // 本地缓存 ,收,发
-            // uid  :  address{地址，经度，纬度，姓名，手机}
-            NSDictionary * result = [responseObject objectForKey:@"result"];
-            NSDictionary * uInfo = @{
-                                        @"userId":[[responseObject objectForKey:@"result"] objectForKey:@"businessId"],
-                                    };
-            [UserInfo saveUserInfo:uInfo];
-            if ([UserInfo isLogin]) {
-                [DataArchive storeFaAddress:self.api_addr_fa businessId:[UserInfo getUserId]];
-                [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
+            if (isCanUseObj([[responseObject objectForKey:@"result"] objectForKey:@"amount"])) {// 前后台计算价格不相同，发单失败，弹框
+                self.api_server_amount = [[[responseObject objectForKey:@"result"] objectForKey:@"amount"] doubleValue];
+                // 弹出窗口
+                NSNumber * serverNumber = [NSNumber numberWithDouble:self.api_server_amount];
+                [UIAlertView showAlertViewWithTitle:nil message:SS_PriceConfigChangedMsg(serverNumber) cancelButtonTitle:@"关闭" otherButtonTitles:@[@"确认"] onDismiss:^(NSInteger buttonIndex) {
+                    self.api_total_fee = self.api_server_amount+self.api_tip;
+                    [self releaseOrder];
+                } onCancel:^{
+                    
+                }];
+                
+            }else{ // 前后台计算价格相同，发单成功
+                // 本地缓存 ,收,发
+                // uid  :  address{地址，经度，纬度，姓名，手机}
+                NSDictionary * result = [responseObject objectForKey:@"result"];
+                NSDictionary * uInfo = @{
+                                         @"userId":[[responseObject objectForKey:@"result"] objectForKey:@"businessId"],
+                                         };
+                [UserInfo saveUserInfo:uInfo];
+                if ([UserInfo isLogin]) {
+                    [DataArchive storeFaAddress:self.api_addr_fa businessId:[UserInfo getUserId]];
+                    [DataArchive storeShouAddress:self.api_addr_shou businessId:[UserInfo getUserId]];
+                }
+                //
+                NSString * pickupCode = [NSString stringWithFormat:@"%@",[result objectForKey:@"pickupcode"]];
+                SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
+                svc.orderId = [NSString stringWithFormat:@"%@",[result objectForKey:@"orderId"]];
+                svc.balancePrice = [[result objectForKey:@"balanceprice"] doubleValue];
+                svc.type = 1;
+                svc.pickupcode = pickupCode;
+                svc.tipAmount = self.api_total_fee;
+                [self.navigationController pushViewController:svc animated:YES];
+                // 清空内存？
+                [self resetShansongData];
             }
-            //
-            NSString * pickupCode = [NSString stringWithFormat:@"%@",[result objectForKey:@"pickupcode"]];
-            SSpayViewController * svc = [[SSpayViewController alloc] initWithNibName:NSStringFromClass([SSpayViewController class]) bundle:nil];
-            svc.orderId = [NSString stringWithFormat:@"%@",[result objectForKey:@"orderId"]];
-            svc.balancePrice = [[result objectForKey:@"balanceprice"] doubleValue];
-            svc.type = 1;
-            svc.pickupcode = pickupCode;
-            svc.tipAmount = self.api_total_fee;
-            [self.navigationController pushViewController:svc animated:YES];
-            // 清空内存？
-            [self resetShansongData];
+
         }else{
             [Tools showHUD:message];
         }
@@ -800,7 +825,7 @@
 - (void)onGetWalkingRouteResult:(BMKRouteSearch*)searcher result:(BMKWalkingRouteResult*)result errorCode:(BMKSearchErrorCode)error{
     if (error == BMK_SEARCH_NO_ERROR) {
         BMKWalkingRouteLine* plan = (BMKWalkingRouteLine*)[result.routes objectAtIndex:0];
-        self.api_distance = plan.distance/1000;
+        self.api_distance = (double)(plan.distance)/1000.0f;
     }else{
         CLLocationCoordinate2D pa = CLLocationCoordinate2DMake([self.api_addr_fa.latitude doubleValue], [self.api_addr_fa.longitude doubleValue]);
         CLLocationCoordinate2D pb = CLLocationCoordinate2DMake([self.api_addr_shou.latitude doubleValue], [self.api_addr_shou.longitude doubleValue]);
@@ -813,7 +838,7 @@
     BMKMapPoint point1 = BMKMapPointForCoordinate(pa);
     BMKMapPoint point2 = BMKMapPointForCoordinate(pb);
     CLLocationDistance distance = BMKMetersBetweenMapPoints(point1,point2); //m
-    self.api_distance = distance/1000;
+    self.api_distance = distance/1000.0f;
 }
 
 #pragma mark - SSTipSelectionViewDelegate小费回调

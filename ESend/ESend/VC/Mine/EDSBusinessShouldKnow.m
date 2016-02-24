@@ -38,8 +38,7 @@
         [Tools hiddenProgress:_HUD];
         NSInteger status = [[responseObject objectForKey:@"status"] integerValue];
         if (1 == status) {
-            NSArray * result = [responseObject objectForKey:@"result"];
-            NSString * remark = result[0][@"remark"];
+            NSString * remark = responseObject[@"message"];
             self.BS_businessShouldKnow.text = remark;
             self.BS_businessShouldKnow.font = [UIFont systemFontOfSize:16];
         }
