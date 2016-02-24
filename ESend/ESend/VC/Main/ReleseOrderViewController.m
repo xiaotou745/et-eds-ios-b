@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     
     UIView *_addNewOrderView;
     
-    CGFloat _totalAmount;
+    float _totalAmount;
     UILabel *_totalLabel;
     
     BMKLocationService *_locService;
@@ -359,10 +359,6 @@ typedef NS_ENUM(NSInteger, PayStatus) {
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-
-    
-    ///////////////////////////////////
     if (tableView == _tableView) {
         NSString *cellId = [NSString stringWithFormat:@"cell%ld%ld",(long)indexPath.section,(long)indexPath.row];
         if (indexPath.section == 0) {
@@ -618,7 +614,7 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     
     NSDictionary *requsetData = @{@"BussinessId" : [UserInfo getUserId],
                                   @"Version" : APIVersion,
-                                  @"Amount" : @(_totalAmount),
+                                  @"Amount" : @(_totalAmount),//[NSString stringWithFormat:@"%.2f",_totalAmount]
                                   @"OrderCount" : @(_priceTFList.count)};
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
     [FHQNetWorkingAPI getDistribSubsidy:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
@@ -630,20 +626,6 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         if (distrib == 0) {
             str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count];
         }
-//        
-//        if (_JKalert) {
-//            [_JKalert removeFromSuperview];
-//            _JKalert = nil;
-//        }
-//        _JKalert = [[JKAlertDialog alloc] initWithTitle:@"确定要发布订单吗？" message:str];
-//        [_JKalert addButton:Button_CANCEL withTitle:@"取消" handler:^(JKAlertDialogItem *item) {
-//            
-//        }];
-//        __block ReleseOrderViewController * blockSelf = self;
-//        [_JKalert addButton:Button_OK withTitle:@"确定" handler:^(JKAlertDialogItem *item) {
-//            [blockSelf releseInfo];
-//        }];
-//        [_JKalert show];
         
         // Here we need to pass a full frame
         CustomIOSAlertView *alertView = [[CustomIOSAlertView alloc] init];
@@ -675,11 +657,6 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     }];
     
     return;
-    //配送费
- 
-   
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确定要发布订单吗" message:str delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-//    [alertView show];
 }
 
 
@@ -719,7 +696,8 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     NSMutableArray *childList = [NSMutableArray array];
     for (NSInteger i = 0; i < _priceTFList.count; i++) {
         UITextField *textFiled = _priceTFList[i];
-        NSDictionary *childOrder = @{@"GoodPrice" : @([textFiled.text floatValue])};
+//        NSDictionary *childOrder = @{@"GoodPrice" : @([textFiled.text floatValue])};
+        NSDictionary *childOrder = @{@"GoodPrice" : textFiled.text};
         [childList addObject:childOrder];
     }
     NSData *childListData = [NSJSONSerialization dataWithJSONObject:childList options:NSJSONWritingPrettyPrinted error:NULL];
@@ -770,12 +748,6 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     NSString * bid = [UserInfo getUserId];
     NSMutableArray * localConsignees = [NSMutableArray arrayWithArray:[DataArchive storedConsigneesWithShopid:bid]];
     if (localConsignees.count > 0) {
-        
-//        for (ConsigneeModel * aConsignee in localConsignees) {
-//            if ([aConsignee samePhoneWithConsignee:consignee]) {
-//                localConsignees repla
-//            }
-//        }
         BOOL contain = NO;
         for (int i = 0; i < localConsignees.count; i ++) {
             ConsigneeModel * aConsignee = [localConsignees objectAtIndex:i];
@@ -797,55 +769,6 @@ typedef NS_ENUM(NSInteger, PayStatus) {
         [DataArchive storeConsignees:[NSArray arrayWithObjects:consignee, nil] shopId:bid];
     }
 }
-
-/*
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != 1) {
-        return;
-    }
-    
-    NSMutableArray *childList = [NSMutableArray array];
-    for (NSInteger i = 0; i < _priceTFList.count; i++) {
-        UITextField *textFiled = _priceTFList[i];
-        NSDictionary *childOrder = @{
-                                     //                                     @"ChildId"     : @(i),
-                                     @"GoodPrice"   : @([textFiled.text floatValue])};
-        [childList addObject:childOrder];
-    }
-    NSData *childListData = [NSJSONSerialization dataWithJSONObject:childList options:NSJSONWritingPrettyPrinted error:NULL];
-    
-
-    NSDictionary *requsetData = @{@"userId"                 : [UserInfo getUserId],
-                                  @"receviceName"           : @"",
-                                  @"receviceAddress"        : _address.text ? _address.text : @"",
-                                  @"recevicePhone"          : _phoneTF.text ? _phoneTF.text : @"",
-                                  @"Amount"                 : @(_totalAmount),
-                                  @"IsPay"                  : @(_completePayBtn.checked),
-                                  @"Remark"                 : _remarkTF.text,
-                                  @"OrderChlidJson"         : [[NSString alloc]initWithData:childListData encoding:NSUTF8StringEncoding],
-                                  @"version"                : @"1.0",
-                                  @"TimeSpan"               : @((int)[[NSDate date] timeIntervalSince1970]),
-                                  @"longitude"              : @(0.0),
-                                  @"laitude"                : @(0.0),
-                                  @"OrderCount"             : @(_priceTFList.count),
-                                  @"OrderSign"              : @"",
-                                  @"PubLatitude"            : @(_coordinate.latitude),
-                                  @"PubLongitude"           : @(_coordinate.longitude)
-                                  };
-    
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
-    [FHQNetWorkingAPI releseOrder:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:ReleseOrderNotification object:nil];
-        
-        [Tools showHUD:@"发布成功"];
-        [Tools hiddenProgress:HUD];
-        [self.navigationController popViewControllerAnimated:YES];
-    } failure:^(NSError *error, AFHTTPRequestOperation *operation) {
-        [Tools hiddenProgress:HUD];
-    }];
-}
-*/
  
 //实现相关delegate 处理位置信息更新
 //处理位置坐标更新
