@@ -181,6 +181,7 @@ fprintf(stderr, "-------\n");                                               \
  Notification
  */
 
+#define USERDEFSULTS_KEY_FIRST_START @"USERDEFSULTS_KEY_FIRST_START"
 //购物车商品发生变化通知
 
 #define ShoppingCartChangeNotification @"ShoppingCartChangeNotification"

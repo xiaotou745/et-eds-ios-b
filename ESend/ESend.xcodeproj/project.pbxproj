@@ -183,6 +183,32 @@
 		687ED1271C0D7C4E00728E65 /* SSHttpReqServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 687ED1251C0D7C4E00728E65 /* SSHttpReqServer.m */; };
 		687ED12A1C0D955700728E65 /* NSString+allSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 687ED1291C0D955700728E65 /* NSString+allSpace.m */; };
 		687ED12B1C0D955700728E65 /* NSString+allSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 687ED1291C0D955700728E65 /* NSString+allSpace.m */; };
+		688A54381C7D61710095E2A2 /* ETSGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A54371C7D61710095E2A2 /* ETSGuideView.m */; };
+		688A54391C7D61710095E2A2 /* ETSGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 688A54371C7D61710095E2A2 /* ETSGuideView.m */; };
+		688A54471C7D89260095E2A2 /* iph6+1.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543B1C7D89260095E2A2 /* iph6+1.png */; };
+		688A54481C7D89260095E2A2 /* iph6+1.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543B1C7D89260095E2A2 /* iph6+1.png */; };
+		688A54491C7D89260095E2A2 /* iph6+2.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543C1C7D89260095E2A2 /* iph6+2.png */; };
+		688A544A1C7D89260095E2A2 /* iph6+2.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543C1C7D89260095E2A2 /* iph6+2.png */; };
+		688A544B1C7D89260095E2A2 /* iph6+3.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543D1C7D89260095E2A2 /* iph6+3.png */; };
+		688A544C1C7D89260095E2A2 /* iph6+3.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543D1C7D89260095E2A2 /* iph6+3.png */; };
+		688A544D1C7D89260095E2A2 /* iph41.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543E1C7D89260095E2A2 /* iph41.png */; };
+		688A544E1C7D89260095E2A2 /* iph41.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543E1C7D89260095E2A2 /* iph41.png */; };
+		688A544F1C7D89260095E2A2 /* iph42.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543F1C7D89260095E2A2 /* iph42.png */; };
+		688A54501C7D89260095E2A2 /* iph42.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A543F1C7D89260095E2A2 /* iph42.png */; };
+		688A54511C7D89260095E2A2 /* iph43.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54401C7D89260095E2A2 /* iph43.png */; };
+		688A54521C7D89260095E2A2 /* iph43.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54401C7D89260095E2A2 /* iph43.png */; };
+		688A54531C7D89260095E2A2 /* iph51.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54411C7D89260095E2A2 /* iph51.png */; };
+		688A54541C7D89260095E2A2 /* iph51.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54411C7D89260095E2A2 /* iph51.png */; };
+		688A54551C7D89260095E2A2 /* iph52.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54421C7D89260095E2A2 /* iph52.png */; };
+		688A54561C7D89260095E2A2 /* iph52.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54421C7D89260095E2A2 /* iph52.png */; };
+		688A54571C7D89260095E2A2 /* iph53.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54431C7D89260095E2A2 /* iph53.png */; };
+		688A54581C7D89260095E2A2 /* iph53.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54431C7D89260095E2A2 /* iph53.png */; };
+		688A54591C7D89260095E2A2 /* iph61.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54441C7D89260095E2A2 /* iph61.png */; };
+		688A545A1C7D89260095E2A2 /* iph61.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54441C7D89260095E2A2 /* iph61.png */; };
+		688A545B1C7D89260095E2A2 /* iph62.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54451C7D89260095E2A2 /* iph62.png */; };
+		688A545C1C7D89260095E2A2 /* iph62.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54451C7D89260095E2A2 /* iph62.png */; };
+		688A545D1C7D89260095E2A2 /* iph63.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54461C7D89260095E2A2 /* iph63.png */; };
+		688A545E1C7D89260095E2A2 /* iph63.png in Resources */ = {isa = PBXBuildFile; fileRef = 688A54461C7D89260095E2A2 /* iph63.png */; };
 		688F5C131C12D0680031ADE4 /* SSpayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 688F5C111C12D0680031ADE4 /* SSpayViewController.m */; };
 		688F5C141C12D0680031ADE4 /* SSpayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 688F5C111C12D0680031ADE4 /* SSpayViewController.m */; };
 		688F5C151C12D0680031ADE4 /* SSpayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 688F5C121C12D0680031ADE4 /* SSpayViewController.xib */; };
@@ -838,6 +864,20 @@
 		687ED1251C0D7C4E00728E65 /* SSHttpReqServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSHttpReqServer.m; sourceTree = "<group>"; };
 		687ED1281C0D955700728E65 /* NSString+allSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+allSpace.h"; sourceTree = "<group>"; };
 		687ED1291C0D955700728E65 /* NSString+allSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+allSpace.m"; sourceTree = "<group>"; };
+		688A54361C7D61710095E2A2 /* ETSGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETSGuideView.h; sourceTree = "<group>"; };
+		688A54371C7D61710095E2A2 /* ETSGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ETSGuideView.m; sourceTree = "<group>"; };
+		688A543B1C7D89260095E2A2 /* iph6+1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iph6+1.png"; sourceTree = "<group>"; };
+		688A543C1C7D89260095E2A2 /* iph6+2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iph6+2.png"; sourceTree = "<group>"; };
+		688A543D1C7D89260095E2A2 /* iph6+3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iph6+3.png"; sourceTree = "<group>"; };
+		688A543E1C7D89260095E2A2 /* iph41.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iph41.png; sourceTree = "<group>"; };
+		688A543F1C7D89260095E2A2 /* iph42.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iph42.png; sourceTree = "<group>"; };
+		688A54401C7D89260095E2A2 /* iph43.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iph43.png; sourceTree = "<group>"; };
+		688A54411C7D89260095E2A2 /* iph51.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iph51.png; sourceTree = "<group>"; };
+		688A54421C7D89260095E2A2 /* iph52.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iph52.png; sourceTree = "<group>"; };
+		688A54431C7D89260095E2A2 /* iph53.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iph53.png; sourceTree = "<group>"; };
+		688A54441C7D89260095E2A2 /* iph61.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iph61.png; sourceTree = "<group>"; };
+		688A54451C7D89260095E2A2 /* iph62.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iph62.png; sourceTree = "<group>"; };
+		688A54461C7D89260095E2A2 /* iph63.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iph63.png; sourceTree = "<group>"; };
 		688F5C101C12D0680031ADE4 /* SSpayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSpayViewController.h; sourceTree = "<group>"; };
 		688F5C111C12D0680031ADE4 /* SSpayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSpayViewController.m; sourceTree = "<group>"; };
 		688F5C121C12D0680031ADE4 /* SSpayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SSpayViewController.xib; sourceTree = "<group>"; };
@@ -1796,6 +1836,25 @@
 			path = addrAddition;
 			sourceTree = "<group>";
 		};
+		688A543A1C7D88F40095E2A2 /* 商户端三张切图 */ = {
+			isa = PBXGroup;
+			children = (
+				688A543B1C7D89260095E2A2 /* iph6+1.png */,
+				688A543C1C7D89260095E2A2 /* iph6+2.png */,
+				688A543D1C7D89260095E2A2 /* iph6+3.png */,
+				688A543E1C7D89260095E2A2 /* iph41.png */,
+				688A543F1C7D89260095E2A2 /* iph42.png */,
+				688A54401C7D89260095E2A2 /* iph43.png */,
+				688A54411C7D89260095E2A2 /* iph51.png */,
+				688A54421C7D89260095E2A2 /* iph52.png */,
+				688A54431C7D89260095E2A2 /* iph53.png */,
+				688A54441C7D89260095E2A2 /* iph61.png */,
+				688A54451C7D89260095E2A2 /* iph62.png */,
+				688A54461C7D89260095E2A2 /* iph63.png */,
+			);
+			name = "商户端三张切图";
+			sourceTree = "<group>";
+		};
 		688F5C0F1C12D03E0031ADE4 /* SSpay */ = {
 			isa = PBXGroup;
 			children = (
@@ -1842,6 +1901,8 @@
 		68FE8CC61C05B1C6004BABB4 /* Shansong */ = {
 			isa = PBXGroup;
 			children = (
+				688A54361C7D61710095E2A2 /* ETSGuideView.h */,
+				688A54371C7D61710095E2A2 /* ETSGuideView.m */,
 				68C31EE21C4CF97E00AE8B14 /* 地址信息 */,
 				6833078B1C1FF4DC00AC6601 /* myOrders */,
 				688F5C0F1C12D03E0031ADE4 /* SSpay */,
@@ -2658,6 +2719,7 @@
 		F6C6AE711B1838630007A980 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				688A543A1C7D88F40095E2A2 /* 商户端三张切图 */,
 				F62A73DE1B5CCA84001632B5 /* 1@1x.png */,
 				F62A73DF1B5CCA84001632B5 /* 1@2x.png */,
 				F62A73E01B5CCA84001632B5 /* 1@3x.png */,
@@ -2799,6 +2861,7 @@
 				CF07AEE41BAEB30D005A93EB /* MNDatePicker.xib in Resources */,
 				F67D35F41B5664A600083DA4 /* back_nor@2x.png in Resources */,
 				68107CB71C1FC05E00DE1E9C /* SSRemainingBalanceCell.xib in Resources */,
+				688A545C1C7D89260095E2A2 /* iph62.png in Resources */,
 				686745471BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
 				6893B5901C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.xib in Resources */,
 				68AE2BDF1BC8E95600E8149C /* EDSBillStatisticsDayCell.xib in Resources */,
@@ -2808,12 +2871,18 @@
 				F67D35F51B5664A600083DA4 /* verifty_icon@2x.png in Resources */,
 				CF22B0301BAB4A61000F19D9 /* MJRefresh.bundle in Resources */,
 				685E53B31BBB878E00BE429C /* EDSBillStatisticsVC.xib in Resources */,
+				688A54501C7D89260095E2A2 /* iph42.png in Resources */,
 				685E35081C0C177B001CEABB /* SSMapAddrViewController.xib in Resources */,
+				688A544C1C7D89260095E2A2 /* iph6+3.png in Resources */,
 				68586AAA1BAE8E6800B26780 /* EDSRiderDeliveryCell.xib in Resources */,
 				F67D35F61B5664A600083DA4 /* alipay_icon@2x.png in Resources */,
+				688A54581C7D89260095E2A2 /* iph53.png in Resources */,
+				688A54481C7D89260095E2A2 /* iph6+1.png in Resources */,
+				688A54521C7D89260095E2A2 /* iph43.png in Resources */,
 				2E5D87901B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
 				6805570C1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */,
 				68FE8CCD1C05B1FB004BABB4 /* SSHomepageViewController.xib in Resources */,
+				688A544A1C7D89260095E2A2 /* iph6+2.png in Resources */,
 				687ED11F1C0D458200728E65 /* SSAddrAdditionViewController.xib in Resources */,
 				686630C51C0708EC009293D3 /* SSEditAdderssViewController.xib in Resources */,
 				68AE2BD81BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
@@ -2823,11 +2892,13 @@
 				2EA0CA7F1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
 				F67D35F91B5664A600083DA4 /* phone_icon@2x.png in Resources */,
 				6878F7841BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */,
+				688A544E1C7D89260095E2A2 /* iph41.png in Resources */,
 				F67D35FA1B5664A600083DA4 /* Images 19-52-49-033.xcassets in Resources */,
 				6893B5891C4E438400E9E964 /* SSTipSelectionView.xib in Resources */,
 				F67D35FB1B5664A600083DA4 /* map_icon@2x.png in Resources */,
 				68580CAA1BA840070082C18C /* EDSRiderDelieveListVC.xib in Resources */,
 				F67D35FC1B5664A600083DA4 /* wechat_icon@2x.png in Resources */,
+				688A545E1C7D89260095E2A2 /* iph63.png in Resources */,
 				F67D35FD1B5664A600083DA4 /* Protocol.txt in Resources */,
 				F62A73E51B5CCA84001632B5 /* 1@1x.png in Resources */,
 				F67D35FE1B5664A600083DA4 /* AlipaySDK.bundle in Resources */,
@@ -2843,12 +2914,15 @@
 				F67D36041B5664A600083DA4 /* PushConfig.plist in Resources */,
 				F67D36061B5664A600083DA4 /* blue_btn_noSelect@2x.pdf in Resources */,
 				F67D36071B5664A600083DA4 /* demo_license@3x.png in Resources */,
+				688A545A1C7D89260095E2A2 /* iph61.png in Resources */,
 				6867455A1BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */,
+				688A54561C7D89260095E2A2 /* iph52.png in Resources */,
 				683307921C1FF4F700AC6601 /* SSMyOrdersVC.xib in Resources */,
 				CF22B0151BAB2BC7000F19D9 /* EDSHomepageVC.xib in Resources */,
 				F62A73EB1B5CCA84001632B5 /* 2@1x.png in Resources */,
 				F62A73ED1B5CCA84001632B5 /* 2@2x.png in Resources */,
 				689CA4921C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */,
+				688A54541C7D89260095E2A2 /* iph51.png in Resources */,
 				F67D36081B5664A600083DA4 /* photo_default@2x.png in Resources */,
 				F67D36091B5664A600083DA4 /* Address.sqlite in Resources */,
 				68107CBE1C1FC6E300DE1E9C /* SSPayMethodCell.xib in Resources */,
@@ -2863,13 +2937,16 @@
 				F67D36141B56658800083DA4 /* Property List.plist in Resources */,
 				F6549F831B1C378900FAACEE /* gray_border_btn_nor@2x.png in Resources */,
 				F62A73E81B5CCA84001632B5 /* 1@3x.png in Resources */,
+				688A54551C7D89260095E2A2 /* iph52.png in Resources */,
 				687ED11E1C0D458200728E65 /* SSAddrAdditionViewController.xib in Resources */,
 				68AE2BD71BC8E93A00E8149C /* EDSBillStatisticsMonthCell.xib in Resources */,
 				F62E8D031B2E80F1006F3862 /* demo_card@3x.png in Resources */,
 				2EA0CA431B82C72700BBAA63 /* ComplaintViewController.xib in Resources */,
 				F6C6AE7D1B1845750007A980 /* blue_btn_nor@2x.png in Resources */,
 				686745591BA91AF7005F59D4 /* SCFeedbackVC.xib in Resources */,
+				688A545B1C7D89260095E2A2 /* iph62.png in Resources */,
 				F6549F7F1B1C331300FAACEE /* back_nor@2x.png in Resources */,
+				688A54531C7D89260095E2A2 /* iph51.png in Resources */,
 				686A49A11C0F11FC00558D5D /* SSAppointmentTimeView.xib in Resources */,
 				F62A73E61B5CCA84001632B5 /* 1@2x.png in Resources */,
 				F62A73EC1B5CCA84001632B5 /* 2@2x.png in Resources */,
@@ -2894,9 +2971,12 @@
 				6893B58F1C4F1C8000E9E964 /* SSOrderOndeliveringV2Cell.xib in Resources */,
 				68C31EE81C4CF99000AE8B14 /* SSAddrInfoVC.xib in Resources */,
 				686745461BA9034B005F59D4 /* EDSRiderDeliveryInfoCell.xib in Resources */,
+				688A545D1C7D89260095E2A2 /* iph63.png in Resources */,
 				68580C931BA80A930082C18C /* EDSAttachedRiderCell.xib in Resources */,
 				6867454D1BA9142B005F59D4 /* EDSMerchantReleaseTaskListVC.xib in Resources */,
 				68753F2F1C085BBC00418E7B /* SSAdressCell.xib in Resources */,
+				688A544D1C7D89260095E2A2 /* iph41.png in Resources */,
+				688A544B1C7D89260095E2A2 /* iph6+3.png in Resources */,
 				6878F7831BB1559800E33ACD /* EDSBusinessShouldKnow.xib in Resources */,
 				F65E8D1F1B39807600053141 /* Images 19-52-49-033.xcassets in Resources */,
 				F6188A841B219CB20033E58B /* map_icon@2x.png in Resources */,
@@ -2908,6 +2988,7 @@
 				F6C6AE741B18386C0007A980 /* password_icon@2x.png in Resources */,
 				F6C6AC431B12F2640007A980 /* LaunchScreen.xib in Resources */,
 				6805570B1BA660FB00840495 /* EDSFullfillOptionCell.xib in Resources */,
+				688A544F1C7D89260095E2A2 /* iph42.png in Resources */,
 				F6C6AD8D1B12F42F0007A980 /* MJPhotoBrowser.bundle in Resources */,
 				2EA0CA7E1B848F6C00BBAA63 /* ConsigneeInfoCell.xib in Resources */,
 				2E5D878F1B8C3D250040D478 /* ExpensesDetailVC.xib in Resources */,
@@ -2921,8 +3002,13 @@
 				F637CF511B437F5700410C24 /* PushConfig.plist in Resources */,
 				689CA4A81C243A9E00D9073E /* SSOrderOnDeliveryingCell.xib in Resources */,
 				689CA4911C2268E500D9073E /* SSOrderUngrabCell.xib in Resources */,
+				688A54491C7D89260095E2A2 /* iph6+2.png in Resources */,
+				688A54511C7D89260095E2A2 /* iph43.png in Resources */,
+				688A54571C7D89260095E2A2 /* iph53.png in Resources */,
 				E48ECF951B3FBC2F00F09660 /* blue_btn_noSelect@2x.pdf in Resources */,
+				688A54591C7D89260095E2A2 /* iph61.png in Resources */,
 				683307911C1FF4F700AC6601 /* SSMyOrdersVC.xib in Resources */,
+				688A54471C7D89260095E2A2 /* iph6+1.png in Resources */,
 				F62E8D021B2E80F1006F3862 /* demo_license@3x.png in Resources */,
 				F6549F7A1B1C27D900FAACEE /* photo_default@2x.png in Resources */,
 				6893B5881C4E438400E9E964 /* SSTipSelectionView.xib in Resources */,
@@ -3116,6 +3202,7 @@
 				683307A51C20365900AC6601 /* SSOrderDetailVC.m in Sources */,
 				F67D35A71B5664A600083DA4 /* SupermanOrderModel.m in Sources */,
 				F67D35A81B5664A600083DA4 /* BussinessModel.m in Sources */,
+				688A54391C7D61710095E2A2 /* ETSGuideView.m in Sources */,
 				F67D35A91B5664A600083DA4 /* SDWebImageManager.m in Sources */,
 				CF07AEE21BAEB30D005A93EB /* MNDatePicker.m in Sources */,
 				6811E0CC1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */,
@@ -3369,6 +3456,7 @@
 				683307A41C20365900AC6601 /* SSOrderDetailVC.m in Sources */,
 				F62E8D061B2EB23D006F3862 /* BussinessModel.m in Sources */,
 				F6C6ADAC1B12F42F0007A980 /* SDWebImageManager.m in Sources */,
+				688A54381C7D61710095E2A2 /* ETSGuideView.m in Sources */,
 				F660625C1B3AC7EE00F9AF0A /* ThirdOrderTableViewCell.m in Sources */,
 				CF07AEE11BAEB30D005A93EB /* MNDatePicker.m in Sources */,
 				6811E0CB1BCA5B9200F81F03 /* RecordTypeModel.m in Sources */,

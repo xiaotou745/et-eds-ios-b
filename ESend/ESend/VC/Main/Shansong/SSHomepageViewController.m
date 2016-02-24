@@ -27,6 +27,7 @@
 #import "SSTipSelectionView.h"
 #import "NSString+stringSizes.h"
 #import "UIAlertView+Blocks.h"
+#import "ETSGuideView.h"
 
 #define SS_HPWrongPhoneNumberMsg @"请输入正确的手机号"
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
@@ -47,7 +48,7 @@
 
 #define SS_PriceConfigChangedMsg(amount) [NSString stringWithFormat:@"该账号已设置计费规则，实际配送费为%@元，点击确认跳转至支付页面,点关闭停留在下单页面",amount]
 
-@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate,SSTipSelectionViewDelegate>{
+@interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate,SSTipSelectionViewDelegate,ETSGuideViewDelegate>{
     dispatch_source_t _timer;
     
     BMKLocationService *_locService;
@@ -220,6 +221,53 @@
         NSNumber * tipNumber = [NSNumber numberWithDouble:self.api_tip];
         [self.tipSelectionBtn setTitle:[NSString stringWithFormat:@"%@元",tipNumber] forState:UIControlStateNormal];
         [self calculateAndDisplayTotalFee];
+    }
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    // 添加引导页
+    if (nil == [[NSUserDefaults standardUserDefaults] valueForKey:USERDEFSULTS_KEY_FIRST_START]) {
+        ETSGuideView * guideView = [[ETSGuideView alloc] initWithView:self.view];
+        [guideView setDelegate:self];
+        NSMutableArray * imgArray = [[NSMutableArray alloc] initWithCapacity:3];
+        NSString * deviceInfo = nil;
+        if (iPhone6plus) {
+            deviceInfo = @"6+";
+        }else if (isiPhone5){
+            deviceInfo = @"5";
+        }else if (isiPhone4){
+            deviceInfo = @"4";
+        }else{
+            deviceInfo = @"6";
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            NSString * imgName = [NSString stringWithFormat:@"iph%@%d",deviceInfo,i + 1];
+            [imgArray addObject:imgName];
+        }
+        [guideView guideViewWithArray:imgArray];
+    }
+}
+
+- (void)guideView:(ETSGuideView *)guideView didTouchFinishButton:(id)button{
+    if (guideView)
+    {
+        __block ETSGuideView * guideViewBlock = guideView;
+        [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:USERDEFSULTS_KEY_FIRST_START];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [UIView animateWithDuration:0.8 animations:^{
+            guideViewBlock.alpha = 0.0;
+            guideViewBlock.transform = CGAffineTransformMakeScale(1.2, 1.2);
+        } completion:^(BOOL finished) {
+            for (int i = 0; i < [guideView subviews].count; i++) {
+                UIView *aWelcomeView = [guideViewBlock subviews][i];
+                [aWelcomeView removeFromSuperview];
+                aWelcomeView = nil;
+                //[[NSNotificationCenter defaultCenter] postNotificationName:firstShowUpShopListVc object:nil];
+            }
+            [guideView removeFromSuperview];
+            guideViewBlock = nil;
+        }];
     }
 }
 
