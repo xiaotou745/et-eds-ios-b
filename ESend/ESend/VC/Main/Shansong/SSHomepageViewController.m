@@ -46,7 +46,7 @@
 
 #define SS_HpFaShouSamePhoneMsg @"发货收货电话不能相同"
 
-#define SS_PriceConfigChangedMsg(amount) [NSString stringWithFormat:@"该账号已设置计费规则，实际配送费为%@元，点击确认跳转至支付页面,点关闭停留在下单页面",amount]
+#define SS_PriceConfigChangedMsg(amount) [NSString stringWithFormat:@"该账号已设置计费规则，实际配送费为%@元",amount]
 
 @interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate,SSTipSelectionViewDelegate,ETSGuideViewDelegate>{
     dispatch_source_t _timer;
@@ -628,7 +628,7 @@
         NSString * aesString = [Security AesEncrypt:jsonString2];
         paraDict = @{@"data":aesString,};
     }
-    MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
+    MBProgressHUD *HUD = [Tools showProgressWithTitle:@"订单生成中…"];
     [SSHttpReqServer orderflashpush:paraDict success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [Tools hiddenProgress:HUD];
         
