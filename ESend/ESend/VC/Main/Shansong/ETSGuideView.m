@@ -66,16 +66,16 @@
         [_scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"V:|-(==0)-[aImageView(%f)]-(==0)-|",ScreenHeight] options:0 metrics:nil views:aViews]];
         
         if ([dataArray count] - 1 == i) {
-//            _finishButton = [[UIButton alloc] init];
-//            [_finishButton addTarget:self action:@selector(_finishButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
-//            [_finishButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-//            [aImageView addSubview:_finishButton];
-//            // constraints
-//            NSDictionary * bViews = NSDictionaryOfVariableBindings(_finishButton);
-//            [aImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_finishButton(90)]-(==30)-|" options:0 metrics:nil views:bViews]];
-//            [aImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(==%f)-[_finishButton(120)]-(==%f)-|",(ScreenWidth-120)/2,(ScreenWidth-120)/2] options:0 metrics:nil views:bViews]];
-            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(_finishButtonEvent:)];
-            [aImageView addGestureRecognizer:tap];
+            _finishButton = [[UIButton alloc] init];
+            [_finishButton addTarget:self action:@selector(_finishButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
+            [_finishButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [_finishButton setImage:[UIImage imageNamed:@"instruct_btn_normal"] forState:UIControlStateNormal];
+            [_finishButton setImage:[UIImage imageNamed:@"instruct_btn_highlight"] forState:UIControlStateHighlighted];
+            [aImageView addSubview:_finishButton];
+            // constraints
+            NSDictionary * bViews = NSDictionaryOfVariableBindings(_finishButton);
+            [aImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_finishButton(90)]-(==40)-|" options:0 metrics:nil views:bViews]];
+            [aImageView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-(==%f)-[_finishButton(120)]-(==%f)-|",(ScreenWidth-120)/2,(ScreenWidth-120)/2] options:0 metrics:nil views:bViews]];
         }
     }
     [_scrollView setContentSize:CGSizeMake(ScreenWidth * [dataArray count], ScreenHeight)];

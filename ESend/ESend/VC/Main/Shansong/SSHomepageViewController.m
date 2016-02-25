@@ -33,9 +33,6 @@
 #define SS_HPNoFaAddressMsg @"请输入发货地址"
 #define SS_HPNoShouAddressMsg @"请输入收货地址"
 
-#define SS_HpNoProductNameMsg @"请输入物品名称"
-#define SS_HpLessProductNameMsg @"物品名称不少于2个字"
-
 #define SS_HpMaxKilo @"重量不能超过500公斤"
 #define SS_HpMinKilo @"重量不少于1公斤"
 
@@ -424,15 +421,6 @@
         [Tools showHUD:SS_HpMaxDistance];
         return;
     }
-    // 物品名称改为选填
-//    if (self.productName.text.length <= 0 || [self.productName.text allSpace]) {
-//        [Tools showHUD:SS_HpNoProductNameMsg];
-//        return;
-//    }
-//    if (self.productName.text.length < 2 || [self.productName.text allSpace]) {
-//        [Tools showHUD:SS_HpLessProductNameMsg];
-//        return;
-//    }
     if ([self.api_addr_fa.personPhone compare:self.api_addr_shou.personPhone] == NSOrderedSame) {
         [Tools showHUD:SS_HpFaShouSamePhoneMsg];
         return;
@@ -499,9 +487,9 @@
         self.api_kilo = notifyKilo;
         [self calculateAndDisplayTotalFee];
     }
-    if (textField == self.productName && textField.text.length > 20) {
-        textField.text = [textField.text substringToIndex:20];
-        [Tools showHUD:@"物品名称不能超过20个字"];
+    if (textField == self.productName && textField.text.length > 10) {
+        textField.text = [textField.text substringToIndex:10];
+        [Tools showHUD:@"物品名称不能超过10个字"];
     }
     if (textField == self.remark && textField.text.length > 30) {
         textField.text = [textField.text substringToIndex:30];
@@ -638,8 +626,8 @@
             if (isCanUseObj([[responseObject objectForKey:@"result"] objectForKey:@"amount"])) {// 前后台计算价格不相同，发单失败，弹框
                 self.api_server_amount = [[[responseObject objectForKey:@"result"] objectForKey:@"amount"] doubleValue];
                 // 弹出窗口
-                NSNumber * serverNumber = [NSNumber numberWithDouble:self.api_server_amount];
-                [UIAlertView showAlertViewWithTitle:nil message:SS_PriceConfigChangedMsg(serverNumber) cancelButtonTitle:@"关闭" otherButtonTitles:@[@"确认"] onDismiss:^(NSInteger buttonIndex) {
+                NSNumber * showNumber = [NSNumber numberWithDouble:self.api_server_amount+self.api_tip];
+                [UIAlertView showAlertViewWithTitle:nil message:SS_PriceConfigChangedMsg(showNumber) cancelButtonTitle:@"关闭" otherButtonTitles:@[@"确认"] onDismiss:^(NSInteger buttonIndex) {
                     self.api_total_fee = self.api_server_amount+self.api_tip;
                     [self releaseOrder];
                 } onCancel:^{
