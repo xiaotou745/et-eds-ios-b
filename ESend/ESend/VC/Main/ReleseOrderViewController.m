@@ -615,16 +615,20 @@ typedef NS_ENUM(NSInteger, PayStatus) {
     NSDictionary *requsetData = @{@"BussinessId" : [UserInfo getUserId],
                                   @"Version" : APIVersion,
                                   @"Amount" : @(_totalAmount),//[NSString stringWithFormat:@"%.2f",_totalAmount]
-                                  @"OrderCount" : @(_priceTFList.count)};
+                                  @"OrderCount" : @(_priceTFList.count),
+                                  @"IsPay":[NSNumber numberWithBool:_completePayBtn.checked],
+                                  };
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
     [FHQNetWorkingAPI getDistribSubsidy:requsetData successBlock:^(id result, AFHTTPRequestOperation *operation) {
         NSLog(@"%@",result);
         
         double distrib = [result getDoubleWithKey:@"DistribSubsidy"];
-        
-        NSString *str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld\n配送费:%.2f元",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count,distrib * _priceTFList.count];
+        //当前任务结算%1$s元，剩余余额%2$s元！
+        double OrderBalance = [result getDoubleWithKey:@"OrderBalance"];
+        double RemainBalance = [result getDoubleWithKey:@"RemainBalance"];
+        NSString *str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld\n配送费:%.2f元\n当前任务结算%.2f元,剩余余额%.2f元",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count,distrib * _priceTFList.count,OrderBalance,RemainBalance];
         if (distrib == 0) {
-            str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count];
+            str = [NSString stringWithFormat:@"总金额:%.2f元\n订单金额:%.2f元\n订单数量:%ld\n当前任务结算%.2f元,剩余余额%.2f元",_totalAmount + distrib * _priceTFList.count ,_totalAmount, (long)_priceTFList.count,OrderBalance,RemainBalance];
         }
         
         // Here we need to pass a full frame
