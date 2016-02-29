@@ -14,6 +14,7 @@
                 <outlet property="aiAddrPhone" destination="cJZ-bO-7Gb" id="Sty-lt-9Xp"/>
                 <outlet property="aiAddrText" destination="eKC-fm-xqC" id="NGV-Q1-KKl"/>
                 <outlet property="aiAddrTypeImg" destination="U8b-8g-yhf" id="iHY-OB-YOV"/>
+                <outlet property="aiPhoneAssociateBtn" destination="Fzt-1v-Fbu" id="z9H-6e-BhB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

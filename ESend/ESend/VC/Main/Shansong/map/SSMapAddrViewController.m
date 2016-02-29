@@ -42,7 +42,6 @@
     _searcher.delegate = self;
     _addressList = [[NSMutableArray alloc] initWithCapacity:0];
     
-    _mapView.zoomLevel = 18;
     //设置定位精确度，默认：kCLLocationAccuracyBest
     [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
     //指定最小距离更新(米)，默认：kCLDistanceFilterNone
@@ -128,6 +127,10 @@
     CLLocationCoordinate2D newcoor = [_mapView convertPoint:CGPointMake(MainWidth/2,(self.mapView.frame.size.height)/2) toCoordinateFromView:self.mapView];
     NSLog(@"%lf %lf",newcoor.latitude, newcoor.longitude);
     
+    if (mapView.zoomLevel != 18) {
+        _mapView.zoomLevel = 18;
+    }
+
     if (!_selectPOIFlag) { // 非手动选择
         BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[BMKReverseGeoCodeOption alloc] init];
         reverseGeoCodeSearchOption.reverseGeoPoint = newcoor;

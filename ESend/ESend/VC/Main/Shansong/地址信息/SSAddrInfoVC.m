@@ -54,6 +54,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *aiAddrPhone;
 @property (weak, nonatomic) IBOutlet UITextField *aiAddrPersonName;
 @property (weak, nonatomic) IBOutlet UIButton *aiAddrPersonGender;
+@property (weak, nonatomic) IBOutlet UIButton *aiPhoneAssociateBtn;
 
 @property (nonatomic,strong) NSMutableArray * consigneeArrayForDisplay;
 @property (nonatomic,strong) NSMutableArray * consigneeArray;
@@ -138,6 +139,8 @@
         [self.aiAddrPersonGender setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
         _has_addr_value = YES;
     }
+    
+    self.aiPhoneAssociateBtn.hidden = ![UserInfo isLogin];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -419,6 +422,11 @@
     }
     NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];
     // NSLog(@"%@",toBeString);
+    if (textField == _phoneTF2 && toBeString.length < 3) {
+        [_consigneeArrayForDisplay removeAllObjects];
+        [_consigneeHistoryTV reloadData];
+    }
+    
     if (textField == _phoneTF2 && toBeString.length >= 3) {
         // 手机号，超过3级以上，联想
         [_consigneeArrayForDisplay removeAllObjects];
@@ -429,6 +437,12 @@
         }
         [_consigneeHistoryTV reloadData];
     }
+    
+    if (textField == _phoneTF2 && [toBeString rightConsigneeContactInfo] && _consigneeArrayForDisplay.count == 0) {
+        self.aiAddrPhone.text = toBeString;
+        [self _cancelAction:nil];
+    }
+    
     return YES;
 }
 
