@@ -69,7 +69,7 @@
         _locService.delegate = self;
     }
     //启动LocationService
-    [_locService startUserLocationService];
+    //[_locService startUserLocationService];
 }
 
 - (void)clickConform{
@@ -101,6 +101,8 @@
 //    }
 //    //启动LocationService
 //    [_locService startUserLocationService];
+    
+    [_locService performSelector:@selector(startUserLocationService) withObject:nil afterDelay:0.5];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

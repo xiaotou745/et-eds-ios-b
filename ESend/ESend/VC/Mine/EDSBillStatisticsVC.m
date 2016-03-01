@@ -86,7 +86,8 @@
 
 
 @property (strong, nonatomic) KMMonthDateCalendarView * calendarView;
-@property (strong, nonatomic) NSMutableArray * bills;           // table datasource
+@property (strong, nonatomic) NSMutableArray * dayBills;           // table datasource
+@property (strong, nonatomic) NSMutableArray * monthBills;          // 月账单
 // typeDataSource
 @property (strong, nonatomic) NSMutableArray * allBillTypes;    // all bill types
 @property (strong, nonatomic) NSMutableArray * currentBillTypes;
@@ -107,7 +108,8 @@
     _currentPage = 1;
     _currentType = BS_RecordTypeAll;
     _currentTypeSub = 0;
-    _bills = [[NSMutableArray alloc] initWithCapacity:0];
+    _dayBills = [[NSMutableArray alloc] initWithCapacity:0];
+    _monthBills = [[NSMutableArray alloc] initWithCapacity:0];
     _allBillTypes = [[NSMutableArray alloc] initWithCapacity:0];
     _currentBillTypes = [[NSMutableArray alloc] initWithCapacity:0];
     
@@ -308,7 +310,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return _bills.count;
+    if (self.style == EDSBillStatisticsVCStyleDay) {
+        return _dayBills.count;
+    }else{
+        return _monthBills.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -318,7 +324,7 @@
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"EDSBillStatisticsDayCell" owner:self options:nil] objectAtIndex:0];
         }
-        cell.billInfo = [_bills objectAtIndex:indexPath.row];
+        cell.billInfo = [_dayBills objectAtIndex:indexPath.row];
         return cell;
     }else if (self.style == EDSBillStatisticsVCStyleMonth){
         static NSString * monthBillStatisticsCellId = @"monthBillStatisticsCellId";
@@ -326,7 +332,7 @@
         if (nil == cell) {
             cell = [[[NSBundle mainBundle] loadNibNamed:@"EDSBillStatisticsMonthCell" owner:self options:nil] objectAtIndex:0];
         }
-        cell.daybillInfo = [_bills objectAtIndex:indexPath.row];
+        cell.daybillInfo = [_monthBills objectAtIndex:indexPath.row];
         return cell;
     }else{
         return nil;
@@ -346,10 +352,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (EDSBillStatisticsVCStyleDay == self.style) {
-        DayBillDetailInfo * dayInfo = [_bills objectAtIndex:indexPath.row];
+        DayBillDetailInfo * dayInfo = [_dayBills objectAtIndex:indexPath.row];
         [self getbilldetailbWithRecordId:dayInfo.recordId];
     }else if (EDSBillStatisticsVCStyleMonth == self.style){
-        DayBillInfo * dayInfo = [_bills objectAtIndex:indexPath.row];
+        DayBillInfo * dayInfo = [_monthBills objectAtIndex:indexPath.row];
         if (1 == dayInfo.hasDatas) {
             
             NSString * dayString = dayInfo.dayInfo;
@@ -443,15 +449,17 @@
         return;
     }
     
-    if (_bills.count > 0) {
-        [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    }
+//    if (_bills.count > 0) {
+//        [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+//    }
 
 
     // [self cancelHttpOperations];
     // 重置type, typeSub,timeInfo
     
-    [_bills removeAllObjects];
+    //[_bills removeAllObjects];
+    [_monthBills removeAllObjects];
+    [_dayBills removeAllObjects];
     
     _currentType = BS_RecordTypeAll;
     _currentTypeSub = 0;
@@ -579,10 +587,10 @@
             }
             
             [_calendarView setOutBillAmount:_outMoney inAmount:_inMoney];
-            [_bills removeAllObjects];
+            [_monthBills removeAllObjects];
             for (NSDictionary * aRecords in listDays) {
                 DayBillInfo * dayInfo = [[DayBillInfo alloc] initWithDic:aRecords];
-                [_bills addObject:dayInfo];
+                [_monthBills addObject:dayInfo];
             }
             [self.BS_TableView reloadData];
             [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -668,14 +676,14 @@
             
             [_calendarView setOutBillAmount:_outMoney inAmount:_inMoney];
             if (down) {
-                [_bills removeAllObjects];
+                [_dayBills removeAllObjects];
             }
             for (NSDictionary * aRecords in listRecordS) {
                 DayBillDetailInfo * dayInfo = [[DayBillDetailInfo alloc] initWithDic:aRecords];
-                [_bills addObject:dayInfo];
+                [_dayBills addObject:dayInfo];
             }
             [self.BS_TableView reloadData];
-            if (down && _bills.count > 0) {
+            if (down && _dayBills.count > 0) {
                 [self.BS_TableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
             }
             
