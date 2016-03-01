@@ -42,6 +42,7 @@
     _searcher.delegate = self;
     _addressList = [[NSMutableArray alloc] initWithCapacity:0];
     
+    //_mapView.zoomLevel = 18;
     //设置定位精确度，默认：kCLLocationAccuracyBest
     [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
     //指定最小距离更新(米)，默认：kCLDistanceFilterNone
@@ -58,6 +59,17 @@
     [self.rightBtn setTitle:@"确定" forState:UIControlStateNormal];
     [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.rightBtn.hidden = YES;
+    
+    _mapView.showsUserLocation = YES;
+    _mapView.delegate = self;
+
+    if (!_locService) {
+        //初始化BMKLocationService
+        _locService = [[BMKLocationService alloc]init];
+        _locService.delegate = self;
+    }
+    //启动LocationService
+    [_locService startUserLocationService];
 }
 
 - (void)clickConform{
@@ -75,24 +87,28 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    _mapView.delegate = self;
+//    _mapView.delegate = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    _mapView.showsUserLocation = YES;
-    
-    if (!_locService) {
-        //初始化BMKLocationService
-        _locService = [[BMKLocationService alloc]init];
-        _locService.delegate = self;
-    }
-    //启动LocationService
-    [_locService startUserLocationService];
+//    _mapView.showsUserLocation = YES;
+//    
+//    if (!_locService) {
+//        //初始化BMKLocationService
+//        _locService = [[BMKLocationService alloc]init];
+//        _locService.delegate = self;
+//    }
+//    //启动LocationService
+//    [_locService startUserLocationService];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+//    _mapView.delegate = nil;
+}
+
+- (void)dealloc{
     _mapView.delegate = nil;
 }
 
@@ -110,7 +126,7 @@
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
     NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
-    [_mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
+    [_mapView setCenterCoordinate:userLocation.location.coordinate animated:NO];
     [_locService stopUserLocationService];
 }
 

@@ -43,7 +43,7 @@
 
 #define SS_HpFaShouSamePhoneMsg @"发货收货电话不能相同"
 
-#define SS_PriceConfigChangedMsg(amount) [NSString stringWithFormat:@"该账号已设置计费规则，实际配送费为%@元",amount]
+#define SS_PriceConfigChangedMsg(amount) [NSString stringWithFormat:@"该账号计费规则已变更，实际配送费为%@元",amount]
 
 @interface SSHomepageViewController ()<UINavigationControllerDelegate,UITextFieldDelegate,ABPeoplePickerNavigationControllerDelegate,SSAppointmentTimeViewDelegate,BMKLocationServiceDelegate,BMKGeoCodeSearchDelegate,BMKRouteSearchDelegate,SSTipSelectionViewDelegate,ETSGuideViewDelegate>{
     dispatch_source_t _timer;
