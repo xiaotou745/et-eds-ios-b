@@ -207,7 +207,7 @@
         [Tools showHUD:(self.addrType == SSAddressEditorTypeFa)?SS_HpNoFaPhoneMsg:SS_HpNoShouPhoneMsg];
         return;
     }
-    if (![self.aiAddrPhone.text rightConsigneeContactInfo]) {// *货人电话
+    if (![self.aiAddrPhone.text isRightPhoneNumberFormat]) {// *货人电话
         [Tools showHUD:(self.addrType == SSAddressEditorTypeFa)?SS_HpWrongFaPhongMsg:SS_HpWrongShouPhongMsg];
         return;
     }
@@ -394,11 +394,11 @@
 
 - (void)_okbtnAction:(id)sender{
     
-    if ([_phoneTF2.text rightConsigneeContactInfo]) {
+    if ([_phoneTF2.text isRightPhoneNumberFormat]) {
         self.aiAddrPhone.text = _phoneTF2.text;
         [self _cancelAction:nil];
     }else{
-        [Tools showHUD:@"请输入正确的手机或座机号"];
+        [Tools showHUD:@"请输入正确的手机"];
     }
     
     
@@ -438,7 +438,7 @@
         [_consigneeHistoryTV reloadData];
     }
     
-    if (textField == _phoneTF2 && [toBeString rightConsigneeContactInfo] && _consigneeArrayForDisplay.count == 0) {
+    if (textField == _phoneTF2 && [toBeString isRightPhoneNumberFormat] && _consigneeArrayForDisplay.count == 0) {
         self.aiAddrPhone.text = toBeString;
         [self _cancelAction:nil];
     }

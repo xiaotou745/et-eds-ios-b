@@ -697,10 +697,7 @@
 }
 
 - (void)calculateAndDisplayTotalFee{
-//    if (self.gotPriceRule && self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {// 获得计算规则，发收地理位置,重量(填)，距离（算）
-//        self.api_total_fee = [self totalFeeWithPriceList:self.priceRuleList km:self.api_distance kg:self.api_kilo] + self.api_tip;
-//    }
-    if (self.gotPriceRule) {
+    if (self.gotPriceRule && self.api_addr_fa_hasValue && self.api_addr_shou_hasValue) {
         self.api_total_fee = [self totalFeeWithPriceList:self.priceRuleList km:self.api_distance kg:self.api_kilo] + self.api_tip;
     }
 }
