@@ -886,6 +886,9 @@
 
 #pragma mark - 登录之后的通知
 - (void)shanSongUserLogin{
+    // 登录重新拉取价格规则
+    [self getPriceRule];
+    
     if ([UserInfo isLogin]){
         NSArray * faAddrs = [DataArchive storedFaAddrsWithBusinessId:[UserInfo getUserId]];
         if (faAddrs.count >= 1) {

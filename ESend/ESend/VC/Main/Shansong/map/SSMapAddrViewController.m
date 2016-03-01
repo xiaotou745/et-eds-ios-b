@@ -70,6 +70,9 @@
     }
     //启动LocationService
     //[_locService startUserLocationService];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [_locService startUserLocationService];
+    });
 }
 
 - (void)clickConform{
@@ -102,7 +105,6 @@
 //    //启动LocationService
 //    [_locService startUserLocationService];
     
-    [_locService performSelector:@selector(startUserLocationService) withObject:nil afterDelay:0.5];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -128,8 +130,14 @@
 - (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
 {
     NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
-    [_mapView setCenterCoordinate:userLocation.location.coordinate animated:NO];
     [_locService stopUserLocationService];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_mapView setCenterCoordinate:userLocation.location.coordinate animated:NO];
+    });
+    
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        [_mapView setCenterCoordinate:userLocation.location.coordinate animated:NO];
+//    });
 }
 
 - (void)mapView:(BMKMapView *)mapView regionWillChangeAnimated:(BOOL)animated{
