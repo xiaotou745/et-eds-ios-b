@@ -1074,7 +1074,7 @@
 
 #pragma mark - SSTipSelectionViewDelegate小费回调
 - (void)SSTipSelectionView:(SSTipSelectionView*)view selectedTip:(NSNumber*)tip{
-    if (tip <= 0) {
+    if ([tip floatValue]<= 0) {
         return;
     }
     MBProgressHUD *HUD = [Tools showProgressWithTitle:@""];
